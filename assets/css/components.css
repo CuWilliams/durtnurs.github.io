@@ -642,3 +642,290 @@ figcaption {
   height: 40px;
   animation: spin 0.8s linear infinite;
 }
+
+
+/* ============================================
+   ABOUT PAGE COMPONENTS (Phase 2)
+   ============================================ */
+
+/*
+  Hero variant for About page
+  Simpler, text-focused hero section
+*/
+.hero--about {
+  background: linear-gradient(
+    135deg,
+    var(--color-coal-black) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  padding: var(--space-3xl) 0 var(--space-2xl);
+  text-align: center;
+}
+
+.hero--about .hero__title {
+  font-size: var(--font-size-4xl);
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.hero--about .hero__subtitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@media (min-width: 768px) {
+  .hero--about .hero__title {
+    font-size: var(--font-size-5xl);
+  }
+
+  .hero--about .hero__subtitle {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+
+/* ============================================
+   BAND STORY SECTION
+   ============================================ */
+
+.band-story {
+  padding: var(--space-3xl) 0;
+}
+
+.story-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.story-content p {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-lg);
+}
+
+.story-content p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* ============================================
+   BAND MEMBERS SECTION
+   ============================================ */
+
+.band-members {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(
+    180deg,
+    var(--color-coal-black) 0%,
+    var(--color-burnt-umber) 50%,
+    var(--color-coal-black) 100%
+  );
+}
+
+/*
+  Members Grid: CSS Grid with auto-fit
+  Learning: auto-fit creates responsive columns without media queries
+  Stacks on mobile (when 300px minimum can't fit), 2 columns on wider screens
+*/
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+}
+
+/*
+  Member Card: BEM structure
+  .member-card (block)
+  .member-card__image (element)
+  .member-card__info (element)
+*/
+.member-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.member-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-primary);
+}
+
+.member-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    var(--color-aged-whiskey) 0%,
+    var(--color-tarnished-brass) 100%
+  );
+}
+
+.member-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Gritty effect: slight grayscale and contrast boost */
+  filter: contrast(1.1) saturate(0.9);
+}
+
+.member-info {
+  padding: var(--space-lg);
+}
+
+.member-name {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-aged-whiskey);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+}
+
+.member-role {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-iron-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-md);
+}
+
+.member-bio {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.member-bio p {
+  margin-bottom: var(--space-sm);
+}
+
+.member-bio p:last-child {
+  margin-bottom: 0;
+}
+
+/*
+  Placeholder bio styling
+  Italicized to indicate temporary content
+*/
+.bio-placeholder {
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+
+/* ============================================
+   ORIGIN STORY SECTION
+   ============================================ */
+
+.origin-story {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-dried-blood) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  text-align: center;
+}
+
+.origin-placeholder {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-aged-whiskey);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-md);
+  position: relative;
+}
+
+/*
+  Quotation marks styling
+  Using ::before and ::after for decorative quotes
+*/
+.origin-placeholder::before,
+.origin-placeholder::after {
+  content: '"';
+  font-size: var(--font-size-5xl);
+  color: var(--color-tarnished-brass);
+  opacity: 0.4;
+  line-height: 0;
+}
+
+.origin-placeholder::before {
+  margin-right: var(--space-xs);
+}
+
+.origin-placeholder::after {
+  margin-left: var(--space-xs);
+}
+
+.note {
+  font-size: var(--font-size-sm);
+  font-style: italic;
+  color: var(--color-iron-gray);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .origin-placeholder {
+    font-size: var(--font-size-4xl);
+  }
+}
+
+
+/* ============================================
+   CALL-TO-ACTION SECTION
+   ============================================ */
+
+.cta-section {
+  padding: var(--space-3xl) 0;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    var(--color-coal-black) 0%,
+    var(--color-burnt-umber) 100%
+  );
+}
+
+.cta-section p {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto var(--space-xl);
+}
+
+.cta-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+/* Stack buttons on mobile, side-by-side on tablet+ */
+@media (min-width: 768px) {
+  .cta-buttons {
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--space-lg);
+  }
+}

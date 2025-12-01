@@ -1,0 +1,39 @@
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient background using color palette -->
+  <defs>
+    <linearGradient id="deadbeat-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A05A24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B7A43;stop-opacity:1" />
+    </linearGradient>
+    <!-- Noise texture filter for gritty effect -->
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" />
+      <feColorMatrix type="saturate" values="0" />
+      <feBlend mode="multiply" in="SourceGraphic" />
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="400" fill="url(#deadbeat-grad)" />
+  
+  <!-- Noise overlay for gritty texture -->
+  <rect width="400" height="400" fill="#000" opacity="0.1" />
+  
+  <!-- Initials -->
+  <text x="50%" y="50%" 
+        font-family="'Oswald', sans-serif" 
+        font-size="140" 
+        font-weight="700" 
+        fill="#0B0B0C" 
+        text-anchor="middle" 
+        dominant-baseline="middle"
+        opacity="0.3">DB</text>
+  
+  <text x="50%" y="50%" 
+        font-family="'Oswald', sans-serif" 
+        font-size="136" 
+        font-weight="700" 
+        fill="#E8E6E3" 
+        text-anchor="middle" 
+        dominant-baseline="middle">DB</text>
+</svg>

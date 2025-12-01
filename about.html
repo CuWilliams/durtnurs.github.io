@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="tHE dURT nURS' - Gritty authentic rock with self-aware absurdism. Release the Kraken!">
-  <meta name="keywords" content="the dirt nurse, rock band, music, alternative rock, kraken">
+  <meta name="description" content="About tHE dURT nURS' - Two retired rockers faking it until they make it with AI-powered rock and roll">
+  <meta name="keywords" content="the dirt nurse, rock band, about, band members, music, alternative rock">
 
   <!-- Open Graph for social sharing -->
-  <meta property="og:title" content="tHE dURT nURS' - Official Website">
-  <meta property="og:description" content="Gritty authentic rock with self-aware absurdism. Release the Kraken!">
+  <meta property="og:title" content="About tHE dURT nURS' - Meet the Band">
+  <meta property="og:description" content="Two retired rockers faking it until they make it with AI-powered rock and roll">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://durtnurs.com">
+  <meta property="og:url" content="https://durtnurs.com/about.html">
 
-  <title>tHE dURT nURS' - Official Website</title>
+  <title>About - tHE dURT nURS'</title>
 
   <!-- CSS Architecture: Load in order of specificity -->
   <link rel="stylesheet" href="assets/css/reset.css">
@@ -36,7 +36,7 @@
     "name": "tHE dURT nURS'",
     "genre": "Rock",
     "url": "https://durtnurs.com",
-    "description": "Gritty authentic rock band with self-aware absurdism"
+    "description": "Two retired rockers faking it until they make it with AI-powered rock and roll"
   }
   </script>
 </head>
@@ -66,8 +66,8 @@
 
         <!-- Navigation Links -->
         <ul class="main-nav__list">
-          <li><a href="index.html" class="main-nav__link main-nav__link--active" aria-current="page">Home</a></li>
-          <li><a href="about.html" class="main-nav__link">About</a></li>
+          <li><a href="index.html" class="main-nav__link">Home</a></li>
+          <li><a href="about.html" class="main-nav__link main-nav__link--active" aria-current="page">About</a></li>
           <li><a href="#releases" class="main-nav__link">Releases</a></li>
           <li><a href="#gallery" class="main-nav__link">Gallery</a></li>
           <li><a href="#fanclub" class="main-nav__link">Fan Club</a></li>
@@ -80,73 +80,76 @@
   <!--
     MAIN CONTENT
     Semantic <main> contains the primary content of the page
-    Uses CSS Grid layout defined in layout.css
   -->
   <main class="page-layout">
 
     <!--
       HERO SECTION
-      First visual impact - large logo/image with tagline
-      Grid area: "hero"
+      Page title and tagline
     -->
-    <section class="hero" aria-labelledby="hero-heading">
+    <section class="hero hero--about" aria-labelledby="hero-heading">
       <div class="container">
         <div class="hero__content">
-          <img src="assets/images/logo.png" alt="tHE dURT nURS' logo" class="hero__logo">
-          <h1 id="hero-heading" class="hero__tagline">Release the Kraken!</h1>
-          <a href="#latest-release" class="button button--primary">Latest Release</a>
+          <h1 id="hero-heading" class="hero__title">About tHE dURT nURS'</h1>
+          <p class="hero__subtitle">Faking It Since 2020</p>
         </div>
       </div>
     </section>
 
     <!--
-      NEWS SECTION
-      Card-based layout for announcements
-      Grid area: "news"
+      BAND STORY SECTION
+      Who we are and what we're about
     -->
-    <section class="news-section" aria-labelledby="news-heading">
+    <section class="band-story" aria-labelledby="story-heading">
       <div class="container">
-        <h2 id="news-heading" class="section-heading">Latest News</h2>
+        <h2 id="story-heading" class="section-heading">Who We Are</h2>
+        <div class="story-content">
+          <p>We are tHE dURT nURS'—an alive and kicking rock band that's all about fun and good times. But seriously, we ain't that good! (Yet. Give us time.)</p>
 
-        <div class="news-grid">
+          <p>Here's the thing: we believe in ourselves, we like our brand, and we're having the time of our lives. We're a couple of retired rockers who spent decades in the working world, and now we're doing what we should have done years ago—making noise and having fun.</p>
 
-          <!-- News Card 1 -->
-          <article class="news-card">
-            <time class="news-card__date" datetime="2024-11-15">November 15, 2024</time>
-            <h3 class="news-card__title">
-              <a href="#news-1">New Album "Kraken Awakens" Drops December 1st</a>
-            </h3>
-            <p class="news-card__excerpt">
-              After three years of bourbon-fueled studio sessions and one ill-advised yacht incident,
-              our sophomore album is finally crawling out of the depths. Pre-order the chaos.
-            </p>
-            <a href="#news-1" class="news-card__link">Read More →</a>
+          <p>And here's a fun fact: AI has opened up a whole new realm of possibility for us. We can fake it until we make it! With a little help from our artificial friends, we're creating the music we've always heard in our heads but could never quite pull off with just two guys and a dream.</p>
+
+          <p>We've jammed together for years, played parties and dances (never for pay, always for beer), and now we're ready to unleash our nonsense on the world. Release the Kraken, indeed.</p>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      BAND MEMBERS SECTION
+      Member profiles with placeholders for bios
+    -->
+    <section class="band-members" aria-labelledby="members-heading">
+      <div class="container">
+        <h2 id="members-heading" class="section-heading">The Lineup</h2>
+        <div class="members-grid">
+
+          <!-- Member 1: DeadBeat -->
+          <article class="member-card">
+            <div class="member-image">
+              <img src="assets/images/deadbeat-placeholder.svg" alt="DeadBeat - Drums and Vocals">
+            </div>
+            <div class="member-info">
+              <h3 class="member-name">DeadBeat</h3>
+              <p class="member-role">Drums / Vocals</p>
+              <div class="member-bio">
+                <p class="bio-placeholder">DeadBeat keeps the beat and occasionally remembers the lyrics. Retired from the day job, now fully committed to making questionable decisions behind a drum kit.</p>
+              </div>
+            </div>
           </article>
 
-          <!-- News Card 2 -->
-          <article class="news-card">
-            <time class="news-card__date" datetime="2024-10-28">October 28, 2024</time>
-            <h3 class="news-card__title">
-              <a href="#news-2">Fall Tour Dates Announced (Sort Of)</a>
-            </h3>
-            <p class="news-card__excerpt">
-              We're hitting the road this December. Well, "hitting" is generous—more like stumbling.
-              Six cities, eight bars, zero rehearsals. Tickets available at dive venues near you.
-            </p>
-            <a href="#news-2" class="news-card__link">Read More →</a>
-          </article>
-
-          <!-- News Card 3 -->
-          <article class="news-card">
-            <time class="news-card__date" datetime="2024-09-12">September 12, 2024</time>
-            <h3 class="news-card__title">
-              <a href="#news-3">New Single "Brass Knuckles & Bad Decisions" Out Now</a>
-            </h3>
-            <p class="news-card__excerpt">
-              Our lead single is live on all platforms where questionable life choices are streamed.
-              Three minutes of distorted guitars and existential dread. You're welcome.
-            </p>
-            <a href="#news-3" class="news-card__link">Read More →</a>
+          <!-- Member 2: SnowMan -->
+          <article class="member-card">
+            <div class="member-image">
+              <img src="assets/images/snowman-placeholder.svg" alt="SnowMan - Guitar, Bass, and Vocals">
+            </div>
+            <div class="member-info">
+              <h3 class="member-name">SnowMan</h3>
+              <p class="member-role">Guitar / Bass / Vocals</p>
+              <div class="member-bio">
+                <p class="bio-placeholder">SnowMan handles all the strings and most of the heavy lifting. Retirement looks good on him—mostly because he's finally got time to practice.</p>
+              </div>
+            </div>
           </article>
 
         </div>
@@ -154,31 +157,31 @@
     </section>
 
     <!--
-      FEATURED CONTENT SECTION
-      Highlights latest album/release
-      Grid area: "featured"
+      ORIGIN STORY SECTION
+      How the band met (placeholder for now)
     -->
-    <section class="featured-section" id="latest-release" aria-labelledby="featured-heading">
+    <section class="origin-story" aria-labelledby="origin-heading">
       <div class="container">
-        <h2 id="featured-heading" class="section-heading">Latest Release</h2>
-
-        <div class="album-card">
-          <div class="album-card__artwork">
-            <img src="assets/images/kraken-album.png" alt="Kraken Awakens album cover" class="album-card__image">
-          </div>
-          <div class="album-card__details">
-            <h3 class="album-card__title">Kraken Awakens</h3>
-            <p class="album-card__subtitle">Full-Length Album</p>
-            <time class="album-card__date" datetime="2024-12-01">Release Date: December 1, 2024</time>
-            <p class="album-card__description">
-              Ten tracks of maritime metaphors, whiskey-soaked wisdom, and guitar riffs
-              that sound like a sea monster having an existential crisis. Featuring the singles
-              "Brass Knuckles & Bad Decisions" and "Dive Bar Requiem."
-            </p>
-            <a href="#listen" class="button button--secondary">Listen Now</a>
-          </div>
+        <h2 id="origin-heading" class="section-heading">How We Met</h2>
+        <div class="story-content">
+          <p class="origin-placeholder">"We were mail order brides!"</p>
+          <p class="note">(The real story is coming soon. It's probably less interesting than that.)</p>
         </div>
+      </div>
+    </section>
 
+    <!--
+      CALL-TO-ACTION SECTION
+      Links to other pages
+    -->
+    <section class="cta-section" aria-labelledby="cta-heading">
+      <div class="container">
+        <h2 id="cta-heading" class="section-heading">Want to Know More?</h2>
+        <p>Check out our releases, join the fan club, or just send us a message. We promise to respond eventually.</p>
+        <div class="cta-buttons">
+          <a href="releases.html" class="button button--primary">Our Music</a>
+          <a href="contact.html" class="button button--secondary">Get in Touch</a>
+        </div>
       </div>
     </section>
 
