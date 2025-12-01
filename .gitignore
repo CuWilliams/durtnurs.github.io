@@ -1,0 +1,58 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Editors
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# Node.js (if used in future)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Build artifacts (for future optimization)
+dist/
+build/
+*.min.css
+*.min.js
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# GitHub Pages Jekyll cache (if used)
+.jekyll-cache/
+_site/
+
+# Backup files
+*.bak
+*.backup

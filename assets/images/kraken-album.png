@@ -1,0 +1,44 @@
+<svg width="600" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dark ocean background -->
+  <defs>
+    <linearGradient id="oceanGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0B0B0C;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5A3A27;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <rect width="600" height="600" fill="url(#oceanGrad)"/>
+
+  <!-- Kraken tentacles (stylized) -->
+  <path d="M 100 500 Q 150 400 200 500" stroke="#5B1A1A" stroke-width="20" fill="none" opacity="0.7"/>
+  <path d="M 200 500 Q 250 350 300 500" stroke="#5B1A1A" stroke-width="25" fill="none" opacity="0.7"/>
+  <path d="M 300 500 Q 350 350 400 500" stroke="#5B1A1A" stroke-width="25" fill="none" opacity="0.7"/>
+  <path d="M 400 500 Q 450 400 500 500" stroke="#5B1A1A" stroke-width="20" fill="none" opacity="0.7"/>
+
+  <!-- Kraken eye -->
+  <circle cx="300" cy="250" r="40" fill="#A05A24" opacity="0.8"/>
+  <circle cx="300" cy="250" r="20" fill="#0B0B0C"/>
+
+  <!-- Album title frame -->
+  <rect x="50" y="50" width="500" height="150" fill="rgba(11, 11, 12, 0.8)" stroke="#8B7A43" stroke-width="3"/>
+
+  <!-- Album title -->
+  <text x="300" y="110" font-family="Arial, sans-serif" font-size="48" font-weight="bold" text-anchor="middle" fill="#A05A24">
+    KRAKEN
+  </text>
+  <text x="300" y="160" font-family="Arial, sans-serif" font-size="48" font-weight="bold" text-anchor="middle" fill="#A05A24">
+    AWAKENS
+  </text>
+
+  <!-- Band name at bottom -->
+  <rect x="50" y="520" width="500" height="60" fill="rgba(11, 11, 12, 0.8)" stroke="#8B7A43" stroke-width="2"/>
+  <text x="300" y="560" font-family="Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#8B7A43">
+    tHE dURT nURS'
+  </text>
+
+  <!-- Decorative corners -->
+  <circle cx="50" cy="50" r="8" fill="#5B1A1A"/>
+  <circle cx="550" cy="50" r="8" fill="#5B1A1A"/>
+  <circle cx="50" cy="550" r="8" fill="#5B1A1A"/>
+  <circle cx="550" cy="550" r="8" fill="#5B1A1A"/>
+</svg>

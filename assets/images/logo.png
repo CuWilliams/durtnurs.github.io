@@ -1,0 +1,28 @@
+<svg width="500" height="300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background with gritty texture -->
+  <rect width="500" height="300" fill="#0B0B0C"/>
+
+  <!-- Decorative border -->
+  <rect x="10" y="10" width="480" height="280" fill="none" stroke="#8B7A43" stroke-width="3"/>
+  <rect x="15" y="15" width="470" height="270" fill="none" stroke="#5A3A27" stroke-width="2"/>
+
+  <!-- Band name text -->
+  <text x="250" y="120" font-family="Arial, sans-serif" font-size="56" font-weight="bold" text-anchor="middle" fill="#A05A24">
+    tHE dURT nURS'
+  </text>
+
+  <!-- Tagline -->
+  <text x="250" y="180" font-family="Georgia, serif" font-size="24" text-anchor="middle" fill="#8B7A43" font-style="italic">
+    Release the Kraken
+  </text>
+
+  <!-- Decorative elements -->
+  <line x1="100" y1="210" x2="400" y2="210" stroke="#5B1A1A" stroke-width="2"/>
+  <circle cx="100" cy="210" r="5" fill="#A05A24"/>
+  <circle cx="400" cy="210" r="5" fill="#A05A24"/>
+
+  <!-- Additional grit -->
+  <text x="250" y="250" font-family="monospace" font-size="12" text-anchor="middle" fill="#3A3F45">
+    EST. 2023 • ROCK &amp; ROLL
+  </text>
+</svg>

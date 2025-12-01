@@ -1,47 +1,240 @@
-<!--for adding comments or notes into your script-->
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>tHE dURT nURS'</title>
-	<link rel="stylesheet" type="text/css" href="style.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="tHE dURT nURS' - Gritty authentic rock with self-aware absurdism. Release the Kraken!">
+  <meta name="keywords" content="the dirt nurse, rock band, music, alternative rock, kraken">
+
+  <!-- Open Graph for social sharing -->
+  <meta property="og:title" content="tHE dURT nURS' - Official Website">
+  <meta property="og:description" content="Gritty authentic rock with self-aware absurdism. Release the Kraken!">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://durtnurs.com">
+
+  <title>tHE dURT nURS' - Official Website</title>
+
+  <!-- CSS Architecture: Load in order of specificity -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+
+  <!-- Google Fonts: Oswald (headers) + Merriweather (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon (placeholder - add actual favicon later) -->
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+  <!-- Schema.org structured data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MusicGroup",
+    "name": "tHE dURT nURS'",
+    "genre": "Rock",
+    "url": "https://durtnurs.com",
+    "description": "Gritty authentic rock band with self-aware absurdism"
+  }
+  </script>
 </head>
-
 <body>
-	
-	<div id="everything">
-		<div id="main">
-		
-			<h1>tHE dURT nURS' are Calling!</h1>
-		
-			<img class="right snapshot-1" src="images/secret-lair-1.jpeg" width="320" height="427" alt="Shed Jam Pic 1" />
-			<img class="snapshot-2" src="images/secret-lair-2.jpeg" width="320" height="427" alt="Shed Jam Pic 2" />
 
-			<p>The most Infamous Rock and Roll Band that you have never heard of will/might/maybe making their World Wide (Web) debut!</p>
-		
-			<div id="contact">
-				<p>Email <a href="mailto:deadbeat@durtnurs.com">deadbeat@durtnurs.com</a> (dEADBEAT) for more info.</p>
-				<p>Follow us on Instagram: <a href="https://instagram.com/durtnurs" target="_blank">@durtnurs</a></p>
-			</div>
-	
-		</div>	
-	
-		<div id="footer">
-			<a href="http://twitter.com"><img src="images/twitter-icon.png" width="48" height="48" alt="twitter icon" /></a>
-			<a href="https://instagram.com/durtnurs"><img src="images/instagram-icon.png" width="48" height="48" alt="instagram icon" /></a>
-			<a href="http://youtube.com"><img src="images/youtube-icon.png" width="48" height="48" alt="youtube icon" /></a>
-	
-			<p>Webpage design &#169; 2023 by <a href="mailto:deadbeat@durtnurs.com">dEADBEAT</a> at <a href="https://durtnurs.com">the dURT NURS'</a></p>
-		</div>
-	</div>
+  <!--
+    HEADER & NAVIGATION
+    Semantic <header> contains site-wide navigation
+    Uses checkbox hack for mobile menu (CSS-only, no JavaScript required)
+  -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="main-nav" aria-label="Main navigation">
 
-	<embed src="audio/track-2.wav" loop="true" autostart="true" width="2" height="0">
-	
-	<audio controls autoplay loop>
-		<source src="audio/track-2.wav" type="audio/wav">
-		<source src="audio/track-2.mp3" type="audio/mpeg">
-		Your browser does not support the audio element.
-	</audio>
+        <!-- Logo/Band Name: Exact case preserved -->
+        <div class="main-nav__logo">
+          <a href="index.html" aria-label="tHE dURT nURS' home">
+            <span class="logo-text">tHE dURT nURS'</span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle: Hidden checkbox + label (CSS-only pattern) -->
+        <input type="checkbox" id="nav-toggle" class="main-nav__toggle" aria-label="Toggle navigation menu">
+        <label for="nav-toggle" class="main-nav__toggle-label" aria-label="Menu button">
+          <span class="hamburger"></span>
+        </label>
+
+        <!-- Navigation Links -->
+        <ul class="main-nav__list">
+          <li><a href="index.html" class="main-nav__link main-nav__link--active" aria-current="page">Home</a></li>
+          <li><a href="#about" class="main-nav__link">About</a></li>
+          <li><a href="#releases" class="main-nav__link">Releases</a></li>
+          <li><a href="#gallery" class="main-nav__link">Gallery</a></li>
+          <li><a href="#fanclub" class="main-nav__link">Fan Club</a></li>
+          <li><a href="#contact" class="main-nav__link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!--
+    MAIN CONTENT
+    Semantic <main> contains the primary content of the page
+    Uses CSS Grid layout defined in layout.css
+  -->
+  <main class="page-layout">
+
+    <!--
+      HERO SECTION
+      First visual impact - large logo/image with tagline
+      Grid area: "hero"
+    -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero__content">
+          <img src="assets/images/logo.png" alt="tHE dURT nURS' logo" class="hero__logo">
+          <h1 id="hero-heading" class="hero__tagline">Release the Kraken!</h1>
+          <a href="#latest-release" class="button button--primary">Latest Release</a>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      NEWS SECTION
+      Card-based layout for announcements
+      Grid area: "news"
+    -->
+    <section class="news-section" aria-labelledby="news-heading">
+      <div class="container">
+        <h2 id="news-heading" class="section-heading">Latest News</h2>
+
+        <div class="news-grid">
+
+          <!-- News Card 1 -->
+          <article class="news-card">
+            <time class="news-card__date" datetime="2024-11-15">November 15, 2024</time>
+            <h3 class="news-card__title">
+              <a href="#news-1">New Album "Kraken Awakens" Drops December 1st</a>
+            </h3>
+            <p class="news-card__excerpt">
+              After three years of bourbon-fueled studio sessions and one ill-advised yacht incident,
+              our sophomore album is finally crawling out of the depths. Pre-order the chaos.
+            </p>
+            <a href="#news-1" class="news-card__link">Read More →</a>
+          </article>
+
+          <!-- News Card 2 -->
+          <article class="news-card">
+            <time class="news-card__date" datetime="2024-10-28">October 28, 2024</time>
+            <h3 class="news-card__title">
+              <a href="#news-2">Fall Tour Dates Announced (Sort Of)</a>
+            </h3>
+            <p class="news-card__excerpt">
+              We're hitting the road this December. Well, "hitting" is generous—more like stumbling.
+              Six cities, eight bars, zero rehearsals. Tickets available at dive venues near you.
+            </p>
+            <a href="#news-2" class="news-card__link">Read More →</a>
+          </article>
+
+          <!-- News Card 3 -->
+          <article class="news-card">
+            <time class="news-card__date" datetime="2024-09-12">September 12, 2024</time>
+            <h3 class="news-card__title">
+              <a href="#news-3">New Single "Brass Knuckles & Bad Decisions" Out Now</a>
+            </h3>
+            <p class="news-card__excerpt">
+              Our lead single is live on all platforms where questionable life choices are streamed.
+              Three minutes of distorted guitars and existential dread. You're welcome.
+            </p>
+            <a href="#news-3" class="news-card__link">Read More →</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!--
+      FEATURED CONTENT SECTION
+      Highlights latest album/release
+      Grid area: "featured"
+    -->
+    <section class="featured-section" id="latest-release" aria-labelledby="featured-heading">
+      <div class="container">
+        <h2 id="featured-heading" class="section-heading">Latest Release</h2>
+
+        <div class="album-card">
+          <div class="album-card__artwork">
+            <img src="assets/images/kraken-album.png" alt="Kraken Awakens album cover" class="album-card__image">
+          </div>
+          <div class="album-card__details">
+            <h3 class="album-card__title">Kraken Awakens</h3>
+            <p class="album-card__subtitle">Full-Length Album</p>
+            <time class="album-card__date" datetime="2024-12-01">Release Date: December 1, 2024</time>
+            <p class="album-card__description">
+              Ten tracks of maritime metaphors, whiskey-soaked wisdom, and guitar riffs
+              that sound like a sea monster having an existential crisis. Featuring the singles
+              "Brass Knuckles & Bad Decisions" and "Dive Bar Requiem."
+            </p>
+            <a href="#listen" class="button button--secondary">Listen Now</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!--
+    FOOTER
+    Site-wide footer with social links, copyright, and secondary nav
+    Semantic <footer> element
+  -->
+  <footer class="site-footer">
+    <div class="container">
+
+      <!-- Social Media Links -->
+      <div class="site-footer__social">
+        <h2 class="site-footer__heading">Follow the Chaos</h2>
+        <ul class="social-links">
+          <li>
+            <a href="https://instagram.com/durtnurs" class="social-links__item" aria-label="Follow us on Instagram" target="_blank" rel="noopener noreferrer">
+              <!-- Instagram Icon (inline SVG for performance) -->
+              <svg class="social-links__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+              <span class="social-links__text">Instagram</span>
+            </a>
+          </li>
+          <!-- Add more social links here as needed -->
+        </ul>
+      </div>
+
+      <!-- Secondary Navigation -->
+      <nav class="site-footer__nav" aria-label="Footer navigation">
+        <ul class="footer-nav">
+          <li><a href="#about" class="footer-nav__link">About</a></li>
+          <li><a href="#contact" class="footer-nav__link">Contact</a></li>
+          <li><a href="#privacy" class="footer-nav__link">Privacy</a></li>
+        </ul>
+      </nav>
+
+      <!-- Copyright -->
+      <div class="site-footer__copyright">
+        <p>&copy; 2024 tHE dURT nURS'. All rights reserved.</p>
+        <p class="site-footer__tagline">Built with grit, aged whiskey, and questionable decisions.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!--
+    PROGRESSIVE ENHANCEMENT
+    Optional: Add JavaScript for enhanced features (future phase)
+    Site works perfectly without this file
+  -->
+  <!-- <script src="assets/js/progressive.js"></script> -->
 
 </body>
 </html>

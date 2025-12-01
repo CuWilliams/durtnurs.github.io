@@ -1,0 +1,644 @@
+/*
+  COMPONENT STYLES
+  Reusable UI components using BEM methodology
+
+  BEM Format: .block__element--modifier
+  Example: .news-card__title--featured
+  - Block: Standalone component (news-card)
+  - Element: Part of component (title)
+  - Modifier: Variation (featured)
+*/
+
+
+/* ============================================
+   HEADER & MAIN NAVIGATION
+   ============================================ */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  background-color: var(--color-coal-black);
+  border-bottom: var(--border-width) solid var(--color-iron-gray);
+  box-shadow: var(--shadow-md);
+}
+
+/*
+  Main Navigation: Flexbox layout
+  Why Flexbox: Perfect for horizontal alignment (logo left, menu right)
+*/
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) 0;
+  position: relative;
+}
+
+/* Band logo/name */
+.main-nav__logo {
+  z-index: calc(var(--z-header) + 1);
+}
+
+.logo-text {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  text-transform: none; /* Preserve exact case: tHE dURT nURS' */
+  letter-spacing: 0.05em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  transition: color var(--transition-base);
+}
+
+.logo-text:hover {
+  color: var(--color-accent);
+}
+
+/*
+  MOBILE MENU: CSS-only checkbox hack
+  Learning: Uses hidden checkbox + :checked pseudo-class
+  No JavaScript required!
+*/
+
+/* Hide the checkbox visually but keep it functional */
+.main-nav__toggle {
+  display: none;
+}
+
+/* Hamburger menu button (label for checkbox) */
+.main-nav__toggle-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 32px;
+  height: 28px;
+  cursor: pointer;
+  z-index: calc(var(--z-header) + 1);
+  padding: 4px;
+}
+
+/* Hamburger icon: three lines */
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-text-primary);
+  transition: transform var(--transition-base), opacity var(--transition-fast);
+  border-radius: var(--border-radius-full);
+}
+
+.hamburger {
+  position: relative;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+}
+
+.hamburger::before {
+  top: -8px;
+}
+
+.hamburger::after {
+  bottom: -8px;
+}
+
+/* Animate hamburger to X when checked */
+.main-nav__toggle:checked ~ .main-nav__toggle-label .hamburger {
+  background-color: transparent;
+}
+
+.main-nav__toggle:checked ~ .main-nav__toggle-label .hamburger::before {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.main-nav__toggle:checked ~ .main-nav__toggle-label .hamburger::after {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Navigation list: hidden on mobile by default */
+.main-nav__list {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 70%;
+  max-width: 300px;
+  background: linear-gradient(
+    180deg,
+    var(--color-burnt-umber) 0%,
+    var(--color-coal-black) 100%
+  );
+  padding: var(--space-3xl) var(--space-lg);
+  transform: translateX(100%);
+  transition: transform var(--transition-base);
+  box-shadow: var(--shadow-xl);
+  border-left: var(--border-width) solid var(--color-iron-gray);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* Show menu when checkbox is checked */
+.main-nav__toggle:checked ~ .main-nav__list {
+  transform: translateX(0);
+}
+
+/* Navigation links */
+.main-nav__link {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--space-sm);
+  transition: color var(--transition-base);
+  border-bottom: 2px solid transparent;
+}
+
+.main-nav__link:hover,
+.main-nav__link:focus {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+/* Active link (current page) */
+.main-nav__link--active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+/* Tablet and up: Horizontal navigation */
+@media (min-width: 768px) {
+  .main-nav__toggle-label {
+    display: none;
+  }
+
+  .main-nav__list {
+    position: static;
+    width: auto;
+    max-width: none;
+    transform: translateX(0);
+    flex-direction: row;
+    gap: var(--space-lg);
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+  }
+
+  .main-nav__link {
+    font-size: var(--font-size-base);
+    padding: var(--space-xs);
+  }
+}
+
+
+/* ============================================
+   BUTTONS
+   Primary, secondary, and ghost variants
+   ============================================ */
+
+/*
+  Base button styles
+  Learning: Creates consistent interactive element
+*/
+.button {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+  padding: var(--space-sm) var(--space-lg);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Primary button: Main call-to-action */
+.button--primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-dark);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.button--primary:hover,
+.button--primary:focus {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.button--primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Secondary button: Less prominent actions */
+.button--secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.button--secondary:hover,
+.button--secondary:focus {
+  background-color: var(--color-primary);
+  color: var(--color-text-dark);
+  border-color: var(--color-primary);
+}
+
+/* Ghost button: Minimal style */
+.button--ghost {
+  background-color: transparent;
+  color: var(--color-text-primary);
+  border-color: transparent;
+}
+
+.button--ghost:hover,
+.button--ghost:focus {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+
+/* ============================================
+   NEWS CARDS
+   Card-based design for news items
+   ============================================ */
+
+/*
+  News Card: BEM structure
+  .news-card (block)
+  .news-card__date (element)
+  .news-card__title (element)
+  etc.
+*/
+.news-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.news-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.news-card__date {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.news-card__title {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-xs);
+}
+
+.news-card__title a {
+  color: var(--color-text-primary);
+  transition: color var(--transition-base);
+}
+
+.news-card__title a:hover,
+.news-card__title a:focus {
+  color: var(--color-primary);
+}
+
+.news-card__excerpt {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  flex-grow: 1;
+}
+
+.news-card__link {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  align-self: flex-start;
+  transition: color var(--transition-base);
+}
+
+.news-card__link:hover,
+.news-card__link:focus {
+  color: var(--color-primary);
+}
+
+
+/* ============================================
+   ALBUM CARD COMPONENTS
+   ============================================ */
+
+.album-card__title {
+  font-size: var(--font-size-3xl);
+  color: var(--color-primary);
+  margin-bottom: 0;
+}
+
+.album-card__subtitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.album-card__date {
+  font-size: var(--font-size-sm);
+  color: var(--color-accent);
+  font-weight: var(--font-weight-semibold);
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+.album-card__description {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+
+/* ============================================
+   FOOTER
+   Site-wide footer styling
+   ============================================ */
+
+.site-footer {
+  background: linear-gradient(
+    180deg,
+    var(--color-coal-black) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border-top: var(--border-width) solid var(--color-iron-gray);
+  padding: var(--space-3xl) 0 var(--space-xl);
+  margin-top: var(--space-4xl);
+}
+
+.site-footer__heading {
+  font-size: var(--font-size-xl);
+  color: var(--color-primary);
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+.site-footer__social {
+  margin-bottom: var(--space-xl);
+}
+
+/* Social media links */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.social-links__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  padding: var(--space-sm) var(--space-md);
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-base);
+}
+
+.social-links__item:hover,
+.social-links__item:focus {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.social-links__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.social-links__text {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Footer navigation */
+.site-footer__nav {
+  margin-bottom: var(--space-lg);
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.footer-nav__link {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  padding: var(--space-xs);
+  transition: color var(--transition-base);
+}
+
+.footer-nav__link:hover,
+.footer-nav__link:focus {
+  color: var(--color-primary);
+}
+
+.footer-nav__link:not(:last-child)::after {
+  content: '|';
+  margin-left: var(--space-md);
+  color: var(--color-iron-gray);
+}
+
+/* Copyright section */
+.site-footer__copyright {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  border-top: 1px solid var(--color-iron-gray);
+  padding-top: var(--space-lg);
+}
+
+.site-footer__copyright p {
+  margin-bottom: var(--space-xs);
+}
+
+.site-footer__tagline {
+  font-style: italic;
+  color: var(--color-iron-gray);
+  font-size: var(--font-size-xs);
+}
+
+
+/* ============================================
+   FORM ELEMENTS (for future contact forms)
+   ============================================ */
+
+/*
+  Placeholder styles for Phase 3 contact forms
+  Learning: Consistent form styling improves UX
+*/
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-coal-black);
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius);
+  padding: var(--space-sm);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(160, 90, 36, 0.2);
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+
+/* ============================================
+   IMAGES
+   Responsive image handling
+   ============================================ */
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Image with caption */
+figure {
+  margin: var(--space-lg) 0;
+}
+
+figcaption {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-style: italic;
+  text-align: center;
+  margin-top: var(--space-xs);
+}
+
+
+/* ============================================
+   ACCESSIBILITY ENHANCEMENTS
+   ============================================ */
+
+/*
+  Skip to content link (for keyboard users)
+  Hidden until focused via Tab key
+*/
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background-color: var(--color-primary);
+  color: var(--color-text-dark);
+  padding: var(--space-sm) var(--space-md);
+  text-decoration: none;
+  font-weight: var(--font-weight-bold);
+  z-index: var(--z-modal);
+  transition: top var(--transition-fast);
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/*
+  Focus visible styles (keyboard navigation)
+  Learning: Only show focus ring for keyboard users
+*/
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--border-radius-sm);
+}
+
+
+/* ============================================
+   LOADING STATES (for future use)
+   ============================================ */
+
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+  cursor: wait;
+}
+
+/* Simple spinner animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  border: 3px solid var(--color-iron-gray);
+  border-top-color: var(--color-primary);
+  border-radius: var(--border-radius-full);
+  width: 40px;
+  height: 40px;
+  animation: spin 0.8s linear infinite;
+}
