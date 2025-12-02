@@ -28,15 +28,18 @@ This is a static website built with semantic HTML5, modern CSS (Grid & Flexbox),
 - **Tone:** Self-aware absurdism meets dive bar authenticity
 - **UX:** Fast, accessible, works without JavaScript
 
-### Current Status: Phase 2 Complete ✅
+### Current Status: Phase 3 Complete ✅
 - ✅ Foundation & homepage
 - ✅ About page with band bios
+- ✅ News/announcements system with JSON data
+- ✅ Dynamic content loading with JavaScript
+- ✅ Progressive enhancement (works without JS)
 - ✅ Responsive design (mobile, tablet, desktop)
 - ✅ Semantic HTML5 with ARIA labels
 - ✅ CSS architecture (BEM methodology)
 - ✅ Mobile-first CSS Grid layout
 - ✅ CSS-only navigation menu
-- ✅ Member profile cards with expansion capability
+- ✅ Member profile cards
 
 ---
 
@@ -45,20 +48,23 @@ This is a static website built with semantic HTML5, modern CSS (Grid & Flexbox),
 ```
 durtnurs.github.io/
 ├── index.html                 # Main homepage
-├── about.html                 # Band bio and member profiles (NEW)
+├── about.html                 # Band bio and member profiles
+├── news.html                  # News archive page (NEW - Phase 3)
 ├── assets/
 │   ├── css/
 │   │   ├── reset.css          # Modern CSS reset
 │   │   ├── variables.css      # Design tokens
 │   │   ├── layout.css         # CSS Grid layouts
-│   │   └── components.css     # UI components (updated with member cards)
+│   │   └── components.css     # UI components (updated with announcements)
+│   ├── data/
+│   │   └── announcements.json # News data (NEW - Phase 3)
 │   ├── images/
 │   │   ├── logo.png           # Band logo
 │   │   ├── kraken-album.png   # Album artwork
-│   │   ├── deadbeat-placeholder.svg   # DeadBeat member photo (NEW)
-│   │   └── snowman-placeholder.svg    # SnowMan member photo (NEW)
+│   │   ├── deadbeat-placeholder.svg   # DeadBeat member photo
+│   │   └── snowman-placeholder.svg    # SnowMan member photo
 │   └── js/
-│       └── progressive.js     # (Future) Optional enhancements
+│       └── announcements.js   # Dynamic news loading (NEW - Phase 3)
 ├── README.md                  # This file
 ├── CNAME                      # Custom domain configuration
 └── .gitignore                 # Git exclusions
@@ -147,16 +153,37 @@ Any static file server works since this is plain HTML/CSS:
 
 ## ✏️ How to Update Content
 
-### Update News Items
+### Update News/Announcements (Phase 3)
 
-1. Open `index.html`
-2. Find the `<section class="news-section">` block
-3. Edit existing `<article class="news-card">` elements
-4. To add a new card, copy an existing one and update:
-   - Date (`<time>` element)
-   - Headline (`<h3>`)
-   - Excerpt text (`<p>`)
-   - Link (`<a href>`)
+**NEW:** News is now managed via JSON for easy updates!
+
+1. Open `assets/data/announcements.json`
+2. Add a new announcement object to the `announcements` array:
+   ```json
+   {
+     "id": "007",
+     "date": "2024-12-05",
+     "title": "Your Announcement Title",
+     "category": "news",
+     "excerpt": "Brief summary (120 characters max)",
+     "content": "<p>Full announcement content with HTML tags.</p>",
+     "link": {
+       "url": "https://example.com",
+       "text": "Optional Link Text"
+     },
+     "featured": false
+   }
+   ```
+3. **Required fields:** id, date (ISO format: YYYY-MM-DD), title, category, excerpt, content
+4. **Optional fields:** link (object with url and text), featured (boolean)
+5. **Category options:** `news`, `release`, `show`, `general`
+6. Keep announcements in reverse chronological order (newest first)
+7. Save and commit - changes appear immediately on the site!
+
+**Tips:**
+- Keep excerpts under 120 characters
+- Content supports HTML: `<p>`, `<strong>`, `<em>`, `<a>`
+- Set `featured: true` for important announcements (adds star icon)
 
 ### Change Colors
 
@@ -302,27 +329,43 @@ The navigation uses a checkbox hack (no JavaScript required):
 
 ## 🗺️ Roadmap
 
+### Phase 1 Complete ✅
+- [✅] Foundation & homepage
+- [✅] CSS architecture (BEM, variables, grid)
+- [✅] Mobile-first responsive design
+- [✅] CSS-only navigation
+
 ### Phase 2 Complete ✅
 - [✅] About page with band bio
 - [✅] Member profile cards (DeadBeat, SnowMan)
 - [✅] Origin story placeholder
 
-### Phase 3 (Next)
+### Phase 3 Complete ✅
+**Note:** Originally planned as Phase 5, moved forward to establish content architecture early.
+
+- [✅] JSON data structure for announcements
+- [✅] JavaScript module for dynamic rendering
+- [✅] News archive page (news.html)
+- [✅] Dynamic homepage news loading
+- [✅] Progressive enhancement fallback
+- [✅] Category-based styling system
+
+### Phase 4 (Next)
 - [ ] Releases page (discography/albums)
 - [ ] Album card components
 - [ ] Responsive album grid
 
-### Phase 4
+### Phase 5
 - [ ] Gallery page (photos/videos)
 - [ ] Contact form
 - [ ] Fan club authentication
 
-### Phase 4
+### Phase 6
 - [ ] Mailing list integration
 - [ ] Merch store
-- [ ] Blog/news archive
 
 ### Future Enhancements
+- [ ] Category filtering on news archive
 - [ ] Dark/light mode toggle
 - [ ] Lazy loading images
 - [ ] Service worker (offline support)

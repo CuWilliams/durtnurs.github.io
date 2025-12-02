@@ -68,6 +68,7 @@
         <ul class="main-nav__list">
           <li><a href="index.html" class="main-nav__link main-nav__link--active" aria-current="page">Home</a></li>
           <li><a href="about.html" class="main-nav__link">About</a></li>
+          <li><a href="news.html" class="main-nav__link">News</a></li>
           <li><a href="#releases" class="main-nav__link">Releases</a></li>
           <li><a href="#gallery" class="main-nav__link">Gallery</a></li>
           <li><a href="#fanclub" class="main-nav__link">Fan Club</a></li>
@@ -103,53 +104,69 @@
       NEWS SECTION
       Card-based layout for announcements
       Grid area: "news"
+      Dynamic content loaded via JavaScript (see assets/js/announcements.js)
     -->
     <section class="news-section" aria-labelledby="news-heading">
       <div class="container">
         <h2 id="news-heading" class="section-heading">Latest News</h2>
 
-        <div class="news-grid">
-
-          <!-- News Card 1 -->
-          <article class="news-card">
-            <time class="news-card__date" datetime="2024-11-15">November 15, 2024</time>
-            <h3 class="news-card__title">
-              <a href="#news-1">New Album "Kraken Awakens" Drops December 1st</a>
-            </h3>
-            <p class="news-card__excerpt">
-              After three years of bourbon-fueled studio sessions and one ill-advised yacht incident,
-              our sophomore album is finally crawling out of the depths. Pre-order the chaos.
-            </p>
-            <a href="#news-1" class="news-card__link">Read More →</a>
-          </article>
-
-          <!-- News Card 2 -->
-          <article class="news-card">
-            <time class="news-card__date" datetime="2024-10-28">October 28, 2024</time>
-            <h3 class="news-card__title">
-              <a href="#news-2">Fall Tour Dates Announced (Sort Of)</a>
-            </h3>
-            <p class="news-card__excerpt">
-              We're hitting the road this December. Well, "hitting" is generous—more like stumbling.
-              Six cities, eight bars, zero rehearsals. Tickets available at dive venues near you.
-            </p>
-            <a href="#news-2" class="news-card__link">Read More →</a>
-          </article>
-
-          <!-- News Card 3 -->
-          <article class="news-card">
-            <time class="news-card__date" datetime="2024-09-12">September 12, 2024</time>
-            <h3 class="news-card__title">
-              <a href="#news-3">New Single "Brass Knuckles & Bad Decisions" Out Now</a>
-            </h3>
-            <p class="news-card__excerpt">
-              Our lead single is live on all platforms where questionable life choices are streamed.
-              Three minutes of distorted guitars and existential dread. You're welcome.
-            </p>
-            <a href="#news-3" class="news-card__link">Read More →</a>
-          </article>
-
+        <!-- Container for dynamically loaded news cards -->
+        <div id="homepage-news">
+          <!-- Loading message removed by JavaScript when content loads -->
+          <p class="loading-message">Loading latest news...</p>
         </div>
+
+        <!-- Static fallback for users without JavaScript -->
+        <noscript>
+          <div class="news-grid">
+
+            <!-- News Card 1 -->
+            <article class="news-card">
+              <time class="news-card__date" datetime="2024-11-15">November 15, 2024</time>
+              <h3 class="news-card__title">
+                <a href="news.html#001">New Album "Kraken Awakens" Drops December 1st</a>
+              </h3>
+              <p class="news-card__excerpt">
+                After three years of bourbon-fueled studio sessions and one ill-advised yacht incident,
+                our sophomore album is finally crawling out of the depths. Pre-order the chaos.
+              </p>
+              <a href="news.html#001" class="news-card__link">Read More →</a>
+            </article>
+
+            <!-- News Card 2 -->
+            <article class="news-card">
+              <time class="news-card__date" datetime="2024-10-28">October 28, 2024</time>
+              <h3 class="news-card__title">
+                <a href="news.html#003">Fall Tour Dates Announced (Sort Of)</a>
+              </h3>
+              <p class="news-card__excerpt">
+                We're hitting the road this December. Well, "hitting" is generous—more like stumbling.
+                Six cities, eight bars, zero rehearsals. Tickets available at dive venues near you.
+              </p>
+              <a href="news.html#003" class="news-card__link">Read More →</a>
+            </article>
+
+            <!-- News Card 3 -->
+            <article class="news-card">
+              <time class="news-card__date" datetime="2024-09-12">September 12, 2024</time>
+              <h3 class="news-card__title">
+                <a href="news.html#005">New Single "Brass Knuckles & Bad Decisions" Out Now</a>
+              </h3>
+              <p class="news-card__excerpt">
+                Our lead single is live on all platforms where questionable life choices are streamed.
+                Three minutes of distorted guitars and existential dread. You're welcome.
+              </p>
+              <a href="news.html#005" class="news-card__link">Read More →</a>
+            </article>
+
+          </div>
+        </noscript>
+
+        <!-- Link to full news archive -->
+        <div class="news-section__footer">
+          <a href="news.html" class="button button--secondary">View All News</a>
+        </div>
+
       </div>
     </section>
 
@@ -231,10 +248,10 @@
 
   <!--
     PROGRESSIVE ENHANCEMENT
-    Optional: Add JavaScript for enhanced features (future phase)
-    Site works perfectly without this file
+    JavaScript for dynamic content loading
+    Site works perfectly without this (static fallback in <noscript> tags)
   -->
-  <!-- <script src="assets/js/progressive.js"></script> -->
+  <script src="assets/js/announcements.js"></script>
 
 </body>
 </html>

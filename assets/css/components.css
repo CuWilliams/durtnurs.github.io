@@ -929,3 +929,388 @@ figcaption {
     gap: var(--space-lg);
   }
 }
+
+
+/* ============================================
+   ANNOUNCEMENT CARD COMPONENTS (Phase 3)
+   Dynamic news/announcements system
+   ============================================ */
+
+/*
+  Announcement Cards - Enhanced version of news cards
+  Includes category badges, featured variants, and full content support
+  Used on both homepage (excerpts) and archive page (full content)
+*/
+
+.announcement-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  position: relative;
+}
+
+.announcement-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/*
+  Category Modifiers: Different border colors per category
+  Learning: BEM modifiers allow easy variation without new classes
+*/
+.announcement-card--news {
+  border-left: 4px solid var(--color-aged-whiskey);
+}
+
+.announcement-card--news:hover {
+  border-color: var(--color-aged-whiskey);
+}
+
+.announcement-card--release {
+  border-left: 4px solid var(--color-dried-blood);
+}
+
+.announcement-card--release:hover {
+  border-color: var(--color-dried-blood);
+}
+
+.announcement-card--show {
+  border-left: 4px solid var(--color-tarnished-brass);
+}
+
+.announcement-card--show:hover {
+  border-color: var(--color-tarnished-brass);
+}
+
+.announcement-card--general {
+  border-left: 4px solid var(--color-iron-gray);
+}
+
+.announcement-card--general:hover {
+  border-color: var(--color-iron-gray);
+}
+
+/*
+  Featured announcement: Extra styling for important posts
+  Slightly larger, more prominent
+*/
+.announcement-card--featured {
+  border-width: var(--border-width-thick);
+  box-shadow: var(--shadow-lg);
+}
+
+.announcement-card--featured::before {
+  content: '★';
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  font-size: var(--font-size-2xl);
+  color: var(--color-accent);
+  opacity: 0.6;
+  line-height: 1;
+}
+
+.announcement-card--featured:hover {
+  box-shadow: var(--shadow-xl);
+}
+
+/*
+  Card Header: Flex container for date and category badge
+*/
+.announcement-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+/*
+  Date Element: Small, muted, uppercase
+*/
+.announcement-card__date {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-iron-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/*
+  Category Badge: Small colored label
+  Color changes based on parent card's modifier class
+*/
+.announcement-card__category {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px var(--space-xs);
+  border-radius: var(--border-radius-sm);
+  background-color: rgba(0, 0, 0, 0.4);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+/* Category-specific badge colors */
+.announcement-card--news .announcement-card__category {
+  background-color: var(--color-aged-whiskey);
+  color: var(--color-text-dark);
+}
+
+.announcement-card--release .announcement-card__category {
+  background-color: var(--color-dried-blood);
+  color: var(--color-text-primary);
+}
+
+.announcement-card--show .announcement-card__category {
+  background-color: var(--color-tarnished-brass);
+  color: var(--color-text-dark);
+}
+
+.announcement-card--general .announcement-card__category {
+  background-color: var(--color-iron-gray);
+  color: var(--color-text-primary);
+}
+
+/*
+  Card Title: Prominent heading
+*/
+.announcement-card__title {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+/*
+  Card Excerpt: Brief summary for homepage cards
+*/
+.announcement-card__excerpt {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  flex-grow: 1;
+}
+
+/*
+  Card Content: Full content for archive page
+  Supports basic HTML (p, strong, em, a tags)
+*/
+.announcement-card__content {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  flex-grow: 1;
+}
+
+.announcement-card__content p {
+  margin-bottom: var(--space-sm);
+}
+
+.announcement-card__content p:last-child {
+  margin-bottom: 0;
+}
+
+.announcement-card__content a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  transition: color var(--transition-base);
+}
+
+.announcement-card__content a:hover,
+.announcement-card__content a:focus {
+  color: var(--color-primary);
+}
+
+.announcement-card__content strong {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.announcement-card__content em {
+  font-style: italic;
+}
+
+/*
+  Card Link: "Read more" action
+*/
+.announcement-card__link {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  align-self: flex-start;
+  transition: color var(--transition-base);
+  text-decoration: none;
+  margin-top: var(--space-xs);
+}
+
+.announcement-card__link:hover,
+.announcement-card__link:focus {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+
+/* ============================================
+   NEWS ARCHIVE PAGE LAYOUT
+   ============================================ */
+
+/*
+  News Archive Section
+*/
+.news-archive-section {
+  padding: var(--space-3xl) 0;
+  min-height: 60vh;
+}
+
+/*
+  Archive Grid: Responsive grid for all announcements
+  Mobile: 1 column
+  Tablet: 2 columns
+  Desktop: 3 columns
+*/
+.news-archive__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .news-archive__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .news-archive__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/*
+  News Section Footer: Container for "View All News" button
+*/
+.news-section__footer {
+  margin-top: var(--space-xl);
+  text-align: center;
+}
+
+
+/* ============================================
+   LOADING & ERROR STATES (Phase 3)
+   ============================================ */
+
+/*
+  Loading Message: Shown while JavaScript fetches data
+  Removed by JS when content loads
+*/
+.loading-message {
+  text-align: center;
+  padding: var(--space-xl);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/*
+  Animated loading dots
+  Learning: CSS animations can create engaging loading states
+*/
+.loading-message::after {
+  content: '...';
+  display: inline-block;
+  animation: loading-dots 1.5s infinite;
+}
+
+@keyframes loading-dots {
+  0% { content: ''; }
+  25% { content: '.'; }
+  50% { content: '..'; }
+  75% { content: '...'; }
+  100% { content: ''; }
+}
+
+/*
+  Error Message: Shown when data fails to load
+*/
+.error-message {
+  background-color: var(--color-dried-blood);
+  border: var(--border-width) solid var(--color-danger);
+  border-radius: var(--border-radius);
+  padding: var(--space-lg);
+  margin: var(--space-xl) 0;
+  text-align: center;
+}
+
+.error-message p {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  margin: 0;
+}
+
+.error-message strong {
+  display: block;
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-xs);
+  color: var(--color-accent);
+}
+
+
+/* ============================================
+   NEWS HERO VARIANT (Phase 3)
+   ============================================ */
+
+/*
+  Hero variant for News archive page
+  Similar to About hero but with news-specific styling
+*/
+.hero--news {
+  background: linear-gradient(
+    135deg,
+    var(--color-coal-black) 0%,
+    var(--color-dried-blood) 50%,
+    var(--color-burnt-umber) 100%
+  );
+  padding: var(--space-3xl) 0 var(--space-2xl);
+  text-align: center;
+}
+
+.hero--news .hero__title {
+  font-size: var(--font-size-4xl);
+  color: var(--color-aged-whiskey);
+  margin-bottom: var(--space-sm);
+}
+
+.hero--news .hero__subtitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  color: var(--color-tarnished-brass);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@media (min-width: 768px) {
+  .hero--news .hero__title {
+    font-size: var(--font-size-5xl);
+  }
+
+  .hero--news .hero__subtitle {
+    font-size: var(--font-size-2xl);
+  }
+}
