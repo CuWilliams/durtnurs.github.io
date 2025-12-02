@@ -28,13 +28,15 @@ This is a static website built with semantic HTML5, modern CSS (Grid & Flexbox),
 - **Tone:** Self-aware absurdism meets dive bar authenticity
 - **UX:** Fast, accessible, works without JavaScript
 
-### Current Status: Phase 1 Complete ✅
+### Current Status: Phase 2 Complete ✅
 - ✅ Foundation & homepage
+- ✅ About page with band bios
 - ✅ Responsive design (mobile, tablet, desktop)
 - ✅ Semantic HTML5 with ARIA labels
 - ✅ CSS architecture (BEM methodology)
 - ✅ Mobile-first CSS Grid layout
 - ✅ CSS-only navigation menu
+- ✅ Member profile cards with expansion capability
 
 ---
 
@@ -43,17 +45,20 @@ This is a static website built with semantic HTML5, modern CSS (Grid & Flexbox),
 ```
 durtnurs.github.io/
 ├── index.html                 # Main homepage
+├── about.html                 # Band bio and member profiles (NEW)
 ├── assets/
 │   ├── css/
-│   │   ├── reset.css          # Modern CSS reset (box-sizing, margins, etc.)
-│   │   ├── variables.css      # Design tokens (colors, fonts, spacing)
-│   │   ├── layout.css         # CSS Grid layouts & containers
-│   │   └── components.css     # UI components (buttons, cards, nav)
+│   │   ├── reset.css          # Modern CSS reset
+│   │   ├── variables.css      # Design tokens
+│   │   ├── layout.css         # CSS Grid layouts
+│   │   └── components.css     # UI components (updated with member cards)
 │   ├── images/
-│   │   ├── logo.png           # Band logo (SVG placeholder)
-│   │   └── kraken-album.png   # Album artwork (SVG placeholder)
+│   │   ├── logo.png           # Band logo
+│   │   ├── kraken-album.png   # Album artwork
+│   │   ├── deadbeat-placeholder.svg   # DeadBeat member photo (NEW)
+│   │   └── snowman-placeholder.svg    # SnowMan member photo (NEW)
 │   └── js/
-│       └── progressive.js     # (Future) Optional JavaScript enhancements
+│       └── progressive.js     # (Future) Optional enhancements
 ├── README.md                  # This file
 ├── CNAME                      # Custom domain configuration
 └── .gitignore                 # Git exclusions
@@ -182,6 +187,30 @@ Any static file server works since this is plain HTML/CSS:
 - Album cover: Square (1:1 ratio), at least 600x600px
 - Use compression ([TinyPNG](https://tinypng.com/)) for faster loading
 
+### Update Member Bios
+
+1. Open `about.html`
+2. Find the `<section class="band-members">` block
+3. Locate the member you want to update (DeadBeat or SnowMan)
+4. Edit the `.member-bio` content within that member's card:
+```html
+   <div class="member-bio">
+     <p>Add your bio paragraphs here...</p>
+     <p>You can add multiple paragraphs...</p>
+   </div>
+```
+5. To replace placeholder images:
+   - Add new images to `assets/images/`
+   - Update the `<img src="">` path in the member card
+   - Recommended: Square images (400x400px minimum)
+
+### Update Origin Story
+
+1. Open `about.html`
+2. Find `<section class="origin-story">`
+3. Replace the `.origin-placeholder` paragraph with your actual story
+4. Remove or update the `.note` paragraph
+
 ---
 
 ## 🚀 Deployment
@@ -273,12 +302,17 @@ The navigation uses a checkbox hack (no JavaScript required):
 
 ## 🗺️ Roadmap
 
-### Phase 2 (Next)
-- [ ] About page with band bio
-- [ ] Releases page (discography)
-- [ ] Responsive tables/lists
+### Phase 2 Complete ✅
+- [✅] About page with band bio
+- [✅] Member profile cards (DeadBeat, SnowMan)
+- [✅] Origin story placeholder
 
-### Phase 3
+### Phase 3 (Next)
+- [ ] Releases page (discography/albums)
+- [ ] Album card components
+- [ ] Responsive album grid
+
+### Phase 4
 - [ ] Gallery page (photos/videos)
 - [ ] Contact form
 - [ ] Fan club authentication
