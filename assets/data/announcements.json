@@ -1,0 +1,70 @@
+{
+  "announcements": [
+    {
+      "id": "001",
+      "date": "2024-11-15",
+      "title": "Release the Kraken!",
+      "category": "release",
+      "excerpt": "New album 'Kraken Awakens' drops December 1st. Three years of bourbon-fueled chaos, now in audio form.",
+      "content": "<p>After three years of bourbon-fueled studio sessions and one ill-advised yacht incident, our sophomore album is finally crawling out of the depths. 'Kraken Awakens' features ten tracks of maritime metaphors, whiskey-soaked wisdom, and guitar riffs that sound like a sea monster having an existential crisis.</p><p>Pre-order the chaos now. Your eardrums will thank you. Or sue us. Probably sue us.</p>",
+      "link": {
+        "url": "#listen",
+        "text": "Pre-order Album"
+      },
+      "featured": true
+    },
+    {
+      "id": "002",
+      "date": "2024-11-08",
+      "title": "New Website, Same Old Disappointment",
+      "category": "general",
+      "excerpt": "We rebuilt our website. It's still us, just with more CSS and fewer broken links. Progress is relative.",
+      "content": "<p>Welcome to our shiny new website, built with modern technology we barely understand. We've upgraded from table layouts to flexbox, which is apparently a big deal in web development circles.</p><p>The site now features responsive design (it works on phones!), progressive enhancement (it works without JavaScript!), and our trademark self-loathing (that's just us!).</p><p>Special thanks to our AI overlords for helping us fake competence in modern web development.</p>",
+      "featured": false
+    },
+    {
+      "id": "003",
+      "date": "2024-10-28",
+      "title": "Fall Tour: Six Cities, Eight Bars, Zero Rehearsals",
+      "category": "show",
+      "excerpt": "December tour dates announced. We're hitting the road. Well, 'hitting' is generous—more like stumbling.",
+      "content": "<p>We're taking our act on the road this December, which is either brave or monumentally stupid. Six cities across the Midwest, eight different dive bars (we're playing two cities twice because apparently we hate ourselves), and absolutely zero rehearsals planned.</p><p>Tickets are available at participating venues, which is a fancy way of saying 'show up and throw money at the bartender.' First come, first served, first to leave when we play our experimental jazz fusion number.</p><p>Cities include: Detroit, Cleveland, Chicago, Milwaukee, and two surprise locations we haven't figured out yet. Stay tuned for actual dates once we consult a calendar.</p>",
+      "link": {
+        "url": "#tour",
+        "text": "View Tour Dates"
+      },
+      "featured": false
+    },
+    {
+      "id": "004",
+      "date": "2024-10-15",
+      "title": "Show Canceled Due to Excessive Competence",
+      "category": "show",
+      "excerpt": "Our October 20th gig has been canceled. We accidentally got too good at our instruments and the venue got scared.",
+      "content": "<p>We regret to inform you that our scheduled October 20th performance at The Rusty Anchor has been canceled. During our soundcheck, we accidentally played a chord progression that was technically proficient, and the venue's structural integrity couldn't handle the cognitive dissonance.</p><p>The venue manager cited 'atmospheric incompatibility' and 'unexpected musical coherence' as reasons for the cancellation. We've been banned from the premises until we can prove we're back to our usual level of mediocrity.</p><p>We're working hard to unlearn everything we accidentally learned. Regular disappointing service should resume by December.</p>",
+      "featured": false
+    },
+    {
+      "id": "005",
+      "date": "2024-09-22",
+      "title": "New Single: Brass Knuckles & Bad Decisions",
+      "category": "release",
+      "excerpt": "Lead single now streaming everywhere questionable life choices are made. Three minutes of distorted regret.",
+      "content": "<p>Our lead single 'Brass Knuckles & Bad Decisions' is now available on all major streaming platforms where people go to soundtrack their questionable life choices.</p><p>The track features: three minutes of distorted guitars, lyrics about a Tuesday night that got out of hand, and a drum solo that our drummer insists was 'intentional.' Critics are calling it 'music' and 'technically audible,' which exceeds our expectations.</p><p>Stream it, share it, use it to annoy your neighbors. We're not picky.</p>",
+      "link": {
+        "url": "https://open.spotify.com/artist/durtnurs",
+        "text": "Listen on Spotify"
+      },
+      "featured": false
+    },
+    {
+      "id": "006",
+      "date": "2024-09-10",
+      "title": "We're Still Here (Unfortunately for Everyone)",
+      "category": "news",
+      "excerpt": "Band update: Still making music, still disappointing our families. The dream lives on.",
+      "content": "<p>Just checking in to remind everyone that we're still actively making music, despite all evidence suggesting we should stop. Our families remain disappointed, our neighbors remain complaining, and our expectations remain refreshingly low.</p><p>We've been writing new material in dEADBEAT's shed (our 'studio'), which is really just a shed with some carpet remnants and delusions of grandeur. The new songs feature themes of existential dread, maritime disasters, and the particular despair of being mediocre in your 40s.</p><p>Thanks for sticking with us. Your poor judgment gives us hope.</p>",
+      "featured": false
+    }
+  ]
+}
