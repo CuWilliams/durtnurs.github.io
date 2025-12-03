@@ -1866,3 +1866,974 @@ figcaption {
     width: 50%;
   }
 }
+
+
+/* ============================================
+   GALLERY PAGE COMPONENTS (Phase 5)
+   Photo and video gallery with lightbox
+   ============================================ */
+
+/*
+  GALLERY HERO VARIANT
+  Unique gradient for gallery page
+*/
+.hero--gallery {
+  background: linear-gradient(
+    135deg,
+    var(--color-coal-black) 0%,
+    var(--color-iron-gray) 50%,
+    var(--color-burnt-umber) 100%
+  );
+  padding: var(--space-3xl) 0 var(--space-2xl);
+  text-align: center;
+}
+
+.hero--gallery .hero__title {
+  font-size: var(--font-size-4xl);
+  color: var(--color-tarnished-brass);
+  margin-bottom: var(--space-sm);
+}
+
+.hero--gallery .hero__subtitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-md);
+}
+
+.hero--gallery .hero__description {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  max-width: 700px;
+  margin: 0 auto;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+@media (min-width: 768px) {
+  .hero--gallery .hero__title {
+    font-size: var(--font-size-5xl);
+  }
+
+  .hero--gallery .hero__subtitle {
+    font-size: var(--font-size-2xl);
+  }
+
+  .hero--gallery .hero__description {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/*
+  GALLERY SECTION
+  Container for gallery grid
+*/
+.gallery-section {
+  padding: var(--space-3xl) 0;
+  min-height: 60vh;
+}
+
+/*
+  GALLERY GRID
+  Responsive CSS Grid layout for media cards
+
+  Layout Strategy:
+  - Mobile (default): 1 column (stacked)
+  - Tablet (768px+): 2 columns
+  - Desktop (1024px+): 3 columns
+  - Extra large (1440px+): 4 columns
+
+  Why CSS Grid?
+  - Auto-placement handles card positioning
+  - Equal-height cards without JavaScript
+  - gap property provides clean spacing
+  - More flexible than Flexbox for this use case
+*/
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+/* Tablet: 2 columns side by side */
+@media (min-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+}
+
+/* Desktop: 3 columns for full gallery view */
+@media (min-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Extra wide screens: 4 columns, with max-width to prevent excessive spreading */
+@media (min-width: 1440px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/*
+  GALLERY CARD
+  Individual photo/video card component
+
+  BEM Structure:
+  - Block: .gallery-card
+  - Elements: .gallery-card__thumbnail, .gallery-card__title, etc.
+  - Modifiers: .gallery-card--featured
+*/
+.gallery-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/*
+  Hover State: Subtle lift effect
+  Provides visual feedback that cards are clickable
+*/
+.gallery-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+/* Focus state for keyboard navigation */
+.gallery-card:focus {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/*
+  Featured Card Modifier
+  Applied to featured items for emphasis
+*/
+.gallery-card--featured {
+  border-width: var(--border-width-thick);
+  border-color: var(--color-tarnished-brass);
+  box-shadow: var(--shadow-lg);
+}
+
+.gallery-card--featured:hover {
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-aged-whiskey);
+}
+
+/*
+  THUMBNAIL SECTION
+  Wrapper ensures consistent aspect ratio for all images
+*/
+.gallery-card__thumbnail-wrapper {
+  position: relative;
+  width: 100%;
+  /*
+    aspect-ratio: Modern CSS property for maintaining proportions
+    4 / 3 = landscape (suitable for most photos)
+    Why? Ensures all thumbnails are same size regardless of source image
+  */
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(
+    135deg,
+    var(--color-iron-gray) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  overflow: hidden;
+}
+
+/* Fallback for browsers without aspect-ratio support */
+@supports not (aspect-ratio: 4 / 3) {
+  .gallery-card__thumbnail-wrapper {
+    padding-top: 75%; /* Creates 4:3 ratio using padding trick */
+  }
+
+  .gallery-card__thumbnail-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.gallery-card__thumbnail {
+  width: 100%;
+  height: 100%;
+  /*
+    object-fit: cover ensures image fills space without distortion
+    Similar to background-size: cover but for <img> elements
+  */
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-slow);
+}
+
+/* Subtle zoom on card hover (enhances interactivity) */
+.gallery-card:hover .gallery-card__thumbnail {
+  transform: scale(1.05);
+}
+
+/*
+  PLAY ICON OVERLAY
+  Indicates video content
+  Positioned absolutely over thumbnail
+*/
+.gallery-card__play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--font-size-5xl);
+  color: var(--color-text-primary);
+  background: rgba(11, 11, 12, 0.7);
+  width: 80px;
+  height: 80px;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+  pointer-events: none;
+  /* Nudge play icon slightly right for visual centering */
+  padding-left: 8px;
+}
+
+.gallery-card:hover .gallery-card__play-icon {
+  background: var(--color-primary);
+  color: var(--color-text-dark);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/*
+  CARD CONTENT SECTION
+  Contains text and date information
+*/
+.gallery-card__content {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.gallery-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-aged-whiskey);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: var(--line-height-tight);
+  margin: 0;
+}
+
+.gallery-card__description {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin: 0;
+  flex-grow: 1;
+}
+
+.gallery-card__date {
+  display: block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-iron-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: var(--space-xs);
+}
+
+/* Tablet: Larger card text */
+@media (min-width: 768px) {
+  .gallery-card__title {
+    font-size: var(--font-size-xl);
+  }
+
+  .gallery-card__description {
+    font-size: var(--font-size-base);
+  }
+}
+
+/*
+  LIGHTBOX COMPONENTS
+  Full-screen overlay for viewing images/videos
+*/
+
+/*
+  Lightbox Container
+  Full-screen overlay with dark background
+  Hidden by default, shown with --active modifier
+*/
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(11, 11, 12, 0.95); /* Coal Black with 95% opacity */
+  z-index: var(--z-modal);
+  display: none; /* Hidden by default */
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+/* Active state: Show lightbox */
+.lightbox--active {
+  display: flex;
+  opacity: 1;
+}
+
+/*
+  Lightbox Content Container
+  Holds the image/video and caption
+*/
+.lightbox__content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: lightboxFadeIn var(--transition-base);
+}
+
+/* Fade-in animation for lightbox content */
+@keyframes lightboxFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/*
+  Lightbox Image
+  Full-size photo display
+*/
+.lightbox__image {
+  max-width: 90vw;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  box-shadow: var(--shadow-xl);
+  border-radius: var(--border-radius-md);
+}
+
+/*
+  Lightbox Video
+  Embedded video player (YouTube/Vimeo)
+*/
+.lightbox__video {
+  width: 90vw;
+  max-width: 1200px;
+  height: 50.625vw; /* 16:9 aspect ratio */
+  max-height: 675px; /* Matches max-width 16:9 */
+  border: none;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-xl);
+}
+
+/*
+  Lightbox Info
+  Title and description below image/video
+*/
+.lightbox__info {
+  margin-top: var(--space-lg);
+  text-align: center;
+  max-width: 600px;
+}
+
+.lightbox__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  color: var(--color-aged-whiskey);
+  margin-bottom: var(--space-xs);
+}
+
+.lightbox__description {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/*
+  Lightbox Close Button
+  X button in top-right corner
+*/
+.lightbox__close {
+  position: absolute;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  background: var(--color-dried-blood);
+  color: var(--color-text-primary);
+  border: none;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-3xl);
+  line-height: 1;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: all var(--transition-base);
+  z-index: calc(var(--z-modal) + 1);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox__close:hover,
+.lightbox__close:focus {
+  background: var(--color-aged-whiskey);
+  color: var(--color-text-dark);
+  transform: rotate(90deg);
+}
+
+/*
+  Lightbox Navigation Buttons
+  Previous/Next buttons on left/right sides
+*/
+.lightbox__prev,
+.lightbox__next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(58, 63, 69, 0.7); /* Iron Gray with transparency */
+  color: var(--color-text-primary);
+  border: none;
+  padding: var(--space-md) var(--space-lg);
+  font-size: var(--font-size-3xl);
+  line-height: 1;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: all var(--transition-base);
+  z-index: calc(var(--z-modal) + 1);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox__prev:hover,
+.lightbox__prev:focus,
+.lightbox__next:hover,
+.lightbox__next:focus {
+  background: var(--color-primary);
+  color: var(--color-text-dark);
+}
+
+.lightbox__prev {
+  left: var(--space-lg);
+}
+
+.lightbox__next {
+  right: var(--space-lg);
+}
+
+/*
+  Lightbox Counter
+  Shows current position (e.g., "3 / 8")
+*/
+.lightbox__counter {
+  position: absolute;
+  bottom: var(--space-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(11, 11, 12, 0.8);
+  color: var(--color-text-primary);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--border-radius-full);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.05em;
+}
+
+/* Mobile: Adjust lightbox controls for smaller screens */
+@media (max-width: 767px) {
+  .lightbox__close {
+    top: var(--space-sm);
+    right: var(--space-sm);
+    width: 40px;
+    height: 40px;
+    font-size: var(--font-size-2xl);
+  }
+
+  .lightbox__prev,
+  .lightbox__next {
+    width: 48px;
+    height: 48px;
+    font-size: var(--font-size-2xl);
+    padding: var(--space-sm);
+  }
+
+  .lightbox__prev {
+    left: var(--space-sm);
+  }
+
+  .lightbox__next {
+    right: var(--space-sm);
+  }
+
+  .lightbox__video {
+    height: 56.25vw; /* 16:9 aspect ratio for mobile */
+  }
+}
+
+/*
+  NoScript Message
+  Shown when JavaScript is disabled
+*/
+.noscript-message {
+  margin-top: var(--space-xl);
+  padding: var(--space-lg);
+  background-color: var(--color-iron-gray);
+  border: var(--border-width) solid var(--color-aged-whiskey);
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+.noscript-message p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.noscript-message strong {
+  color: var(--color-aged-whiskey);
+}
+
+
+/* ============================================
+   CONTACT PAGE COMPONENTS (Phase 5)
+   Email contact with band humor
+   ============================================ */
+
+/*
+  CONTACT HERO VARIANT
+  Dark, moody gradient for contact page
+*/
+.hero--contact {
+  background: linear-gradient(
+    135deg,
+    var(--color-dried-blood) 0%,
+    var(--color-coal-black) 50%,
+    var(--color-burnt-umber) 100%
+  );
+  padding: var(--space-3xl) 0 var(--space-2xl);
+  text-align: center;
+}
+
+.hero--contact .hero__title {
+  font-size: var(--font-size-5xl);
+  color: var(--color-aged-whiskey);
+  margin-bottom: var(--space-sm);
+}
+
+.hero--contact .hero__subtitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  color: var(--color-iron-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@media (min-width: 768px) {
+  .hero--contact .hero__title {
+    font-size: var(--font-size-6xl);
+  }
+
+  .hero--contact .hero__subtitle {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+/*
+  CONTACT INTRO SECTION
+  Gruff introduction text
+*/
+.contact-intro-section {
+  padding: var(--space-3xl) 0 var(--space-2xl);
+  background-color: var(--color-coal-black);
+}
+
+.contact-intro {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact-intro p {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-loose);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .contact-intro p {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/*
+  CONTACT METHOD SECTION
+  Primary contact card with email button
+*/
+.contact-method-section {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(
+    180deg,
+    var(--color-coal-black) 0%,
+    var(--color-burnt-umber) 100%
+  );
+}
+
+/*
+  CONTACT CARD
+  Prominent card containing email button
+*/
+.contact-card {
+  max-width: 600px;
+  margin: 0 auto;
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width-thick) solid var(--color-aged-whiskey);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-3xl) var(--space-xl);
+  box-shadow: var(--shadow-xl);
+  text-align: center;
+}
+
+.contact-card__icon {
+  margin-bottom: var(--space-lg);
+  color: var(--color-aged-whiskey);
+}
+
+.contact-card__icon svg {
+  width: 64px;
+  height: 64px;
+}
+
+.contact-card__heading {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  color: var(--color-aged-whiskey);
+  margin-bottom: var(--space-md);
+}
+
+.contact-card__description {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-xl);
+}
+
+.contact-card__note {
+  font-size: var(--font-size-sm);
+  font-style: italic;
+  color: var(--color-iron-gray);
+  margin-top: var(--space-md);
+}
+
+/*
+  CONTACT BUTTON
+  Large, prominent mailto: link styled as button
+*/
+.contact-button {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-coal-black);
+  background-color: var(--color-aged-whiskey);
+  border: var(--border-width-thick) solid var(--color-aged-whiskey);
+  border-radius: var(--border-radius);
+  padding: var(--space-lg) var(--space-2xl);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-lg);
+  min-width: 280px;
+  text-align: center;
+}
+
+.contact-button:hover,
+.contact-button:focus {
+  background-color: var(--color-dried-blood);
+  border-color: var(--color-dried-blood);
+  color: var(--color-text-primary);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.contact-button:active {
+  transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
+  .contact-button {
+    font-size: var(--font-size-2xl);
+    padding: var(--space-xl) var(--space-3xl);
+  }
+}
+
+/*
+  CONTACT CONTEXT SECTION
+  What types of inquiries to send
+*/
+.contact-context-section {
+  padding: var(--space-3xl) 0;
+  background-color: var(--color-coal-black);
+}
+
+.contact-context {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.contact-context .section-heading {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+/*
+  CONTACT TOPICS GRID
+  Grid of different inquiry types
+*/
+.contact-topics {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .contact-topics {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .contact-topics {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/*
+  CONTACT TOPIC CARD
+  Individual inquiry type
+*/
+.contact-topic {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-lg);
+  transition: all var(--transition-base);
+}
+
+.contact-topic:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.contact-topic__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  color: var(--color-tarnished-brass);
+  margin-bottom: var(--space-sm);
+}
+
+.contact-topic__description {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/*
+  CONTACT SOCIAL SECTION
+  Alternative contact methods (social media)
+*/
+.contact-social-section {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(
+    180deg,
+    var(--color-coal-black) 0%,
+    var(--color-burnt-umber) 100%
+  );
+}
+
+.contact-social {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact-social .section-heading {
+  margin-bottom: var(--space-md);
+}
+
+.contact-social__intro {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-xl);
+}
+
+.social-contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+/*
+  SOCIAL CONTACT LINK
+  Individual social media link card
+*/
+.social-contact-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-lg) var(--space-xl);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  min-width: 300px;
+}
+
+.social-contact-link:hover,
+.social-contact-link:focus {
+  border-color: var(--color-primary);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.social-contact-link__icon {
+  flex-shrink: 0;
+  color: var(--color-aged-whiskey);
+}
+
+.social-contact-link__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.social-contact-link__name {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.social-contact-link__handle {
+  font-size: var(--font-size-sm);
+  color: var(--color-tarnished-brass);
+}
+
+.contact-social__note {
+  margin-top: var(--space-lg);
+  font-size: var(--font-size-sm);
+  font-style: italic;
+  color: var(--color-iron-gray);
+}
+
+/*
+  CONTACT WARNING SECTION
+  Final humorous warning about spam
+*/
+.contact-warning-section {
+  padding: var(--space-3xl) 0;
+  background-color: var(--color-dried-blood);
+  border-top: var(--border-width-thick) solid var(--color-aged-whiskey);
+  border-bottom: var(--border-width-thick) solid var(--color-aged-whiskey);
+}
+
+.contact-warning {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact-warning__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  color: var(--color-aged-whiskey);
+  margin-bottom: var(--space-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.contact-warning__text {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-loose);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.contact-warning__text:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .contact-warning__title {
+    font-size: var(--font-size-4xl);
+  }
+
+  .contact-warning__text {
+    font-size: var(--font-size-lg);
+  }
+}

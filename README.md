@@ -28,12 +28,15 @@ This is a static website built with semantic HTML5, modern CSS (Grid & Flexbox),
 - **Tone:** Self-aware absurdism meets dive bar authenticity
 - **UX:** Fast, accessible, works without JavaScript
 
-### Current Status: Phase 4 Complete ✅
+### Current Status: Phase 5 Complete ✅
 - ✅ Foundation & homepage
 - ✅ About page with band bios
 - ✅ News/announcements system with JSON data
 - ✅ Releases/discography page with album grid
+- ✅ Gallery page with photo/video lightbox
+- ✅ Contact page with mailto integration
 - ✅ Dynamic content loading with JavaScript
+- ✅ Custom lightbox implementation (no external libraries)
 - ✅ Progressive enhancement (works without JS)
 - ✅ Responsive design (mobile, tablet, desktop)
 - ✅ Semantic HTML5 with ARIA labels
@@ -42,6 +45,8 @@ This is a static website built with semantic HTML5, modern CSS (Grid & Flexbox),
 - ✅ CSS-only navigation menu
 - ✅ Member profile cards
 - ✅ Album/release cards with collapsible tracklists
+- ✅ Gallery grid with lightbox functionality
+- ✅ Keyboard navigation support (ESC, arrow keys)
 
 ---
 
@@ -52,24 +57,30 @@ durtnurs.github.io/
 ├── index.html                 # Main homepage
 ├── about.html                 # Band bio and member profiles
 ├── news.html                  # News archive page (Phase 3)
-├── releases.html              # Releases/discography page (NEW - Phase 4)
+├── releases.html              # Releases/discography page (Phase 4)
+├── gallery.html               # Photo/video gallery (NEW - Phase 5)
+├── contact.html               # Contact page (NEW - Phase 5)
 ├── assets/
 │   ├── css/
 │   │   ├── reset.css          # Modern CSS reset
 │   │   ├── variables.css      # Design tokens
 │   │   ├── layout.css         # CSS Grid layouts
-│   │   └── components.css     # UI components (updated with release cards)
+│   │   └── components.css     # UI components (updated with gallery & contact)
 │   ├── data/
 │   │   ├── announcements.json # News data (Phase 3)
-│   │   └── releases.json      # Album/release data (NEW - Phase 4)
+│   │   ├── releases.json      # Album/release data (Phase 4)
+│   │   └── gallery.json       # Gallery media data (NEW - Phase 5)
 │   ├── images/
 │   │   ├── logo.png           # Band logo
 │   │   ├── kraken-album.png   # Album artwork
 │   │   ├── deadbeat-placeholder.svg   # DeadBeat member photo
-│   │   └── snowman-placeholder.svg    # SnowMan member photo
+│   │   ├── snowman-placeholder.svg    # SnowMan member photo
+│   │   └── gallery/           # Gallery images directory (NEW - Phase 5)
+│   │       └── README.md      # Gallery image guidelines
 │   └── js/
 │       ├── announcements.js   # Dynamic news loading (Phase 3)
-│       └── releases.js        # Dynamic release loading (NEW - Phase 4)
+│       ├── releases.js        # Dynamic release loading (Phase 4)
+│       └── gallery.js         # Gallery & lightbox (NEW - Phase 5)
 ├── README.md                  # This file
 ├── CNAME                      # Custom domain configuration
 └── .gitignore                 # Git exclusions
@@ -428,10 +439,59 @@ The navigation uses a checkbox hack (no JavaScript required):
 - Semantic HTML5 with proper ARIA labels
 - Educational inline comments throughout codebase
 
-### Phase 5
-- [ ] Gallery page (photos/videos)
-- [ ] Contact form
-- [ ] Fan club authentication
+### Phase 5 Complete ✅
+**Completed:** December 3, 2024
+
+- [✅] Gallery page with responsive photo/video grid
+- [✅] JSON data structure for gallery media (`gallery.json`)
+- [✅] JavaScript module for dynamic gallery rendering (`gallery.js`)
+- [✅] Custom lightbox implementation (no external libraries)
+- [✅] Keyboard navigation (ESC to close, arrow keys for prev/next)
+- [✅] Click-outside-to-close functionality
+- [✅] Contact page with mailto integration
+- [✅] Zoho email integration (biteme@durtnurs.com)
+- [✅] Band's characteristic humor in contact messaging
+- [✅] Progressive enhancement with static fallback
+- [✅] Navigation updated across all pages
+- [✅] Public/private flag system for Phase 6 Fan Club preparation
+- [✅] Gallery images directory structure
+- [✅] Responsive grid (1-4 columns based on viewport)
+- [✅] Video embed support in lightbox
+- [✅] Play icon overlay for video thumbnails
+- [✅] Image counter in lightbox (e.g., "3 / 8")
+
+**Features:**
+- **Gallery Page:**
+  - Responsive CSS Grid layout (mobile: 1 column, tablet: 2, desktop: 3, large: 4)
+  - JSON-based data structure with public/private filtering
+  - Custom lightbox with full-size image/video viewing
+  - Keyboard navigation (ESC, Left Arrow, Right Arrow)
+  - Previous/Next buttons in lightbox
+  - Click outside lightbox to close
+  - Image counter showing position (e.g., "3 / 8")
+  - Video embeds (YouTube) with play icon overlay
+  - Featured media highlighting
+  - Progressive enhancement (works without JavaScript)
+  - Loading states and error handling
+
+- **Contact Page:**
+  - Prominent mailto: button (biteme@durtnurs.com)
+  - Band's characteristic gruff humor
+  - Multiple contact context categories
+  - Social media integration
+  - Humorous spam warning section
+  - Fully responsive design
+  - Accessible keyboard navigation
+
+- **Technical:**
+  - No external JavaScript libraries (lightbox built from scratch)
+  - Event delegation for performance
+  - Focus management (trapped in lightbox when open)
+  - Body scroll prevention when lightbox is open
+  - Semantic HTML5 with proper ARIA labels
+  - Comprehensive error handling
+  - Educational inline comments throughout
+  - Mobile-first responsive design
 
 ### Phase 6
 - [ ] Mailing list integration
