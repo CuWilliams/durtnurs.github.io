@@ -1,0 +1,106 @@
+{
+  "releases": [
+    {
+      "id": "release-kraken-2024",
+      "title": "Release the Kraken!",
+      "artist": "tHE dURT nURS'",
+      "releaseDate": "2024-11-15",
+      "type": "album",
+      "coverArt": "assets/images/kraken-album.png",
+      "coverArtAlt": "Release the Kraken album cover featuring a dark kraken emerging from a whiskey bottle",
+      "description": "Our magnum opus. Eleven tracks of pure, unfiltered rock absurdity. We spent literally tens of dollars on this production.",
+      "tracklist": [
+        "Brass Knuckles & Bad Decisions",
+        "Dive Bar Requiem",
+        "The Kraken's Lament",
+        "Whiskey-Soaked Wisdom",
+        "Maritime Metaphors",
+        "Existential Crisis at Sea",
+        "Three AM Regrets",
+        "Bourbon-Fueled Dreams",
+        "Anchor's Away (My Dignity)",
+        "The Shed Sessions",
+        "Rock Bottom (Reprise)"
+      ],
+      "streamingLinks": {
+        "spotify": "#",
+        "apple": "#",
+        "bandcamp": "#"
+      },
+      "featured": true
+    },
+    {
+      "id": "release-basement-tapes-2010",
+      "title": "Basement Tapes Vol. 1: The Lost Sessions",
+      "artist": "tHE dURT nURS'",
+      "releaseDate": "2010-06-15",
+      "type": "compilation",
+      "coverArt": "assets/images/kraken-album.png",
+      "coverArtAlt": "Basement Tapes album cover with vintage cassette tape aesthetic",
+      "description": "Recorded on equipment we found in a dumpster. Seven tracks of raw, unpolished chaos from our humble beginnings. Lo-fi before it was cool.",
+      "tracklist": [
+        "First Chord (We Learned)",
+        "Microphone Check 1-2-3",
+        "That One Good Riff",
+        "Accidentally Blues",
+        "The Song We Forgot",
+        "Amp Feedback Interlude",
+        "Maybe We Should Practice"
+      ],
+      "streamingLinks": {
+        "spotify": "#",
+        "apple": "#",
+        "bandcamp": "#"
+      },
+      "featured": false
+    },
+    {
+      "id": "release-empty-room-2015",
+      "title": "Live at The Empty Room",
+      "artist": "tHE dURT nURS'",
+      "releaseDate": "2015-10-31",
+      "type": "live",
+      "coverArt": "assets/images/kraken-album.png",
+      "coverArtAlt": "Live album cover showing an empty dive bar with a single microphone stand",
+      "description": "Our most intimate performance. Literally just us. The bartender left halfway through. Recorded on someone's phone. Peak authenticity.",
+      "tracklist": [
+        "Opening Banter (Empty Room Echo)",
+        "That Song Everyone Requested (But Nobody Came)",
+        "Improvised Blues in E",
+        "Wrong Chord, Right Feeling",
+        "The Ballad of Broken Strings",
+        "Someone's Phone Ringing (feat. Unknown Caller)",
+        "Last Call Lament",
+        "Closing Time (We're Still Here)"
+      ],
+      "streamingLinks": {
+        "spotify": "#",
+        "apple": "#",
+        "bandcamp": "#"
+      },
+      "featured": false
+    },
+    {
+      "id": "release-whiskey-sessions-2018",
+      "title": "The Whiskey Sessions",
+      "artist": "tHE dURT nURS'",
+      "releaseDate": "2018-12-01",
+      "type": "ep",
+      "coverArt": "assets/images/kraken-album.png",
+      "coverArtAlt": "EP cover featuring an empty whiskey glass and scattered guitar picks",
+      "description": "Four tracks, forty takes, fourteen bottles. An EP that captures the essence of bad decisions and good intentions. Surprisingly coherent for the circumstances.",
+      "tracklist": [
+        "Pour Decisions",
+        "On The Rocks (Like My Career)",
+        "Bourbon Street Blues",
+        "Last Call Revolution"
+      ],
+      "streamingLinks": {
+        "spotify": "#",
+        "apple": "#",
+        "bandcamp": "#"
+      },
+      "featured": false
+    }
+  ]
+}

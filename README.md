@@ -28,10 +28,11 @@ This is a static website built with semantic HTML5, modern CSS (Grid & Flexbox),
 - **Tone:** Self-aware absurdism meets dive bar authenticity
 - **UX:** Fast, accessible, works without JavaScript
 
-### Current Status: Phase 3 Complete ✅
+### Current Status: Phase 4 Complete ✅
 - ✅ Foundation & homepage
 - ✅ About page with band bios
 - ✅ News/announcements system with JSON data
+- ✅ Releases/discography page with album grid
 - ✅ Dynamic content loading with JavaScript
 - ✅ Progressive enhancement (works without JS)
 - ✅ Responsive design (mobile, tablet, desktop)
@@ -40,6 +41,7 @@ This is a static website built with semantic HTML5, modern CSS (Grid & Flexbox),
 - ✅ Mobile-first CSS Grid layout
 - ✅ CSS-only navigation menu
 - ✅ Member profile cards
+- ✅ Album/release cards with collapsible tracklists
 
 ---
 
@@ -49,22 +51,25 @@ This is a static website built with semantic HTML5, modern CSS (Grid & Flexbox),
 durtnurs.github.io/
 ├── index.html                 # Main homepage
 ├── about.html                 # Band bio and member profiles
-├── news.html                  # News archive page (NEW - Phase 3)
+├── news.html                  # News archive page (Phase 3)
+├── releases.html              # Releases/discography page (NEW - Phase 4)
 ├── assets/
 │   ├── css/
 │   │   ├── reset.css          # Modern CSS reset
 │   │   ├── variables.css      # Design tokens
 │   │   ├── layout.css         # CSS Grid layouts
-│   │   └── components.css     # UI components (updated with announcements)
+│   │   └── components.css     # UI components (updated with release cards)
 │   ├── data/
-│   │   └── announcements.json # News data (NEW - Phase 3)
+│   │   ├── announcements.json # News data (Phase 3)
+│   │   └── releases.json      # Album/release data (NEW - Phase 4)
 │   ├── images/
 │   │   ├── logo.png           # Band logo
 │   │   ├── kraken-album.png   # Album artwork
 │   │   ├── deadbeat-placeholder.svg   # DeadBeat member photo
 │   │   └── snowman-placeholder.svg    # SnowMan member photo
 │   └── js/
-│       └── announcements.js   # Dynamic news loading (NEW - Phase 3)
+│       ├── announcements.js   # Dynamic news loading (Phase 3)
+│       └── releases.js        # Dynamic release loading (NEW - Phase 4)
 ├── README.md                  # This file
 ├── CNAME                      # Custom domain configuration
 └── .gitignore                 # Git exclusions
@@ -184,6 +189,51 @@ Any static file server works since this is plain HTML/CSS:
 - Keep excerpts under 120 characters
 - Content supports HTML: `<p>`, `<strong>`, `<em>`, `<a>`
 - Set `featured: true` for important announcements (adds star icon)
+
+### Update Releases/Discography (Phase 4)
+
+**NEW:** Releases are now managed via JSON for easy updates!
+
+1. Open `assets/data/releases.json`
+2. Add a new release object to the `releases` array:
+   ```json
+   {
+     "id": "release-your-album-2025",
+     "title": "Your Album Title",
+     "artist": "tHE dURT nURS'",
+     "releaseDate": "2025-01-15",
+     "type": "album",
+     "coverArt": "assets/images/your-album-cover.png",
+     "coverArtAlt": "Description of album cover for screen readers",
+     "description": "Brief album description with the band's humor",
+     "tracklist": [
+       "Track 1 Name",
+       "Track 2 Name",
+       "Track 3 Name"
+     ],
+     "streamingLinks": {
+       "spotify": "https://spotify.com/your-link",
+       "apple": "https://music.apple.com/your-link",
+       "bandcamp": "https://bandcamp.com/your-link"
+     },
+     "featured": false
+   }
+   ```
+3. **Required fields:** id, title, artist, releaseDate (ISO format: YYYY-MM-DD), type, coverArt, coverArtAlt, description
+4. **Optional fields:** tracklist (array), streamingLinks (object), featured (boolean)
+5. **Type options:** `album`, `ep`, `single`, `live`, `compilation`
+6. Use `#` for streaming links that aren't ready yet (they won't display)
+7. Set `featured: true` for your newest/primary release (gets special styling)
+8. Keep releases in reverse chronological order (newest first) for best organization
+9. Add album cover image to `assets/images/` folder
+10. Save and commit - changes appear immediately on the site!
+
+**Tips:**
+- Album covers should be square (1:1 ratio), at least 600x600px
+- Use descriptive alt text for accessibility
+- Featured releases span 2 columns on desktop and have prominent styling
+- Type badges are color-coded automatically based on release type
+- Tracklists are collapsible - no JavaScript required!
 
 ### Change Colors
 
@@ -350,10 +400,33 @@ The navigation uses a checkbox hack (no JavaScript required):
 - [✅] Progressive enhancement fallback
 - [✅] Category-based styling system
 
-### Phase 4 (Next)
-- [ ] Releases page (discography/albums)
-- [ ] Album card components
-- [ ] Responsive album grid
+### Phase 4 Complete ✅
+**Completed:** December 3, 2024
+
+- [✅] Releases page (discography/albums)
+- [✅] JSON data structure for album/release information (`releases.json`)
+- [✅] JavaScript module for dynamic release rendering (`releases.js`)
+- [✅] Album card components with BEM methodology
+- [✅] Responsive album grid (1-3 columns based on viewport)
+- [✅] Featured release highlighting (spans 2 columns on desktop)
+- [✅] Collapsible tracklists using native `<details>` element
+- [✅] Type-specific badges (album, EP, single, live, compilation)
+- [✅] Streaming service links (placeholder structure ready)
+- [✅] Progressive enhancement with static fallback
+- [✅] Navigation updated across all pages
+
+**Features:**
+- Scalable album grid layout with CSS Grid
+- JSON-based data structure for easy content management
+- Dynamic rendering via JavaScript with comprehensive error handling
+- Progressive enhancement (works without JavaScript)
+- Responsive design (mobile: 1 column, tablet: 2 columns, desktop: 3 columns)
+- Featured releases span 2 columns on desktop with horizontal layout
+- Collapsible tracklists (no JavaScript required - native HTML)
+- Type-specific color coding for different release types
+- Hover effects with smooth transitions
+- Semantic HTML5 with proper ARIA labels
+- Educational inline comments throughout codebase
 
 ### Phase 5
 - [ ] Gallery page (photos/videos)

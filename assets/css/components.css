@@ -1314,3 +1314,555 @@ figcaption {
     font-size: var(--font-size-2xl);
   }
 }
+
+
+/* ============================================
+   RELEASES PAGE COMPONENTS (Phase 4)
+   Album/release cards with responsive grid
+   ============================================ */
+
+/*
+  RELEASES HERO VARIANT
+  Unique gradient for releases/discography page
+*/
+.hero--releases {
+  background: linear-gradient(
+    135deg,
+    var(--color-coal-black) 0%,
+    var(--color-aged-whiskey) 50%,
+    var(--color-burnt-umber) 100%
+  );
+  padding: var(--space-3xl) 0 var(--space-2xl);
+  text-align: center;
+}
+
+.hero--releases .hero__title {
+  font-size: var(--font-size-4xl);
+  color: var(--color-tarnished-brass);
+  margin-bottom: var(--space-sm);
+}
+
+.hero--releases .hero__subtitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-md);
+}
+
+.hero--releases .hero__description {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  max-width: 700px;
+  margin: 0 auto;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+@media (min-width: 768px) {
+  .hero--releases .hero__title {
+    font-size: var(--font-size-5xl);
+  }
+
+  .hero--releases .hero__subtitle {
+    font-size: var(--font-size-2xl);
+  }
+
+  .hero--releases .hero__description {
+    font-size: var(--font-size-lg);
+  }
+}
+
+
+/*
+  RELEASES GRID
+  Responsive grid container for release cards
+
+  Layout Strategy:
+  - Mobile (default): 1 column (stacked)
+  - Tablet (768px+): 2 columns
+  - Desktop (1024px+): 3 columns
+
+  Why CSS Grid here?
+  - Auto-placement handles card positioning
+  - Equal-height cards without JavaScript
+  - gap property provides clean spacing
+  - More flexible than Flexbox for this use case
+*/
+.releases-section {
+  padding: var(--space-3xl) 0;
+  min-height: 60vh;
+}
+
+.releases-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+/* Tablet: 2 columns side by side */
+@media (min-width: 768px) {
+  .releases-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+}
+
+/* Desktop: 3 columns for full catalog view */
+@media (min-width: 1024px) {
+  .releases-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Extra wide screens: prevent cards from becoming too wide */
+@media (min-width: 1440px) {
+  .releases-grid {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+
+/*
+  RELEASE CARD
+  Individual album/release component
+
+  BEM Structure:
+  - Block: .release-card
+  - Elements: .release-card__cover, .release-card__title, etc.
+  - Modifiers: .release-card--featured
+*/
+.release-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/*
+  Hover State: Subtle lift effect
+  Why: Provides visual feedback that cards are interactive
+  transform: translateY creates smooth vertical movement
+*/
+.release-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-primary);
+}
+
+/*
+  Featured Release Modifier
+  Applied to the newest/primary release for emphasis
+  Uses thicker border and more prominent shadow
+*/
+.release-card--featured {
+  border-width: var(--border-width-thick);
+  border-color: var(--color-dried-blood);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Featured cards get even more dramatic hover effect */
+.release-card--featured:hover {
+  box-shadow: 0 25px 50px rgba(91, 26, 26, 0.5);
+  border-color: var(--color-aged-whiskey);
+}
+
+/* Optional: Badge indicating featured status */
+.release-card--featured::before {
+  content: 'NEW';
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background-color: var(--color-dried-blood);
+  color: var(--color-text-primary);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px var(--space-xs);
+  border-radius: var(--border-radius-sm);
+  z-index: 10;
+}
+
+
+/*
+  ALBUM COVER SECTION
+  Wrapper ensures consistent aspect ratio
+*/
+.release-card__cover-wrapper {
+  position: relative;
+  width: 100%;
+  /*
+    aspect-ratio: Modern CSS property for maintaining proportions
+    1 / 1 = square (perfect for album covers)
+    Why? Ensures all covers are same size regardless of source image
+    Fallback: If browser doesn't support aspect-ratio, padding-top hack applies
+  */
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(
+    135deg,
+    var(--color-aged-whiskey) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  overflow: hidden;
+}
+
+/* Fallback for browsers without aspect-ratio support */
+@supports not (aspect-ratio: 1 / 1) {
+  .release-card__cover-wrapper {
+    padding-top: 100%; /* Creates 1:1 ratio using padding trick */
+  }
+
+  .release-card__cover-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.release-card__cover {
+  width: 100%;
+  height: 100%;
+  /*
+    object-fit: cover ensures image fills space without distortion
+    Similar to background-size: cover but for <img> elements
+    Crops image if necessary to maintain aspect ratio
+  */
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-slow);
+}
+
+/* Subtle zoom on card hover (enhances interactivity) */
+.release-card:hover .release-card__cover {
+  transform: scale(1.05);
+}
+
+
+/*
+  CARD CONTENT SECTION
+  Contains all text and interactive elements
+*/
+.release-card__content {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  flex-grow: 1; /* Allows content to fill available space */
+}
+
+
+/*
+  CARD HEADER
+  Contains title and type badge in flexbox layout
+*/
+.release-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+
+/*
+  RELEASE TITLE
+  Album/EP name - most prominent text element
+*/
+.release-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: var(--line-height-tight);
+  margin: 0;
+  /* Allows title to take up remaining space next to badge */
+  flex-grow: 1;
+}
+
+
+/*
+  TYPE BADGE
+  Small label indicating release type (album, EP, single, etc.)
+*/
+.release-card__type-badge {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-dark);
+  background-color: var(--color-tarnished-brass);
+  padding: 2px var(--space-xs);
+  border-radius: var(--border-radius-sm);
+  white-space: nowrap;
+  align-self: flex-start;
+}
+
+/* Different badge colors per release type (via data attribute) */
+.release-card[data-type="album"] .release-card__type-badge {
+  background-color: var(--color-aged-whiskey);
+}
+
+.release-card[data-type="ep"] .release-card__type-badge {
+  background-color: var(--color-tarnished-brass);
+}
+
+.release-card[data-type="single"] .release-card__type-badge {
+  background-color: var(--color-iron-gray);
+}
+
+.release-card[data-type="live"] .release-card__type-badge {
+  background-color: var(--color-dried-blood);
+  color: var(--color-text-primary);
+}
+
+.release-card[data-type="compilation"] .release-card__type-badge {
+  background-color: var(--color-burnt-umber);
+  color: var(--color-text-primary);
+}
+
+
+/*
+  ARTIST NAME
+  Band name (typically same for all releases)
+*/
+.release-card__artist {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: none;
+  margin: 0;
+}
+
+
+/*
+  RELEASE DATE
+  Semantic <time> element with datetime attribute
+  Styled as small, uppercase text
+*/
+.release-card__date {
+  display: block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-tarnished-brass);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+}
+
+
+/*
+  DESCRIPTION
+  Brief album description/tagline
+*/
+.release-card__description {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin: 0;
+  flex-grow: 1; /* Pushes subsequent elements to bottom */
+}
+
+
+/*
+  TRACKLIST (Collapsible)
+  Uses <details>/<summary> for native accordion behavior
+  No JavaScript required - browser handles open/close
+
+  Why <details>?
+  - Native HTML element (no JS needed)
+  - Accessible by default
+  - Keyboard navigable
+  - Screen reader friendly
+*/
+.release-card__tracklist {
+  margin-top: var(--space-sm);
+  border-top: 1px solid var(--color-iron-gray);
+  padding-top: var(--space-sm);
+}
+
+.release-card__tracklist-toggle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: color var(--transition-base);
+  /*
+    Hide default triangle marker
+    We'll add custom indicator via ::marker or ::before
+  */
+  list-style: none;
+}
+
+/* Remove default marker in Safari/Chrome */
+.release-card__tracklist-toggle::-webkit-details-marker {
+  display: none;
+}
+
+/* Add custom expand/collapse indicator */
+.release-card__tracklist-toggle::before {
+  content: '▶';
+  display: inline-block;
+  margin-right: var(--space-xs);
+  font-size: 0.7em;
+  transition: transform var(--transition-base);
+}
+
+/* Rotate indicator when details is open */
+.release-card__tracklist[open] .release-card__tracklist-toggle::before {
+  transform: rotate(90deg);
+}
+
+.release-card__tracklist-toggle:hover,
+.release-card__tracklist-toggle:focus {
+  color: var(--color-primary);
+}
+
+/*
+  Track List: Ordered list of song titles
+*/
+.release-card__tracks {
+  margin-top: var(--space-sm);
+  padding-left: var(--space-lg);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+.release-card__tracks li {
+  margin-bottom: 4px;
+}
+
+.release-card__tracks li:last-child {
+  margin-bottom: 0;
+}
+
+
+/*
+  STREAMING LINKS
+  Container for platform links (Spotify, Apple Music, etc.)
+*/
+.release-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-iron-gray);
+}
+
+
+/*
+  INDIVIDUAL STREAMING LINK
+  Button-like appearance for platform links
+*/
+.release-card__link {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-primary);
+  background-color: transparent;
+  border: 1px solid var(--color-iron-gray);
+  border-radius: var(--border-radius-sm);
+  padding: 4px var(--space-sm);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.release-card__link:hover,
+.release-card__link:focus {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.release-card__link:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   Fine-tune card layout at different breakpoints
+   ============================================ */
+
+/*
+  Tablet: Slightly larger card padding and text
+*/
+@media (min-width: 768px) {
+  .release-card__content {
+    padding: var(--space-xl);
+  }
+
+  .release-card__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .release-card__description {
+    font-size: var(--font-size-base);
+  }
+}
+
+/*
+  Desktop: Featured cards span 2 columns for prominence
+  Only on 3-column layout (1024px+)
+*/
+@media (min-width: 1024px) {
+  .release-card--featured {
+    /*
+      Span across 2 columns in 3-column grid
+      Makes featured release twice as wide
+      Falls back gracefully if not in grid
+    */
+    grid-column: span 2;
+  }
+
+  /*
+    Horizontal layout for featured cards
+    Image on left, content on right
+  */
+  .release-card--featured {
+    flex-direction: row;
+  }
+
+  .release-card--featured .release-card__cover-wrapper {
+    width: 50%;
+    flex-shrink: 0;
+  }
+
+  .release-card--featured .release-card__content {
+    width: 50%;
+  }
+}
