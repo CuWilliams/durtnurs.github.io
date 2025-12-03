@@ -2837,3 +2837,562 @@ figcaption {
     font-size: var(--font-size-lg);
   }
 }
+
+
+/* ============================================
+   FAN CLUB COMPONENTS (Phase 6)
+   Protected area with access code authentication
+   ============================================ */
+
+/*
+  ACCESS CODE OVERLAY
+  Full-screen overlay that appears before authentication
+  Prevents access to content until user enters correct code
+*/
+
+/**
+ * Main overlay container
+ * Covers entire viewport with dark background
+ * Uses position: fixed to stay in place even on scroll
+ *
+ * Z-index strategy:
+ * - Uses var(--z-modal) to ensure overlay is above all content
+ * - Higher than navigation, gallery, and footer
+ */
+.fanclub-auth {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(11, 11, 12, 0.97); /* Coal Black with high opacity */
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  /* Optional: backdrop-filter for modern browsers (progressive enhancement) */
+  backdrop-filter: blur(8px);
+}
+
+/* Hidden state for overlay (after successful authentication) */
+.fanclub-auth.hidden {
+  display: none;
+}
+
+/**
+ * Prompt Card
+ * Centered card containing form and messaging
+ * Uses max-width to prevent excessive width on large screens
+ */
+.fanclub-auth__prompt {
+  max-width: 500px;
+  width: 100%;
+  background: linear-gradient(
+    135deg,
+    var(--color-iron-gray) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width-thick) solid var(--color-aged-whiskey);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-2xl) var(--space-xl);
+  box-shadow: var(--shadow-xl);
+  text-align: center;
+  /* Subtle animation on page load */
+  animation: promptFadeIn 0.5s ease-out;
+}
+
+/* Fade-in animation for prompt card */
+@keyframes promptFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fanclub-auth__heading {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  color: var(--color-aged-whiskey);
+  margin-bottom: var(--space-md);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fanclub-auth__message {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.fanclub-auth__note {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin-bottom: var(--space-xl);
+}
+
+/**
+ * Authentication Form
+ * Contains input field and submit button
+ * Uses flexbox for vertical stacking
+ */
+.fanclub-auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: stretch;
+}
+
+/**
+ * Password Input
+ * Large, centered input with uppercase styling
+ * Letter-spacing creates visual separation between characters
+ *
+ * Why type="password"?
+ * - Hides characters as user types
+ * - Visual feedback that this is secure input
+ * - Still visible in page source (intentional for this use case)
+ */
+.fanclub-auth__input {
+  padding: var(--space-md);
+  font-size: var(--font-size-lg);
+  font-family: var(--font-heading);
+  text-align: center;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  border: var(--border-width) solid var(--color-burnt-umber);
+  border-radius: var(--border-radius);
+  background: var(--color-coal-black);
+  color: var(--color-aged-whiskey);
+  width: 100%;
+  box-sizing: border-box;
+  transition: all var(--transition-base);
+}
+
+/* Placeholder styling */
+.fanclub-auth__input::placeholder {
+  color: var(--color-iron-gray);
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+
+/* Focus state for input */
+.fanclub-auth__input:focus {
+  outline: none;
+  border-color: var(--color-aged-whiskey);
+  box-shadow: 0 0 0 3px rgba(160, 90, 36, 0.3);
+  background: rgba(11, 11, 12, 0.8);
+}
+
+/**
+ * Submit Button
+ * Large, prominent button with hover effects
+ */
+.fanclub-auth__submit {
+  padding: var(--space-md) var(--space-xl);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--color-aged-whiskey);
+  color: var(--color-coal-black);
+  border: var(--border-width-thick) solid var(--color-aged-whiskey);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  width: 100%;
+  box-shadow: var(--shadow-md);
+}
+
+.fanclub-auth__submit:hover,
+.fanclub-auth__submit:focus {
+  background: var(--color-dried-blood);
+  border-color: var(--color-dried-blood);
+  color: var(--color-text-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.fanclub-auth__submit:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/**
+ * Error Message
+ * Displayed when user enters incorrect code
+ * Starts invisible, becomes visible when error occurs
+ *
+ * Using visibility instead of display:
+ * - Maintains layout space (prevents content shift)
+ * - Can be animated smoothly
+ * - Still accessible to screen readers when visible
+ */
+.fanclub-auth__error {
+  color: var(--color-dried-blood);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  min-height: 1.5rem;
+  margin-top: var(--space-xs);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+/* Visible error state */
+.fanclub-auth__error.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Tablet and up: Larger prompt card */
+@media (min-width: 768px) {
+  .fanclub-auth__prompt {
+    padding: var(--space-3xl) var(--space-2xl);
+  }
+
+  .fanclub-auth__heading {
+    font-size: var(--font-size-4xl);
+  }
+
+  .fanclub-auth__message {
+    font-size: var(--font-size-lg);
+  }
+
+  .fanclub-auth__input {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/* ============================================
+   FAN CLUB CONTENT SECTIONS
+   ============================================ */
+
+/**
+ * Main Content Container
+ * Hidden by default (until authentication succeeds)
+ */
+.fanclub-content {
+  display: block;
+}
+
+.fanclub-content.hidden {
+  display: none;
+}
+
+/**
+ * Welcome Section
+ * Greeting for authenticated members
+ */
+.fanclub-welcome {
+  text-align: center;
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-coal-black) 0%,
+    var(--color-iron-gray) 50%,
+    var(--color-burnt-umber) 100%
+  );
+  border-bottom: var(--border-width-thick) solid var(--color-aged-whiskey);
+}
+
+.fanclub-welcome__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-4xl);
+  color: var(--color-aged-whiskey);
+  margin-bottom: var(--space-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fanclub-welcome__text {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-loose);
+  color: var(--color-text-primary);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .fanclub-welcome__title {
+    font-size: var(--font-size-5xl);
+  }
+
+  .fanclub-welcome__text {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/**
+ * Gallery Section
+ * Full gallery display (no public flag filtering)
+ */
+.fanclub-gallery-section {
+  padding: var(--space-3xl) 0;
+  background-color: var(--color-coal-black);
+}
+
+.fanclub-gallery-section__intro {
+  text-align: center;
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  max-width: 700px;
+  margin: 0 auto var(--space-xl);
+}
+
+/**
+ * Exclusive Badge
+ * Indicates content not available in public gallery
+ * Appears on gallery cards and in lightbox
+ */
+.fanclub-exclusive-badge {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background: var(--color-dried-blood);
+  color: var(--color-text-primary);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px var(--space-xs);
+  border-radius: var(--border-radius-sm);
+  z-index: 10;
+  box-shadow: var(--shadow-sm);
+}
+
+.lightbox-exclusive-badge {
+  display: inline-block;
+  background: var(--color-dried-blood);
+  color: var(--color-text-primary);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px var(--space-sm);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: var(--space-sm);
+}
+
+/**
+ * Direct Contact Section
+ * Band member contact cards
+ */
+.fanclub-contact-section {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(
+    180deg,
+    var(--color-coal-black) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border-top: var(--border-width) solid var(--color-iron-gray);
+}
+
+.fanclub-contact-section__intro {
+  text-align: center;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  max-width: 700px;
+  margin: 0 auto var(--space-2xl);
+  line-height: var(--line-height-relaxed);
+}
+
+/**
+ * Member Contact Grid
+ * Responsive grid for member contact cards
+ * Mobile: 1 column (stacked)
+ * Tablet+: 2 columns (side by side)
+ */
+.member-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .member-contact-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2xl);
+  }
+}
+
+/**
+ * Member Contact Card
+ * Individual band member card with direct email link
+ */
+.member-contact-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-xl);
+  text-align: center;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-md);
+}
+
+.member-contact-card:hover {
+  border-color: var(--color-aged-whiskey);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.member-contact-card__name {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-aged-whiskey);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+}
+
+.member-contact-card__role {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-tarnished-brass);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-lg);
+}
+
+.member-contact-card__email {
+  display: inline-block;
+  padding: var(--space-md) var(--space-xl);
+  background: var(--color-aged-whiskey);
+  color: var(--color-coal-black);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  transition: all var(--transition-base);
+  margin-bottom: var(--space-md);
+  border: var(--border-width) solid var(--color-aged-whiskey);
+  box-shadow: var(--shadow-sm);
+}
+
+.member-contact-card__email:hover,
+.member-contact-card__email:focus {
+  background: var(--color-dried-blood);
+  border-color: var(--color-dried-blood);
+  color: var(--color-text-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.member-contact-card__note {
+  font-size: var(--font-size-sm);
+  color: var(--color-iron-gray);
+  font-style: italic;
+  margin-top: var(--space-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+@media (min-width: 768px) {
+  .member-contact-card__name {
+    font-size: var(--font-size-3xl);
+  }
+
+  .member-contact-card__email {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/**
+ * Fan Club Notice Section
+ * Final message about exclusive content responsibility
+ */
+.fanclub-notice-section {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-dried-blood) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border-top: var(--border-width-thick) solid var(--color-aged-whiskey);
+  border-bottom: var(--border-width-thick) solid var(--color-aged-whiskey);
+}
+
+.fanclub-notice {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.fanclub-notice__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  color: var(--color-aged-whiskey);
+  margin-bottom: var(--space-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fanclub-notice__text {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-loose);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.fanclub-notice__text:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .fanclub-notice__title {
+    font-size: var(--font-size-4xl);
+  }
+
+  .fanclub-notice__text {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/**
+ * Protected Navigation Link
+ * Special styling for Fan Club link in navigation
+ * Indicates this is a protected page
+ */
+.main-nav__link--protected {
+  position: relative;
+  color: var(--color-dried-blood);
+}
+
+.main-nav__link--protected:hover,
+.main-nav__link--protected:focus {
+  color: var(--color-aged-whiskey);
+}
+
+.main-nav__link--protected.main-nav__link--active {
+  color: var(--color-aged-whiskey);
+  border-bottom-color: var(--color-aged-whiskey);
+}
+
+/* Lock icon styling */
+.nav-lock-icon {
+  display: inline-block;
+  font-size: 0.85em;
+  margin-right: 4px;
+  opacity: 0.8;
+}
