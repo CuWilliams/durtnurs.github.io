@@ -766,7 +766,7 @@ figcaption {
 .member-image {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 2 / 3;
   overflow: hidden;
   background: linear-gradient(
     135deg,
