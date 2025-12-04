@@ -306,6 +306,7 @@ section {
   width: 100%;
   aspect-ratio: 1 / 1;
   background-color: var(--color-iron-gray);
+  padding: var(--space-lg);
 }
 
 .album-card__image {

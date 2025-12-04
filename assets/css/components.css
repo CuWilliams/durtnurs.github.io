@@ -505,7 +505,7 @@
 
 .site-footer__tagline {
   font-style: italic;
-  color: var(--color-iron-gray);
+  color: var(--color-primary);
   font-size: var(--font-size-xs);
 }
 
