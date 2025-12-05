@@ -102,10 +102,22 @@
           aria-describedby="fanclub-auth-error"
           required>
 
-        <button type="submit" class="fanclub-auth__submit">Enter</button>
+        <!--
+          PHASE 8: Error/message display area
+          Shows error messages, drunk redirect message, and countdown
+          Updated to handle multiple message types with different styling
+        -->
+        <p id="fanclub-auth-error" class="fanclub-auth__error" role="alert" aria-live="polite"></p>
 
-        <!-- Error message (hidden by default) -->
-        <p id="fanclub-auth-error" class="fanclub-auth__error"></p>
+        <!--
+          PHASE 8: Button actions container
+          Groups submit and exit buttons together
+          Responsive layout: stacked on mobile, horizontal on tablet+
+        -->
+        <div class="fanclub-auth__actions">
+          <button type="submit" class="fanclub-auth__submit">Enter</button>
+          <a href="index.html" class="button button--secondary fanclub-auth__exit">Get Me Out of Here</a>
+        </div>
       </form>
     </div>
   </div>
