@@ -46,64 +46,118 @@
 // =============================================================================
 
 /**
- * The access code required to view Fan Club content
+ * Configuration object for authentication system
+ * Centralized settings for easy modification
  *
- * SECURITY NOTE: This is visible in the source code!
- * Anyone who views this file can see the code.
- * This is intentional - we're not trying to hide it from determined users.
- * We're just creating a "members only" feeling.
- *
- * The code "KRAKEN" references the band's album "Release the Kraken!"
- * It's memorable for approved fans and fits the band's aesthetic.
- *
- * To change the code:
- * 1. Update this value
- * 2. Commit and push changes
- * 3. Notify approved fans of the new code
+ * PHASE 8 UPDATE: Added attempt limits and redirect timing
  */
-const FANCLUB_CODE = 'KRAKEN';
+const CONFIG = {
+  /**
+   * The access code required to view Fan Club content
+   *
+   * SECURITY NOTE: This is visible in the source code!
+   * Anyone who views this file can see the code.
+   * This is intentional - we're not trying to hide it from determined users.
+   * We're just creating a "members only" feeling.
+   *
+   * The code "KRAKEN" references the band's album "Release the Kraken!"
+   * It's memorable for approved fans and fits the band's aesthetic.
+   */
+  accessCode: 'KRAKEN',
 
-/**
- * Storage key for authentication status
- *
- * We use sessionStorage (not localStorage) because:
- * - sessionStorage clears when browser closes
- * - localStorage persists until manually cleared
- * - For casual gatekeeping, session-based is appropriate
- * - Users will need to re-enter code each browser session
- *
- * Why this is good:
- * - Balances convenience with access control
- * - If someone leaves their computer unlocked, closing browser ends access
- * - Still convenient for users during their session
- *
- * sessionStorage API:
- * - setItem(key, value): Store value
- * - getItem(key): Retrieve value
- * - removeItem(key): Delete value
- * - clear(): Delete all stored data
- * - Only accessible from same origin (domain)
- * - Only accessible via JavaScript (not HTTP headers)
- */
-const AUTH_KEY = 'durtnurs_fanclub_auth';
+  /**
+   * Maximum failed attempts before "drunk redirect"
+   * After this many failures, user gets kicked back to homepage
+   *
+   * Why 3?
+   * - Gives users reasonable chance to get it right
+   * - Adds humor through the "you're drunk" joke
+   * - They can return and try again (not a permanent ban)
+   */
+  maxAttempts: 3,
+
+  /**
+   * Milliseconds before redirect happens
+   * 5000ms = 5 seconds gives user time to read message
+   */
+  redirectDelay: 5000,
+
+  /**
+   * Storage key for authentication status
+   *
+   * We use sessionStorage (not localStorage) because:
+   * - sessionStorage clears when browser closes
+   * - localStorage persists until manually cleared
+   * - For casual gatekeeping, session-based is appropriate
+   * - Users will need to re-enter code each browser session
+   */
+  storageKey: 'durtnurs_fanclub_auth'
+};
 
 /**
  * Array of humorous error messages
- * Randomly selected when user enters wrong code
- * Maintains band's personality even in error states
+ *
+ * PHASE 8 UPDATE: Messages now escalate in absurdity!
+ * - Attempt 1: Gentle ribbing
+ * - Attempt 2: More pointed reference to album
+ * - Attempt 3+: Peak absurdity
+ *
+ * Messages are selected based on attempt number (not random)
+ * This creates escalating humor that builds anticipation
+ * for the "drunk redirect" punchline
  */
 const ERROR_MESSAGES = [
-  "Nope. Try again or forever be shunned.",
-  "That's not it. Did you even talk to us?",
-  "Wrong. We question your dedication.",
-  "Not even close. Are you even a real fan?",
-  "Nice try, poser.",
-  "Swing and a miss. Strike one.",
-  "The Kraken remains unleashed... by you, apparently not.",
-  "Access denied. Go listen to the album again.",
-  "If you can't remember the code, you don't deserve what's behind it.",
-  "Wrong answer. This is why we can't have nice things."
+  "Nope. That ain't it. Try again, genius.",
+  "Still wrong. Did you even listen to 'Release the Kraken'?",
+  "Strike three coming up. Last chance before we assume you're hammered...",
+  "Wrong again. You sure you're not already drunk?",
+  "Seriously? The code is literally in the album title.",
+  "Nice try. Go sober up and come back later."
 ];
+
+/**
+ * "Drunk redirect" message
+ * Shown after max attempts before redirecting to homepage
+ *
+ * This is the punchline to the escalating error messages
+ * Maintains band's humor while enforcing attempt limit
+ */
+const DRUNK_MESSAGE = "Alright, you're obviously drunk. Go sober up and come back later.";
+
+// =============================================================================
+// STATE MANAGEMENT
+// =============================================================================
+
+/**
+ * Attempt counter
+ *
+ * PHASE 8 UPDATE: Track failed login attempts
+ *
+ * Why in-memory variable instead of sessionStorage?
+ * - We WANT it to reset on page refresh (fresh start)
+ * - We DON'T want to persist across sessions
+ * - Simpler and appropriate for this use case
+ *
+ * Counter increments on each failed attempt
+ * Resets to 0 on successful login
+ * After reaching maxAttempts, triggers drunk redirect
+ */
+let attemptCount = 0;
+
+/**
+ * Redirect timer ID
+ *
+ * PHASE 8 UPDATE: Store setTimeout ID for cleanup
+ *
+ * Why store this?
+ * - Allows us to clear timer if user submits again during countdown
+ * - Prevents multiple timers running simultaneously
+ * - Good defensive programming (prevent memory leaks)
+ *
+ * Set when drunk redirect starts
+ * Cleared if user triggers new action before redirect completes
+ */
+let redirectTimer = null;
 
 // =============================================================================
 // AUTHENTICATION CHECK FUNCTIONS
@@ -131,7 +185,7 @@ function isAuthenticated() {
   // sessionStorage.getItem() returns:
   // - The stored value if key exists
   // - null if key doesn't exist
-  const authStatus = sessionStorage.getItem(AUTH_KEY);
+  const authStatus = sessionStorage.getItem(CONFIG.storageKey);
 
   // Check if auth status matches our authenticated flag
   const authenticated = authStatus === 'authenticated';
@@ -148,8 +202,12 @@ function isAuthenticated() {
  * Called when user enters correct access code.
  * Sets a flag in sessionStorage that persists until browser closes.
  *
+ * PHASE 8 UPDATE: Resets attempt counter on success
+ *
  * Side effects:
  * - Writes to sessionStorage
+ * - Resets attempt counter
+ * - Shows content and hides prompt
  * - Logs to console
  *
  * Why a simple flag?
@@ -160,7 +218,10 @@ function isAuthenticated() {
 function grantAccess() {
   // Store authentication flag
   // Value doesn't matter much - we just check if it exists and equals this string
-  sessionStorage.setItem(AUTH_KEY, 'authenticated');
+  sessionStorage.setItem(CONFIG.storageKey, 'authenticated');
+
+  // Reset attempt counter (fresh start for next session)
+  attemptCount = 0;
 
   console.log('✅ Access granted - authentication stored in sessionStorage');
 
@@ -174,16 +235,17 @@ function grantAccess() {
 /**
  * Handles incorrect access code attempts
  *
- * Called when user enters wrong code.
- * Displays a random humorous error message.
- * Keeps prompt visible so user can try again.
+ * PHASE 8 UPDATE: Complete rewrite with attempt limiting!
  *
- * No attempt limiting:
- * - User can try unlimited times
- * - No lockout mechanism
- * - No rate limiting
- * - This is fine for casual gatekeeping
- * - If this were protecting sensitive data, we'd add attempt limits
+ * Called when user enters wrong code.
+ * Tracks attempt count and displays escalating error messages.
+ * After maxAttempts, triggers "drunk redirect" to homepage.
+ *
+ * Key changes from Phase 6:
+ * - Increments attempt counter (was: no tracking)
+ * - Escalating messages (was: random selection)
+ * - Attempt limit with redirect (was: unlimited tries)
+ * - Drunk redirect after 3 failures (was: no consequence)
  *
  * @param {string} attemptedCode - The code the user entered (for logging)
  */
@@ -192,20 +254,130 @@ function denyAccess(attemptedCode) {
   // In production security system, you'd log to server
   console.warn(`❌ Access denied - incorrect code: "${attemptedCode}"`);
 
-  // Select a random error message
-  // Math.random() returns number between 0 and 1
-  // Multiply by array length and floor to get random index
-  const randomIndex = Math.floor(Math.random() * ERROR_MESSAGES.length);
-  const errorMessage = ERROR_MESSAGES[randomIndex];
+  // Increment attempt counter
+  attemptCount++;
 
-  // Display the error message
-  displayError(errorMessage);
+  console.log(`📊 Failed attempts: ${attemptCount} / ${CONFIG.maxAttempts}`);
 
-  // Keep focus on input so user can try again
-  const input = document.getElementById('fanclub-code-input');
-  if (input) {
-    input.select(); // Selects all text in input for easy replacement
+  // Check if user has reached max attempts
+  if (attemptCount >= CONFIG.maxAttempts) {
+    // User has failed too many times - trigger drunk redirect
+    handleDrunkRedirect();
+  } else {
+    // User still has attempts left - show escalating error message
+    showErrorMessage(attemptCount);
+    clearInput();
   }
+}
+
+/**
+ * Displays escalating error message based on attempt number
+ *
+ * PHASE 8 UPDATE: New function for escalating messages
+ *
+ * Instead of random selection (Phase 6), we now pick messages
+ * based on attempt number to create escalating absurdity.
+ *
+ * Message selection:
+ * - Attempt 1 gets ERROR_MESSAGES[0] (gentle)
+ * - Attempt 2 gets ERROR_MESSAGES[1] (pointed)
+ * - Attempt 3+ wraps around if more messages exist
+ *
+ * Escalation pattern creates narrative tension:
+ * "You got it wrong" → "Did you listen to the album?" → "Last chance!"
+ *
+ * @param {number} attempt - Current attempt number (1-indexed)
+ */
+function showErrorMessage(attempt) {
+  const messageEl = document.getElementById('fanclub-auth-error');
+
+  if (!messageEl) {
+    console.warn('⚠️ Error message element not found');
+    return;
+  }
+
+  // Get appropriate error message based on attempt number
+  // Subtract 1 because array is 0-indexed but attempts are 1-indexed
+  // Use modulo to wrap around if more attempts than messages
+  const messageIndex = (attempt - 1) % ERROR_MESSAGES.length;
+  const message = ERROR_MESSAGES[messageIndex];
+
+  // Update element with error message
+  messageEl.textContent = message;
+  messageEl.className = 'fanclub-auth__error visible';
+
+  // Set ARIA attribute for accessibility
+  // role="alert" causes screen readers to announce immediately
+  messageEl.setAttribute('role', 'alert');
+
+  console.log(`💬 Displaying error message #${attempt}: "${message}"`);
+}
+
+/**
+ * Handles "drunk redirect" after max attempts
+ *
+ * PHASE 8 UPDATE: New function for drunk redirect feature
+ *
+ * After maxAttempts failures, we assume user is drunk and redirect
+ * them back to homepage with humorous message and countdown.
+ *
+ * Process:
+ * 1. Display drunk message with countdown
+ * 2. Disable form submission (can't submit during countdown)
+ * 3. Update countdown every second
+ * 4. Redirect to homepage after delay
+ * 5. User can return and try again (counter resets)
+ *
+ * Why this works:
+ * - Adds humor to error handling
+ * - Prevents infinite retry loops
+ * - Gives user clear feedback about what's happening
+ * - Countdown shows exactly when redirect will happen
+ * - Not permanent (user can return immediately)
+ */
+function handleDrunkRedirect() {
+  const messageEl = document.getElementById('fanclub-auth-error');
+
+  if (!messageEl) {
+    console.warn('⚠️ Error message element not found');
+    return;
+  }
+
+  // Calculate countdown in seconds
+  let countdown = Math.floor(CONFIG.redirectDelay / 1000);
+
+  // Display drunk message with initial countdown
+  messageEl.className = 'fanclub-auth__error fanclub-auth__error--drunk visible';
+  messageEl.innerHTML = `
+    ${DRUNK_MESSAGE}
+    <span class="fanclub-auth__countdown">Redirecting in ${countdown}...</span>
+  `;
+
+  // Disable form submission during redirect countdown
+  const submitBtn = document.querySelector('.fanclub-auth__submit');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '0.5';
+    submitBtn.style.cursor = 'not-allowed';
+  }
+
+  console.log('🍺 Drunk redirect initiated - user will be redirected in 5 seconds');
+
+  // Update countdown every second
+  const countdownInterval = setInterval(() => {
+    countdown--;
+    const countdownEl = messageEl.querySelector('.fanclub-auth__countdown');
+    if (countdownEl && countdown > 0) {
+      countdownEl.textContent = `Redirecting in ${countdown}...`;
+    }
+  }, 1000);
+
+  // Redirect after delay
+  redirectTimer = setTimeout(() => {
+    clearInterval(countdownInterval);
+    console.log('🏠 Redirecting to homepage...');
+    window.location.href = 'index.html';
+  }, CONFIG.redirectDelay);
 }
 
 // =============================================================================
@@ -213,49 +385,54 @@ function denyAccess(attemptedCode) {
 // =============================================================================
 
 /**
- * Displays error message to user
+ * Clears any displayed error or message
  *
- * Updates the error message element with text and makes it visible.
- * Uses visibility instead of display for accessibility:
- * - Screen readers will announce visible errors
- * - Maintains layout space (prevents content shift)
+ * PHASE 8 UPDATE: Enhanced to handle all message states
  *
- * @param {string} message - Error message to display
- */
-function displayError(message) {
-  const errorElement = document.getElementById('fanclub-auth-error');
-
-  // Defensive check: Ensure element exists before manipulating
-  if (!errorElement) {
-    console.warn('⚠️ Error element not found');
-    return;
-  }
-
-  // Set the error message text
-  errorElement.textContent = message;
-
-  // Make error visible
-  // Using .visible class instead of inline styles keeps styling in CSS
-  errorElement.classList.add('visible');
-
-  // Set ARIA attribute for accessibility
-  // role="alert" causes screen readers to announce the error immediately
-  errorElement.setAttribute('role', 'alert');
-}
-
-/**
- * Clears any displayed error message
- *
- * Hides error element and clears its text.
+ * Hides message element and clears its content.
  * Called when user submits a new attempt.
+ *
+ * Now clears:
+ * - Regular error messages
+ * - Drunk redirect messages
+ * - Countdown timers (innerHTML)
+ * - ARIA attributes
  */
 function clearError() {
   const errorElement = document.getElementById('fanclub-auth-error');
 
   if (errorElement) {
-    errorElement.classList.remove('visible');
+    // Remove all possible classes
+    errorElement.className = 'fanclub-auth__error';
+
+    // Clear content (handles both textContent and innerHTML)
     errorElement.textContent = '';
+    errorElement.innerHTML = '';
+
+    // Remove ARIA attribute
     errorElement.removeAttribute('role');
+  }
+}
+
+/**
+ * Clears and refocuses the input field
+ *
+ * PHASE 8 UPDATE: New helper function
+ *
+ * Clears the input field after failed attempt and keeps focus
+ * for immediate retry. Improves UX by:
+ * - Removing incorrect input
+ * - Keeping focus in field (no need to click back)
+ * - Allowing immediate new attempt
+ */
+function clearInput() {
+  const input = document.getElementById('fanclub-code-input');
+
+  if (input) {
+    input.value = '';
+    input.focus();
+    // select() would select all text, but field is empty now
+    // focus() just moves cursor to the field
   }
 }
 
@@ -332,6 +509,8 @@ function showPrompt() {
 /**
  * Handles form submission
  *
+ * PHASE 8 UPDATE: Added redirect timer cleanup
+ *
  * Called when user submits the access code form.
  * Prevents default form behavior, validates input, and checks code.
  *
@@ -340,6 +519,7 @@ function showPrompt() {
  * - Validate and sanitize input
  * - Provide clear feedback (success or error)
  * - Keep focus management accessible
+ * - Clean up timers before starting new operations
  *
  * @param {Event} event - Form submit event object
  */
@@ -350,6 +530,14 @@ function handleFormSubmit(event) {
   event.preventDefault();
 
   console.log('📝 Form submitted');
+
+  // PHASE 8: Clear any existing redirect timer
+  // If user submits during countdown, cancel the redirect
+  if (redirectTimer) {
+    clearTimeout(redirectTimer);
+    redirectTimer = null;
+    console.log('⏹️ Redirect timer cleared');
+  }
 
   // Clear any existing error message
   clearError();
@@ -376,13 +564,19 @@ function handleFormSubmit(event) {
 
   // Check for empty input
   if (enteredCode === '') {
-    displayError('You need to actually enter something. Nice try.');
+    // Show error message for empty submission
+    const messageEl = document.getElementById('fanclub-auth-error');
+    if (messageEl) {
+      messageEl.textContent = 'You need to actually enter something. Nice try.';
+      messageEl.className = 'fanclub-auth__error visible';
+      messageEl.setAttribute('role', 'alert');
+    }
     return;
   }
 
   // Verify the code
   // Compare entered code with stored code (both uppercase)
-  if (enteredCode === FANCLUB_CODE.toUpperCase()) {
+  if (enteredCode === CONFIG.accessCode.toUpperCase()) {
     // Correct code!
     console.log('✅ Correct code entered');
     grantAccess();

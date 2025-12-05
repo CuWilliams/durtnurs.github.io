@@ -3056,6 +3056,72 @@ p.origin-placeholder {
   opacity: 1;
 }
 
+/* PHASE 8: Drunk redirect styling (escalated error state) */
+.fanclub-auth__error--drunk {
+  background-color: rgba(91, 26, 26, 0.3);
+  color: var(--color-text-primary);
+  border: 2px solid var(--color-dried-blood);
+  font-weight: var(--font-weight-bold);
+  padding: var(--space-md);
+  border-radius: var(--border-radius-sm);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+/* PHASE 8: Countdown text styling */
+.fanclub-auth__countdown {
+  display: block;
+  font-size: var(--font-size-lg);
+  margin-top: var(--space-sm);
+  color: var(--color-aged-whiskey);
+  font-family: var(--font-heading);
+  letter-spacing: 0.05em;
+}
+
+/* PHASE 8: Pulse animation for drunk redirect */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* PHASE 8: Button actions container (groups Enter and Exit buttons) */
+.fanclub-auth__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+/* PHASE 8: Horizontal layout on larger screens */
+@media (min-width: 480px) {
+  .fanclub-auth__actions {
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+}
+
+/* PHASE 8: Exit button specific styling */
+.fanclub-auth__exit {
+  /* Ensure text is centered in link-styled-as-button */
+  text-align: center;
+  text-decoration: none;
+
+  /* Slightly less prominent than submit button */
+  opacity: 0.9;
+
+  /* Match submit button sizing */
+  padding: var(--space-md) var(--space-lg);
+  font-size: var(--font-size-base);
+}
+
+.fanclub-auth__exit:hover {
+  opacity: 1;
+}
+
 /* Tablet and up: Larger prompt card */
 @media (min-width: 768px) {
   .fanclub-auth__prompt {
