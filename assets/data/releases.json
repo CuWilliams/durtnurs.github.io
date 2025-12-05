@@ -30,12 +30,12 @@
       "featured": true
     },
     {
-      "id": "release-basement-tapes-2010",
+      "id": "release-basement-tapes-1995",
       "title": "Basement Tapes Vol. 1: The Lost Sessions",
       "artist": "tHE dURT nURS'",
-      "releaseDate": "2010-06-15",
+      "releaseDate": "1995-06-15",
       "type": "compilation",
-      "coverArt": "assets/images/kraken-album.png",
+      "coverArt": "assets/images/basement-tapes-album.png",
       "coverArtAlt": "Basement Tapes album cover with vintage cassette tape aesthetic",
       "description": "Recorded on equipment we found in a dumpster. Seven tracks of raw, unpolished chaos from our humble beginnings. Lo-fi before it was cool.",
       "tracklist": [
