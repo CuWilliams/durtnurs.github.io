@@ -176,27 +176,43 @@
       FEATURED CONTENT SECTION
       Highlights latest album/release
       Grid area: "featured"
+
+      PROGRESSIVE ENHANCEMENT:
+      - Dynamic content loaded via JavaScript (see assets/js/featured-release.js)
+      - Fallback message for users without JavaScript (noscript)
+      - Loading and error states for better UX
     -->
     <section class="featured-section" id="latest-release" aria-labelledby="featured-heading">
       <div class="container">
         <h2 id="featured-heading" class="section-heading">Latest Release</h2>
 
-        <div class="album-card">
-          <div class="album-card__artwork">
-            <img src="assets/images/kraken-album.png" alt="Kraken Awakens album cover" class="album-card__image">
-          </div>
-          <div class="album-card__details">
-            <h3 class="album-card__title">Kraken Awakens</h3>
-            <p class="album-card__subtitle">Full-Length Album</p>
-            <time class="album-card__date" datetime="2024-12-01">Release Date: December 1, 2024</time>
-            <p class="album-card__description">
-              Ten tracks of maritime metaphors, whiskey-soaked wisdom, and guitar riffs
-              that sound like a sea monster having an existential crisis. Featuring the singles
-              "Brass Knuckles & Bad Decisions" and "Dive Bar Requiem."
-            </p>
-            <a href="#listen" class="button button--secondary">Listen Now</a>
-          </div>
+        <!-- Dynamic content container (populated by JavaScript) -->
+        <div id="featured-release-container">
+          <!-- JavaScript will populate this with featured release -->
         </div>
+
+        <!-- Loading state (shown while fetching data) -->
+        <div id="featured-release-loading" class="featured-release__loading" style="display: none;">
+          <p class="text-center">Loading latest release...</p>
+        </div>
+
+        <!-- Error state (shown if loading fails) -->
+        <div id="featured-release-error" class="featured-release__error" style="display: none;">
+          <p class="text-center">
+            Unable to load featured release. <a href="releases.html">View all releases</a>.
+          </p>
+        </div>
+
+        <!-- Fallback content for users without JavaScript -->
+        <noscript>
+          <div class="album-card">
+            <div class="album-card__details">
+              <p class="text-center">
+                View our latest releases on the <a href="releases.html">Releases page</a>.
+              </p>
+            </div>
+          </div>
+        </noscript>
 
       </div>
     </section>
@@ -254,6 +270,7 @@
     Site works perfectly without this (static fallback in <noscript> tags)
   -->
   <script src="assets/js/announcements.js"></script>
+  <script src="assets/js/featured-release.js"></script>
 
 </body>
 </html>

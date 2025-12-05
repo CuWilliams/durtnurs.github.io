@@ -3396,3 +3396,57 @@ p.origin-placeholder {
   margin-right: 4px;
   opacity: 0.8;
 }
+
+/* =============================================================================
+   LOADING AND ERROR STATES
+   Utility styles for dynamic content loading states
+   Used by featured-release.js and other dynamic modules
+   ============================================================================= */
+
+/**
+ * Loading State
+ * Shown while content is being fetched
+ * Centered with secondary text color
+ */
+.featured-release__loading {
+  padding: var(--space-lg);
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+/**
+ * Error State
+ * Shown when content fails to load
+ * Uses dried-blood color to indicate error
+ */
+.featured-release__error {
+  padding: var(--space-lg);
+  text-align: center;
+  color: var(--color-dried-blood);
+}
+
+/**
+ * Album Card Actions
+ * Container for buttons/links on album cards
+ * Provides spacing and layout for action buttons
+ */
+.album-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+/* =============================================================================
+   UTILITY CLASSES
+   Reusable utility classes for common styling patterns
+   ============================================================================= */
+
+/**
+ * Text Center
+ * Centers text horizontally
+ * Used across various components for centered content
+ */
+.text-center {
+  text-align: center;
+}
