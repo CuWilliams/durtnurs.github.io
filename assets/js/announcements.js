@@ -117,6 +117,38 @@ function formatDate(isoDate) {
 // =============================================================================
 
 /**
+ * Maps link text to message type parameter
+ * Converts announcement link text to URL parameter for message.html
+ *
+ * This function creates the mapping between what the user sees
+ * (e.g., "Pre-order Album") and the URL parameter (e.g., "pre-order")
+ * used to select the appropriate humorous message.
+ *
+ * @param {string} linkText - The link text from the announcement
+ * @returns {string} The message type parameter for the URL
+ */
+function getLinkTypeFromText(linkText) {
+  // Convert to lowercase and remove special characters for matching
+  const normalized = linkText.toLowerCase().trim();
+
+  // Map known link text patterns to message types
+  // These correspond to the MESSAGE_CONFIG in message.js
+  if (normalized.includes('pre-order') || normalized.includes('preorder')) {
+    return 'pre-order';
+  }
+  if (normalized.includes('tour') || normalized.includes('dates')) {
+    return 'tour-dates';
+  }
+  if (normalized.includes('spotify') || normalized.includes('listen')) {
+    return 'spotify';
+  }
+
+  // Default to 'read-more' for any other text
+  // This includes "Read More →" and any future variations
+  return 'read-more';
+}
+
+/**
  * Generates HTML for a single announcement card
  * Uses BEM naming convention for CSS classes
  *
@@ -138,11 +170,23 @@ function renderAnnouncementCard(announcement, isHomepage = false) {
   // Format the date for display
   const formattedDate = formatDate(date);
 
-  // Determine the link URL and text
-  // For homepage, we link to the news archive with an anchor
-  // For archive page, we might link externally or use internal anchors
-  const linkUrl = isHomepage ? `news.html#${id}` : (link?.url || `#${id}`);
+  // Determine the link text
+  // For homepage, always show "Read More →"
+  // For archive page, use the link text from data or default to "Read More →"
   const linkText = isHomepage ? 'Read More →' : (link?.text || 'Read More →');
+
+  // Determine the link URL
+  // All announcement links now point to message.html with appropriate type parameter
+  // This creates the humorous dead-end experience described in Phase 10
+  let linkUrl;
+  if (isHomepage) {
+    // Homepage links always go to read-more message
+    linkUrl = 'message.html?type=read-more';
+  } else {
+    // Archive page links map to specific message types based on link text
+    const messageType = getLinkTypeFromText(linkText);
+    linkUrl = `message.html?type=${messageType}`;
+  }
 
   // Build category modifier class for styling
   // This allows different colors/styles per category
