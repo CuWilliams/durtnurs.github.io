@@ -28,16 +28,18 @@ This is a static website built with semantic HTML5, modern CSS (Grid & Flexbox),
 - **Tone:** Self-aware absurdism meets dive bar authenticity
 - **UX:** Fast, accessible, works without JavaScript
 
-### Current Status: Phase 6 Complete ✅
+### Current Status: Phase 7 Complete ✅
 - ✅ Foundation & homepage
 - ✅ About page with band bios
 - ✅ News/announcements system with JSON data
 - ✅ Releases/discography page with album grid
 - ✅ Gallery page with photo/video lightbox
 - ✅ Contact page with mailto integration
-- ✅ **Fan Club protected area with full gallery access** (NEW - Phase 6)
-- ✅ **Client-side access code authentication** (NEW - Phase 6)
-- ✅ **Member-exclusive content and direct contact** (NEW - Phase 6)
+- ✅ Fan Club protected area with full gallery access (Phase 6)
+- ✅ Client-side access code authentication (Phase 6)
+- ✅ Member-exclusive content and direct contact (Phase 6)
+- ✅ **Dynamic featured release on homepage** (NEW - Phase 7)
+- ✅ **Single source of truth for release data** (NEW - Phase 7)
 - ✅ Dynamic content loading with JavaScript
 - ✅ Custom lightbox implementation (no external libraries)
 - ✅ Progressive enhancement (works without JS)
@@ -87,8 +89,9 @@ durtnurs.github.io/
 │       ├── announcements.js   # Dynamic news loading (Phase 3)
 │       ├── releases.js        # Dynamic release loading (Phase 4)
 │       ├── gallery.js         # Public gallery & lightbox (Phase 5)
-│       ├── fanclub-auth.js    # Access code authentication (NEW - Phase 6)
-│       └── fanclub-gallery.js # Full gallery display (NEW - Phase 6)
+│       ├── fanclub-auth.js    # Access code authentication (Phase 6)
+│       ├── fanclub-gallery.js # Full gallery display (Phase 6)
+│       └── featured-release.js # Homepage featured release (NEW - Phase 7)
 ├── robots.txt                 # Search engine directives (NEW - Phase 6)
 ├── FANCLUB_ACCESS.md          # Fan Club documentation (NEW - Phase 6)
 ├── README.md                  # This file
@@ -262,17 +265,33 @@ Any static file server works since this is plain HTML/CSS:
 2. Edit the `:root` color variables (lines 13-26)
 3. Changes apply site-wide automatically
 
-### Update Album Info
+### Update Featured Release on Homepage (Phase 7)
 
-1. Open `index.html`
-2. Find `<section class="featured-section">`
-3. Edit the `.album-card` content:
-   - Album title
-   - Release date
-   - Description
-4. Replace album artwork:
-   - Add new image to `assets/images/`
-   - Update `<img src="assets/images/your-image.png">`
+**NEW:** The featured release on the homepage is now dynamically loaded from `releases.json`!
+
+**To change which release is featured:**
+
+1. Open `assets/data/releases.json`
+2. Find the current featured release (has `"featured": true`)
+3. Change it to `"featured": false`
+4. Find the new release you want to feature
+5. Change it to `"featured": true`
+6. Save and commit - the homepage updates automatically!
+
+**How it works:**
+- The homepage automatically displays the release marked with `"featured": true`
+- If no release has the featured flag, it displays the most recent release by date
+- This creates a single source of truth - update the JSON once, changes appear everywhere
+- No need to edit HTML manually anymore!
+
+**Example:**
+```json
+{
+  "id": "release-kraken-2024",
+  "title": "Release the Kraken!",
+  "featured": true  ← Set to true for homepage display
+}
+```
 
 ### Swap Placeholder Images
 
@@ -569,7 +588,58 @@ See **FANCLUB_ACCESS.md** for complete documentation on:
 - Adding Fan Club exclusive content
 - Troubleshooting common issues
 
-### Phase 7
+### Phase 7 Complete ✅
+**Completed:** December 5, 2024
+
+- [✅] Dynamic featured release integration on homepage
+- [✅] Single source of truth for release data
+- [✅] JavaScript module for featured release rendering (`featured-release.js`)
+- [✅] Progressive enhancement with noscript fallback
+- [✅] Loading and error state handling
+- [✅] Eliminated content duplication between homepage and releases page
+- [✅] Featured flag system in releases.json
+- [✅] Fallback to most recent release if no featured flag set
+- [✅] CSS utility classes for loading/error states
+- [✅] Educational inline comments throughout codebase
+
+**Features:**
+- **Dynamic Featured Release:**
+  - Automatically fetches and displays release marked `"featured": true` in releases.json
+  - Fallback to most recent release by date if no featured flag exists
+  - Progressive enhancement (works without JavaScript via noscript fallback)
+  - Loading state shown while fetching data
+  - Error state with user-friendly message if loading fails
+  - Same album card styling as static version
+  - Streaming links automatically generated from JSON data
+  - "View All Releases" button included in featured section
+
+- **Single Source of Truth:**
+  - Homepage featured section now pulls from releases.json
+  - No content duplication between index.html and releases.json
+  - Update JSON once, changes appear on both homepage and releases page
+  - Easy to change featured release (flip the JSON flag)
+  - Maintainable: No hunting through HTML to update release info
+
+- **Technical Implementation:**
+  - Comprehensive featured-release.js module with educational comments
+  - Async/await pattern for data fetching
+  - Error handling with try/catch blocks
+  - DOM manipulation for dynamic content insertion
+  - State management (loading, error, success)
+  - Date formatting with Intl.DateTimeFormat API
+  - Defensive programming with null checks and fallbacks
+  - BEM methodology for CSS classes
+  - Utility classes added to components.css
+
+**Benefits:**
+- Easy content management (one JSON file controls everything)
+- Scalable pattern applicable to other dynamic content
+- No HTML editing required to update featured release
+- Consistent with other dynamic modules (announcements, releases, gallery)
+- Progressive enhancement ensures site works for everyone
+- Educational code helps with learning modern JavaScript patterns
+
+### Phase 8 (Future)
 - [ ] Mailing list integration
 - [ ] Merch store
 
