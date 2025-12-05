@@ -3516,3 +3516,219 @@ p.origin-placeholder {
 .text-center {
   text-align: center;
 }
+
+/* =============================================================================
+   MESSAGE PAGE COMPONENTS
+   Humorous dead-end message page with timer and exit button
+   Used by message.html for announcement link empty states
+   ============================================================================= */
+
+/**
+ * Message Container
+ * Full-page layout for message display
+ * Centers content both vertically and horizontally
+ *
+ * Why flexbox?
+ * - Centering content both ways is trivial with flexbox
+ * - Works responsively without media queries for basic centering
+ * - min-height: 100vh ensures full viewport height coverage
+ */
+.message-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--space-xl);
+  background-color: var(--color-coal-black);
+}
+
+/**
+ * Message Content
+ * Content wrapper with maximum width constraint
+ * Centers text and provides spacing
+ */
+.message-content {
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+  padding: var(--space-lg);
+}
+
+/**
+ * Message Text
+ * Large, prominent humorous message
+ * Uses heading font for impact
+ *
+ * Font sizing:
+ * - Mobile: 1.75rem (28px) - readable without being overwhelming
+ * - Tablet: 2rem (32px) - more prominent
+ * - Desktop: 2.5rem (40px) - full impact
+ */
+.message-text {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-aged-whiskey);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-xl);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+/* Tablet breakpoint */
+@media (min-width: 768px) {
+  .message-text {
+    font-size: 2rem;
+  }
+}
+
+/* Desktop breakpoint */
+@media (min-width: 1024px) {
+  .message-text {
+    font-size: 2.5rem;
+  }
+}
+
+/**
+ * Message Timer
+ * Countdown timer display
+ * Prominent but not distracting
+ */
+.message-timer {
+  margin-bottom: var(--space-xl);
+}
+
+.message-timer__text {
+  font-family: var(--font-body);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: 0.01em;
+}
+
+/**
+ * Message Timer Countdown
+ * Highlighted countdown number
+ * Uses accent color for emphasis
+ */
+.message-timer__countdown {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-tarnished-brass);
+  display: inline-block;
+  min-width: 1.5em;
+  text-align: center;
+}
+
+/**
+ * Message Exit Button
+ * "Get Me Out of Here" button
+ * Styled to match Fan Club exit button pattern
+ *
+ * Design notes:
+ * - High contrast for accessibility
+ * - Large click target for mobile
+ * - Clear hover/focus states
+ * - Smooth transitions for polish
+ */
+.message-exit {
+  display: inline-block;
+  padding: var(--space-md) var(--space-xl);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  background-color: var(--color-iron-gray);
+  border: 2px solid var(--color-aged-whiskey);
+  border-radius: var(--border-radius-base);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+/**
+ * Exit Button Hover State
+ * Inverted colors for clear feedback
+ */
+.message-exit:hover,
+.message-exit:focus {
+  background-color: var(--color-aged-whiskey);
+  color: var(--color-coal-black);
+  border-color: var(--color-aged-whiskey);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/**
+ * Exit Button Active State
+ * Slight press effect for tactile feedback
+ */
+.message-exit:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Tablet and desktop: larger button */
+@media (min-width: 768px) {
+  .message-exit {
+    font-size: var(--font-size-xl);
+    padding: var(--space-lg) var(--space-xxl);
+  }
+}
+
+/**
+ * Noscript Message
+ * Fallback message when JavaScript is disabled
+ * Provides accessible alternative experience
+ *
+ * Progressive enhancement approach:
+ * - Page works without JavaScript
+ * - Provides clear instructions
+ * - Maintains design consistency
+ */
+.noscript-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 600px;
+  width: 90%;
+  padding: var(--space-xl);
+  background-color: var(--color-iron-gray);
+  border: 2px solid var(--color-aged-whiskey);
+  border-radius: var(--border-radius-base);
+  text-align: center;
+  z-index: var(--z-modal);
+}
+
+.noscript-message__text {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-lg);
+  line-height: var(--line-height-normal);
+}
+
+.noscript-message__button {
+  display: inline-block;
+  padding: var(--space-md) var(--space-xl);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  background-color: var(--color-coal-black);
+  border: 2px solid var(--color-aged-whiskey);
+  border-radius: var(--border-radius-base);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all var(--transition-base);
+}
+
+.noscript-message__button:hover,
+.noscript-message__button:focus {
+  background-color: var(--color-aged-whiskey);
+  color: var(--color-coal-black);
+}
