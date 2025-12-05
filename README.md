@@ -28,7 +28,7 @@ This is a static website built with semantic HTML5, modern CSS (Grid & Flexbox),
 - **Tone:** Self-aware absurdism meets dive bar authenticity
 - **UX:** Fast, accessible, works without JavaScript
 
-### Current Status: Phase 8 Complete ✅
+### Current Status: Phase 9 Complete ✅
 - ✅ Foundation & homepage
 - ✅ About page with band bios
 - ✅ News/announcements system with JSON data
@@ -40,10 +40,13 @@ This is a static website built with semantic HTML5, modern CSS (Grid & Flexbox),
 - ✅ Member-exclusive content and direct contact (Phase 6)
 - ✅ **Dynamic featured release on homepage** (Phase 7)
 - ✅ **Single source of truth for release data** (Phase 7)
-- ✅ **Escalating humorous error messages on failed login** (NEW - Phase 8)
-- ✅ **3-attempt limit with "drunk redirect" to homepage** (NEW - Phase 8)
-- ✅ **Graceful exit button for Fan Club authentication** (NEW - Phase 8)
-- ✅ **Countdown timer and enhanced UX for authentication** (NEW - Phase 8)
+- ✅ **Escalating humorous error messages on failed login** (Phase 8)
+- ✅ **3-attempt limit with "drunk redirect" to homepage** (Phase 8)
+- ✅ **Graceful exit button for Fan Club authentication** (Phase 8)
+- ✅ **Countdown timer and enhanced UX for authentication** (Phase 8)
+- ✅ **Privacy Policy page with satirical legal content** (NEW - Phase 9)
+- ✅ **Terms of Service page emphasizing parody nature** (NEW - Phase 9)
+- ✅ **Footer navigation updated across all pages** (NEW - Phase 9)
 - ✅ Dynamic content loading with JavaScript
 - ✅ Custom lightbox implementation (no external libraries)
 - ✅ Progressive enhancement (works without JS)
@@ -73,7 +76,9 @@ durtnurs.github.io/
 ├── releases.html              # Releases/discography page (Phase 4)
 ├── gallery.html               # Photo/video gallery (Phase 5)
 ├── contact.html               # Contact page (Phase 5)
-├── fanclub.html               # Fan Club protected area (NEW - Phase 6)
+├── fanclub.html               # Fan Club protected area (Phase 6)
+├── privacy.html               # Privacy Policy page (NEW - Phase 9)
+├── terms.html                 # Terms of Service page (NEW - Phase 9)
 ├── assets/
 │   ├── css/
 │   │   ├── reset.css          # Modern CSS reset
@@ -706,7 +711,77 @@ See **FANCLUB_ACCESS.md** for complete documentation on:
 - Accessible implementation with proper ARIA attributes
 - Scalable pattern for future authentication enhancements
 
-### Phase 9 (Future)
+### Phase 9 Complete ✅
+**Completed:** December 5, 2024
+
+- [✅] Privacy Policy page (privacy.html)
+- [✅] Terms of Service page (terms.html)
+- [✅] Satirical legal content with band's humor
+- [✅] Real legal concepts covered appropriately
+- [✅] Footer navigation updated across all 7 pages
+- [✅] Semantic HTML5 structure with educational comments
+- [✅] Responsive design matching existing site aesthetic
+- [✅] WCAG 2.1 AA accessibility compliance
+- [✅] No main navigation links (footer only)
+- [✅] Inline CSS for legal page layout
+- [✅] Iron Gray callout boxes for humorous asides
+
+**Features:**
+- **Privacy Policy Page:**
+  - 60% jokes / 40% real concepts approach
+  - Covers cookies, data collection, third-party services, user rights
+  - Self-deprecating humor throughout ("we can barely collect our thoughts")
+  - GDPR compliance discussion (compliant by incompetence)
+  - Real legal topics: data security, children's privacy, contact information
+  - Humorous takes: third-party services = liquor store, judging cookie usage
+  - Proper privacy policy structure with 10 sections
+  - Educational comments explaining why certain content is included
+
+- **Terms of Service Page:**
+  - 60% jokes / 40% real concepts approach
+  - Crystal clear parody disclaimer in prominent warning banner
+  - Covers acceptance, intellectual property, limitation of liability
+  - User conduct rules with band's characteristic humor
+  - Indemnification ("you agree we're idiots")
+  - Dispute resolution via whiskey in SnowMan's shed
+  - Real legal concepts: severability, governing law, entire agreement
+  - Maximum liability: $0.00 USD (we're broke)
+  - 13 comprehensive sections following standard ToS structure
+
+- **Footer Updates:**
+  - Updated footer navigation on ALL 7 HTML pages
+  - Fixed Privacy link from `#privacy` to `privacy.html`
+  - Added Terms link to footer navigation
+  - Consistent footer structure site-wide
+  - Pages updated: index.html, about.html, news.html, releases.html, gallery.html, contact.html, fanclub.html
+
+- **Design Consistency:**
+  - Matches existing site color palette (Aged Whiskey, Coal Black, Iron Gray)
+  - Uses existing CSS files (reset, variables, layout, components)
+  - Oswald font for headings, Merriweather for body text
+  - Responsive design with same breakpoints as other pages
+  - Inline styles for legal page-specific layout (narrower 800px width)
+  - Callout boxes use Iron Gray background with Aged Whiskey border
+  - Proper semantic HTML with `<article>` and `<section>` tags
+
+- **Content Balance:**
+  - Heavy satire while covering legitimate legal concepts
+  - Makes it abundantly clear site/band is parody
+  - Self-deprecating humor maintains band voice
+  - Real information for users who care about privacy/terms
+  - Educational value for learning project
+  - Genuinely funny while being informative
+
+**Benefits:**
+- Legal compliance while maintaining band's humor and brand
+- Users can understand privacy practices in entertaining way
+- Clear parody disclaimer protects artistic expression
+- Accessible to all users (WCAG 2.1 AA compliant)
+- Educational comments help with learning web development
+- Footer navigation improves site-wide UX
+- Professional presentation despite satirical content
+
+### Phase 10 (Future)
 - [ ] Mailing list integration
 - [ ] Merch store
 
