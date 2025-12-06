@@ -1842,11 +1842,11 @@ p.origin-placeholder {
 @media (min-width: 1024px) {
   .release-card--featured {
     /*
-      Span across 2 columns in 3-column grid
-      Makes featured release twice as wide
+      Span across 3 columns in 3-column grid
+      Makes featured release three times as wide
       Falls back gracefully if not in grid
     */
-    grid-column: span 2;
+    grid-column: span 3;
   }
 
   /*
@@ -1858,12 +1858,16 @@ p.origin-placeholder {
   }
 
   .release-card--featured .release-card__cover-wrapper {
-    width: 50%;
+    width: 66.67%;
     flex-shrink: 0;
   }
 
   .release-card--featured .release-card__content {
-    width: 50%;
+    width: 33.33%;
+  }
+
+  .release-card--featured .release-card__cover {
+    object-fit: contain;
   }
 }
 
