@@ -55,12 +55,12 @@
       "featured": false
     },
     {
-      "id": "release-empty-room-2015",
+      "id": "release-empty-room-2010",
       "title": "Live at The Empty Room",
       "artist": "tHE dURT nURS'",
-      "releaseDate": "2015-10-31",
+      "releaseDate": "2010-10-31",
       "type": "live",
-      "coverArt": "assets/images/kraken-album.png",
+      "coverArt": "assets/images/live-at-the-empty-room-album.png",
       "coverArtAlt": "Live album cover showing an empty dive bar with a single microphone stand",
       "description": "Our most intimate performance. Literally just us. The bartender left halfway through. Recorded on someone's phone. Peak authenticity.",
       "tracklist": [
@@ -81,12 +81,12 @@
       "featured": false
     },
     {
-      "id": "release-whiskey-sessions-2018",
+      "id": "release-whiskey-sessions-2000",
       "title": "The Whiskey Sessions",
       "artist": "tHE dURT nURS'",
-      "releaseDate": "2018-12-01",
+      "releaseDate": "2000-11-01",
       "type": "ep",
-      "coverArt": "assets/images/kraken-album.png",
+      "coverArt": "assets/images/the-whiskey-sessions-album.png",
       "coverArtAlt": "EP cover featuring an empty whiskey glass and scattered guitar picks",
       "description": "Four tracks, forty takes, fourteen bottles. An EP that captures the essence of bad decisions and good intentions. Surprisingly coherent for the circumstances.",
       "tracklist": [
