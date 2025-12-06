@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Terms of Service for tHE dURT nURS' - A legally dubious document for a legally dubious band.">
+  <meta name="keywords" content="the dirt nurse, terms of service, legal, parody">
+
+  <!-- Open Graph for social sharing -->
+  <meta property="og:title" content="Terms of Service - tHE dURT nURS'">
+  <meta property="og:description" content="Our terms of service. Disclaimer: We're not real lawyers.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://durtnurs.com/terms.html">
+
+  <title>Terms of Service - tHE dURT nURS'</title>
+
+  <!-- CSS Architecture: Load in order of specificity -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+
+  <!-- Google Fonts: Oswald (headers) + Merriweather (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon (placeholder - add actual favicon later) -->
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+  <!-- Schema.org structured data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Terms of Service - tHE dURT nURS'",
+    "description": "Terms of service for tHE dURT nURS' website",
+    "url": "https://durtnurs.com/terms.html"
+  }
+  </script>
+
+  <!--
+    LEGAL PAGE SPECIFIC STYLES
+    Educational note: Reusing the same styles from privacy.html for consistency
+    These styles create a readable, traditional legal document appearance
+  -->
+  <style>
+    /* Content container for legal pages - narrower width for better readability */
+    .legal-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-md);
+    }
+
+    /* Legal page headings - maintain hierarchy while being less aggressive than site defaults */
+    .legal-content h1 {
+      font-size: var(--font-size-4xl);
+      margin-bottom: var(--space-md);
+      color: var(--color-primary);
+    }
+
+    .legal-content h2 {
+      font-size: var(--font-size-2xl);
+      margin-top: var(--space-xl);
+      margin-bottom: var(--space-md);
+      color: var(--color-text-primary);
+      border-bottom: 2px solid var(--color-iron-gray);
+      padding-bottom: var(--space-xs);
+    }
+
+    .legal-content h3 {
+      font-size: var(--font-size-xl);
+      margin-top: var(--space-lg);
+      margin-bottom: var(--space-sm);
+      color: var(--color-accent);
+    }
+
+    /* Legal page paragraphs - generous spacing for readability */
+    .legal-content p {
+      margin-bottom: var(--space-md);
+      line-height: var(--line-height-loose);
+    }
+
+    /* Legal page lists - structured information display */
+    .legal-content ul,
+    .legal-content ol {
+      margin-bottom: var(--space-md);
+      margin-left: var(--space-lg);
+      line-height: var(--line-height-loose);
+    }
+
+    .legal-content li {
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Callout boxes for humorous asides - uses Iron Gray background */
+    .legal-aside {
+      background-color: var(--color-iron-gray);
+      border-left: 4px solid var(--color-primary);
+      padding: var(--space-md);
+      margin: var(--space-lg) 0;
+      border-radius: var(--border-radius);
+    }
+
+    .legal-aside p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Last updated timestamp */
+    .legal-meta {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-xl);
+      font-style: italic;
+    }
+
+    /* Strong emphasis for legal terms */
+    .legal-content strong {
+      color: var(--color-accent);
+      font-weight: var(--font-weight-bold);
+    }
+
+    /* Links within legal content */
+    .legal-content a {
+      color: var(--color-link);
+      text-decoration: underline;
+      transition: color var(--transition-fast);
+    }
+
+    .legal-content a:hover {
+      color: var(--color-link-hover);
+    }
+
+    /* Warning banner for parody notice */
+    .legal-warning {
+      background-color: var(--color-dried-blood);
+      border: 3px solid var(--color-primary);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-xl);
+      border-radius: var(--border-radius-md);
+      text-align: center;
+    }
+
+    .legal-warning h2 {
+      margin: 0 0 var(--space-sm) 0;
+      border: none;
+      padding: 0;
+      color: var(--color-primary);
+    }
+
+    .legal-warning p {
+      margin: 0;
+      font-size: var(--font-size-lg);
+      color: var(--color-text-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!--
+    SKIP TO CONTENT LINK
+    Allows keyboard users to skip navigation and jump to main content
+    Hidden until focused via Tab key
+  -->
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+  <!--
+    HEADER & NAVIGATION
+    Semantic <header> contains site-wide navigation
+    Uses checkbox hack for mobile menu (CSS-only, no JavaScript required)
+  -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="main-nav" aria-label="Main navigation">
+
+        <!-- Logo/Band Name: Exact case preserved -->
+        <div class="main-nav__logo">
+          <a href="index.html" aria-label="tHE dURT nURS' home">
+            <span class="logo-text">tHE dURT nURS'</span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle: Hidden checkbox + label (CSS-only pattern) -->
+        <input type="checkbox" id="nav-toggle" class="main-nav__toggle" aria-label="Toggle navigation menu">
+        <label for="nav-toggle" class="main-nav__toggle-label" aria-label="Menu button">
+          <span class="hamburger"></span>
+        </label>
+
+        <!-- Navigation Links -->
+        <ul class="main-nav__list">
+          <li><a href="index.html" class="main-nav__link">Home</a></li>
+          <li><a href="about.html" class="main-nav__link">About</a></li>
+          <li><a href="releases.html" class="main-nav__link">Releases</a></li>
+          <li><a href="news.html" class="main-nav__link">News</a></li>
+          <li><a href="gallery.html" class="main-nav__link">Gallery</a></li>
+          <li><a href="fanclub.html" class="main-nav__link main-nav__link--protected">
+            <span class="nav-lock-icon" aria-hidden="true">🔒</span> Fan Club
+          </a></li>
+          <li><a href="contact.html" class="main-nav__link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!--
+    MAIN CONTENT
+    Semantic <main> contains the primary content of the page
+    Uses semantic <article> for the legal document structure
+  -->
+  <main id="main-content">
+
+    <!--
+      LEGAL DOCUMENT STRUCTURE
+      Educational note: Using <article> because this terms of service is a self-contained document
+      The <section> tags within organize the terms into logical parts
+    -->
+    <article class="legal-content">
+
+      <!-- Document Title -->
+      <h1>Terms of Service</h1>
+
+      <!-- Last Updated Timestamp (legal requirement) -->
+      <p class="legal-meta">Last Updated: December 5, 2024</p>
+
+      <!-- CRITICAL PARODY DISCLAIMER -->
+      <div class="legal-warning">
+        <h2>⚠️ IMPORTANT DISCLAIMER ⚠️</h2>
+        <p>
+          This is a <strong>PARODY</strong> website. tHE dURT nURS' is a satirical rock band project.
+          Nothing on this site should be taken seriously. If you're offended, confused, or taking legal
+          action, you've missed the joke entirely.
+        </p>
+      </div>
+
+      <!-- Introduction -->
+      <section>
+        <p>
+          Welcome to the Terms of Service for tHE dURT nURS'. By accessing this website, you agree
+          to these terms. If you don't agree, well... you're probably still going to use the site anyway,
+          and we can't actually stop you.
+        </p>
+
+        <aside class="legal-aside">
+          <p>
+            <strong>Legal Credential Check:</strong> These terms were drafted by two middle-aged musicians
+            with zero legal training, a Wikipedia article about contract law, and half a bottle of rum.
+            If you're expecting actual legal protection, consult a real lawyer (unlike us).
+          </p>
+        </aside>
+
+        <p>
+          These terms outline the rules for using our website. They're mostly common sense mixed with
+          self-deprecating humor. If you violate these terms, the consequences will be... well, nothing
+          really. We don't have enforcement mechanisms. We're a parody band, not a police state.
+        </p>
+      </section>
+
+      <!-- Section 1: Acceptance of Terms -->
+      <section>
+        <h2>1. Acceptance of Terms</h2>
+
+        <p>
+          By using this website (durtnurs.com or durtnurs.github.io), you acknowledge that:
+        </p>
+
+        <ul>
+          <li>You've read these terms (or at least skimmed them)</li>
+          <li>You understand this is a parody/satire project</li>
+          <li>You agree not to take anything too seriously</li>
+          <li>You recognize we're idiots and should be treated as such</li>
+          <li>You're at least 18 years old (or have parental supervision, because our content isn't exactly kid-friendly)</li>
+        </ul>
+
+        <p>
+          If you don't agree to these terms, please close this browser tab and go listen to some
+          legitimately good music. We recommend literally anything except our own material.
+        </p>
+      </section>
+
+      <!-- Section 2: Nature of Content (PARODY EMPHASIS) -->
+      <section>
+        <h2>2. This Is Parody (In Case You Missed It)</h2>
+
+        <h3>2.1 Satirical Content</h3>
+        <p>
+          <strong>Everything on this website is satire, parody, and/or artistic expression.</strong>
+          This includes:
+        </p>
+
+        <ul>
+          <li>All band member personas (DeadBeat, SnowMan, and any future members)</li>
+          <li>All biographical information (mostly fabricated)</li>
+          <li>All news announcements (varying degrees of truth)</li>
+          <li>All song titles and lyrics (intentionally absurd)</li>
+          <li>All claims about musical talent (definitely exaggerated)</li>
+          <li>All merchandise descriptions (if we ever make merchandise)</li>
+          <li>This terms of service document (seriously, it's mostly jokes)</li>
+        </ul>
+
+        <aside class="legal-aside">
+          <p>
+            <strong>To Be Crystal Clear:</strong> We're not a real touring rock band. We're not signed
+            to a label. We don't have corporate sponsors (no liquor company has been brave enough to
+            associate with us). This is a creative project that exists somewhere between music, comedy,
+            and questionable life decisions.
+          </p>
+        </aside>
+
+        <h3>2.2 Protected Expression</h3>
+        <p>
+          Our content is protected under freedom of speech and artistic expression laws. We're not
+          making factual claims—we're making jokes. If you can't tell the difference, that's on you.
+        </p>
+
+        <p>
+          That said, if something on this site genuinely offends you or crosses a line, please
+          <a href="contact.html">contact us</a>. We're satirists, not monsters. We'll probably
+          explain the joke, but we might also revise content if we genuinely screwed up.
+        </p>
+      </section>
+
+      <!-- Section 3: User Conduct -->
+      <section>
+        <h2>3. User Conduct (Don't Be Awful)</h2>
+
+        <h3>3.1 What You Can Do</h3>
+        <p>
+          You're welcome to:
+        </p>
+
+        <ul>
+          <li>Browse the site (obviously)</li>
+          <li>Share links to our content on social media</li>
+          <li>Email us with reasonable messages</li>
+          <li>Access the Fan Club if you solve the password puzzle</li>
+          <li>Laugh at our jokes (or groan—we'll accept either)</li>
+          <li>Tell your friends about us (though we question your judgment)</li>
+          <li>Take screenshots for personal use</li>
+        </ul>
+
+        <h3>3.2 What You Can't Do</h3>
+        <p>
+          Please don't:
+        </p>
+
+        <ul>
+          <li>Hack the website (there's nothing to steal anyway)</li>
+          <li>Send us spam, viruses, or malicious content</li>
+          <li>Impersonate us (why would you want to?)</li>
+          <li>Use our content for illegal purposes</li>
+          <li>Take our satire seriously and then sue us for defamation</li>
+          <li>Attempt to profit from our intellectual property without permission</li>
+          <li>Be a jerk in emails or comments (we reserve the right to ignore jerks)</li>
+        </ul>
+
+        <aside class="legal-aside">
+          <p>
+            <strong>Common Sense Rule:</strong> Don't do anything you wouldn't do on other websites.
+            We're not special. We're just trying to make people laugh while playing mediocre rock music.
+            Treat us like you'd treat any other creative project run by well-meaning amateurs.
+          </p>
+        </aside>
+      </section>
+
+      <!-- Section 4: Intellectual Property -->
+      <section>
+        <h2>4. Intellectual Property (Our Music Is So Bad Nobody Would Steal It)</h2>
+
+        <h3>4.1 Our Copyright</h3>
+        <p>
+          All content on this website—including text, images, music, graphics, and code—is owned by
+          tHE dURT nURS' (or our individual members) unless otherwise noted. This includes:
+        </p>
+
+        <ul>
+          <li>Original songs and recordings (copyright © various years)</li>
+          <li>Website design and code (copyright © 2024)</li>
+          <li>Photos and artwork (copyright © respective creators)</li>
+          <li>Written content (copyright © 2024)</li>
+          <li>Band name and logo (common law trademark, maybe, we haven't checked)</li>
+        </ul>
+
+        <h3>4.2 What You Can Use</h3>
+        <p>
+          You're free to:
+        </p>
+
+        <ul>
+          <li>Share links to our website</li>
+          <li>Quote our content with attribution (though we can't imagine why you would)</li>
+          <li>Stream our music for personal enjoyment</li>
+          <li>Use screenshots in reviews, commentary, or parody (fair use applies)</li>
+        </ul>
+
+        <h3>4.3 What Requires Permission</h3>
+        <p>
+          If you want to use our content commercially, you need to ask first:
+        </p>
+
+        <ul>
+          <li>Using our music in your videos, podcasts, or films</li>
+          <li>Selling merchandise with our name/logo</li>
+          <li>Creating derivative works (covers, remixes, etc.)</li>
+          <li>Any commercial use whatsoever</li>
+        </ul>
+
+        <p>
+          Email us at <a href="mailto:biteme@durtnurs.com">biteme@durtnurs.com</a> with your request.
+          We're generally pretty chill about usage—we just want to know what's happening.
+        </p>
+
+        <aside class="legal-aside">
+          <p>
+            <strong>Honest Assessment:</strong> Our music is so niche and weird that theft isn't really
+            a concern. If someone steals our songs, we'll mostly be flattered that they thought it was
+            worth stealing. That said, don't be a dick—ask permission.
+          </p>
+        </aside>
+      </section>
+
+      <!-- Section 5: Limitation of Liability -->
+      <section>
+        <h2>5. Limitation of Liability (We're Not Responsible for Anything)</h2>
+
+        <h3>5.1 No Warranties</h3>
+        <p>
+          This website and all content are provided "AS IS" without warranties of any kind. We don't
+          guarantee that:
+        </p>
+
+        <ul>
+          <li>The website will always be available (it might crash)</li>
+          <li>The content will be error-free (we make lots of typos when drunk)</li>
+          <li>Our music won't damage your ears or emotional well-being</li>
+          <li>Links to external sites will work (we're not in charge of the internet)</li>
+          <li>Anything we say is factually accurate (again, this is parody)</li>
+        </ul>
+
+        <h3>5.2 Not Responsible For</h3>
+        <p>
+          We are <strong>NOT</strong> liable for any damages arising from:
+        </p>
+
+        <ul>
+          <li><strong>Ear damage</strong> from listening to our music at unsafe volumes</li>
+          <li><strong>Emotional distress</strong> caused by our lyrics, humor, or general existence</li>
+          <li><strong>Lost productivity</strong> from spending too much time on this website</li>
+          <li><strong>Poor life decisions</strong> inspired by our aesthetic or philosophy</li>
+          <li><strong>Relationship problems</strong> caused by subjecting partners to our music</li>
+          <li><strong>Existential crises</strong> triggered by our self-aware absurdism</li>
+          <li><strong>Financial losses</strong> from attempting to emulate our "success"</li>
+          <li><strong>Hangovers</strong> from drinking along with our implied bourbon consumption</li>
+        </ul>
+
+        <aside class="legal-aside">
+          <p>
+            <strong>Translation:</strong> If our website or music causes you harm, that's between you
+            and your therapist. We're not doctors, lawyers, or responsible adults. We're musicians who
+            built a silly website. Manage your expectations accordingly.
+          </p>
+        </aside>
+
+        <h3>5.3 Maximum Liability</h3>
+        <p>
+          In the unlikely event a court finds us liable for something, our maximum liability is limited
+          to $0.00 USD. We're broke. There's nothing to sue for. Our most valuable asset is a barely
+          functioning drum kit and some whiskey bottles (empty).
+        </p>
+      </section>
+
+      <!-- Section 6: Indemnification -->
+      <section>
+        <h2>6. Indemnification (You Agree We're Idiots)</h2>
+
+        <p>
+          By using this website, you agree to indemnify and hold harmless tHE dURT nURS', its members,
+          and anyone associated with this project from any claims, damages, or expenses arising from:
+        </p>
+
+        <ul>
+          <li>Your use of the website</li>
+          <li>Your violation of these terms</li>
+          <li>Your violation of any laws or third-party rights</li>
+          <li>Your decision to take our satire seriously</li>
+        </ul>
+
+        <aside class="legal-aside">
+          <p>
+            <strong>Plain English:</strong> If you do something stupid and then try to blame us, you're
+            on your own. We're not responsible for your actions. You're an adult (we assume). Make good
+            choices.
+          </p>
+        </aside>
+      </section>
+
+      <!-- Section 7: External Links -->
+      <section>
+        <h2>7. External Links (Not Our Problem)</h2>
+
+        <p>
+          Our website contains links to external sites (Instagram, Google Fonts, etc.). We don't control
+          those sites and aren't responsible for their content, privacy policies, or practices.
+        </p>
+
+        <p>
+          If you click a link and end up somewhere sketchy, that's on you. We only link to sites we
+          actually use, but we can't guarantee they won't change or get compromised. Use common sense.
+        </p>
+      </section>
+
+      <!-- Section 8: Dispute Resolution -->
+      <section>
+        <h2>8. Dispute Resolution (Let's Settle This Over Whiskey)</h2>
+
+        <h3>8.1 Informal Resolution</h3>
+        <p>
+          If you have a problem with us, please <a href="contact.html">email us</a> first. We're
+          reasonable people (sort of). Most disputes can be resolved through conversation, apology,
+          or mutual agreement that the whole thing was dumb.
+        </p>
+
+        <h3>8.2 Arbitration</h3>
+        <p>
+          If informal resolution fails, we prefer to settle disputes through arbitration rather than
+          court. The arbitration will be conducted via:
+        </p>
+
+        <ul>
+          <li><strong>Venue:</strong> SnowMan's shed (or a mutually agreed location)</li>
+          <li><strong>Arbitrator:</strong> Whoever's sober enough to listen to both sides</li>
+          <li><strong>Process:</strong> Each party gets to explain their grievance over whiskey</li>
+          <li><strong>Decision:</strong> Binding and final (or until someone forgets what we decided)</li>
+        </ul>
+
+        <aside class="legal-aside">
+          <p>
+            <strong>Serious Note:</strong> We don't actually expect legal disputes. This is a free
+            website for a parody band. If you're considering legal action, please reconsider your life
+            choices. That said, if there's a genuine issue, we'll address it like adults (probably).
+          </p>
+        </aside>
+
+        <h3>8.3 Governing Law</h3>
+        <p>
+          These terms are governed by the laws of the United States and the state where we're physically
+          located (we're not telling you where—privacy reasons). Any legal action must be filed in a
+          court with appropriate jurisdiction.
+        </p>
+      </section>
+
+      <!-- Section 9: Changes to Terms -->
+      <section>
+        <h2>9. Changes to These Terms</h2>
+
+        <p>
+          We reserve the right to modify these terms at any time. Reasons might include:
+        </p>
+
+        <ul>
+          <li>Legal requirements change</li>
+          <li>We realize we screwed something up</li>
+          <li>The website adds new features</li>
+          <li>We get drunk and decide to rewrite things</li>
+          <li>Someone points out a problem we didn't notice</li>
+        </ul>
+
+        <p>
+          When we update these terms, we'll change the "Last Updated" date at the top. Continued use
+          of the website after changes means you accept the new terms. If you don't accept them, stop
+          using the site (and our feelings will be hurt).
+        </p>
+
+        <aside class="legal-aside">
+          <p>
+            <strong>Promise:</strong> We won't make sneaky changes to screw you over. Any updates will
+            be good-faith attempts to improve clarity, fix errors, or comply with laws. We're satirists,
+            not scammers.
+          </p>
+        </aside>
+      </section>
+
+      <!-- Section 10: Severability -->
+      <section>
+        <h2>10. Severability (Legal Jargon Required by Law, Probably)</h2>
+
+        <p>
+          If any part of these terms is found to be unenforceable or invalid by a court, the remaining
+          parts will still apply. Think of it like our band—if one member is useless (looking at you,
+          DeadBeat), the others keep going.
+        </p>
+      </section>
+
+      <!-- Section 11: Entire Agreement -->
+      <section>
+        <h2>11. Entire Agreement</h2>
+
+        <p>
+          These terms, along with our <a href="privacy.html">Privacy Policy</a>, constitute the entire
+          agreement between you and tHE dURT nURS' regarding use of this website. There are no secret
+          clauses, hidden terms, or verbal agreements. What you see is what you get.
+        </p>
+      </section>
+
+      <!-- Section 12: Contact Information -->
+      <section>
+        <h2>12. Contact Us About These Terms</h2>
+
+        <p>
+          If you have questions about these terms, you can contact us at:
+        </p>
+
+        <p>
+          <strong>Email:</strong> <a href="mailto:biteme@durtnurs.com">biteme@durtnurs.com</a><br>
+          <strong>Subject Line:</strong> "Terms Question" (so we know it's important-ish)<br>
+          <strong>Response Time:</strong> 4-6 weeks, maybe never
+        </p>
+
+        <p>
+          We'll do our best to respond, but remember: we're not lawyers, we're musicians. If you need
+          real legal advice, consult a real attorney.
+        </p>
+      </section>
+
+      <!-- Final Note -->
+      <section>
+        <h2>13. Final Thoughts (Please Don't Sue Us)</h2>
+
+        <p>
+          Look, we know nobody reads terms of service documents. You probably scrolled straight to the
+          bottom hoping for a summary. Here it is:
+        </p>
+
+        <ul>
+          <li><strong>This is parody.</strong> Don't take it seriously.</li>
+          <li><strong>We're not liable for anything.</strong> Use the site at your own risk.</li>
+          <li><strong>Don't be a jerk.</strong> Respect our content and other users.</li>
+          <li><strong>Ask before using our stuff commercially.</strong> We'll probably say yes.</li>
+          <li><strong>We're not professionals.</strong> Manage expectations accordingly.</li>
+        </ul>
+
+        <p>
+          If you've actually read this entire document, you deserve a medal (or at least a drink).
+          Thanks for engaging with our nonsense. We appreciate you more than we can express (which
+          isn't saying much, but still).
+        </p>
+
+        <p>
+          Now go forth and enjoy the website. Or don't. We're not your boss.
+        </p>
+
+        <p>
+          Legally yours (sort of),<br>
+          <strong>tHE dURT nURS'</strong>
+        </p>
+
+        <aside class="legal-aside">
+          <p>
+            <strong>P.S.</strong> If you're a lawyer and you're reading this professionally, please be
+            gentle in your assessment. We did our best with Wikipedia and good intentions. Also, we're
+            broke, so pro bono feedback is appreciated.
+          </p>
+        </aside>
+      </section>
+
+    </article>
+
+  </main>
+
+  <!--
+    FOOTER
+    Site-wide footer with social links, copyright, and secondary nav
+    Semantic <footer> element
+  -->
+  <footer class="site-footer">
+    <div class="container">
+
+      <!-- Social Media Links -->
+      <div class="site-footer__social">
+        <h2 class="site-footer__heading">Follow the Chaos</h2>
+        <ul class="social-links">
+          <li>
+            <a href="https://instagram.com/durtnurs" class="social-links__item" aria-label="Follow us on Instagram" target="_blank" rel="noopener noreferrer">
+              <!-- Instagram Icon (inline SVG for performance) -->
+              <svg class="social-links__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+              <span class="social-links__text">Instagram</span>
+            </a>
+          </li>
+          <!-- Add more social links here as needed -->
+        </ul>
+      </div>
+
+      <!-- Secondary Navigation -->
+      <nav class="site-footer__nav" aria-label="Footer navigation">
+        <ul class="footer-nav">
+          <li><a href="about.html" class="footer-nav__link">About</a></li>
+          <li><a href="contact.html" class="footer-nav__link">Contact</a></li>
+          <li><a href="privacy.html" class="footer-nav__link">Privacy</a></li>
+          <li><a href="terms.html" class="footer-nav__link">Terms</a></li>
+        </ul>
+      </nav>
+
+      <!-- Copyright -->
+      <div class="site-footer__copyright">
+        <p>&copy; 1993 tHE dURT nURS'. All rights reserved.</p>
+        <p class="site-footer__tagline">Built with grit, aged whiskey, and questionable decisions.</p>
+      </div>
+
+    </div>
+  </footer>
+
+</body>
+</html>

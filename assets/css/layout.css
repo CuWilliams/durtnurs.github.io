@@ -1,0 +1,393 @@
+/*
+  LAYOUT SYSTEM
+  CSS Grid-based page layouts + container utilities
+
+  Purpose: Defines page structure and responsive behavior
+  Learning: CSS Grid is perfect for 2D layouts (rows + columns)
+*/
+
+/* ============================================
+   CONTAINER
+   Centers content and adds responsive padding
+   ============================================ */
+
+/*
+  Why .container: Creates consistent max-width and centering
+  Mobile-first: Full width on mobile, max-width on desktop
+*/
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+/* Wider container option (if needed for full-bleed sections) */
+.container--wide {
+  max-width: 1400px;
+}
+
+/* No padding variant (for edge-to-edge content) */
+.container--flush {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+
+/* ============================================
+   PAGE LAYOUT (CSS GRID)
+   Defines overall page structure using named grid areas
+   ============================================ */
+
+/*
+  Why CSS Grid: Easy to visualize and reorganize at breakpoints
+  Named areas read like ASCII art of the layout
+*/
+.page-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+
+  /*
+    Mobile layout: Single column stack
+    Learning: grid-template-areas creates named regions
+  */
+  grid-template-areas:
+    "hero"
+    "news"
+    "featured";
+}
+
+/* Tablet and up: Add whitespace, larger gaps */
+@media (min-width: 768px) {
+  .page-layout {
+    gap: var(--space-3xl);
+  }
+}
+
+/* Desktop: Could add sidebar or multi-column layouts */
+@media (min-width: 1024px) {
+  .page-layout {
+    gap: var(--space-4xl);
+  }
+}
+
+/*
+  Assign sections to grid areas
+  Learning: grid-area connects HTML elements to named regions
+*/
+.hero {
+  grid-area: hero;
+}
+
+.news-section {
+  grid-area: news;
+}
+
+.featured-section {
+  grid-area: featured;
+}
+
+
+/* ============================================
+   SECTION SPACING
+   Consistent vertical rhythm for all sections
+   ============================================ */
+
+section {
+  padding-top: var(--space-2xl);
+  padding-bottom: var(--space-2xl);
+}
+
+@media (min-width: 768px) {
+  section {
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-3xl);
+  }
+}
+
+
+/* ============================================
+   FLEXBOX UTILITIES
+   For component-level alignment (not page layout)
+   ============================================ */
+
+/*
+  Why Flexbox: Best for 1D layouts (single row or column)
+  Use cases: Navigation items, button groups, card internals
+*/
+
+.flex {
+  display: flex;
+}
+
+.flex--column {
+  flex-direction: column;
+}
+
+.flex--wrap {
+  flex-wrap: wrap;
+}
+
+/* Alignment */
+.flex--center {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex--between {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex--start {
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.flex--end {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Gaps (spacing between flex items) */
+.flex--gap-sm {
+  gap: var(--space-sm);
+}
+
+.flex--gap-md {
+  gap: var(--space-md);
+}
+
+.flex--gap-lg {
+  gap: var(--space-lg);
+}
+
+
+/* ============================================
+   GRID UTILITIES
+   Reusable grid patterns for content
+   ============================================ */
+
+/*
+  News Grid: Card-based layout
+  Learning: auto-fit + minmax creates responsive columns without media queries
+*/
+.news-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 768px) {
+  .news-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop: 3 columns */
+@media (min-width: 1024px) {
+  .news-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+/*
+  Generic 2-column grid (for album cards, image galleries)
+  Learning: minmax(0, 1fr) prevents grid blowout with long content
+*/
+.grid-2-col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .grid-2-col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+/* ============================================
+   HERO SECTION LAYOUT
+   Special layout for hero/banner section
+   ============================================ */
+
+.hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    var(--color-burnt-umber) 0%,
+    var(--color-coal-black) 100%
+  );
+  overflow: hidden;
+}
+
+.hero__content {
+  position: relative;
+  z-index: var(--z-base);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--space-xl);
+}
+
+.hero__logo {
+  max-width: 400px;
+  margin: 0 auto var(--space-lg);
+}
+
+.hero__tagline {
+  margin-bottom: var(--space-lg);
+  font-size: var(--font-size-3xl);
+  color: var(--color-text-primary);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+@media (min-width: 768px) {
+  .hero {
+    min-height: 70vh;
+  }
+
+  .hero__logo {
+    max-width: 500px;
+  }
+
+  .hero__tagline {
+    font-size: var(--font-size-5xl);
+  }
+}
+
+
+/* ============================================
+   ALBUM CARD LAYOUT
+   Featured release card (image + details)
+   ============================================ */
+
+/*
+  Mobile: Stacked (image on top)
+  Desktop: Side-by-side (image left, details right)
+*/
+.album-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  background-color: var(--color-surface);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+@media (min-width: 768px) {
+  .album-card {
+    grid-template-columns: 300px 1fr;
+    gap: var(--space-xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .album-card {
+    grid-template-columns: 400px 1fr;
+  }
+}
+
+.album-card__artwork {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: var(--color-iron-gray);
+  padding: var(--space-lg);
+}
+
+.album-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.album-card__details {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+
+/* ============================================
+   SPACING UTILITIES
+   Quick margin/padding adjustments
+   ============================================ */
+
+/* Margin utilities */
+.mt-0 { margin-top: 0; }
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mt-xl { margin-top: var(--space-xl); }
+
+.mb-0 { margin-bottom: 0; }
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+.mb-xl { margin-bottom: var(--space-xl); }
+
+/* Padding utilities */
+.p-sm { padding: var(--space-sm); }
+.p-md { padding: var(--space-md); }
+.p-lg { padding: var(--space-lg); }
+.p-xl { padding: var(--space-xl); }
+
+
+/* ============================================
+   TEXT ALIGNMENT UTILITIES
+   ============================================ */
+
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+
+/* ============================================
+   SECTION HEADINGS
+   Consistent styling for h2 section titles
+   ============================================ */
+
+.section-heading {
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--space-lg);
+  color: var(--color-primary);
+  text-align: center;
+  position: relative;
+}
+
+/* Optional: Decorative underline */
+.section-heading::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--color-aged-whiskey),
+    var(--color-tarnished-brass)
+  );
+  margin: var(--space-sm) auto 0;
+  border-radius: var(--border-radius-full);
+}
+
+@media (min-width: 768px) {
+  .section-heading {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--space-xl);
+  }
+}

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About tHE dURT nURS' - Two retired rockers faking it until they make it with AI-powered rock and roll">
+  <meta name="keywords" content="the dirt nurse, rock band, about, band members, music, alternative rock">
+
+  <!-- Open Graph for social sharing -->
+  <meta property="og:title" content="About tHE dURT nURS' - Meet the Band">
+  <meta property="og:description" content="Two retired rockers faking it until they make it with AI-powered rock and roll">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://durtnurs.com/about.html">
+
+  <title>About - tHE dURT nURS'</title>
+
+  <!-- CSS Architecture: Load in order of specificity -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+
+  <!-- Google Fonts: Oswald (headers) + Merriweather (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon (placeholder - add actual favicon later) -->
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+  <!-- Schema.org structured data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MusicGroup",
+    "name": "tHE dURT nURS'",
+    "genre": "Rock",
+    "url": "https://durtnurs.com",
+    "description": "Two retired rockers faking it until they make it with AI-powered rock and roll"
+  }
+  </script>
+</head>
+<body>
+
+  <!--
+    HEADER & NAVIGATION
+    Semantic <header> contains site-wide navigation
+    Uses checkbox hack for mobile menu (CSS-only, no JavaScript required)
+  -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="main-nav" aria-label="Main navigation">
+
+        <!-- Logo/Band Name: Exact case preserved -->
+        <div class="main-nav__logo">
+          <a href="index.html" aria-label="tHE dURT nURS' home">
+            <span class="logo-text">tHE dURT nURS'</span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle: Hidden checkbox + label (CSS-only pattern) -->
+        <input type="checkbox" id="nav-toggle" class="main-nav__toggle" aria-label="Toggle navigation menu">
+        <label for="nav-toggle" class="main-nav__toggle-label" aria-label="Menu button">
+          <span class="hamburger"></span>
+        </label>
+
+        <!-- Navigation Links -->
+        <ul class="main-nav__list">
+          <li><a href="index.html" class="main-nav__link">Home</a></li>
+          <li><a href="about.html" class="main-nav__link main-nav__link--active" aria-current="page">About</a></li>
+          <li><a href="releases.html" class="main-nav__link">Releases</a></li>
+          <li><a href="news.html" class="main-nav__link">News</a></li>
+          <li><a href="gallery.html" class="main-nav__link">Gallery</a></li>
+          <li><a href="fanclub.html" class="main-nav__link main-nav__link--protected">
+            <span class="nav-lock-icon" aria-hidden="true">🔒</span> Fan Club
+          </a></li>
+          <li><a href="contact.html" class="main-nav__link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!--
+    MAIN CONTENT
+    Semantic <main> contains the primary content of the page
+  -->
+  <main class="page-layout">
+
+    <!--
+      HERO SECTION
+      Page title and tagline
+    -->
+    <section class="hero hero--about" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero__content">
+          <h1 id="hero-heading" class="hero__title">About tHE dURT nURS'</h1>
+          <p class="hero__subtitle">Faking It Since 1993</p>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      BAND STORY SECTION
+      Who we are and what we're about
+    -->
+    <section class="band-story" aria-labelledby="story-heading">
+      <div class="container">
+        <h2 id="story-heading" class="section-heading">Who We Are</h2>
+        <div class="story-content">
+          <p>We are tHE dURT nURS'—an alive and kicking rock band that's all about fun and good times. But seriously, we ain't that good! (Yet. Give us time.  We are practicing monthly now that we are retired. Hmmm... we actually don't have much time.)</p>
+
+          <p>Here's the thing: we believe in ourselves, we like our brand, and we're having the time of our lives. We're a couple of retired farts who spent decades in the working world, and now we're doing what we should have done years ago—making noise and having fun.</p>
+
+          <p>And here's a fun fact: AI has opened up a whole new realm of possibility for us. We can fake it until we make it! With a little help from our artificial friends, we're creating the music we've always heard in our heads but could never quite pull off with just two guys and a dream.</p>
+
+          <p>We've jammed together for years, played a few parties and dances (never for pay, always for beer), and now we're ready to unleash our nonsense on the world. Release the Kraken, indeed.</p>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      BAND MEMBERS SECTION
+      Member profiles with placeholders for bios
+    -->
+    <section class="band-members" aria-labelledby="members-heading">
+      <div class="container">
+        <h2 id="members-heading" class="section-heading">The Lineup</h2>
+        <div class="members-grid">
+
+          <!-- Member 1: DeadBeat -->
+          <article class="member-card">
+            <div class="member-image">
+              <img src="assets/images/deadbeat.png" alt="DeadBeat - Drums and Vocals">
+            </div>
+            <div class="member-info">
+              <h3 class="member-name">DeadBeat</h3>
+              <p class="member-role">Drums / Vocals</p>
+              <div class="member-bio">
+                <p class="bio-placeholder">DeadBeat keeps the beat and occasionally remembers the lyrics. Retired from the day job, now fully committed to making questionable decisions behind a drum kit.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- Member 2: SnowMan -->
+          <article class="member-card">
+            <div class="member-image">
+              <img src="assets/images/snowman.png" alt="SnowMan - Guitar, Bass, and Vocals">
+            </div>
+            <div class="member-info">
+              <h3 class="member-name">SnowMan</h3>
+              <p class="member-role">Guitar / Bass / Vocals</p>
+              <div class="member-bio">
+                <p class="bio-placeholder">SnowMan handles all the strings and most of the heavy lifting. Retirement looks good on him—mostly because he's finally got time to practice.</p>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!--
+      ORIGIN STORY SECTION
+      How the band met (placeholder for now)
+    -->
+    <section class="origin-story" aria-labelledby="origin-heading">
+      <div class="container">
+        <h2 id="origin-heading" class="section-heading">How We Met</h2>
+        <div class="story-content">
+          <p class="origin-placeholder">We were mail order brides!</p>
+          <p class="note">(The real story is coming soon. It's less interesting than that.)</p>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      CALL-TO-ACTION SECTION
+      Links to other pages
+    -->
+    <section class="cta-section" aria-labelledby="cta-heading">
+      <div class="container">
+        <h2 id="cta-heading" class="section-heading">Want to Know More?</h2>
+        <p>Check out our releases, join the fan club, or just send us a message. We promise to respond eventually.</p>
+        <div class="cta-buttons">
+          <a href="releases.html" class="button button--primary">Our Music</a>
+          <a href="contact.html" class="button button--secondary">Get in Touch</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!--
+    FOOTER
+    Site-wide footer with social links, copyright, and secondary nav
+    Semantic <footer> element
+  -->
+  <footer class="site-footer">
+    <div class="container">
+
+      <!-- Social Media Links -->
+      <div class="site-footer__social">
+        <h2 class="site-footer__heading">Follow the Chaos</h2>
+        <ul class="social-links">
+          <li>
+            <a href="https://instagram.com/durtnurs" class="social-links__item" aria-label="Follow us on Instagram" target="_blank" rel="noopener noreferrer">
+              <!-- Instagram Icon (inline SVG for performance) -->
+              <svg class="social-links__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+              <span class="social-links__text">Instagram</span>
+            </a>
+          </li>
+          <!-- Add more social links here as needed -->
+        </ul>
+      </div>
+
+      <!-- Secondary Navigation -->
+      <nav class="site-footer__nav" aria-label="Footer navigation">
+        <ul class="footer-nav">
+          <li><a href="about.html" class="footer-nav__link">About</a></li>
+          <li><a href="contact.html" class="footer-nav__link">Contact</a></li>
+          <li><a href="privacy.html" class="footer-nav__link">Privacy</a></li>
+          <li><a href="terms.html" class="footer-nav__link">Terms</a></li>
+        </ul>
+      </nav>
+
+      <!-- Copyright -->
+      <div class="site-footer__copyright">
+        <p>&copy; 1993 tHE dURT nURS'. All rights reserved.</p>
+        <p class="site-footer__tagline">Built with grit, aged whiskey, and questionable decisions.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!--
+    PROGRESSIVE ENHANCEMENT
+    Optional: Add JavaScript for enhanced features (future phase)
+    Site works perfectly without this file
+  -->
+  <!-- <script src="assets/js/progressive.js"></script> -->
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A message from tHE dURT nURS' - You've reached a dead end">
+  <meta name="robots" content="noindex, nofollow">
+
+  <title>Message - tHE dURT nURS'</title>
+
+  <!-- CSS Architecture: Load in order of specificity -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+
+  <!-- Google Fonts: Oswald (headers) + Merriweather (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon (placeholder - add actual favicon later) -->
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+</head>
+<body>
+
+  <!--
+    MESSAGE PAGE
+    Full-page humorous message with timer and exit button
+    This page is intentionally minimal - no header or footer navigation
+    to emphasize the "dead-end" experience
+  -->
+  <main class="message-container" role="main">
+    <div class="message-content">
+
+      <!--
+        MESSAGE TEXT
+        Populated by JavaScript based on URL parameter
+        Default message shown for progressive enhancement
+      -->
+      <h1 class="message-text" id="message-text" aria-live="polite">
+        Well... there's really nothing more to add so... goodbye
+      </h1>
+
+      <!--
+        COUNTDOWN TIMER
+        Shows seconds remaining before auto-redirect
+        Hidden when JavaScript is disabled (progressive enhancement)
+      -->
+      <div class="message-timer" id="message-timer" aria-live="polite" aria-atomic="true">
+        <p class="message-timer__text">
+          Redirecting in <span class="message-timer__countdown" id="timer-countdown">7</span> seconds...
+        </p>
+      </div>
+
+      <!--
+        EXIT BUTTON
+        Provides immediate escape route back to news page
+        Styled to match Fan Club exit button
+      -->
+      <a href="news.html" class="message-exit" id="message-exit">
+        Get Me Out of Here
+      </a>
+
+    </div>
+  </main>
+
+  <!--
+    PROGRESSIVE ENHANCEMENT FALLBACK
+    Displayed when JavaScript is disabled
+    Provides accessible alternative experience
+  -->
+  <noscript>
+    <div class="noscript-message">
+      <p class="noscript-message__text">
+        Well, this is awkward. JavaScript is required for the full comedic timing experience.
+      </p>
+      <a href="news.html" class="button noscript-message__button">
+        Back to News
+      </a>
+    </div>
+
+    <!--
+      Hide timer when JavaScript is disabled
+      Timer only works with JavaScript, so we hide it to avoid confusion
+    -->
+    <style>
+      .message-timer {
+        display: none;
+      }
+    </style>
+  </noscript>
+
+  <!--
+    JAVASCRIPT MODULE
+    Handles message selection, timer, and redirect
+    Progressive enhancement: page still works without this
+  -->
+  <script src="assets/js/message.js"></script>
+
+</body>
+</html>

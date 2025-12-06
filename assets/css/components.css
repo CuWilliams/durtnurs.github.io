@@ -1,0 +1,3738 @@
+/*
+  COMPONENT STYLES
+  Reusable UI components using BEM methodology
+
+  BEM Format: .block__element--modifier
+  Example: .news-card__title--featured
+  - Block: Standalone component (news-card)
+  - Element: Part of component (title)
+  - Modifier: Variation (featured)
+*/
+
+
+/* ============================================
+   HEADER & MAIN NAVIGATION
+   ============================================ */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  background-color: var(--color-coal-black);
+  border-bottom: var(--border-width) solid var(--color-iron-gray);
+  box-shadow: var(--shadow-md);
+}
+
+/*
+  Main Navigation: Flexbox layout
+  Why Flexbox: Perfect for horizontal alignment (logo left, menu right)
+*/
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) 0;
+  position: relative;
+}
+
+/* Band logo/name */
+.main-nav__logo {
+  z-index: calc(var(--z-header) + 1);
+}
+
+.logo-text {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  text-transform: none; /* Preserve exact case: tHE dURT nURS' */
+  letter-spacing: 0.05em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  transition: color var(--transition-base);
+}
+
+.logo-text:hover {
+  color: var(--color-accent);
+}
+
+/*
+  MOBILE MENU: CSS-only checkbox hack
+  Learning: Uses hidden checkbox + :checked pseudo-class
+  No JavaScript required!
+*/
+
+/* Hide the checkbox visually but keep it functional */
+.main-nav__toggle {
+  display: none;
+}
+
+/* Hamburger menu button (label for checkbox) */
+.main-nav__toggle-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 32px;
+  height: 28px;
+  cursor: pointer;
+  z-index: calc(var(--z-header) + 1);
+  padding: 4px;
+}
+
+/* Hamburger icon: three lines */
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: var(--color-text-primary);
+  transition: transform var(--transition-base), opacity var(--transition-fast);
+  border-radius: var(--border-radius-full);
+}
+
+.hamburger {
+  position: relative;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+}
+
+.hamburger::before {
+  top: -8px;
+}
+
+.hamburger::after {
+  bottom: -8px;
+}
+
+/* Animate hamburger to X when checked */
+.main-nav__toggle:checked ~ .main-nav__toggle-label .hamburger {
+  background-color: transparent;
+}
+
+.main-nav__toggle:checked ~ .main-nav__toggle-label .hamburger::before {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.main-nav__toggle:checked ~ .main-nav__toggle-label .hamburger::after {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Navigation list: hidden on mobile by default */
+.main-nav__list {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 70%;
+  max-width: 300px;
+  background: linear-gradient(
+    180deg,
+    var(--color-burnt-umber) 0%,
+    var(--color-coal-black) 100%
+  );
+  padding: var(--space-3xl) var(--space-lg);
+  transform: translateX(100%);
+  transition: transform var(--transition-base);
+  box-shadow: var(--shadow-xl);
+  border-left: var(--border-width) solid var(--color-iron-gray);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* Show menu when checkbox is checked */
+.main-nav__toggle:checked ~ .main-nav__list {
+  transform: translateX(0);
+}
+
+/* Navigation links */
+.main-nav__link {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--space-sm);
+  transition: color var(--transition-base);
+  border-bottom: 2px solid transparent;
+}
+
+.main-nav__link:hover,
+.main-nav__link:focus {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+/* Active link (current page) */
+.main-nav__link--active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+/* Tablet and up: Horizontal navigation */
+@media (min-width: 768px) {
+  .main-nav__toggle-label {
+    display: none;
+  }
+
+  .main-nav__list {
+    position: static;
+    width: auto;
+    max-width: none;
+    transform: translateX(0);
+    flex-direction: row;
+    gap: var(--space-lg);
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+  }
+
+  .main-nav__link {
+    font-size: var(--font-size-base);
+    padding: var(--space-xs);
+  }
+}
+
+
+/* ============================================
+   BUTTONS
+   Primary, secondary, and ghost variants
+   ============================================ */
+
+/*
+  Base button styles
+  Learning: Creates consistent interactive element
+*/
+.button {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+  padding: var(--space-sm) var(--space-lg);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* Primary button: Main call-to-action */
+.button--primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-dark);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.button--primary:hover,
+.button--primary:focus {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.button--primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Secondary button: Less prominent actions */
+.button--secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.button--secondary:hover,
+.button--secondary:focus {
+  background-color: var(--color-primary);
+  color: var(--color-text-dark);
+  border-color: var(--color-primary);
+}
+
+/* Ghost button: Minimal style */
+.button--ghost {
+  background-color: transparent;
+  color: var(--color-text-primary);
+  border-color: transparent;
+}
+
+.button--ghost:hover,
+.button--ghost:focus {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+
+/* ============================================
+   NEWS CARDS
+   Card-based design for news items
+   ============================================ */
+
+/*
+  News Card: BEM structure
+  .news-card (block)
+  .news-card__date (element)
+  .news-card__title (element)
+  etc.
+*/
+.news-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.news-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.news-card__date {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.news-card__title {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-xs);
+}
+
+.news-card__title a {
+  color: var(--color-text-primary);
+  transition: color var(--transition-base);
+}
+
+.news-card__title a:hover,
+.news-card__title a:focus {
+  color: var(--color-primary);
+}
+
+.news-card__excerpt {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  flex-grow: 1;
+}
+
+.news-card__link {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  align-self: flex-start;
+  transition: color var(--transition-base);
+}
+
+.news-card__link:hover,
+.news-card__link:focus {
+  color: var(--color-primary);
+}
+
+
+/* ============================================
+   ALBUM CARD COMPONENTS
+   ============================================ */
+
+.album-card__title {
+  font-size: var(--font-size-3xl);
+  color: var(--color-primary);
+  margin-bottom: 0;
+}
+
+.album-card__subtitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.album-card__date {
+  font-size: var(--font-size-sm);
+  color: var(--color-accent);
+  font-weight: var(--font-weight-semibold);
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+.album-card__description {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+
+/* ============================================
+   FOOTER
+   Site-wide footer styling
+   ============================================ */
+
+.site-footer {
+  background: linear-gradient(
+    180deg,
+    var(--color-coal-black) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border-top: var(--border-width) solid var(--color-iron-gray);
+  padding: var(--space-3xl) 0 var(--space-xl);
+  margin-top: var(--space-4xl);
+}
+
+.site-footer__heading {
+  font-size: var(--font-size-xl);
+  color: var(--color-primary);
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+.site-footer__social {
+  margin-bottom: var(--space-xl);
+}
+
+/* Social media links */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.social-links__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  padding: var(--space-sm) var(--space-md);
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-base);
+}
+
+.social-links__item:hover,
+.social-links__item:focus {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.social-links__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.social-links__text {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Footer navigation */
+.site-footer__nav {
+  margin-bottom: var(--space-lg);
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.footer-nav__link {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  padding: var(--space-xs);
+  transition: color var(--transition-base);
+}
+
+.footer-nav__link:hover,
+.footer-nav__link:focus {
+  color: var(--color-primary);
+}
+
+.footer-nav__link:not(:last-child)::after {
+  content: '|';
+  margin-left: var(--space-md);
+  color: var(--color-iron-gray);
+}
+
+/* Copyright section */
+.site-footer__copyright {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  border-top: 1px solid var(--color-iron-gray);
+  padding-top: var(--space-lg);
+}
+
+.site-footer__copyright p {
+  margin-bottom: var(--space-xs);
+}
+
+.site-footer__tagline {
+  font-style: italic;
+  color: var(--color-primary);
+  font-size: var(--font-size-xs);
+}
+
+
+/* ============================================
+   FORM ELEMENTS (for future contact forms)
+   ============================================ */
+
+/*
+  Placeholder styles for Phase 3 contact forms
+  Learning: Consistent form styling improves UX
+*/
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-coal-black);
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius);
+  padding: var(--space-sm);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(160, 90, 36, 0.2);
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+
+/* ============================================
+   IMAGES
+   Responsive image handling
+   ============================================ */
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Image with caption */
+figure {
+  margin: var(--space-lg) 0;
+}
+
+figcaption {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-style: italic;
+  text-align: center;
+  margin-top: var(--space-xs);
+}
+
+
+/* ============================================
+   ACCESSIBILITY ENHANCEMENTS
+   ============================================ */
+
+/*
+  Skip to content link (for keyboard users)
+  Hidden until focused via Tab key
+*/
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background-color: var(--color-primary);
+  color: var(--color-text-dark);
+  padding: var(--space-sm) var(--space-md);
+  text-decoration: none;
+  font-weight: var(--font-weight-bold);
+  z-index: var(--z-modal);
+  transition: top var(--transition-fast);
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/*
+  Focus visible styles (keyboard navigation)
+  Learning: Only show focus ring for keyboard users
+*/
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  border-radius: var(--border-radius-sm);
+}
+
+
+/* ============================================
+   LOADING STATES (for future use)
+   ============================================ */
+
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+  cursor: wait;
+}
+
+/* Simple spinner animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  border: 3px solid var(--color-iron-gray);
+  border-top-color: var(--color-primary);
+  border-radius: var(--border-radius-full);
+  width: 40px;
+  height: 40px;
+  animation: spin 0.8s linear infinite;
+}
+
+
+/* ============================================
+   ABOUT PAGE COMPONENTS (Phase 2)
+   ============================================ */
+
+/*
+  Hero variant for About page
+  Simpler, text-focused hero section
+*/
+.hero--about {
+  background: linear-gradient(
+    135deg,
+    var(--color-coal-black) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  padding: var(--space-3xl) 0 var(--space-2xl);
+  text-align: center;
+}
+
+.hero--about .hero__title {
+  font-size: var(--font-size-4xl);
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.hero--about .hero__subtitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@media (min-width: 768px) {
+  .hero--about .hero__title {
+    font-size: var(--font-size-5xl);
+  }
+
+  .hero--about .hero__subtitle {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+
+/* ============================================
+   BAND STORY SECTION
+   ============================================ */
+
+.band-story {
+  padding: var(--space-3xl) 0;
+}
+
+.story-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.story-content p {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-lg);
+}
+
+.story-content p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* ============================================
+   BAND MEMBERS SECTION
+   ============================================ */
+
+.band-members {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(
+    180deg,
+    var(--color-coal-black) 0%,
+    var(--color-burnt-umber) 50%,
+    var(--color-coal-black) 100%
+  );
+}
+
+/*
+  Members Grid: CSS Grid with auto-fit
+  Learning: auto-fit creates responsive columns without media queries
+  Stacks on mobile (when 300px minimum can't fit), 2 columns on wider screens
+*/
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+}
+
+/*
+  Member Card: BEM structure
+  .member-card (block)
+  .member-card__image (element)
+  .member-card__info (element)
+*/
+.member-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.member-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-primary);
+}
+
+.member-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    var(--color-aged-whiskey) 0%,
+    var(--color-tarnished-brass) 100%
+  );
+}
+
+.member-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Gritty effect: slight grayscale and contrast boost */
+  filter: contrast(1.1) saturate(0.9);
+}
+
+.member-info {
+  padding: var(--space-lg);
+}
+
+.member-name {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-aged-whiskey);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+}
+
+.member-role {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-iron-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-md);
+}
+
+.member-bio {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.member-bio p {
+  margin-bottom: var(--space-sm);
+}
+
+.member-bio p:last-child {
+  margin-bottom: 0;
+}
+
+/*
+  Placeholder bio styling
+  Italicized to indicate temporary content
+*/
+.bio-placeholder {
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+
+/* ============================================
+   ORIGIN STORY SECTION
+   ============================================ */
+
+.origin-story {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-dried-blood) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  text-align: center;
+}
+
+p.origin-placeholder {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-aged-whiskey);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-md);
+  position: relative;
+}
+
+/*
+  Quotation marks styling
+  Using ::before and ::after for decorative quotes
+*/
+.origin-placeholder::before,
+.origin-placeholder::after {
+  content: '"';
+  font-size: var(--font-size-5xl);
+  color: var(--color-tarnished-brass);
+  opacity: 0.4;
+  line-height: 0;
+}
+
+.origin-placeholder::before {
+  margin-right: var(--space-xs);
+}
+
+.origin-placeholder::after {
+  margin-left: var(--space-xs);
+}
+
+.note {
+  font-size: var(--font-size-sm);
+  font-style: italic;
+  color: var(--color-iron-gray);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .origin-placeholder {
+    font-size: var(--font-size-4xl);
+  }
+}
+
+
+/* ============================================
+   CALL-TO-ACTION SECTION
+   ============================================ */
+
+.cta-section {
+  padding: var(--space-3xl) 0;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    var(--color-coal-black) 0%,
+    var(--color-burnt-umber) 100%
+  );
+}
+
+.cta-section p {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto var(--space-xl);
+}
+
+.cta-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+/* Stack buttons on mobile, side-by-side on tablet+ */
+@media (min-width: 768px) {
+  .cta-buttons {
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--space-lg);
+  }
+}
+
+
+/* ============================================
+   ANNOUNCEMENT CARD COMPONENTS (Phase 3)
+   Dynamic news/announcements system
+   ============================================ */
+
+/*
+  Announcement Cards - Enhanced version of news cards
+  Includes category badges, featured variants, and full content support
+  Used on both homepage (excerpts) and archive page (full content)
+*/
+
+.announcement-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  position: relative;
+}
+
+.announcement-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/*
+  Category Modifiers: Different border colors per category
+  Learning: BEM modifiers allow easy variation without new classes
+*/
+.announcement-card--news {
+  border-left: 4px solid var(--color-aged-whiskey);
+}
+
+.announcement-card--news:hover {
+  border-color: var(--color-aged-whiskey);
+}
+
+.announcement-card--release {
+  border-left: 4px solid var(--color-dried-blood);
+}
+
+.announcement-card--release:hover {
+  border-color: var(--color-dried-blood);
+}
+
+.announcement-card--show {
+  border-left: 4px solid var(--color-tarnished-brass);
+}
+
+.announcement-card--show:hover {
+  border-color: var(--color-tarnished-brass);
+}
+
+.announcement-card--general {
+  border-left: 4px solid var(--color-iron-gray);
+}
+
+.announcement-card--general:hover {
+  border-color: var(--color-iron-gray);
+}
+
+/*
+  Featured announcement: Extra styling for important posts
+  Slightly larger, more prominent
+*/
+.announcement-card--featured {
+  border-width: var(--border-width-thick);
+  box-shadow: var(--shadow-lg);
+}
+
+.announcement-card--featured::before {
+  content: '★';
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  font-size: var(--font-size-2xl);
+  color: var(--color-accent);
+  opacity: 0.6;
+  line-height: 1;
+}
+
+.announcement-card--featured:hover {
+  box-shadow: var(--shadow-xl);
+}
+
+/*
+  Card Header: Flex container for date and category badge
+*/
+.announcement-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+/*
+  Date Element: Small, muted, uppercase
+*/
+.announcement-card__date {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/*
+  Category Badge: Small colored label
+  Color changes based on parent card's modifier class
+*/
+.announcement-card__category {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px var(--space-xs);
+  border-radius: var(--border-radius-sm);
+  background-color: rgba(0, 0, 0, 0.4);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+/* Category-specific badge colors */
+.announcement-card--news .announcement-card__category {
+  background-color: var(--color-aged-whiskey);
+  color: var(--color-text-dark);
+}
+
+.announcement-card--release .announcement-card__category {
+  background-color: var(--color-dried-blood);
+  color: var(--color-text-primary);
+}
+
+.announcement-card--show .announcement-card__category {
+  background-color: var(--color-tarnished-brass);
+  color: var(--color-text-dark);
+}
+
+.announcement-card--general .announcement-card__category {
+  background-color: var(--color-iron-gray);
+  color: var(--color-text-primary);
+}
+
+/*
+  Card Title: Prominent heading
+*/
+.announcement-card__title {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+/*
+  Card Excerpt: Brief summary for homepage cards
+*/
+.announcement-card__excerpt {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  flex-grow: 1;
+}
+
+/*
+  Card Content: Full content for archive page
+  Supports basic HTML (p, strong, em, a tags)
+*/
+.announcement-card__content {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  flex-grow: 1;
+}
+
+.announcement-card__content p {
+  margin-bottom: var(--space-sm);
+}
+
+.announcement-card__content p:last-child {
+  margin-bottom: 0;
+}
+
+.announcement-card__content a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  transition: color var(--transition-base);
+}
+
+.announcement-card__content a:hover,
+.announcement-card__content a:focus {
+  color: var(--color-primary);
+}
+
+.announcement-card__content strong {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.announcement-card__content em {
+  font-style: italic;
+}
+
+/*
+  Card Link: "Read more" action
+*/
+.announcement-card__link {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  align-self: flex-start;
+  transition: color var(--transition-base);
+  text-decoration: none;
+  margin-top: var(--space-xs);
+}
+
+.announcement-card__link:hover,
+.announcement-card__link:focus {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+
+/* ============================================
+   NEWS ARCHIVE PAGE LAYOUT
+   ============================================ */
+
+/*
+  News Archive Section
+*/
+.news-archive-section {
+  padding: var(--space-3xl) 0;
+  min-height: 60vh;
+}
+
+/*
+  Archive Grid: Responsive grid for all announcements
+  Mobile: 1 column
+  Tablet: 2 columns
+  Desktop: 3 columns
+*/
+.news-archive__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .news-archive__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .news-archive__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/*
+  News Section Footer: Container for "View All News" button
+*/
+.news-section__footer {
+  margin-top: var(--space-xl);
+  text-align: center;
+}
+
+
+/* ============================================
+   LOADING & ERROR STATES (Phase 3)
+   ============================================ */
+
+/*
+  Loading Message: Shown while JavaScript fetches data
+  Removed by JS when content loads
+*/
+.loading-message {
+  text-align: center;
+  padding: var(--space-xl);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/*
+  Animated loading dots
+  Learning: CSS animations can create engaging loading states
+*/
+.loading-message::after {
+  content: '...';
+  display: inline-block;
+  animation: loading-dots 1.5s infinite;
+}
+
+@keyframes loading-dots {
+  0% { content: ''; }
+  25% { content: '.'; }
+  50% { content: '..'; }
+  75% { content: '...'; }
+  100% { content: ''; }
+}
+
+/*
+  Error Message: Shown when data fails to load
+*/
+.error-message {
+  background-color: var(--color-dried-blood);
+  border: var(--border-width) solid var(--color-danger);
+  border-radius: var(--border-radius);
+  padding: var(--space-lg);
+  margin: var(--space-xl) 0;
+  text-align: center;
+}
+
+.error-message p {
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  margin: 0;
+}
+
+.error-message strong {
+  display: block;
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-xs);
+  color: var(--color-accent);
+}
+
+
+/* ============================================
+   NEWS HERO VARIANT (Phase 3)
+   ============================================ */
+
+/*
+  Hero variant for News archive page
+  Similar to About hero but with news-specific styling
+*/
+.hero--news {
+  background: linear-gradient(
+    135deg,
+    var(--color-coal-black) 0%,
+    var(--color-dried-blood) 50%,
+    var(--color-burnt-umber) 100%
+  );
+  padding: var(--space-3xl) 0 var(--space-2xl);
+  text-align: center;
+}
+
+.hero--news .hero__title {
+  font-size: var(--font-size-4xl);
+  color: var(--color-aged-whiskey);
+  margin-bottom: var(--space-sm);
+}
+
+.hero--news .hero__subtitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  color: var(--color-tarnished-brass);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@media (min-width: 768px) {
+  .hero--news .hero__title {
+    font-size: var(--font-size-5xl);
+  }
+
+  .hero--news .hero__subtitle {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+
+/* ============================================
+   RELEASES PAGE COMPONENTS (Phase 4)
+   Album/release cards with responsive grid
+   ============================================ */
+
+/*
+  RELEASES HERO VARIANT
+  Unique gradient for releases/discography page
+*/
+.hero--releases {
+  background: linear-gradient(
+    135deg,
+    var(--color-coal-black) 0%,
+    var(--color-aged-whiskey) 50%,
+    var(--color-burnt-umber) 100%
+  );
+  padding: var(--space-3xl) 0 var(--space-2xl);
+  text-align: center;
+}
+
+.hero--releases .hero__title {
+  font-size: var(--font-size-4xl);
+  color: var(--color-tarnished-brass);
+  margin-bottom: var(--space-sm);
+}
+
+.hero--releases .hero__subtitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-md);
+}
+
+.hero--releases .hero__description {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  max-width: 700px;
+  margin: 0 auto;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+@media (min-width: 768px) {
+  .hero--releases .hero__title {
+    font-size: var(--font-size-5xl);
+  }
+
+  .hero--releases .hero__subtitle {
+    font-size: var(--font-size-2xl);
+  }
+
+  .hero--releases .hero__description {
+    font-size: var(--font-size-lg);
+  }
+}
+
+
+/*
+  RELEASES GRID
+  Responsive grid container for release cards
+
+  Layout Strategy:
+  - Mobile (default): 1 column (stacked)
+  - Tablet (768px+): 2 columns
+  - Desktop (1024px+): 3 columns
+
+  Why CSS Grid here?
+  - Auto-placement handles card positioning
+  - Equal-height cards without JavaScript
+  - gap property provides clean spacing
+  - More flexible than Flexbox for this use case
+*/
+.releases-section {
+  padding: var(--space-3xl) 0;
+  min-height: 60vh;
+}
+
+.releases-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+/* Tablet: 2 columns side by side */
+@media (min-width: 768px) {
+  .releases-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+}
+
+/* Desktop: 3 columns for full catalog view */
+@media (min-width: 1024px) {
+  .releases-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Extra wide screens: prevent cards from becoming too wide */
+@media (min-width: 1440px) {
+  .releases-grid {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+
+/*
+  RELEASE CARD
+  Individual album/release component
+
+  BEM Structure:
+  - Block: .release-card
+  - Elements: .release-card__cover, .release-card__title, etc.
+  - Modifiers: .release-card--featured
+*/
+.release-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/*
+  Hover State: Subtle lift effect
+  Why: Provides visual feedback that cards are interactive
+  transform: translateY creates smooth vertical movement
+*/
+.release-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-primary);
+}
+
+/*
+  Featured Release Modifier
+  Applied to the newest/primary release for emphasis
+  Uses thicker border and more prominent shadow
+*/
+.release-card--featured {
+  border-width: var(--border-width-thick);
+  border-color: var(--color-dried-blood);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Featured cards get even more dramatic hover effect */
+.release-card--featured:hover {
+  box-shadow: 0 25px 50px rgba(91, 26, 26, 0.5);
+  border-color: var(--color-aged-whiskey);
+}
+
+/* Optional: Badge indicating featured status */
+.release-card--featured::before {
+  content: 'NEW';
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background-color: var(--color-dried-blood);
+  color: var(--color-text-primary);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px var(--space-xs);
+  border-radius: var(--border-radius-sm);
+  z-index: 10;
+}
+
+
+/*
+  ALBUM COVER SECTION
+  Wrapper ensures consistent aspect ratio
+*/
+.release-card__cover-wrapper {
+  position: relative;
+  width: 100%;
+  /*
+    aspect-ratio: Modern CSS property for maintaining proportions
+    1 / 1 = square (perfect for album covers)
+    Why? Ensures all covers are same size regardless of source image
+    Fallback: If browser doesn't support aspect-ratio, padding-top hack applies
+  */
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(
+    135deg,
+    var(--color-aged-whiskey) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  overflow: hidden;
+}
+
+/* Fallback for browsers without aspect-ratio support */
+@supports not (aspect-ratio: 1 / 1) {
+  .release-card__cover-wrapper {
+    padding-top: 100%; /* Creates 1:1 ratio using padding trick */
+  }
+
+  .release-card__cover-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.release-card__cover {
+  width: 100%;
+  height: 100%;
+  /*
+    object-fit: cover ensures image fills space without distortion
+    Similar to background-size: cover but for <img> elements
+    Crops image if necessary to maintain aspect ratio
+  */
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-slow);
+}
+
+/* Subtle zoom on card hover (enhances interactivity) */
+.release-card:hover .release-card__cover {
+  transform: scale(1.05);
+}
+
+
+/*
+  CARD CONTENT SECTION
+  Contains all text and interactive elements
+*/
+.release-card__content {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  flex-grow: 1; /* Allows content to fill available space */
+}
+
+
+/*
+  CARD HEADER
+  Contains title and type badge in flexbox layout
+*/
+.release-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+
+/*
+  RELEASE TITLE
+  Album/EP name - most prominent text element
+*/
+.release-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: var(--line-height-tight);
+  margin: 0;
+  /* Allows title to take up remaining space next to badge */
+  flex-grow: 1;
+}
+
+
+/*
+  TYPE BADGE
+  Small label indicating release type (album, EP, single, etc.)
+*/
+.release-card__type-badge {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-dark);
+  background-color: var(--color-tarnished-brass);
+  padding: 2px var(--space-xs);
+  border-radius: var(--border-radius-sm);
+  white-space: nowrap;
+  align-self: flex-start;
+}
+
+/* Different badge colors per release type (via data attribute) */
+.release-card[data-type="album"] .release-card__type-badge {
+  background-color: var(--color-aged-whiskey);
+}
+
+.release-card[data-type="ep"] .release-card__type-badge {
+  background-color: var(--color-tarnished-brass);
+}
+
+.release-card[data-type="single"] .release-card__type-badge {
+  background-color: var(--color-iron-gray);
+}
+
+.release-card[data-type="live"] .release-card__type-badge {
+  background-color: var(--color-dried-blood);
+  color: var(--color-text-primary);
+}
+
+.release-card[data-type="compilation"] .release-card__type-badge {
+  background-color: var(--color-burnt-umber);
+  color: var(--color-text-primary);
+}
+
+
+/*
+  ARTIST NAME
+  Band name (typically same for all releases)
+*/
+.release-card__artist {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: none;
+  margin: 0;
+}
+
+
+/*
+  RELEASE DATE
+  Semantic <time> element with datetime attribute
+  Styled as small, uppercase text
+*/
+.release-card__date {
+  display: block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-tarnished-brass);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+}
+
+
+/*
+  DESCRIPTION
+  Brief album description/tagline
+*/
+.release-card__description {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin: 0;
+  flex-grow: 1; /* Pushes subsequent elements to bottom */
+}
+
+
+/*
+  TRACKLIST (Collapsible)
+  Uses <details>/<summary> for native accordion behavior
+  No JavaScript required - browser handles open/close
+
+  Why <details>?
+  - Native HTML element (no JS needed)
+  - Accessible by default
+  - Keyboard navigable
+  - Screen reader friendly
+*/
+.release-card__tracklist {
+  margin-top: var(--space-sm);
+  border-top: 1px solid var(--color-iron-gray);
+  padding-top: var(--space-sm);
+}
+
+.release-card__tracklist-toggle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: color var(--transition-base);
+  /*
+    Hide default triangle marker
+    We'll add custom indicator via ::marker or ::before
+  */
+  list-style: none;
+}
+
+/* Remove default marker in Safari/Chrome */
+.release-card__tracklist-toggle::-webkit-details-marker {
+  display: none;
+}
+
+/* Add custom expand/collapse indicator */
+.release-card__tracklist-toggle::before {
+  content: '▶';
+  display: inline-block;
+  margin-right: var(--space-xs);
+  font-size: 0.7em;
+  transition: transform var(--transition-base);
+}
+
+/* Rotate indicator when details is open */
+.release-card__tracklist[open] .release-card__tracklist-toggle::before {
+  transform: rotate(90deg);
+}
+
+.release-card__tracklist-toggle:hover,
+.release-card__tracklist-toggle:focus {
+  color: var(--color-primary);
+}
+
+/*
+  Track List: Ordered list of song titles
+*/
+.release-card__tracks {
+  margin-top: var(--space-sm);
+  padding-left: var(--space-lg);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+.release-card__tracks li {
+  margin-bottom: 4px;
+}
+
+.release-card__tracks li:last-child {
+  margin-bottom: 0;
+}
+
+
+/*
+  STREAMING LINKS
+  Container for platform links (Spotify, Apple Music, etc.)
+*/
+.release-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-iron-gray);
+}
+
+
+/*
+  INDIVIDUAL STREAMING LINK
+  Button-like appearance for platform links
+*/
+.release-card__link {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-primary);
+  background-color: transparent;
+  border: 1px solid var(--color-iron-gray);
+  border-radius: var(--border-radius-sm);
+  padding: 4px var(--space-sm);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.release-card__link:hover,
+.release-card__link:focus {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.release-card__link:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   Fine-tune card layout at different breakpoints
+   ============================================ */
+
+/*
+  Tablet: Slightly larger card padding and text
+*/
+@media (min-width: 768px) {
+  .release-card__content {
+    padding: var(--space-xl);
+  }
+
+  .release-card__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .release-card__description {
+    font-size: var(--font-size-base);
+  }
+}
+
+/*
+  Desktop: Featured cards span 2 columns for prominence
+  Only on 3-column layout (1024px+)
+*/
+@media (min-width: 1024px) {
+  .release-card--featured {
+    /*
+      Span across 3 columns in 3-column grid
+      Makes featured release three times as wide
+      Falls back gracefully if not in grid
+    */
+    grid-column: span 3;
+  }
+
+  /*
+    Horizontal layout for featured cards
+    Image on left, content on right
+  */
+  .release-card--featured {
+    flex-direction: row;
+  }
+
+  .release-card--featured .release-card__cover-wrapper {
+    width: 66.67%;
+    flex-shrink: 0;
+  }
+
+  .release-card--featured .release-card__content {
+    width: 33.33%;
+  }
+
+  .release-card--featured .release-card__cover {
+    object-fit: contain;
+  }
+}
+
+
+/* ============================================
+   GALLERY PAGE COMPONENTS (Phase 5)
+   Photo and video gallery with lightbox
+   ============================================ */
+
+/*
+  GALLERY HERO VARIANT
+  Unique gradient for gallery page
+*/
+.hero--gallery {
+  background: linear-gradient(
+    135deg,
+    var(--color-coal-black) 0%,
+    var(--color-iron-gray) 50%,
+    var(--color-burnt-umber) 100%
+  );
+  padding: var(--space-3xl) 0 var(--space-2xl);
+  text-align: center;
+}
+
+.hero--gallery .hero__title {
+  font-size: var(--font-size-4xl);
+  color: var(--color-tarnished-brass);
+  margin-bottom: var(--space-sm);
+}
+
+.hero--gallery .hero__subtitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-md);
+}
+
+.hero--gallery .hero__description {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  max-width: 700px;
+  margin: 0 auto;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+@media (min-width: 768px) {
+  .hero--gallery .hero__title {
+    font-size: var(--font-size-5xl);
+  }
+
+  .hero--gallery .hero__subtitle {
+    font-size: var(--font-size-2xl);
+  }
+
+  .hero--gallery .hero__description {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/*
+  GALLERY SECTION
+  Container for gallery grid
+*/
+.gallery-section {
+  padding: var(--space-3xl) 0;
+  min-height: 60vh;
+}
+
+/*
+  GALLERY GRID
+  Responsive CSS Grid layout for media cards
+
+  Layout Strategy:
+  - Mobile (default): 1 column (stacked)
+  - Tablet (768px+): 2 columns
+  - Desktop (1024px+): 3 columns
+  - Extra large (1440px+): 4 columns
+
+  Why CSS Grid?
+  - Auto-placement handles card positioning
+  - Equal-height cards without JavaScript
+  - gap property provides clean spacing
+  - More flexible than Flexbox for this use case
+*/
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+/* Tablet: 2 columns side by side */
+@media (min-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+}
+
+/* Desktop: 3 columns for full gallery view */
+@media (min-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Extra wide screens: 4 columns, with max-width to prevent excessive spreading */
+@media (min-width: 1440px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/*
+  GALLERY CARD
+  Individual photo/video card component
+
+  BEM Structure:
+  - Block: .gallery-card
+  - Elements: .gallery-card__thumbnail, .gallery-card__title, etc.
+  - Modifiers: .gallery-card--featured
+*/
+.gallery-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/*
+  Hover State: Subtle lift effect
+  Provides visual feedback that cards are clickable
+*/
+.gallery-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+/* Focus state for keyboard navigation */
+.gallery-card:focus {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/*
+  Featured Card Modifier
+  Applied to featured items for emphasis
+*/
+.gallery-card--featured {
+  border-width: var(--border-width-thick);
+  border-color: var(--color-tarnished-brass);
+  box-shadow: var(--shadow-lg);
+}
+
+.gallery-card--featured:hover {
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-aged-whiskey);
+}
+
+/*
+  THUMBNAIL SECTION
+  Wrapper ensures consistent aspect ratio for all images
+*/
+.gallery-card__thumbnail-wrapper {
+  position: relative;
+  width: 100%;
+  /*
+    aspect-ratio: Modern CSS property for maintaining proportions
+    4 / 3 = landscape (suitable for most photos)
+    Why? Ensures all thumbnails are same size regardless of source image
+  */
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(
+    135deg,
+    var(--color-iron-gray) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  overflow: hidden;
+}
+
+/* Fallback for browsers without aspect-ratio support */
+@supports not (aspect-ratio: 4 / 3) {
+  .gallery-card__thumbnail-wrapper {
+    padding-top: 75%; /* Creates 4:3 ratio using padding trick */
+  }
+
+  .gallery-card__thumbnail-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.gallery-card__thumbnail {
+  width: 100%;
+  height: 100%;
+  /*
+    object-fit: cover ensures image fills space without distortion
+    Similar to background-size: cover but for <img> elements
+  */
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-slow);
+}
+
+/* Subtle zoom on card hover (enhances interactivity) */
+.gallery-card:hover .gallery-card__thumbnail {
+  transform: scale(1.05);
+}
+
+/*
+  PLAY ICON OVERLAY
+  Indicates video content
+  Positioned absolutely over thumbnail
+*/
+.gallery-card__play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--font-size-5xl);
+  color: var(--color-text-primary);
+  background: rgba(11, 11, 12, 0.7);
+  width: 80px;
+  height: 80px;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+  pointer-events: none;
+  /* Nudge play icon slightly right for visual centering */
+  padding-left: 8px;
+}
+
+.gallery-card:hover .gallery-card__play-icon {
+  background: var(--color-primary);
+  color: var(--color-text-dark);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/*
+  CARD CONTENT SECTION
+  Contains text and date information
+*/
+.gallery-card__content {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.gallery-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-aged-whiskey);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: var(--line-height-tight);
+  margin: 0;
+}
+
+.gallery-card__description {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin: 0;
+  flex-grow: 1;
+}
+
+.gallery-card__date {
+  display: block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: var(--space-xs);
+}
+
+/* Tablet: Larger card text */
+@media (min-width: 768px) {
+  .gallery-card__title {
+    font-size: var(--font-size-xl);
+  }
+
+  .gallery-card__description {
+    font-size: var(--font-size-base);
+  }
+}
+
+/*
+  LIGHTBOX COMPONENTS
+  Full-screen overlay for viewing images/videos
+*/
+
+/*
+  Lightbox Container
+  Full-screen overlay with dark background
+  Hidden by default, shown with --active modifier
+*/
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(11, 11, 12, 0.95); /* Coal Black with 95% opacity */
+  z-index: var(--z-modal);
+  display: none; /* Hidden by default */
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+/* Active state: Show lightbox */
+.lightbox--active {
+  display: flex;
+  opacity: 1;
+}
+
+/*
+  Lightbox Content Container
+  Holds the image/video and caption
+*/
+.lightbox__content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: lightboxFadeIn var(--transition-base);
+}
+
+/* Fade-in animation for lightbox content */
+@keyframes lightboxFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/*
+  Lightbox Image
+  Full-size photo display
+*/
+.lightbox__image {
+  max-width: 90vw;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  box-shadow: var(--shadow-xl);
+  border-radius: var(--border-radius-md);
+}
+
+/*
+  Lightbox Video
+  Embedded video player (YouTube/Vimeo)
+*/
+.lightbox__video {
+  width: 90vw;
+  max-width: 1200px;
+  height: 50.625vw; /* 16:9 aspect ratio */
+  max-height: 675px; /* Matches max-width 16:9 */
+  border: none;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-xl);
+}
+
+/*
+  Lightbox Info
+  Title and description below image/video
+*/
+.lightbox__info {
+  margin-top: var(--space-lg);
+  text-align: center;
+  max-width: 600px;
+}
+
+.lightbox__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  color: var(--color-aged-whiskey);
+  margin-bottom: var(--space-xs);
+}
+
+.lightbox__description {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/*
+  Lightbox Close Button
+  X button in top-right corner
+*/
+.lightbox__close {
+  position: absolute;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  background: var(--color-dried-blood);
+  color: var(--color-text-primary);
+  border: none;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-size-3xl);
+  line-height: 1;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: all var(--transition-base);
+  z-index: calc(var(--z-modal) + 1);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox__close:hover,
+.lightbox__close:focus {
+  background: var(--color-aged-whiskey);
+  color: var(--color-text-dark);
+  transform: rotate(90deg);
+}
+
+/*
+  Lightbox Navigation Buttons
+  Previous/Next buttons on left/right sides
+*/
+.lightbox__prev,
+.lightbox__next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(58, 63, 69, 0.7); /* Iron Gray with transparency */
+  color: var(--color-text-primary);
+  border: none;
+  padding: var(--space-md) var(--space-lg);
+  font-size: var(--font-size-3xl);
+  line-height: 1;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: all var(--transition-base);
+  z-index: calc(var(--z-modal) + 1);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox__prev:hover,
+.lightbox__prev:focus,
+.lightbox__next:hover,
+.lightbox__next:focus {
+  background: var(--color-primary);
+  color: var(--color-text-dark);
+}
+
+.lightbox__prev {
+  left: var(--space-lg);
+}
+
+.lightbox__next {
+  right: var(--space-lg);
+}
+
+/*
+  Lightbox Counter
+  Shows current position (e.g., "3 / 8")
+*/
+.lightbox__counter {
+  position: absolute;
+  bottom: var(--space-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(11, 11, 12, 0.8);
+  color: var(--color-text-primary);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--border-radius-full);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.05em;
+}
+
+/* Mobile: Adjust lightbox controls for smaller screens */
+@media (max-width: 767px) {
+  .lightbox__close {
+    top: var(--space-sm);
+    right: var(--space-sm);
+    width: 40px;
+    height: 40px;
+    font-size: var(--font-size-2xl);
+  }
+
+  .lightbox__prev,
+  .lightbox__next {
+    width: 48px;
+    height: 48px;
+    font-size: var(--font-size-2xl);
+    padding: var(--space-sm);
+  }
+
+  .lightbox__prev {
+    left: var(--space-sm);
+  }
+
+  .lightbox__next {
+    right: var(--space-sm);
+  }
+
+  .lightbox__video {
+    height: 56.25vw; /* 16:9 aspect ratio for mobile */
+  }
+}
+
+/*
+  NoScript Message
+  Shown when JavaScript is disabled
+*/
+.noscript-message {
+  margin-top: var(--space-xl);
+  padding: var(--space-lg);
+  background-color: var(--color-iron-gray);
+  border: var(--border-width) solid var(--color-aged-whiskey);
+  border-radius: var(--border-radius);
+  text-align: center;
+}
+
+.noscript-message p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.noscript-message strong {
+  color: var(--color-aged-whiskey);
+}
+
+
+/* ============================================
+   CONTACT PAGE COMPONENTS (Phase 5)
+   Email contact with band humor
+   ============================================ */
+
+/*
+  CONTACT HERO VARIANT
+  Dark, moody gradient for contact page
+*/
+.hero--contact {
+  background: linear-gradient(
+    135deg,
+    var(--color-dried-blood) 0%,
+    var(--color-coal-black) 50%,
+    var(--color-burnt-umber) 100%
+  );
+  padding: var(--space-3xl) 0 var(--space-2xl);
+  text-align: center;
+}
+
+.hero--contact .hero__title {
+  font-size: var(--font-size-5xl);
+  color: var(--color-aged-whiskey);
+  margin-bottom: var(--space-sm);
+}
+
+.hero--contact .hero__subtitle {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  color: var(--color-iron-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@media (min-width: 768px) {
+  .hero--contact .hero__title {
+    font-size: var(--font-size-6xl);
+  }
+
+  .hero--contact .hero__subtitle {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+/*
+  CONTACT INTRO SECTION
+  Gruff introduction text
+*/
+.contact-intro-section {
+  padding: var(--space-3xl) 0 var(--space-2xl);
+  background-color: var(--color-coal-black);
+}
+
+.contact-intro {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact-intro p {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-loose);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .contact-intro p {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/*
+  CONTACT METHOD SECTION
+  Primary contact card with email button
+*/
+.contact-method-section {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(
+    180deg,
+    var(--color-coal-black) 0%,
+    var(--color-burnt-umber) 100%
+  );
+}
+
+/*
+  CONTACT CARD
+  Prominent card containing email button
+*/
+.contact-card {
+  max-width: 600px;
+  margin: 0 auto;
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width-thick) solid var(--color-aged-whiskey);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-3xl) var(--space-xl);
+  box-shadow: var(--shadow-xl);
+  text-align: center;
+}
+
+.contact-card__icon {
+  margin-bottom: var(--space-lg);
+  color: var(--color-aged-whiskey);
+}
+
+.contact-card__icon svg {
+  width: 64px;
+  height: 64px;
+}
+
+.contact-card__heading {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  color: var(--color-aged-whiskey);
+  margin-bottom: var(--space-md);
+}
+
+.contact-card__description {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-xl);
+}
+
+.contact-card__note {
+  font-size: var(--font-size-sm);
+  font-style: italic;
+  color: var(--color-iron-gray);
+  margin-top: var(--space-md);
+}
+
+/*
+  CONTACT BUTTON
+  Large, prominent mailto: link styled as button
+*/
+.contact-button {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-coal-black);
+  background-color: var(--color-aged-whiskey);
+  border: var(--border-width-thick) solid var(--color-aged-whiskey);
+  border-radius: var(--border-radius);
+  padding: var(--space-lg) var(--space-2xl);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-lg);
+  min-width: 280px;
+  text-align: center;
+}
+
+.contact-button:hover,
+.contact-button:focus {
+  background-color: var(--color-dried-blood);
+  border-color: var(--color-dried-blood);
+  color: var(--color-text-primary);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.contact-button:active {
+  transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
+  .contact-button {
+    font-size: var(--font-size-2xl);
+    padding: var(--space-xl) var(--space-3xl);
+  }
+}
+
+/*
+  CONTACT CONTEXT SECTION
+  What types of inquiries to send
+*/
+.contact-context-section {
+  padding: var(--space-3xl) 0;
+  background-color: var(--color-coal-black);
+}
+
+.contact-context {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.contact-context .section-heading {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+/*
+  CONTACT TOPICS GRID
+  Grid of different inquiry types
+*/
+.contact-topics {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .contact-topics {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+}
+
+@media (min-width: 1024px) {
+  .contact-topics {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/*
+  CONTACT TOPIC CARD
+  Individual inquiry type
+*/
+.contact-topic {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-lg);
+  transition: all var(--transition-base);
+}
+
+.contact-topic:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.contact-topic__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  color: var(--color-tarnished-brass);
+  margin-bottom: var(--space-sm);
+}
+
+.contact-topic__description {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/*
+  CONTACT SOCIAL SECTION
+  Alternative contact methods (social media)
+*/
+.contact-social-section {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(
+    180deg,
+    var(--color-coal-black) 0%,
+    var(--color-burnt-umber) 100%
+  );
+}
+
+.contact-social {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact-social .section-heading {
+  margin-bottom: var(--space-md);
+}
+
+.contact-social__intro {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-xl);
+}
+
+.social-contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+/*
+  SOCIAL CONTACT LINK
+  Individual social media link card
+*/
+.social-contact-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-lg) var(--space-xl);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  min-width: 300px;
+}
+
+.social-contact-link:hover,
+.social-contact-link:focus {
+  border-color: var(--color-primary);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.social-contact-link__icon {
+  flex-shrink: 0;
+  color: var(--color-aged-whiskey);
+}
+
+.social-contact-link__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.social-contact-link__name {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.social-contact-link__handle {
+  font-size: var(--font-size-sm);
+  color: var(--color-tarnished-brass);
+}
+
+.contact-social__note {
+  margin-top: var(--space-lg);
+  font-size: var(--font-size-sm);
+  font-style: italic;
+  color: var(--color-iron-gray);
+}
+
+/*
+  CONTACT WARNING SECTION
+  Final humorous warning about spam
+*/
+.contact-warning-section {
+  padding: var(--space-3xl) 0;
+  background-color: var(--color-dried-blood);
+  border-top: var(--border-width-thick) solid var(--color-aged-whiskey);
+  border-bottom: var(--border-width-thick) solid var(--color-aged-whiskey);
+}
+
+.contact-warning {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact-warning__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  color: var(--color-aged-whiskey);
+  margin-bottom: var(--space-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.contact-warning__text {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-loose);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.contact-warning__text:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .contact-warning__title {
+    font-size: var(--font-size-4xl);
+  }
+
+  .contact-warning__text {
+    font-size: var(--font-size-lg);
+  }
+}
+
+
+/* ============================================
+   FAN CLUB COMPONENTS (Phase 6)
+   Protected area with access code authentication
+   ============================================ */
+
+/*
+  ACCESS CODE OVERLAY
+  Full-screen overlay that appears before authentication
+  Prevents access to content until user enters correct code
+*/
+
+/**
+ * Main overlay container
+ * Covers entire viewport with dark background
+ * Uses position: fixed to stay in place even on scroll
+ *
+ * Z-index strategy:
+ * - Uses var(--z-modal) to ensure overlay is above all content
+ * - Higher than navigation, gallery, and footer
+ */
+.fanclub-auth {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(11, 11, 12, 0.97); /* Coal Black with high opacity */
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  /* Optional: backdrop-filter for modern browsers (progressive enhancement) */
+  backdrop-filter: blur(8px);
+}
+
+/* Hidden state for overlay (after successful authentication) */
+.fanclub-auth.hidden {
+  display: none;
+}
+
+/**
+ * Prompt Card
+ * Centered card containing form and messaging
+ * Uses max-width to prevent excessive width on large screens
+ */
+.fanclub-auth__prompt {
+  max-width: 500px;
+  width: 100%;
+  background: linear-gradient(
+    135deg,
+    var(--color-iron-gray) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width-thick) solid var(--color-aged-whiskey);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-2xl) var(--space-xl);
+  box-shadow: var(--shadow-xl);
+  text-align: center;
+  /* Subtle animation on page load */
+  animation: promptFadeIn 0.5s ease-out;
+}
+
+/* Fade-in animation for prompt card */
+@keyframes promptFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fanclub-auth__heading {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  color: var(--color-aged-whiskey);
+  margin-bottom: var(--space-md);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fanclub-auth__message {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.fanclub-auth__note {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin-bottom: var(--space-xl);
+}
+
+/**
+ * Authentication Form
+ * Contains input field and submit button
+ * Uses flexbox for vertical stacking
+ */
+.fanclub-auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: stretch;
+}
+
+/**
+ * Password Input
+ * Large, centered input with uppercase styling
+ * Letter-spacing creates visual separation between characters
+ *
+ * Why type="password"?
+ * - Hides characters as user types
+ * - Visual feedback that this is secure input
+ * - Still visible in page source (intentional for this use case)
+ */
+.fanclub-auth__input {
+  padding: var(--space-md);
+  font-size: var(--font-size-lg);
+  font-family: var(--font-heading);
+  text-align: center;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  border: var(--border-width) solid var(--color-burnt-umber);
+  border-radius: var(--border-radius);
+  background: var(--color-coal-black);
+  color: var(--color-aged-whiskey);
+  width: 100%;
+  box-sizing: border-box;
+  transition: all var(--transition-base);
+}
+
+/* Placeholder styling */
+.fanclub-auth__input::placeholder {
+  color: var(--color-iron-gray);
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+
+/* Focus state for input */
+.fanclub-auth__input:focus {
+  outline: none;
+  border-color: var(--color-aged-whiskey);
+  box-shadow: 0 0 0 3px rgba(160, 90, 36, 0.3);
+  background: rgba(11, 11, 12, 0.8);
+}
+
+/**
+ * Submit Button
+ * Large, prominent button with hover effects
+ */
+.fanclub-auth__submit {
+  padding: var(--space-md) var(--space-xl);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--color-aged-whiskey);
+  color: var(--color-coal-black);
+  border: var(--border-width-thick) solid var(--color-aged-whiskey);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  width: 100%;
+  box-shadow: var(--shadow-md);
+}
+
+.fanclub-auth__submit:hover,
+.fanclub-auth__submit:focus {
+  background: var(--color-dried-blood);
+  border-color: var(--color-dried-blood);
+  color: var(--color-text-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.fanclub-auth__submit:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/**
+ * Error Message
+ * Displayed when user enters incorrect code
+ * Starts invisible, becomes visible when error occurs
+ *
+ * Using visibility instead of display:
+ * - Maintains layout space (prevents content shift)
+ * - Can be animated smoothly
+ * - Still accessible to screen readers when visible
+ */
+.fanclub-auth__error {
+  color: var(--color-dried-blood);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  min-height: 1.5rem;
+  margin-top: var(--space-xs);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+/* Visible error state */
+.fanclub-auth__error.visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* PHASE 8: Drunk redirect styling (escalated error state) */
+.fanclub-auth__error--drunk {
+  background-color: rgba(91, 26, 26, 0.3);
+  color: var(--color-text-primary);
+  border: 2px solid var(--color-dried-blood);
+  font-weight: var(--font-weight-bold);
+  padding: var(--space-md);
+  border-radius: var(--border-radius-sm);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+/* PHASE 8: Countdown text styling */
+.fanclub-auth__countdown {
+  display: block;
+  font-size: var(--font-size-lg);
+  margin-top: var(--space-sm);
+  color: var(--color-aged-whiskey);
+  font-family: var(--font-heading);
+  letter-spacing: 0.05em;
+}
+
+/* PHASE 8: Pulse animation for drunk redirect */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* PHASE 8: Button actions container (groups Enter and Exit buttons) */
+.fanclub-auth__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+/* PHASE 8: Horizontal layout on larger screens */
+@media (min-width: 480px) {
+  .fanclub-auth__actions {
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+}
+
+/* PHASE 8: Exit button specific styling */
+.fanclub-auth__exit {
+  /* Ensure text is centered in link-styled-as-button */
+  text-align: center;
+  text-decoration: none;
+
+  /* Slightly less prominent than submit button */
+  opacity: 0.9;
+
+  /* Match submit button sizing */
+  padding: var(--space-md) var(--space-lg);
+  font-size: var(--font-size-base);
+}
+
+.fanclub-auth__exit:hover {
+  opacity: 1;
+}
+
+/* Tablet and up: Larger prompt card */
+@media (min-width: 768px) {
+  .fanclub-auth__prompt {
+    padding: var(--space-3xl) var(--space-2xl);
+  }
+
+  .fanclub-auth__heading {
+    font-size: var(--font-size-4xl);
+  }
+
+  .fanclub-auth__message {
+    font-size: var(--font-size-lg);
+  }
+
+  .fanclub-auth__input {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/* ============================================
+   FAN CLUB CONTENT SECTIONS
+   ============================================ */
+
+/**
+ * Main Content Container
+ * Hidden by default (until authentication succeeds)
+ */
+.fanclub-content {
+  display: block;
+}
+
+.fanclub-content.hidden {
+  display: none;
+}
+
+/**
+ * Welcome Section
+ * Greeting for authenticated members
+ */
+.fanclub-welcome {
+  text-align: center;
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-coal-black) 0%,
+    var(--color-iron-gray) 50%,
+    var(--color-burnt-umber) 100%
+  );
+  border-bottom: var(--border-width-thick) solid var(--color-aged-whiskey);
+}
+
+.fanclub-welcome__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-4xl);
+  color: var(--color-aged-whiskey);
+  margin-bottom: var(--space-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fanclub-welcome__text {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-loose);
+  color: var(--color-text-primary);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .fanclub-welcome__title {
+    font-size: var(--font-size-5xl);
+  }
+
+  .fanclub-welcome__text {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/**
+ * Gallery Section
+ * Full gallery display (no public flag filtering)
+ */
+.fanclub-gallery-section {
+  padding: var(--space-3xl) 0;
+  background-color: var(--color-coal-black);
+}
+
+.fanclub-gallery-section__intro {
+  text-align: center;
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  max-width: 700px;
+  margin: 0 auto var(--space-xl);
+}
+
+/**
+ * Exclusive Badge
+ * Indicates content not available in public gallery
+ * Appears on gallery cards and in lightbox
+ */
+.fanclub-exclusive-badge {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background: var(--color-dried-blood);
+  color: var(--color-text-primary);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px var(--space-xs);
+  border-radius: var(--border-radius-sm);
+  z-index: 10;
+  box-shadow: var(--shadow-sm);
+}
+
+.lightbox-exclusive-badge {
+  display: inline-block;
+  background: var(--color-dried-blood);
+  color: var(--color-text-primary);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px var(--space-sm);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: var(--space-sm);
+}
+
+/**
+ * Direct Contact Section
+ * Band member contact cards
+ */
+.fanclub-contact-section {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(
+    180deg,
+    var(--color-coal-black) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border-top: var(--border-width) solid var(--color-iron-gray);
+}
+
+.fanclub-contact-section__intro {
+  text-align: center;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  max-width: 700px;
+  margin: 0 auto var(--space-2xl);
+  line-height: var(--line-height-relaxed);
+}
+
+/**
+ * Member Contact Grid
+ * Responsive grid for member contact cards
+ * Mobile: 1 column (stacked)
+ * Tablet+: 2 columns (side by side)
+ */
+.member-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .member-contact-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2xl);
+  }
+}
+
+/**
+ * Member Contact Card
+ * Individual band member card with direct email link
+ */
+.member-contact-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-xl);
+  text-align: center;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-md);
+}
+
+.member-contact-card:hover {
+  border-color: var(--color-aged-whiskey);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.member-contact-card__name {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-aged-whiskey);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+}
+
+.member-contact-card__role {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-tarnished-brass);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-lg);
+}
+
+.member-contact-card__email {
+  display: inline-block;
+  padding: var(--space-md) var(--space-xl);
+  background: var(--color-aged-whiskey);
+  color: var(--color-coal-black);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  transition: all var(--transition-base);
+  margin-bottom: var(--space-md);
+  border: var(--border-width) solid var(--color-aged-whiskey);
+  box-shadow: var(--shadow-sm);
+}
+
+.member-contact-card__email:hover,
+.member-contact-card__email:focus {
+  background: var(--color-dried-blood);
+  border-color: var(--color-dried-blood);
+  color: var(--color-text-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.member-contact-card__note {
+  font-size: var(--font-size-sm);
+  color: var(--color-iron-gray);
+  font-style: italic;
+  margin-top: var(--space-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+@media (min-width: 768px) {
+  .member-contact-card__name {
+    font-size: var(--font-size-3xl);
+  }
+
+  .member-contact-card__email {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/**
+ * Fan Club Notice Section
+ * Final message about exclusive content responsibility
+ */
+.fanclub-notice-section {
+  padding: var(--space-3xl) 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-dried-blood) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border-top: var(--border-width-thick) solid var(--color-aged-whiskey);
+  border-bottom: var(--border-width-thick) solid var(--color-aged-whiskey);
+}
+
+.fanclub-notice {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.fanclub-notice__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  color: var(--color-aged-whiskey);
+  margin-bottom: var(--space-lg);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fanclub-notice__text {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-loose);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.fanclub-notice__text:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .fanclub-notice__title {
+    font-size: var(--font-size-4xl);
+  }
+
+  .fanclub-notice__text {
+    font-size: var(--font-size-lg);
+  }
+}
+
+/**
+ * Protected Navigation Link
+ * Special styling for Fan Club link in navigation
+ * Indicates this is a protected page
+ */
+.main-nav__link--protected {
+  position: relative;
+  color: var(--color-dried-blood);
+}
+
+.main-nav__link--protected:hover,
+.main-nav__link--protected:focus {
+  color: var(--color-aged-whiskey);
+}
+
+.main-nav__link--protected.main-nav__link--active {
+  color: var(--color-aged-whiskey);
+  border-bottom-color: var(--color-aged-whiskey);
+}
+
+/* Lock icon styling */
+.nav-lock-icon {
+  display: inline-block;
+  font-size: 0.85em;
+  margin-right: 4px;
+  opacity: 0.8;
+}
+
+/* =============================================================================
+   LOADING AND ERROR STATES
+   Utility styles for dynamic content loading states
+   Used by featured-release.js and other dynamic modules
+   ============================================================================= */
+
+/**
+ * Loading State
+ * Shown while content is being fetched
+ * Centered with secondary text color
+ */
+.featured-release__loading {
+  padding: var(--space-lg);
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+/**
+ * Error State
+ * Shown when content fails to load
+ * Uses dried-blood color to indicate error
+ */
+.featured-release__error {
+  padding: var(--space-lg);
+  text-align: center;
+  color: var(--color-dried-blood);
+}
+
+/**
+ * Album Card Actions
+ * Container for buttons/links on album cards
+ * Provides spacing and layout for action buttons
+ */
+.album-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+/* =============================================================================
+   UTILITY CLASSES
+   Reusable utility classes for common styling patterns
+   ============================================================================= */
+
+/**
+ * Text Center
+ * Centers text horizontally
+ * Used across various components for centered content
+ */
+.text-center {
+  text-align: center;
+}
+
+/* =============================================================================
+   MESSAGE PAGE COMPONENTS
+   Humorous dead-end message page with timer and exit button
+   Used by message.html for announcement link empty states
+   ============================================================================= */
+
+/**
+ * Message Container
+ * Full-page layout for message display
+ * Centers content both vertically and horizontally
+ *
+ * Why flexbox?
+ * - Centering content both ways is trivial with flexbox
+ * - Works responsively without media queries for basic centering
+ * - min-height: 100vh ensures full viewport height coverage
+ */
+.message-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--space-xl);
+  background-color: var(--color-coal-black);
+}
+
+/**
+ * Message Content
+ * Content wrapper with maximum width constraint
+ * Centers text and provides spacing
+ */
+.message-content {
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+  padding: var(--space-lg);
+}
+
+/**
+ * Message Text
+ * Large, prominent humorous message
+ * Uses heading font for impact
+ *
+ * Font sizing:
+ * - Mobile: 1.75rem (28px) - readable without being overwhelming
+ * - Tablet: 2rem (32px) - more prominent
+ * - Desktop: 2.5rem (40px) - full impact
+ */
+.message-text {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-aged-whiskey);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-xl);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+/* Tablet breakpoint */
+@media (min-width: 768px) {
+  .message-text {
+    font-size: 2rem;
+  }
+}
+
+/* Desktop breakpoint */
+@media (min-width: 1024px) {
+  .message-text {
+    font-size: 2.5rem;
+  }
+}
+
+/**
+ * Message Timer
+ * Countdown timer display
+ * Prominent but not distracting
+ */
+.message-timer {
+  margin-bottom: var(--space-xl);
+}
+
+.message-timer__text {
+  font-family: var(--font-body);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: 0.01em;
+}
+
+/**
+ * Message Timer Countdown
+ * Highlighted countdown number
+ * Uses accent color for emphasis
+ */
+.message-timer__countdown {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-tarnished-brass);
+  display: inline-block;
+  min-width: 1.5em;
+  text-align: center;
+}
+
+/**
+ * Message Exit Button
+ * "Get Me Out of Here" button
+ * Styled to match Fan Club exit button pattern
+ *
+ * Design notes:
+ * - High contrast for accessibility
+ * - Large click target for mobile
+ * - Clear hover/focus states
+ * - Smooth transitions for polish
+ */
+.message-exit {
+  display: inline-block;
+  padding: var(--space-md) var(--space-xl);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  background-color: var(--color-iron-gray);
+  border: 2px solid var(--color-aged-whiskey);
+  border-radius: var(--border-radius-base);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+/**
+ * Exit Button Hover State
+ * Inverted colors for clear feedback
+ */
+.message-exit:hover,
+.message-exit:focus {
+  background-color: var(--color-aged-whiskey);
+  color: var(--color-coal-black);
+  border-color: var(--color-aged-whiskey);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/**
+ * Exit Button Active State
+ * Slight press effect for tactile feedback
+ */
+.message-exit:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Tablet and desktop: larger button */
+@media (min-width: 768px) {
+  .message-exit {
+    font-size: var(--font-size-xl);
+    padding: var(--space-lg) var(--space-xxl);
+  }
+}
+
+/**
+ * Noscript Message
+ * Fallback message when JavaScript is disabled
+ * Provides accessible alternative experience
+ *
+ * Progressive enhancement approach:
+ * - Page works without JavaScript
+ * - Provides clear instructions
+ * - Maintains design consistency
+ */
+.noscript-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 600px;
+  width: 90%;
+  padding: var(--space-xl);
+  background-color: var(--color-iron-gray);
+  border: 2px solid var(--color-aged-whiskey);
+  border-radius: var(--border-radius-base);
+  text-align: center;
+  z-index: var(--z-modal);
+}
+
+.noscript-message__text {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-lg);
+  line-height: var(--line-height-normal);
+}
+
+.noscript-message__button {
+  display: inline-block;
+  padding: var(--space-md) var(--space-xl);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  background-color: var(--color-coal-black);
+  border: 2px solid var(--color-aged-whiskey);
+  border-radius: var(--border-radius-base);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all var(--transition-base);
+}
+
+.noscript-message__button:hover,
+.noscript-message__button:focus {
+  background-color: var(--color-aged-whiskey);
+  color: var(--color-coal-black);
+}

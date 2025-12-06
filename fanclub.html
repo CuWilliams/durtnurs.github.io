@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Privacy Meta Tags: Prevent search engine indexing -->
+  <!-- This is a REQUEST, not enforcement. Compliant bots will honor it. -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <meta name="description" content="tHE dURT nURS' Fan Club - Members only area with full gallery access and exclusive content.">
+
+  <title>Fan Club - tHE dURT nURS'</title>
+
+  <!-- CSS Architecture: Load in order of specificity -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+
+  <!-- Google Fonts: Oswald (headers) + Merriweather (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon (placeholder - add actual favicon later) -->
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+</head>
+<body>
+
+  <!--
+    SKIP TO CONTENT LINK
+    Allows keyboard users to skip navigation and jump to main content
+  -->
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+  <!--
+    HEADER & NAVIGATION
+    Same navigation as other pages
+  -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="main-nav" aria-label="Main navigation">
+
+        <!-- Logo/Band Name -->
+        <div class="main-nav__logo">
+          <a href="index.html" aria-label="tHE dURT nURS' home">
+            <span class="logo-text">tHE dURT nURS'</span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <input type="checkbox" id="nav-toggle" class="main-nav__toggle" aria-label="Toggle navigation menu">
+        <label for="nav-toggle" class="main-nav__toggle-label" aria-label="Menu button">
+          <span class="hamburger"></span>
+        </label>
+
+        <!-- Navigation Links -->
+        <ul class="main-nav__list">
+          <li><a href="index.html" class="main-nav__link">Home</a></li>
+          <li><a href="about.html" class="main-nav__link">About</a></li>
+          <li><a href="releases.html" class="main-nav__link">Releases</a></li>
+          <li><a href="news.html" class="main-nav__link">News</a></li>
+          <li><a href="gallery.html" class="main-nav__link">Gallery</a></li>
+          <li><a href="fanclub.html" class="main-nav__link main-nav__link--active main-nav__link--protected" aria-current="page">
+            <span class="nav-lock-icon" aria-hidden="true">🔒</span> Fan Club
+          </a></li>
+          <li><a href="contact.html" class="main-nav__link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!--
+    ACCESS CODE OVERLAY
+    Shown by default, hidden after successful authentication
+    Contains form for entering access code
+  -->
+  <div class="fanclub-auth" id="fanclub-auth-overlay">
+    <div class="fanclub-auth__prompt">
+      <h2 class="fanclub-auth__heading">Members Only Area</h2>
+
+      <p class="fanclub-auth__message">
+        This area is for approved fans only. Enter the sacred code or be shunned!
+      </p>
+
+      <p class="fanclub-auth__note">
+        (If you don't have the code, you probably weren't meant to be here.)
+      </p>
+
+      <form id="fanclub-auth-form" class="fanclub-auth__form" aria-label="Access code form">
+        <!-- Visually hidden label for accessibility -->
+        <label for="fanclub-code-input" class="visually-hidden">Enter access code</label>
+
+        <input
+          type="password"
+          id="fanclub-code-input"
+          class="fanclub-auth__input"
+          placeholder="Enter Access Code"
+          autocomplete="off"
+          aria-required="true"
+          aria-describedby="fanclub-auth-error"
+          required>
+
+        <!--
+          PHASE 8: Error/message display area
+          Shows error messages, drunk redirect message, and countdown
+          Updated to handle multiple message types with different styling
+        -->
+        <p id="fanclub-auth-error" class="fanclub-auth__error" role="alert" aria-live="polite"></p>
+
+        <!--
+          PHASE 8: Button actions container
+          Groups submit and exit buttons together
+          Responsive layout: stacked on mobile, horizontal on tablet+
+        -->
+        <div class="fanclub-auth__actions">
+          <button type="submit" class="fanclub-auth__submit">Enter</button>
+          <a href="index.html" class="button button--secondary fanclub-auth__exit">Get Me Out of Here</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!--
+    MAIN CONTENT
+    Hidden by default (via .hidden class), shown after authentication
+  -->
+  <main class="page-layout fanclub-content hidden" id="main-content">
+
+    <!--
+      WELCOME SECTION
+      Greeting for authenticated members
+    -->
+    <section class="fanclub-welcome" aria-labelledby="welcome-heading">
+      <div class="container">
+        <h1 id="welcome-heading" class="fanclub-welcome__title">Welcome to the Inner Circle</h1>
+
+        <p class="fanclub-welcome__text">
+          You made it. This is where we keep everything - the good, the bad, and the embarrassing.
+          If you share these photos publicly, we'll know it was you and we'll be very disappointed.
+          Also possibly vindictive.
+        </p>
+      </div>
+    </section>
+
+    <!--
+      FULL GALLERY SECTION
+      Displays ALL media items from gallery.json (no public flag filtering)
+    -->
+    <section class="fanclub-gallery-section" aria-labelledby="gallery-heading">
+      <div class="container">
+        <h2 id="gallery-heading" class="section-heading">The Full Archive</h2>
+
+        <p class="fanclub-gallery-section__intro">
+          Every photo and video we have, including the ones we probably shouldn't share.
+          But you've earned access, so here you go. Enjoy the chaos.
+        </p>
+
+        <!-- Container for dynamically loaded gallery cards -->
+        <div id="fanclub-gallery-grid" class="gallery-grid">
+          <!-- Loading message removed by JavaScript when content loads -->
+          <p class="loading-message">Loading full gallery...</p>
+        </div>
+
+        <!-- Static fallback for users without JavaScript -->
+        <noscript>
+          <div class="noscript-message">
+            <p>
+              <strong>JavaScript Required:</strong> This area requires JavaScript to verify access and display the gallery.
+              Please enable JavaScript and reload the page.
+            </p>
+          </div>
+        </noscript>
+
+      </div>
+    </section>
+
+    <!--
+      DIRECT CONTACT SECTION
+      Individual member contact information
+    -->
+    <section class="fanclub-contact-section" aria-labelledby="contact-heading">
+      <div class="container">
+        <h2 id="contact-heading" class="section-heading">Direct Line to the Band</h2>
+
+        <p class="fanclub-contact-section__intro">
+          If you're going to bother us with an email then it better be good, like, sending us money good
+          cause we are on a fixed income.
+        </p>
+
+        <!-- Member Contact Grid -->
+        <div class="member-contact-grid">
+
+          <!-- DeadBeat Contact Card -->
+          <article class="member-contact-card">
+            <h3 class="member-contact-card__name">DeadBeat</h3>
+            <p class="member-contact-card__role">Drums & Vocals</p>
+            <a href="mailto:deadbeat@durtnurs.com" class="member-contact-card__email">
+              deadbeat@durtnurs.com
+            </a>
+            <p class="member-contact-card__note">
+              Responds to emails within 3-5 business days. Or never.
+            </p>
+          </article>
+
+          <!-- SnowMan Contact Card -->
+          <article class="member-contact-card">
+            <h3 class="member-contact-card__name">SnowMan</h3>
+            <p class="member-contact-card__role">Guitar, Bass & Vocals</p>
+            <a href="mailto:snowman@durtnurs.com" class="member-contact-card__email">
+              snowman@durtnurs.com
+            </a>
+            <p class="member-contact-card__note">
+              Actually checks email sometimes.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!--
+      EXCLUSIVE CONTENT NOTICE
+      Reminder about the privilege of access
+    -->
+    <section class="fanclub-notice-section">
+      <div class="container">
+        <div class="fanclub-notice">
+          <h2 class="fanclub-notice__title">A Friendly Reminder</h2>
+          <p class="fanclub-notice__text">
+            This content is for your eyes only. We trust you because we gave you the code.
+            Don't make us regret that decision.
+          </p>
+          <p class="fanclub-notice__text">
+            Seriously though, we appreciate you being part of the inner circle.
+            You're the reason we keep making music despite overwhelming evidence
+            that we should have quit years ago.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!--
+    FOOTER
+    Site-wide footer (same as other pages)
+  -->
+  <footer class="site-footer">
+    <div class="container">
+
+      <!-- Social Media Links -->
+      <div class="site-footer__social">
+        <h2 class="site-footer__heading">Follow the Chaos</h2>
+        <ul class="social-links">
+          <li>
+            <a href="https://instagram.com/durtnurs" class="social-links__item" aria-label="Follow us on Instagram" target="_blank" rel="noopener noreferrer">
+              <!-- Instagram Icon -->
+              <svg class="social-links__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+              <span class="social-links__text">Instagram</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Secondary Navigation -->
+      <nav class="site-footer__nav" aria-label="Footer navigation">
+        <ul class="footer-nav">
+          <li><a href="about.html" class="footer-nav__link">About</a></li>
+          <li><a href="contact.html" class="footer-nav__link">Contact</a></li>
+          <li><a href="privacy.html" class="footer-nav__link">Privacy</a></li>
+          <li><a href="terms.html" class="footer-nav__link">Terms</a></li>
+        </ul>
+      </nav>
+
+      <!-- Copyright -->
+      <div class="site-footer__copyright">
+        <p>&copy; 1993 tHE dURT nURS'. All rights reserved.</p>
+        <p class="site-footer__tagline">Built with grit, aged whiskey, and questionable decisions.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!--
+    JAVASCRIPT MODULES
+    Load authentication and gallery functionality
+    Order matters: auth must load first to control access
+  -->
+  <script src="assets/js/fanclub-auth.js"></script>
+  <script src="assets/js/fanclub-gallery.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="tHE dURT nURS' Gallery - Photographic evidence that we existed. Some of these are even in focus.">
+  <meta name="keywords" content="the dirt nurse, rock band, photos, gallery, band photos">
+
+  <!-- Open Graph for social sharing -->
+  <meta property="og:title" content="tHE dURT nURS' Gallery">
+  <meta property="og:description" content="Photographic evidence that we existed. Some of these are even in focus.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://durtnurs.com/gallery.html">
+
+  <title>Gallery - tHE dURT nURS'</title>
+
+  <!-- CSS Architecture: Load in order of specificity -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+
+  <!-- Google Fonts: Oswald (headers) + Merriweather (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon (placeholder - add actual favicon later) -->
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+  <!-- Schema.org structured data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    "name": "tHE dURT nURS' Photo Gallery",
+    "description": "Photos and videos from the rock band tHE dURT nURS'",
+    "url": "https://durtnurs.com/gallery.html"
+  }
+  </script>
+</head>
+<body>
+
+  <!--
+    SKIP TO CONTENT LINK
+    Allows keyboard users to skip navigation and jump to main content
+    Hidden until focused via Tab key
+  -->
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+  <!--
+    HEADER & NAVIGATION
+    Semantic <header> contains site-wide navigation
+    Uses checkbox hack for mobile menu (CSS-only, no JavaScript required)
+  -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="main-nav" aria-label="Main navigation">
+
+        <!-- Logo/Band Name: Exact case preserved -->
+        <div class="main-nav__logo">
+          <a href="index.html" aria-label="tHE dURT nURS' home">
+            <span class="logo-text">tHE dURT nURS'</span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle: Hidden checkbox + label (CSS-only pattern) -->
+        <input type="checkbox" id="nav-toggle" class="main-nav__toggle" aria-label="Toggle navigation menu">
+        <label for="nav-toggle" class="main-nav__toggle-label" aria-label="Menu button">
+          <span class="hamburger"></span>
+        </label>
+
+        <!-- Navigation Links -->
+        <ul class="main-nav__list">
+          <li><a href="index.html" class="main-nav__link">Home</a></li>
+          <li><a href="about.html" class="main-nav__link">About</a></li>
+          <li><a href="releases.html" class="main-nav__link">Releases</a></li>
+          <li><a href="news.html" class="main-nav__link">News</a></li>
+          <li><a href="gallery.html" class="main-nav__link main-nav__link--active" aria-current="page">Gallery</a></li>
+          <li><a href="fanclub.html" class="main-nav__link main-nav__link--protected">
+            <span class="nav-lock-icon" aria-hidden="true">🔒</span> Fan Club
+          </a></li>
+          <li><a href="contact.html" class="main-nav__link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!--
+    MAIN CONTENT
+    Semantic <main> contains the primary content of the page
+  -->
+  <main class="page-layout" id="main-content">
+
+    <!--
+      HERO SECTION
+      Gallery page hero with title and introduction
+    -->
+    <section class="hero hero--gallery" aria-labelledby="gallery-heading">
+      <div class="container">
+        <h1 id="gallery-heading" class="hero__title">Captured Moments</h1>
+        <p class="hero__subtitle">Proof of Existence</p>
+        <p class="hero__description">
+          Here's photographic evidence that we existed. Some of these are even in focus.
+          If you're looking for professional band photography, you're in the wrong place.
+          If you're looking for authentic rock and roll chaos, welcome home.
+        </p>
+      </div>
+    </section>
+
+    <!--
+      GALLERY SECTION
+      Grid layout for photos and videos
+      Dynamic content loaded via JavaScript (see assets/js/gallery.js)
+    -->
+    <section class="gallery-section" aria-labelledby="gallery-section-heading">
+      <div class="container">
+        <h2 id="gallery-section-heading" class="visually-hidden">Photo and Video Gallery</h2>
+
+        <!-- Container for dynamically loaded gallery cards -->
+        <div id="gallery-grid" class="gallery-grid">
+          <!-- Loading message removed by JavaScript when content loads -->
+          <p class="loading-message">Loading gallery...</p>
+        </div>
+
+        <!-- Static fallback for users without JavaScript -->
+        <noscript>
+          <div class="gallery-grid">
+
+            <!-- Static Gallery Card 1 -->
+            <article class="gallery-card gallery-card--featured" data-type="photo">
+              <div class="gallery-card__thumbnail-wrapper">
+                <img src="assets/images/logo.png" alt="The Secret Lair" class="gallery-card__thumbnail">
+              </div>
+              <div class="gallery-card__content">
+                <h3 class="gallery-card__title">The Secret Lair</h3>
+                <p class="gallery-card__description">
+                  Our legendary practice shed. Where the magic (and several noise complaints) happen.
+                </p>
+                <time class="gallery-card__date" datetime="2024-10-15">October 15, 2024</time>
+              </div>
+            </article>
+
+            <!-- Static Gallery Card 2 -->
+            <article class="gallery-card" data-type="photo">
+              <div class="gallery-card__thumbnail-wrapper">
+                <img src="assets/images/logo.png" alt="DeadBeat's Kit" class="gallery-card__thumbnail">
+              </div>
+              <div class="gallery-card__content">
+                <h3 class="gallery-card__title">DeadBeat's Kit</h3>
+                <p class="gallery-card__description">
+                  The drums that launched a thousand hangovers. Vintage Ludwig, questionable tuning.
+                </p>
+                <time class="gallery-card__date" datetime="2024-09-22">September 22, 2024</time>
+              </div>
+            </article>
+
+            <!-- Static Gallery Card 3 -->
+            <article class="gallery-card" data-type="video">
+              <div class="gallery-card__thumbnail-wrapper">
+                <img src="assets/images/logo.png" alt="Brass Knuckles Live Rehearsal" class="gallery-card__thumbnail">
+                <span class="gallery-card__play-icon" aria-hidden="true">▶</span>
+              </div>
+              <div class="gallery-card__content">
+                <h3 class="gallery-card__title">Brass Knuckles (Live Rehearsal)</h3>
+                <p class="gallery-card__description">
+                  Raw footage from the shed. Before the polish. Before the mixing. Before we sobered up.
+                </p>
+                <time class="gallery-card__date" datetime="2024-11-01">November 1, 2024</time>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- Note about JavaScript requirement -->
+          <div class="noscript-message">
+            <p>
+              <strong>Note:</strong> JavaScript is disabled in your browser.
+              You're seeing a limited preview. Enable JavaScript to view the full gallery with lightbox functionality.
+            </p>
+          </div>
+        </noscript>
+
+      </div>
+    </section>
+
+    <!--
+      CALL TO ACTION SECTION
+      Invite users to Fan Club (Phase 6)
+    -->
+    <section class="cta-section">
+      <div class="container">
+        <h2 class="section-heading">Want More?</h2>
+        <p>
+          This is just the public gallery. Fan Club members get access to behind-the-scenes photos,
+          unreleased footage, and all the stuff we were too embarrassed to show everyone.
+        </p>
+        <div class="cta-buttons">
+          <a href="#fanclub" class="button button--primary">Join the Fan Club (Coming Soon)</a>
+          <a href="contact.html" class="button button--secondary">Get in Touch</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!--
+    FOOTER
+    Site-wide footer with social links, copyright, and secondary nav
+    Semantic <footer> element
+  -->
+  <footer class="site-footer">
+    <div class="container">
+
+      <!-- Social Media Links -->
+      <div class="site-footer__social">
+        <h2 class="site-footer__heading">Follow the Chaos</h2>
+        <ul class="social-links">
+          <li>
+            <a href="https://instagram.com/durtnurs" class="social-links__item" aria-label="Follow us on Instagram" target="_blank" rel="noopener noreferrer">
+              <!-- Instagram Icon (inline SVG for performance) -->
+              <svg class="social-links__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+              <span class="social-links__text">Instagram</span>
+            </a>
+          </li>
+          <!-- Add more social links here as needed -->
+        </ul>
+      </div>
+
+      <!-- Secondary Navigation -->
+      <nav class="site-footer__nav" aria-label="Footer navigation">
+        <ul class="footer-nav">
+          <li><a href="about.html" class="footer-nav__link">About</a></li>
+          <li><a href="contact.html" class="footer-nav__link">Contact</a></li>
+          <li><a href="privacy.html" class="footer-nav__link">Privacy</a></li>
+          <li><a href="terms.html" class="footer-nav__link">Terms</a></li>
+        </ul>
+      </nav>
+
+      <!-- Copyright -->
+      <div class="site-footer__copyright">
+        <p>&copy; 1993 tHE dURT nURS'. All rights reserved.</p>
+        <p class="site-footer__tagline">Built with grit, aged whiskey, and questionable decisions.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!--
+    PROGRESSIVE ENHANCEMENT
+    JavaScript for dynamic content loading and lightbox functionality
+    Site works perfectly without this (static fallback in <noscript> tags)
+  -->
+  <script src="assets/js/gallery.js"></script>
+
+</body>
+</html>

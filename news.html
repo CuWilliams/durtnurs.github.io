@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="News and announcements from tHE dURT nURS' - Latest updates, releases, and tour dates">
+  <meta name="keywords" content="the dirt nurse, rock band, news, announcements, tour dates, releases">
+
+  <!-- Open Graph for social sharing -->
+  <meta property="og:title" content="News & Announcements - tHE dURT nURS'">
+  <meta property="og:description" content="Latest news, releases, and questionable decisions from tHE dURT nURS'">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://durtnurs.com/news.html">
+
+  <title>News & Announcements - tHE dURT nURS'</title>
+
+  <!-- CSS Architecture: Load in order of specificity -->
+  <link rel="stylesheet" href="assets/css/reset.css">
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+
+  <!-- Google Fonts: Oswald (headers) + Merriweather (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon (placeholder - add actual favicon later) -->
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+  <!-- Schema.org structured data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MusicGroup",
+    "name": "tHE dURT nURS'",
+    "genre": "Rock",
+    "url": "https://durtnurs.com",
+    "description": "Gritty authentic rock band with self-aware absurdism"
+  }
+  </script>
+</head>
+<body>
+
+  <!--
+    HEADER & NAVIGATION
+    Semantic <header> contains site-wide navigation
+    Uses checkbox hack for mobile menu (CSS-only, no JavaScript required)
+  -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="main-nav" aria-label="Main navigation">
+
+        <!-- Logo/Band Name: Exact case preserved -->
+        <div class="main-nav__logo">
+          <a href="index.html" aria-label="tHE dURT nURS' home">
+            <span class="logo-text">tHE dURT nURS'</span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle: Hidden checkbox + label (CSS-only pattern) -->
+        <input type="checkbox" id="nav-toggle" class="main-nav__toggle" aria-label="Toggle navigation menu">
+        <label for="nav-toggle" class="main-nav__toggle-label" aria-label="Menu button">
+          <span class="hamburger"></span>
+        </label>
+
+        <!-- Navigation Links -->
+        <ul class="main-nav__list">
+          <li><a href="index.html" class="main-nav__link">Home</a></li>
+          <li><a href="about.html" class="main-nav__link">About</a></li>
+          <li><a href="releases.html" class="main-nav__link">Releases</a></li>
+          <li><a href="news.html" class="main-nav__link main-nav__link--active" aria-current="page">News</a></li>
+          <li><a href="gallery.html" class="main-nav__link">Gallery</a></li>
+          <li><a href="fanclub.html" class="main-nav__link main-nav__link--protected">
+            <span class="nav-lock-icon" aria-hidden="true">🔒</span> Fan Club
+          </a></li>
+          <li><a href="contact.html" class="main-nav__link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!--
+    MAIN CONTENT
+    Semantic <main> contains the primary content of the page
+  -->
+  <main class="page-layout">
+
+    <!--
+      HERO SECTION
+      Page title and tagline
+    -->
+    <section class="hero hero--news" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero__content">
+          <h1 id="hero-heading" class="hero__title">News & Announcements</h1>
+          <p class="hero__subtitle">Latest Updates, Releases & Regrets</p>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      NEWS ARCHIVE SECTION
+      All announcements displayed in grid layout
+      Container is populated by JavaScript (see announcements.js)
+    -->
+    <section class="news-archive-section" aria-labelledby="archive-heading">
+      <div class="container">
+
+        <!-- Optional: Future filter controls (commented for Phase 3) -->
+        <!--
+        <div class="news-filters">
+          <button class="filter-btn filter-btn--active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="news">News</button>
+          <button class="filter-btn" data-filter="release">Releases</button>
+          <button class="filter-btn" data-filter="show">Shows</button>
+          <button class="filter-btn" data-filter="general">General</button>
+        </div>
+        -->
+
+        <!-- Archive container - populated by JavaScript -->
+        <div id="news-archive" class="news-archive">
+          <!-- JavaScript will insert announcement cards here -->
+          <p class="loading-message">Loading announcements...</p>
+        </div>
+
+        <!--
+          PROGRESSIVE ENHANCEMENT FALLBACK
+          Static content displayed when JavaScript is disabled
+          Uses <noscript> to only show when JS is unavailable
+        -->
+        <noscript>
+          <div class="news-archive__grid">
+
+            <!-- Static Card 1: Release the Kraken -->
+            <article class="announcement-card announcement-card--release announcement-card--featured" id="001">
+              <header class="announcement-card__header">
+                <time class="announcement-card__date" datetime="2024-11-15">
+                  November 15, 2024
+                </time>
+                <span class="announcement-card__category" aria-label="Category: release">
+                  release
+                </span>
+              </header>
+
+              <h3 class="announcement-card__title">Release the Kraken!</h3>
+
+              <div class="announcement-card__content">
+                <p>After three years of bourbon-fueled studio sessions and one ill-advised yacht incident, our sophomore album is finally crawling out of the depths. 'Kraken Awakens' features ten tracks of maritime metaphors, whiskey-soaked wisdom, and guitar riffs that sound like a sea monster having an existential crisis.</p>
+                <p>Pre-order the chaos now. Your eardrums will thank you. Or sue us. Probably sue us.</p>
+              </div>
+
+              <a href="message.html?type=pre-order" class="announcement-card__link" aria-label="Read more about Release the Kraken!">
+                Pre-order Album
+              </a>
+            </article>
+
+            <!-- Static Card 2: Website Rebuild -->
+            <article class="announcement-card announcement-card--general" id="002">
+              <header class="announcement-card__header">
+                <time class="announcement-card__date" datetime="2024-11-08">
+                  November 8, 2024
+                </time>
+                <span class="announcement-card__category" aria-label="Category: general">
+                  general
+                </span>
+              </header>
+
+              <h3 class="announcement-card__title">New Website, Same Old Disappointment</h3>
+
+              <div class="announcement-card__content">
+                <p>Welcome to our shiny new website, built with modern technology we barely understand. We've upgraded from table layouts to flexbox, which is apparently a big deal in web development circles.</p>
+                <p>The site now features responsive design (it works on phones!), progressive enhancement (it works without JavaScript!), and our trademark self-loathing (that's just us!).</p>
+                <p>Special thanks to our AI overlords for helping us fake competence in modern web development.</p>
+              </div>
+
+              <a href="message.html?type=read-more" class="announcement-card__link" aria-label="Read more about New Website, Same Old Disappointment">
+                Read More →
+              </a>
+            </article>
+
+            <!-- Static Card 3: Fall Tour -->
+            <article class="announcement-card announcement-card--show" id="003">
+              <header class="announcement-card__header">
+                <time class="announcement-card__date" datetime="2024-10-28">
+                  October 28, 2024
+                </time>
+                <span class="announcement-card__category" aria-label="Category: show">
+                  show
+                </span>
+              </header>
+
+              <h3 class="announcement-card__title">Fall Tour: Six Cities, Eight Bars, Zero Rehearsals</h3>
+
+              <div class="announcement-card__content">
+                <p>We're taking our act on the road this December, which is either brave or monumentally stupid. Six ports across the North Atlantic, eight different dive bars (we're playing two ports twice because apparently we hate ourselves), and absolutely zero rehearsals planned.</p>
+                <p>Tickets are available at participating venues, which is a fancy way of saying 'show up and throw money at the bartender.' First come, first served, first to leave when we play our experimental jazz fusion number.</p>
+                <p>Ports include: Port Anne, Port Royal, Port Blandford, Van Tupes Tawny Port, and two surprise locations we haven't figured out yet. Stay tuned for actual dates once we consult a calendar.</p>
+              </div>
+
+              <a href="message.html?type=tour-dates" class="announcement-card__link" aria-label="Read more about Fall Tour: Six Cities, Eight Bars, Zero Rehearsals">
+                View Tour Dates
+              </a>
+            </article>
+
+          </div>
+        </noscript>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!--
+    FOOTER
+    Site-wide footer with social links, copyright, and secondary nav
+    Semantic <footer> element
+  -->
+  <footer class="site-footer">
+    <div class="container">
+
+      <!-- Social Media Links -->
+      <div class="site-footer__social">
+        <h2 class="site-footer__heading">Follow the Chaos</h2>
+        <ul class="social-links">
+          <li>
+            <a href="https://instagram.com/durtnurs" class="social-links__item" aria-label="Follow us on Instagram" target="_blank" rel="noopener noreferrer">
+              <!-- Instagram Icon (inline SVG for performance) -->
+              <svg class="social-links__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+              <span class="social-links__text">Instagram</span>
+            </a>
+          </li>
+          <!-- Add more social links here as needed -->
+        </ul>
+      </div>
+
+      <!-- Secondary Navigation -->
+      <nav class="site-footer__nav" aria-label="Footer navigation">
+        <ul class="footer-nav">
+          <li><a href="about.html" class="footer-nav__link">About</a></li>
+          <li><a href="contact.html" class="footer-nav__link">Contact</a></li>
+          <li><a href="privacy.html" class="footer-nav__link">Privacy</a></li>
+          <li><a href="terms.html" class="footer-nav__link">Terms</a></li>
+        </ul>
+      </nav>
+
+      <!-- Copyright -->
+      <div class="site-footer__copyright">
+        <p>&copy; 1993 tHE dURT nURS'. All rights reserved.</p>
+        <p class="site-footer__tagline">Built with grit, aged whiskey, and questionable decisions.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!--
+    JAVASCRIPT
+    Loads announcements dynamically from JSON
+    Progressive enhancement: page works without this
+  -->
+  <script src="assets/js/announcements.js"></script>
+
+</body>
+</html>

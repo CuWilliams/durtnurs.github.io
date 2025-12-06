@@ -1,0 +1,100 @@
+{
+  "media": [
+    {
+      "id": "photo-001",
+      "type": "photo",
+      "title": "The Secret Lair",
+      "description": "Our legendary practice shed. Where the magic (and several noise complaints) happen.",
+      "filename": "secret-lair-1.jpeg",
+      "thumbnail": "secret-lair-1-thumb.jpg",
+      "date": "2024-5-29",
+      "category": "band",
+      "public": true,
+      "featured": true
+    },
+    {
+      "id": "photo-002",
+      "type": "photo",
+      "title": "DeadBeat's Kit",
+      "description": "The drums that launched a thousand hangovers. Vintage Ludwig (don't let the bass drum fool you).",
+      "filename": "deadbeat-kit.jpg",
+      "thumbnail": "deadbeat-kit-thumb.jpg",
+      "date": "2021-12-18",
+      "category": "band",
+      "public": true,
+      "featured": false
+    },
+    {
+      "id": "photo-003",
+      "type": "photo",
+      "title": "SnowMan's Guitars",
+      "description": "A collection of six-strings and bad decisions. Each one has a story we probably shouldn't tell.",
+      "filename": "snowman-guitars.jpg",
+      "thumbnail": "snowman-guitars-thumb.jpg",
+      "date": "2018-08-5",
+      "category": "band",
+      "public": true,
+      "featured": false
+    },
+    {
+      "id": "video-001",
+      "type": "video",
+      "title": "Brass Knuckles (Live Rehearsal)",
+      "description": "Raw footage from the shed. Before the polish. Before the mixing. Before we sobered up.",
+      "embedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "thumbnail": "video-001-thumb.jpg",
+      "date": "2024-11-01",
+      "category": "performance",
+      "public": false,
+      "featured": false
+    },
+    {
+      "id": "photo-004",
+      "type": "photo",
+      "title": "The Empty Room Gig",
+      "description": "Our most intimate performance. Population: 2 (us). Plus one very confused bartender.",
+      "filename": "empty-room-gig.jpg",
+      "thumbnail": "empty-room-gig-thumb.jpg",
+      "date": "2015-10-31",
+      "category": "performance",
+      "public": false,
+      "featured": false
+    },
+    {
+      "id": "photo-005",
+      "type": "photo",
+      "title": "Behind the Shed",
+      "description": "What happens behind the shed stays behind the shed. But here's photographic evidence anyway.",
+      "filename": "behind-shed.jpg",
+      "thumbnail": "behind-shed-thumb.jpg",
+      "date": "2024-07-12",
+      "category": "backstage",
+      "public": false,
+      "featured": false
+    },
+    {
+      "id": "photo-006",
+      "type": "photo",
+      "title": "The Original Lineup (1997)",
+      "description": "When we had hair, hope, and hearing. Historical document of our questionable youth.",
+      "filename": "original-lineup-1997.jpg",
+      "thumbnail": "original-lineup-1997-thumb.jpg",
+      "date": "1997-06-15",
+      "category": "historical",
+      "public": false,
+      "featured": false
+    },
+    {
+      "id": "video-002",
+      "type": "video",
+      "title": "Kraken Album Behind the Scenes",
+      "description": "Watch us pretend we know what we're doing in a real studio. Spoiler: We didn't.",
+      "embedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "thumbnail": "video-002-thumb.jpg",
+      "date": "2024-09-05",
+      "category": "backstage",
+      "public": false,
+      "featured": false
+    }
+  ]
+}

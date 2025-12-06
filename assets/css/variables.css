@@ -1,0 +1,240 @@
+/*
+  CSS VARIABLES (DESIGN TOKENS)
+  Central source of truth for all design values
+
+  Purpose: Makes updates easy - change once, apply everywhere
+  Learning: CSS custom properties (variables) use -- prefix and var() function
+*/
+
+:root {
+  /* ============================================
+     COLOR PALETTE
+     Gritty rock aesthetic: aged whiskey, brass, blood red
+     ============================================ */
+
+  /* Primary Colors */
+  --color-aged-whiskey: #A05A24;    /* Main brand color - warm, aged */
+  --color-burnt-umber: #5A3A27;     /* Dark, earthy base */
+  --color-coal-black: #0B0B0C;      /* Near-black background */
+
+  /* Accent Colors */
+  --color-dried-blood: #5B1A1A;     /* Deep red for emphasis */
+  --color-iron-gray: #3A3F45;       /* Neutral gray for borders/text */
+  --color-tarnished-brass: #8B7A43; /* Metallic accent */
+
+  /* Semantic Colors (using palette above) */
+  --color-background: var(--color-coal-black);
+  --color-surface: var(--color-burnt-umber);
+  --color-primary: var(--color-aged-whiskey);
+  --color-accent: var(--color-tarnished-brass);
+  --color-danger: var(--color-dried-blood);
+
+  /* Text Colors */
+  --color-text-primary: #E8E6E3;    /* Off-white for main text */
+  --color-text-secondary: #A8A29E;  /* Muted gray for secondary text */
+  --color-text-dark: var(--color-burnt-umber);
+
+  /* Interactive States */
+  --color-link: var(--color-tarnished-brass);
+  --color-link-hover: var(--color-aged-whiskey);
+  --color-focus: var(--color-aged-whiskey);
+
+  /* Overlays & Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.7);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.8);
+
+
+  /* ============================================
+     TYPOGRAPHY
+     Oswald (headers) + Merriweather (body)
+     ============================================ */
+
+  /* Font Families */
+  --font-heading: 'Oswald', 'Arial Narrow', sans-serif;
+  --font-body: 'Merriweather', 'Georgia', serif;
+  --font-mono: 'Courier New', monospace;
+
+  /* Font Sizes - Mobile First (scale up at breakpoints) */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px - body text default */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.875rem;  /* 30px */
+  --font-size-4xl: 2.25rem;   /* 36px */
+  --font-size-5xl: 3rem;      /* 48px */
+  --font-size-6xl: 3.75rem;   /* 60px */
+
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Line Heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.6;
+  --line-height-loose: 1.8;
+
+
+  /* ============================================
+     SPACING SYSTEM
+     8px base unit - all spacing is multiples of 8
+     Why: Creates visual rhythm and consistency
+     ============================================ */
+
+  --space-xs: 0.5rem;   /* 8px */
+  --space-sm: 1rem;     /* 16px */
+  --space-md: 1.5rem;   /* 24px */
+  --space-lg: 2rem;     /* 32px */
+  --space-xl: 3rem;     /* 48px */
+  --space-2xl: 4rem;    /* 64px */
+  --space-3xl: 6rem;    /* 96px */
+  --space-4xl: 8rem;    /* 128px */
+
+
+  /* ============================================
+     LAYOUT SYSTEM
+     Container widths, gutters, breakpoints
+     ============================================ */
+
+  /* Container */
+  --container-max-width: 1200px;
+  --container-padding: var(--space-sm);  /* 16px on mobile */
+
+  /* Gutters (spacing between grid items) */
+  --gutter: var(--space-sm);
+  --gutter-lg: var(--space-lg);
+
+  /* Responsive Breakpoints (used in @media queries) */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+
+
+  /* ============================================
+     BORDERS & RADII
+     ============================================ */
+
+  --border-width: 2px;
+  --border-width-thick: 4px;
+  --border-color: var(--color-iron-gray);
+
+  --border-radius-sm: 2px;
+  --border-radius: 4px;
+  --border-radius-md: 6px;
+  --border-radius-lg: 8px;
+  --border-radius-xl: 12px;
+  --border-radius-full: 9999px;
+
+
+  /* ============================================
+     TRANSITIONS & ANIMATIONS
+     Smooth, subtle motion
+     ============================================ */
+
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Easing functions for natural motion */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+
+  /* ============================================
+     Z-INDEX SCALE
+     Manages stacking order consistently
+     ============================================ */
+
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-header: 300;
+  --z-overlay: 400;
+  --z-modal: 500;
+  --z-tooltip: 600;
+}
+
+
+/* ============================================
+   RESPONSIVE TYPOGRAPHY
+   Scale up font sizes for larger screens
+   ============================================ */
+
+@media (min-width: 768px) {
+  :root {
+    --font-size-3xl: 2.25rem;   /* 36px */
+    --font-size-4xl: 3rem;      /* 48px */
+    --font-size-5xl: 3.75rem;   /* 60px */
+    --font-size-6xl: 4.5rem;    /* 72px */
+
+    --container-padding: var(--space-lg);  /* 32px on tablet+ */
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --font-size-6xl: 6rem;      /* 96px on desktop */
+  }
+}
+
+
+/* ============================================
+   GLOBAL BODY STYLES
+   Apply design tokens to body element
+   ============================================ */
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+}
+
+/*
+  Headings use Oswald (compressed, bold, poster-like)
+  Learning: Grouping selectors reduces CSS repetition
+*/
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+h1 { font-size: var(--font-size-5xl); }
+h2 { font-size: var(--font-size-4xl); }
+h3 { font-size: var(--font-size-3xl); }
+h4 { font-size: var(--font-size-2xl); }
+h5 { font-size: var(--font-size-xl); }
+h6 { font-size: var(--font-size-lg); }
+
+
+/* ============================================
+   UTILITY: VISUALLY HIDDEN
+   Hides content visually but keeps it for screen readers
+   Why: Accessibility - screen reader users get full context
+   ============================================ */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
