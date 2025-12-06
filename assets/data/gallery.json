@@ -5,9 +5,9 @@
       "type": "photo",
       "title": "The Secret Lair",
       "description": "Our legendary practice shed. Where the magic (and several noise complaints) happen.",
-      "filename": "secret-lair-1.jpg",
+      "filename": "secret-lair-1.jpeg",
       "thumbnail": "secret-lair-1-thumb.jpg",
-      "date": "2024-10-15",
+      "date": "2024-5-29",
       "category": "band",
       "public": true,
       "featured": true
@@ -16,10 +16,10 @@
       "id": "photo-002",
       "type": "photo",
       "title": "DeadBeat's Kit",
-      "description": "The drums that launched a thousand hangovers. Vintage Ludwig, questionable tuning.",
+      "description": "The drums that launched a thousand hangovers. Vintage Ludwig (don't let the bass drum fool you).",
       "filename": "deadbeat-kit.jpg",
       "thumbnail": "deadbeat-kit-thumb.jpg",
-      "date": "2024-09-22",
+      "date": "2021-12-18",
       "category": "band",
       "public": true,
       "featured": false
@@ -27,13 +27,13 @@
     {
       "id": "photo-003",
       "type": "photo",
-      "title": "SnowMan's Guitar Wall",
+      "title": "SnowMan's Guitars",
       "description": "A collection of six-strings and bad decisions. Each one has a story we probably shouldn't tell.",
       "filename": "snowman-guitars.jpg",
       "thumbnail": "snowman-guitars-thumb.jpg",
-      "date": "2024-08-30",
+      "date": "2018-08-5",
       "category": "band",
-      "public": false,
+      "public": true,
       "featured": false
     },
     {
@@ -45,7 +45,7 @@
       "thumbnail": "video-001-thumb.jpg",
       "date": "2024-11-01",
       "category": "performance",
-      "public": true,
+      "public": false,
       "featured": false
     },
     {
@@ -57,7 +57,7 @@
       "thumbnail": "empty-room-gig-thumb.jpg",
       "date": "2015-10-31",
       "category": "performance",
-      "public": true,
+      "public": false,
       "featured": false
     },
     {
@@ -81,7 +81,7 @@
       "thumbnail": "original-lineup-1997-thumb.jpg",
       "date": "1997-06-15",
       "category": "historical",
-      "public": true,
+      "public": false,
       "featured": false
     },
     {
@@ -98,148 +98,3 @@
     }
   ]
 }
-
-/*
- * GALLERY DATA STRUCTURE DOCUMENTATION
- *
- * This JSON file stores all photo and video media for the dURT nURS' gallery system.
- * It supports both the public gallery (Phase 5) and the full Fan Club gallery (Phase 6).
- *
- * =============================================================================
- * PHASE 5 vs PHASE 6: THE PUBLIC FLAG
- * =============================================================================
- *
- * The "public" flag is CRITICAL for the dual gallery system:
- *
- * PUBLIC GALLERY (Phase 5 - gallery.html):
- * - Shows ONLY items where "public": true
- * - Curated, family-friendly content
- * - Anyone can view without login
- * - Filtered using: media.filter(item => item.public === true)
- *
- * FAN CLUB GALLERY (Phase 6 - fanclub.html):
- * - Shows ALL items (public: true AND public: false)
- * - Behind-the-scenes, exclusive content
- * - Requires password/access control
- * - No filtering applied: displays entire media array
- *
- * This approach allows us to maintain ONE data source for both galleries,
- * simplifying content management while enabling access control.
- *
- * =============================================================================
- * MEDIA ITEM STRUCTURE
- * =============================================================================
- *
- * Each media object contains these properties:
- *
- * id (string, required):
- *   - Unique identifier in kebab-case
- *   - Format: "photo-001" or "video-001"
- *   - Used for: DOM element IDs, deep linking, JavaScript references
- *   - Must be unique across all media items
- *
- * type (string, required):
- *   - Media type: "photo" or "video"
- *   - Used for: rendering logic, UI styling, lightbox behavior
- *   - Photos display as <img>, videos display as <iframe> embeds
- *
- * title (string, required):
- *   - Media title/caption
- *   - Displayed prominently on card
- *   - Keep concise (3-6 words ideal)
- *
- * description (string, required):
- *   - Brief description or context
- *   - 1-2 sentences
- *   - Include band humor and personality
- *
- * filename (string, required for photos):
- *   - Path to full-size image relative to assets/images/
- *   - Example: "photo-001.jpg"
- *   - Full path becomes: assets/images/gallery/photo-001.jpg
- *   - Used in lightbox for full-size display
- *
- * thumbnail (string, required for photos):
- *   - Path to thumbnail image relative to assets/images/
- *   - Example: "photo-001-thumb.jpg"
- *   - Thumbnails should be ~400px wide for performance
- *   - Why separate thumbnails? Faster page load, better mobile performance
- *
- * embedUrl (string, required for videos):
- *   - Full YouTube/Vimeo embed URL
- *   - Format: "https://www.youtube.com/embed/VIDEO_ID"
- *   - NOT the watch URL - must be embed format
- *   - Used in lightbox <iframe> for video playback
- *
- * date (string, required):
- *   - Date media was created/captured
- *   - Format: ISO 8601 (YYYY-MM-DD)
- *   - Why ISO? Universal standard, sortable, parseable by JavaScript Date()
- *   - Used for: sorting gallery, displaying dates, filtering by timeframe
- *
- * category (string, required):
- *   - Content category for organization/filtering
- *   - Values: "band", "performance", "backstage", "historical", "misc"
- *   - Used for: potential future filtering UI, visual styling variations
- *   - Allows users to browse by category in Phase 6 enhancements
- *
- * public (boolean, required):
- *   - Access control flag
- *   - true = Show in public gallery (gallery.html)
- *   - false = Show ONLY in Fan Club gallery (fanclub.html)
- *   - This is the PRIMARY filter for Phase 5 gallery
- *   - Set to false for behind-the-scenes, exclusive, or member-only content
- *
- * featured (boolean, required):
- *   - Highlight flag for special items
- *   - true = Display with special styling (larger card, prominent border)
- *   - false = Normal card styling
- *   - Use for: newest content, best photos, important announcements
- *   - Only 1-2 items should be featured at a time
- *
- * =============================================================================
- * IMAGE PATH CONVENTIONS
- * =============================================================================
- *
- * All images are stored in: assets/images/gallery/
- *
- * File naming convention:
- * - Full images: [id].jpg (example: photo-001.jpg)
- * - Thumbnails: [id]-thumb.jpg (example: photo-001-thumb.jpg)
- *
- * Thumbnail strategy:
- * - Create thumbnails at ~400px width
- * - Maintain original aspect ratio
- * - Use compression (80% JPEG quality)
- * - Why? Dramatically reduces page load time on mobile
- * - Full images load only when clicked (in lightbox)
- *
- * =============================================================================
- * FUTURE ENHANCEMENTS
- * =============================================================================
- *
- * This structure supports future features like:
- * - Category filtering (buttons to show only "band" or "performance" photos)
- * - Date range filtering (show photos from specific year)
- * - Search functionality (search titles and descriptions)
- * - Photo upload system (admin interface to add new media)
- * - Pagination (show 12 items per page)
- * - Lazy loading (load images as user scrolls)
- * - Social sharing (share individual photos)
- * - Comments/reactions (Phase 6+ with authentication)
- *
- * =============================================================================
- * CONTENT MANAGEMENT WORKFLOW
- * =============================================================================
- *
- * To add new media:
- * 1. Add image files to assets/images/gallery/
- * 2. Create thumbnail versions (400px width)
- * 3. Add new object to this JSON array
- * 4. Set "public": true for public gallery
- * 5. Set "public": false for Fan Club exclusive content
- * 6. Set "featured": true for 1-2 newest/best items
- * 7. Gallery will automatically update on next page load
- *
- * No code changes required - this is pure data management!
- */

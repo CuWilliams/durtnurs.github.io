@@ -2165,7 +2165,7 @@ p.origin-placeholder {
   display: block;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-iron-gray);
+  color: var(--color-accent);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-top: var(--space-xs);
