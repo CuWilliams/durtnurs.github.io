@@ -33,8 +33,8 @@ Disallow: /fanclub.html
 # Disallow: /assets/js/fanclub-auth.js
 # Disallow: /assets/js/fanclub-gallery.js
 
-# Sitemap location (if you create one in the future)
-# Sitemap: https://durtnurs.com/sitemap.xml
+# Sitemap location
+Sitemap: https://durtnurs.com/sitemap.xml
 
 # ============================================
 # EDUCATIONAL NOTES
