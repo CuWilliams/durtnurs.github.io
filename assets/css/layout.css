@@ -253,6 +253,22 @@ section {
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
 }
 
+/* Mobile portrait: Aggressive fix for logo centering */
+@media (max-width: 767px) {
+  .hero .container {
+    padding-left: var(--space-xs);   /* Reduce from 16px to 8px */
+    padding-right: var(--space-xs);
+  }
+
+  .hero__content {
+    padding: var(--space-sm);  /* Reduce from 48px to 16px */
+  }
+
+  .hero__logo {
+    max-width: 280px;  /* Reduce from 400px to ensure centering room */
+  }
+}
+
 @media (min-width: 768px) {
   .hero {
     min-height: 70vh;
