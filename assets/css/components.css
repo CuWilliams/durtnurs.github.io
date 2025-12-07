@@ -2806,7 +2806,7 @@ p.origin-placeholder {
   margin-top: var(--space-lg);
   font-size: var(--font-size-sm);
   font-style: italic;
-  color: var(--color-iron-gray);
+  color: var(--color-accent);
 }
 
 /*
