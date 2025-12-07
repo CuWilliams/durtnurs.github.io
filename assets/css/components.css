@@ -2620,6 +2620,20 @@ p.origin-placeholder {
   }
 }
 
+/* Mobile: Make contact button responsive to prevent overflow */
+@media (max-width: 767px) {
+  .contact-button {
+    min-width: 0;
+    width: 100%;
+    max-width: 280px;  /* Cap at desktop size */
+    padding: var(--space-md) var(--space-xl);  /* Slightly reduce padding: 24px 48px */
+  }
+
+  .contact-card {
+    padding: var(--space-2xl) var(--space-md);  /* Reduce horizontal padding: 64px 24px */
+  }
+}
+
 /*
   CONTACT CONTEXT SECTION
   What types of inquiries to send
