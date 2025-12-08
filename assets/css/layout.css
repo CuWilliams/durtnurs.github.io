@@ -290,12 +290,28 @@ section {
    ============================================ */
 
 /*
-  Mobile: Stacked (image on top)
-  Desktop: Side-by-side (image left, details right)
+  LAYOUT STRATEGY:
+  Mobile: Stacked vertical layout (image on top, details below)
+  Desktop (1024px+): Side-by-side horizontal layout (image left 66.67%, details right 33.33%)
+
+  WHY FLEXBOX INSTEAD OF CSS GRID:
+  This component uses Flexbox rather than CSS Grid to match the behavior of
+  .release-card--featured in components.css. Here's why:
+
+  - CSS Grid calculates container height based on the tallest column, which can
+    create gaps when columns have different content heights + padding
+  - Flexbox naturally stretches flex items to match heights, preventing gaps
+  - Percentage-based widths (66.67% / 33.33%) create fluid, proportional layouts
+  - flex-shrink: 0 prevents the artwork from collapsing at smaller viewports
+
+  This approach ensures:
+  ✓ No visible gaps below the artwork
+  ✓ Smooth responsive transitions
+  ✓ Visual consistency with release cards on releases.html
 */
 .album-card {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;  /* Mobile: stack vertically */
   gap: var(--space-lg);
   background-color: var(--color-surface);
   border: var(--border-width) solid var(--border-color);
@@ -304,37 +320,69 @@ section {
   box-shadow: var(--shadow-lg);
 }
 
-@media (min-width: 768px) {
-  .album-card {
-    grid-template-columns: 300px 1fr;
-    gap: var(--space-xl);
-  }
-}
-
-@media (min-width: 1024px) {
-  .album-card {
-    grid-template-columns: 400px 1fr;
-  }
-}
-
+/*
+  ARTWORK CONTAINER
+  Contains the album cover image with aspect ratio control
+*/
 .album-card__artwork {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1 / 1;  /* Forces square ratio on mobile */
   background-color: var(--color-iron-gray);
 }
 
+/*
+  ALBUM COVER IMAGE
+  Uses object-fit: contain to show full image without cropping
+
+  Why object-fit: contain?
+  - Shows the entire album artwork (no cropping)
+  - Maintains original aspect ratio
+  - Centers image within container
+  - Preferred for album art where full artwork visibility is important
+*/
 .album-card__image {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
+/*
+  DETAILS SECTION
+  Contains title, date, description, and action buttons
+*/
 .album-card__details {
   padding: var(--space-lg);
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
+}
+
+/*
+  DESKTOP LAYOUT (1024px+)
+  Switches to horizontal side-by-side layout
+
+  KEY CHANGES:
+  - flex-direction: row creates horizontal layout
+  - Artwork: 66.67% width (2/3 of container)
+  - Details: 33.33% width (1/3 of container)
+  - aspect-ratio: auto removes forced square on artwork at desktop
+  - flex-shrink: 0 prevents artwork from shrinking when content is long
+*/
+@media (min-width: 1024px) {
+  .album-card {
+    flex-direction: row;  /* Desktop: side-by-side */
+  }
+
+  .album-card__artwork {
+    width: 66.67%;     /* 2/3 width for prominent album art display */
+    flex-shrink: 0;    /* Prevent artwork from shrinking */
+    aspect-ratio: auto; /* Remove forced square; let image determine height */
+  }
+
+  .album-card__details {
+    width: 33.33%;     /* 1/3 width for release information */
+  }
 }
 
 
