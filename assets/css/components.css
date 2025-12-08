@@ -2573,7 +2573,7 @@ p.origin-placeholder {
 .contact-card__note {
   font-size: var(--font-size-sm);
   font-style: italic;
-  color: var(--color-iron-gray);
+  color: var(--color-accent);
   margin-top: var(--space-md);
 }
 
