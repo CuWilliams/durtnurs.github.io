@@ -2624,7 +2624,11 @@ p.origin-placeholder {
 /* Mobile: Make contact button responsive to prevent overflow */
 @media (max-width: 767px) {
   .contact-button {
-    display: block;  /* Change from inline-block to block for proper text centering on mobile */
+    display: flex;  /* Use flexbox for reliable text centering */
+    justify-content: center;  /* Center text horizontally */
+    align-items: center;  /* Center text vertically */
+    letter-spacing: 0;  /* Remove letter-spacing to eliminate trailing space */
+    text-align: left;  /* Override inherited text-align (flexbox handles centering) */
     min-width: 0;
     width: 100%;
     max-width: 280px;  /* Cap at desktop size */
