@@ -2598,6 +2598,7 @@ p.origin-placeholder {
   box-shadow: var(--shadow-lg);
   min-width: 280px;
   text-align: center;
+  white-space: nowrap;
 }
 
 .contact-button:hover,
@@ -2623,9 +2624,15 @@ p.origin-placeholder {
 /* Mobile: Make contact button responsive to prevent overflow */
 @media (max-width: 767px) {
   .contact-button {
+    display: flex;  /* Use flexbox for reliable text centering */
+    justify-content: center;  /* Center text horizontally */
+    align-items: center;  /* Center text vertically */
+    letter-spacing: 0;  /* Remove letter-spacing to eliminate trailing space */
+    text-align: left;  /* Override inherited text-align (flexbox handles centering) */
     min-width: 0;
     width: 100%;
     max-width: 280px;  /* Cap at desktop size */
+    margin: 0 auto;  /* Center button itself within parent container */
     padding: var(--space-md) var(--space-xl);  /* Slightly reduce padding: 24px 48px */
   }
 
