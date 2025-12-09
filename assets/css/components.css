@@ -2632,6 +2632,7 @@ p.origin-placeholder {
     min-width: 0;
     width: 100%;
     max-width: 280px;  /* Cap at desktop size */
+    margin: 0 auto;  /* Center button itself within parent container */
     padding: var(--space-md) var(--space-xl);  /* Slightly reduce padding: 24px 48px */
   }
 
