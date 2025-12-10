@@ -2895,11 +2895,12 @@ p.origin-placeholder {
   background-color: rgba(11, 11, 12, 0.97); /* Coal Black with high opacity */
   z-index: var(--z-modal);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start; /* Align to top, not center */
+  justify-content: center; /* Keep horizontal centering */
   padding: var(--space-lg);
   /* Optional: backdrop-filter for modern browsers (progressive enhancement) */
   backdrop-filter: blur(8px);
+  overflow: auto;
 }
 
 /* Hidden state for overlay (after successful authentication) */
@@ -2925,6 +2926,9 @@ p.origin-placeholder {
   padding: var(--space-2xl) var(--space-xl);
   box-shadow: var(--shadow-xl);
   text-align: center;
+  /* Auto margin creates vertical centering that works with scrolling */
+  margin-top: auto;
+  margin-bottom: auto;
   /* Subtle animation on page load */
   animation: promptFadeIn 0.5s ease-out;
 }
