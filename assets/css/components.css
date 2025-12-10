@@ -3397,7 +3397,7 @@ p.origin-placeholder {
 
 .member-contact-card__note {
   font-size: var(--font-size-sm);
-  color: var(--color-iron-gray);
+  color: var(--color-accent);
   font-style: italic;
   margin-top: var(--space-sm);
   line-height: var(--line-height-relaxed);
