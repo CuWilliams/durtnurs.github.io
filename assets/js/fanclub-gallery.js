@@ -3,11 +3,10 @@
  * Displays FULL gallery (all media items) for authenticated Fan Club members
  *
  * This module demonstrates:
- * - Code reuse and DRY principle
- * - When to duplicate vs abstract code
+ * - Code reuse with shared lightbox module
+ * - Custom content renderer for exclusive badges
  * - Array handling without filtering
  * - Same lightbox functionality as public gallery
- * - Educational comments about design decisions
  *
  * KEY DIFFERENCE FROM PUBLIC GALLERY:
  * ===================================
@@ -23,25 +22,9 @@
  * - Shows behind-the-scenes, exclusive content
  * - Requires access code authentication
  *
- * WHY DUPLICATE CODE?
- * ===================
- * You might notice this file shares a lot of code with gallery.js.
- * In a production app, we might abstract common functionality into shared utilities.
- * However, for this learning project, duplication has benefits:
- *
- * Benefits of duplication here:
- * - Clear separation of concerns (public vs private galleries)
- * - Easy to modify one without affecting the other
- * - Complete code in each file makes learning easier
- * - No complex abstraction layer to understand
- *
- * When to abstract instead:
- * - If maintaining multiple similar galleries
- * - If lightbox code changes frequently
- * - If gallery logic becomes more complex
- * - In larger production applications
- *
- * This is a pragmatic choice for a small project.
+ * LIGHTBOX:
+ * Uses shared lightbox.js module with custom content renderer
+ * that adds "Fan Club Exclusive" badges for non-public items.
  */
 
 // =============================================================================
@@ -57,6 +40,9 @@ let fanclubGalleryState = {
   currentIndex: 0,        // Index of currently displayed item in lightbox
   isLightboxOpen: false   // Track lightbox state for keyboard handler
 };
+
+// Lightbox instance (created during init)
+let lightbox = null;
 
 // =============================================================================
 // DATA FETCHING
@@ -237,6 +223,73 @@ function renderMediaCard(mediaItem, index) {
 }
 
 // =============================================================================
+// CUSTOM LIGHTBOX CONTENT RENDERER
+// =============================================================================
+
+/**
+ * Custom content renderer for Fan Club lightbox
+ * Adds "Fan Club Exclusive" badge for non-public items
+ *
+ * This is passed to the shared lightbox module to customize
+ * how content is displayed in the lightbox.
+ *
+ * @param {Object} mediaItem - Media data object
+ * @param {HTMLElement} contentContainer - Container for media content
+ * @param {HTMLElement} counterContainer - Container for counter display
+ * @param {Object} state - Current state { currentIndex, allMedia }
+ */
+function renderFanclubLightboxContent(mediaItem, contentContainer, counterContainer, state) {
+  // Clear existing content
+  contentContainer.innerHTML = '';
+
+  // Render based on media type
+  if (mediaItem.type === 'photo') {
+    const img = document.createElement('img');
+    img.src = `assets/images/gallery/${mediaItem.filename}`;
+    img.alt = mediaItem.title;
+    img.className = 'lightbox__image';
+
+    img.onerror = function() {
+      this.src = 'assets/images/logo.png';
+      this.alt = 'Image unavailable';
+    };
+
+    contentContainer.appendChild(img);
+
+  } else if (mediaItem.type === 'video') {
+    const iframe = document.createElement('iframe');
+    iframe.src = mediaItem.embedUrl;
+    iframe.className = 'lightbox__video';
+    iframe.setAttribute('frameborder', '0');
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+    iframe.setAttribute('allowfullscreen', 'true');
+
+    contentContainer.appendChild(iframe);
+  }
+
+  // Add title and description with exclusive badge
+  const infoDiv = document.createElement('div');
+  infoDiv.className = 'lightbox__info';
+
+  // Add exclusive badge if item is not public
+  const exclusiveBadge = !mediaItem.public
+    ? '<span class="lightbox-exclusive-badge">★ Fan Club Exclusive</span>'
+    : '';
+
+  infoDiv.innerHTML = `
+    ${exclusiveBadge}
+    <h3 class="lightbox__title">${mediaItem.title}</h3>
+    <p class="lightbox__description">${mediaItem.description}</p>
+  `;
+  contentContainer.appendChild(infoDiv);
+
+  // Update counter
+  const current = state.currentIndex + 1;
+  const total = state.allMedia.length;
+  counterContainer.textContent = `${current} / ${total}`;
+}
+
+// =============================================================================
 // RENDERING FUNCTIONS
 // =============================================================================
 
@@ -295,323 +348,34 @@ async function renderFullGallery(allMedia) {
   // Store media array in global state for lightbox navigation
   fanclubGalleryState.allMedia = sortedMedia;
 
-  // Initialize lightbox click handlers
+  // Initialize lightbox with custom content renderer
   initLightbox();
 
   console.log('✅ Full Fan Club gallery rendered successfully');
 }
 
 // =============================================================================
-// LIGHTBOX FUNCTIONALITY
+// LIGHTBOX INITIALIZATION
 // =============================================================================
 
 /**
- * Initializes lightbox click handlers on all gallery cards
- * Uses event delegation for performance
+ * Initializes lightbox using shared lightbox.js module
+ * Uses custom content renderer for exclusive badge support
  */
 function initLightbox() {
-  const container = document.getElementById('fanclub-gallery-grid');
-
-  if (!container) return;
-
-  // Add click listener to container
-  container.addEventListener('click', handleCardClick);
-
-  // Add keyboard listener for accessibility
-  container.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      handleCardClick(e);
-    }
+  // Create lightbox instance using shared module
+  lightbox = window.createLightbox({
+    containerId: 'fanclub-gallery-grid',
+    getState: () => fanclubGalleryState,
+    setState: (updates) => Object.assign(fanclubGalleryState, updates),
+    // Custom renderer that adds exclusive badges
+    renderContent: renderFanclubLightboxContent
   });
+
+  // Initialize click handlers
+  lightbox.init();
 
   console.log('🔍 Fan Club lightbox initialized');
-}
-
-/**
- * Handles click on gallery card
- *
- * @param {Event} event - Click event object
- */
-function handleCardClick(event) {
-  const card = event.target.closest('.gallery-card');
-  if (!card) return;
-
-  const index = parseInt(card.dataset.index, 10);
-
-  if (isNaN(index)) {
-    console.warn('⚠️ Card missing data-index attribute');
-    return;
-  }
-
-  openLightbox(index);
-}
-
-/**
- * Opens lightbox with specified media item
- *
- * @param {number} index - Index of media item in fanclubGalleryState.allMedia array
- */
-function openLightbox(index) {
-  fanclubGalleryState.currentIndex = index;
-  fanclubGalleryState.isLightboxOpen = true;
-
-  const mediaItem = fanclubGalleryState.allMedia[index];
-
-  if (!mediaItem) {
-    console.warn(`⚠️ No media item at index ${index}`);
-    return;
-  }
-
-  console.log(`🔍 Opening lightbox for: ${mediaItem.title}`);
-
-  let lightbox = document.getElementById('lightbox');
-
-  if (!lightbox) {
-    lightbox = createLightboxStructure();
-  }
-
-  renderLightboxContent(mediaItem);
-
-  lightbox.classList.add('lightbox--active');
-  document.body.style.overflow = 'hidden';
-
-  const closeBtn = lightbox.querySelector('.lightbox__close');
-  if (closeBtn) {
-    setTimeout(() => closeBtn.focus(), 100);
-  }
-
-  initKeyboardNav();
-}
-
-/**
- * Creates lightbox DOM structure
- *
- * @returns {HTMLElement} Lightbox container element
- */
-function createLightboxStructure() {
-  console.log('🔨 Creating lightbox structure...');
-
-  const lightbox = document.createElement('div');
-  lightbox.id = 'lightbox';
-  lightbox.className = 'lightbox';
-  lightbox.setAttribute('role', 'dialog');
-  lightbox.setAttribute('aria-modal', 'true');
-  lightbox.setAttribute('aria-label', 'Media viewer');
-
-  lightbox.innerHTML = `
-    <button class="lightbox__close"
-            aria-label="Close lightbox"
-            title="Close (ESC)">
-      ×
-    </button>
-
-    <button class="lightbox__prev"
-            aria-label="Previous image"
-            title="Previous (Left Arrow)">
-      ←
-    </button>
-
-    <button class="lightbox__next"
-            aria-label="Next image"
-            title="Next (Right Arrow)">
-      →
-    </button>
-
-    <div class="lightbox__content">
-      <!-- Media content gets inserted here -->
-    </div>
-
-    <div class="lightbox__counter" aria-live="polite">
-      <!-- Counter text gets inserted here -->
-    </div>
-  `;
-
-  document.body.appendChild(lightbox);
-
-  attachLightboxListeners(lightbox);
-
-  return lightbox;
-}
-
-/**
- * Attaches event listeners to lightbox buttons
- *
- * @param {HTMLElement} lightbox - Lightbox container element
- */
-function attachLightboxListeners(lightbox) {
-  const closeBtn = lightbox.querySelector('.lightbox__close');
-  closeBtn.addEventListener('click', closeLightbox);
-
-  const prevBtn = lightbox.querySelector('.lightbox__prev');
-  prevBtn.addEventListener('click', showPrevious);
-
-  const nextBtn = lightbox.querySelector('.lightbox__next');
-  nextBtn.addEventListener('click', showNext);
-
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) {
-      closeLightbox();
-    }
-  });
-}
-
-/**
- * Renders media content in lightbox
- *
- * @param {Object} mediaItem - Media data object
- */
-function renderLightboxContent(mediaItem) {
-  const lightbox = document.getElementById('lightbox');
-  const contentContainer = lightbox.querySelector('.lightbox__content');
-  const counterContainer = lightbox.querySelector('.lightbox__counter');
-
-  contentContainer.innerHTML = '';
-
-  if (mediaItem.type === 'photo') {
-    const img = document.createElement('img');
-    img.src = `assets/images/gallery/${mediaItem.filename}`;
-    img.alt = mediaItem.title;
-    img.className = 'lightbox__image';
-
-    img.onerror = function() {
-      this.src = 'assets/images/logo.png';
-      this.alt = 'Image unavailable';
-    };
-
-    contentContainer.appendChild(img);
-
-  } else if (mediaItem.type === 'video') {
-    const iframe = document.createElement('iframe');
-    iframe.src = mediaItem.embedUrl;
-    iframe.className = 'lightbox__video';
-    iframe.setAttribute('frameborder', '0');
-    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-    iframe.setAttribute('allowfullscreen', 'true');
-
-    contentContainer.appendChild(iframe);
-  }
-
-  // Add title and description
-  const infoDiv = document.createElement('div');
-  infoDiv.className = 'lightbox__info';
-
-  // Add exclusive badge if item is not public
-  const exclusiveBadge = !mediaItem.public ? '<span class="lightbox-exclusive-badge">★ Fan Club Exclusive</span>' : '';
-
-  infoDiv.innerHTML = `
-    ${exclusiveBadge}
-    <h3 class="lightbox__title">${mediaItem.title}</h3>
-    <p class="lightbox__description">${mediaItem.description}</p>
-  `;
-  contentContainer.appendChild(infoDiv);
-
-  // Update counter
-  const current = fanclubGalleryState.currentIndex + 1;
-  const total = fanclubGalleryState.allMedia.length;
-  counterContainer.textContent = `${current} / ${total}`;
-
-  updateNavigationButtons();
-}
-
-/**
- * Updates visibility of prev/next buttons
- */
-function updateNavigationButtons() {
-  const lightbox = document.getElementById('lightbox');
-  const prevBtn = lightbox.querySelector('.lightbox__prev');
-  const nextBtn = lightbox.querySelector('.lightbox__next');
-
-  if (fanclubGalleryState.currentIndex === 0) {
-    prevBtn.style.opacity = '0.3';
-    prevBtn.style.pointerEvents = 'none';
-  } else {
-    prevBtn.style.opacity = '1';
-    prevBtn.style.pointerEvents = 'auto';
-  }
-
-  if (fanclubGalleryState.currentIndex === fanclubGalleryState.allMedia.length - 1) {
-    nextBtn.style.opacity = '0.3';
-    nextBtn.style.pointerEvents = 'none';
-  } else {
-    nextBtn.style.opacity = '1';
-    nextBtn.style.pointerEvents = 'auto';
-  }
-}
-
-/**
- * Closes lightbox
- */
-function closeLightbox() {
-  console.log('❌ Closing lightbox');
-
-  const lightbox = document.getElementById('lightbox');
-
-  if (lightbox) {
-    lightbox.classList.remove('lightbox--active');
-    document.body.style.overflow = '';
-  }
-
-  fanclubGalleryState.isLightboxOpen = false;
-  document.removeEventListener('keydown', handleKeyboardNav);
-}
-
-/**
- * Shows previous image in lightbox
- */
-function showPrevious() {
-  if (fanclubGalleryState.currentIndex > 0) {
-    openLightbox(fanclubGalleryState.currentIndex - 1);
-  }
-}
-
-/**
- * Shows next image in lightbox
- */
-function showNext() {
-  if (fanclubGalleryState.currentIndex < fanclubGalleryState.allMedia.length - 1) {
-    openLightbox(fanclubGalleryState.currentIndex + 1);
-  }
-}
-
-// =============================================================================
-// KEYBOARD NAVIGATION
-// =============================================================================
-
-/**
- * Initializes keyboard navigation for lightbox
- */
-function initKeyboardNav() {
-  document.addEventListener('keydown', handleKeyboardNav);
-}
-
-/**
- * Handles keyboard events for lightbox navigation
- *
- * @param {KeyboardEvent} event - Keyboard event object
- */
-function handleKeyboardNav(event) {
-  if (!fanclubGalleryState.isLightboxOpen) return;
-
-  switch (event.key) {
-    case 'Escape':
-      event.preventDefault();
-      closeLightbox();
-      break;
-
-    case 'ArrowLeft':
-      event.preventDefault();
-      showPrevious();
-      break;
-
-    case 'ArrowRight':
-      event.preventDefault();
-      showNext();
-      break;
-
-    default:
-      break;
-  }
 }
 
 // =============================================================================
@@ -654,4 +418,4 @@ if (document.readyState === 'loading') {
 
 console.log('%c⭐ Fan Club Gallery Module Loaded', 'font-size: 14px; font-weight: bold; color: #A05A24;');
 console.log('%cThis module displays ALL media items (no public flag filtering)', 'color: #8B7A43;');
-console.log('%cCompare gallery.js (filters public:true) vs this file (shows all)', 'color: #A8A29E;');
+console.log('%cUses shared lightbox.js with custom content renderer', 'color: #A8A29E;');

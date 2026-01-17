@@ -7,8 +7,7 @@
  * - Array filtering (public vs. Fan Club content)
  * - Template literals for clean HTML generation
  * - DOM manipulation for dynamic content
- * - Custom lightbox implementation (no external libraries)
- * - Keyboard navigation (arrow keys, ESC)
+ * - Shared lightbox module usage
  * - Event delegation for performance
  * - Progressive enhancement (works alongside static HTML fallback)
  * - Error handling with try/catch
@@ -20,6 +19,10 @@
  * - FAN CLUB GALLERY (fanclub.html): Shows all items (Phase 6)
  *
  * The filtering happens in filterPublicMedia() function.
+ *
+ * LIGHTBOX:
+ * Uses shared lightbox.js module for lightbox functionality.
+ * See assets/js/lightbox.js for implementation details.
  */
 
 // =============================================================================
@@ -39,6 +42,9 @@ let galleryState = {
   currentIndex: 0,        // Index of currently displayed item in lightbox
   isLightboxOpen: false   // Track lightbox state for keyboard handler
 };
+
+// Lightbox instance (created during init)
+let lightbox = null;
 
 // =============================================================================
 // DATA FETCHING
@@ -322,7 +328,7 @@ async function renderGallery(media, containerId) {
   // Store media array in global state for lightbox navigation
   galleryState.allMedia = sortedMedia;
 
-  // Initialize lightbox click handlers
+  // Initialize lightbox using shared module
   initLightbox();
 
   console.log('✅ Gallery rendered successfully');
@@ -351,384 +357,28 @@ async function renderPublicGallery() {
 }
 
 // =============================================================================
-// LIGHTBOX FUNCTIONALITY
+// LIGHTBOX INITIALIZATION
 // =============================================================================
 
 /**
- * Initializes lightbox click handlers on all gallery cards
+ * Initializes lightbox using shared lightbox.js module
  *
- * Uses EVENT DELEGATION for performance:
- * - Instead of adding click listener to each card (expensive)
- * - Add ONE listener to parent container (efficient)
- * - Use event.target to determine which card was clicked
- *
- * Why event delegation?
- * - Better performance (fewer event listeners)
- * - Works with dynamically added elements
- * - Less memory usage
+ * Uses the createLightbox factory function from lightbox.js
+ * Passes state callbacks to maintain encapsulation
  */
 function initLightbox() {
-  const container = document.getElementById('gallery-grid');
-
-  if (!container) return;
-
-  // Add click listener to container
-  container.addEventListener('click', handleCardClick);
-
-  // Add keyboard listener for accessibility
-  // Users can press Enter on focused card to open lightbox
-  container.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      handleCardClick(e);
-    }
+  // Create lightbox instance using shared module
+  lightbox = window.createLightbox({
+    containerId: 'gallery-grid',
+    getState: () => galleryState,
+    setState: (updates) => Object.assign(galleryState, updates)
+    // Uses default content renderer (no custom renderer needed for public gallery)
   });
+
+  // Initialize click handlers
+  lightbox.init();
 
   console.log('🔍 Lightbox initialized');
-}
-
-/**
- * Handles click on gallery card
- * Determines which card was clicked and opens lightbox
- *
- * @param {Event} event - Click event object
- */
-function handleCardClick(event) {
-  // Find closest gallery card element
-  // .closest() searches up the DOM tree to find matching element
-  // This handles clicks on child elements (image, text, etc.)
-  const card = event.target.closest('.gallery-card');
-
-  if (!card) return;
-
-  // Get index from data attribute
-  // This tells us which item to show in lightbox
-  const index = parseInt(card.dataset.index, 10);
-
-  if (isNaN(index)) {
-    console.warn('⚠️ Card missing data-index attribute');
-    return;
-  }
-
-  // Open lightbox with this item
-  openLightbox(index);
-}
-
-/**
- * Opens lightbox with specified media item
- * Creates and displays lightbox overlay with image/video
- *
- * @param {number} index - Index of media item in galleryState.allMedia array
- */
-function openLightbox(index) {
-  // Update global state
-  galleryState.currentIndex = index;
-  galleryState.isLightboxOpen = true;
-
-  // Get media item
-  const mediaItem = galleryState.allMedia[index];
-
-  if (!mediaItem) {
-    console.warn(`⚠️ No media item at index ${index}`);
-    return;
-  }
-
-  console.log(`🔍 Opening lightbox for: ${mediaItem.title}`);
-
-  // Get or create lightbox container
-  let lightbox = document.getElementById('lightbox');
-
-  if (!lightbox) {
-    // Create lightbox structure if it doesn't exist
-    lightbox = createLightboxStructure();
-  }
-
-  // Render media content in lightbox
-  renderLightboxContent(mediaItem);
-
-  // Show lightbox
-  lightbox.classList.add('lightbox--active');
-
-  // Prevent body scrolling when lightbox is open
-  document.body.style.overflow = 'hidden';
-
-  // Set focus to close button for keyboard accessibility
-  const closeBtn = lightbox.querySelector('.lightbox__close');
-  if (closeBtn) {
-    // Small delay ensures lightbox is visible before focusing
-    setTimeout(() => closeBtn.focus(), 100);
-  }
-
-  // Initialize keyboard navigation
-  initKeyboardNav();
-}
-
-/**
- * Creates lightbox DOM structure
- * Called once on first lightbox open
- *
- * @returns {HTMLElement} Lightbox container element
- */
-function createLightboxStructure() {
-  console.log('🔨 Creating lightbox structure...');
-
-  // Create main lightbox container
-  const lightbox = document.createElement('div');
-  lightbox.id = 'lightbox';
-  lightbox.className = 'lightbox';
-  lightbox.setAttribute('role', 'dialog');
-  lightbox.setAttribute('aria-modal', 'true');
-  lightbox.setAttribute('aria-label', 'Media viewer');
-
-  // Lightbox HTML structure
-  lightbox.innerHTML = `
-    <!-- Close button -->
-    <button class="lightbox__close"
-            aria-label="Close lightbox"
-            title="Close (ESC)">
-      ×
-    </button>
-
-    <!-- Previous button -->
-    <button class="lightbox__prev"
-            aria-label="Previous image"
-            title="Previous (Left Arrow)">
-      ←
-    </button>
-
-    <!-- Next button -->
-    <button class="lightbox__next"
-            aria-label="Next image"
-            title="Next (Right Arrow)">
-      →
-    </button>
-
-    <!-- Content container -->
-    <div class="lightbox__content">
-      <!-- Media content gets inserted here -->
-    </div>
-
-    <!-- Image counter -->
-    <div class="lightbox__counter" aria-live="polite">
-      <!-- Counter text gets inserted here -->
-    </div>
-  `;
-
-  // Add to page
-  document.body.appendChild(lightbox);
-
-  // Attach event listeners
-  attachLightboxListeners(lightbox);
-
-  return lightbox;
-}
-
-/**
- * Attaches event listeners to lightbox buttons
- *
- * @param {HTMLElement} lightbox - Lightbox container element
- */
-function attachLightboxListeners(lightbox) {
-  // Close button
-  const closeBtn = lightbox.querySelector('.lightbox__close');
-  closeBtn.addEventListener('click', closeLightbox);
-
-  // Previous button
-  const prevBtn = lightbox.querySelector('.lightbox__prev');
-  prevBtn.addEventListener('click', showPrevious);
-
-  // Next button
-  const nextBtn = lightbox.querySelector('.lightbox__next');
-  nextBtn.addEventListener('click', showNext);
-
-  // Click outside content to close
-  // This improves UX - users expect this behavior
-  lightbox.addEventListener('click', (e) => {
-    // Only close if clicking the overlay itself, not content
-    if (e.target === lightbox) {
-      closeLightbox();
-    }
-  });
-}
-
-/**
- * Renders media content in lightbox
- * Handles both photos and videos
- *
- * @param {Object} mediaItem - Media data object
- */
-function renderLightboxContent(mediaItem) {
-  const lightbox = document.getElementById('lightbox');
-  const contentContainer = lightbox.querySelector('.lightbox__content');
-  const counterContainer = lightbox.querySelector('.lightbox__counter');
-
-  // Clear existing content
-  contentContainer.innerHTML = '';
-
-  // Render based on media type
-  if (mediaItem.type === 'photo') {
-    // Photo: Create <img> element
-    const img = document.createElement('img');
-    img.src = `assets/images/gallery/${mediaItem.filename}`;
-    img.alt = mediaItem.title;
-    img.className = 'lightbox__image';
-
-    // Add error handler
-    img.onerror = function() {
-      this.src = 'assets/images/logo.png';
-      this.alt = 'Image unavailable';
-    };
-
-    contentContainer.appendChild(img);
-
-  } else if (mediaItem.type === 'video') {
-    // Video: Create <iframe> for YouTube embed
-    const iframe = document.createElement('iframe');
-    iframe.src = mediaItem.embedUrl;
-    iframe.className = 'lightbox__video';
-    iframe.setAttribute('frameborder', '0');
-    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-    iframe.setAttribute('allowfullscreen', 'true');
-
-    contentContainer.appendChild(iframe);
-  }
-
-  // Add title and description
-  const infoDiv = document.createElement('div');
-  infoDiv.className = 'lightbox__info';
-  infoDiv.innerHTML = `
-    <h3 class="lightbox__title">${mediaItem.title}</h3>
-    <p class="lightbox__description">${mediaItem.description}</p>
-  `;
-  contentContainer.appendChild(infoDiv);
-
-  // Update counter
-  const current = galleryState.currentIndex + 1;
-  const total = galleryState.allMedia.length;
-  counterContainer.textContent = `${current} / ${total}`;
-
-  // Show/hide navigation buttons
-  updateNavigationButtons();
-}
-
-/**
- * Updates visibility of prev/next buttons
- * Hide prev button on first item, hide next button on last item
- */
-function updateNavigationButtons() {
-  const lightbox = document.getElementById('lightbox');
-  const prevBtn = lightbox.querySelector('.lightbox__prev');
-  const nextBtn = lightbox.querySelector('.lightbox__next');
-
-  // Hide prev button on first item
-  if (galleryState.currentIndex === 0) {
-    prevBtn.style.opacity = '0.3';
-    prevBtn.style.pointerEvents = 'none';
-  } else {
-    prevBtn.style.opacity = '1';
-    prevBtn.style.pointerEvents = 'auto';
-  }
-
-  // Hide next button on last item
-  if (galleryState.currentIndex === galleryState.allMedia.length - 1) {
-    nextBtn.style.opacity = '0.3';
-    nextBtn.style.pointerEvents = 'none';
-  } else {
-    nextBtn.style.opacity = '1';
-    nextBtn.style.pointerEvents = 'auto';
-  }
-}
-
-/**
- * Closes lightbox
- * Removes overlay and restores body scrolling
- */
-function closeLightbox() {
-  console.log('❌ Closing lightbox');
-
-  const lightbox = document.getElementById('lightbox');
-
-  if (lightbox) {
-    // Remove active class (triggers CSS fade-out)
-    lightbox.classList.remove('lightbox--active');
-
-    // Restore body scrolling
-    document.body.style.overflow = '';
-  }
-
-  // Update state
-  galleryState.isLightboxOpen = false;
-
-  // Remove keyboard listener
-  document.removeEventListener('keydown', handleKeyboardNav);
-}
-
-/**
- * Shows previous image in lightbox
- */
-function showPrevious() {
-  if (galleryState.currentIndex > 0) {
-    openLightbox(galleryState.currentIndex - 1);
-  }
-}
-
-/**
- * Shows next image in lightbox
- */
-function showNext() {
-  if (galleryState.currentIndex < galleryState.allMedia.length - 1) {
-    openLightbox(galleryState.currentIndex + 1);
-  }
-}
-
-// =============================================================================
-// KEYBOARD NAVIGATION
-// =============================================================================
-
-/**
- * Initializes keyboard navigation for lightbox
- * Supports: ESC (close), Left Arrow (previous), Right Arrow (next)
- */
-function initKeyboardNav() {
-  // Add keyboard listener to document
-  // This captures keyboard events globally while lightbox is open
-  document.addEventListener('keydown', handleKeyboardNav);
-}
-
-/**
- * Handles keyboard events for lightbox navigation
- *
- * Supported keys:
- * - Escape: Close lightbox
- * - ArrowLeft: Previous image
- * - ArrowRight: Next image
- *
- * @param {KeyboardEvent} event - Keyboard event object
- */
-function handleKeyboardNav(event) {
-  // Only handle keyboard if lightbox is open
-  if (!galleryState.isLightboxOpen) return;
-
-  switch (event.key) {
-    case 'Escape':
-      event.preventDefault();
-      closeLightbox();
-      break;
-
-    case 'ArrowLeft':
-      event.preventDefault();
-      showPrevious();
-      break;
-
-    case 'ArrowRight':
-      event.preventDefault();
-      showNext();
-      break;
-
-    default:
-      // Do nothing for other keys
-      break;
-  }
 }
 
 // =============================================================================
@@ -746,13 +396,7 @@ function init() {
   if (document.getElementById('gallery-grid')) {
     console.log('📍 Detected gallery page');
     renderPublicGallery();
-  }
-  // Future: Add check for Fan Club gallery page
-  // else if (document.getElementById('fanclub-gallery-grid')) {
-  //   console.log('📍 Detected Fan Club gallery page');
-  //   renderFullGallery(); // Shows ALL media, no filtering
-  // }
-  else {
+  } else {
     console.log('ℹ️ No gallery containers found on this page');
   }
 }
@@ -773,20 +417,3 @@ if (document.readyState === 'loading') {
   // DOM already loaded
   init();
 }
-
-// =============================================================================
-// EXPORTS (for potential future module usage)
-// =============================================================================
-
-/**
- * If using ES6 modules in the future, uncomment to export functions
- * Example: import { fetchGalleryMedia, renderGallery } from './gallery.js'
- */
-// export {
-//   fetchGalleryMedia,
-//   filterPublicMedia,
-//   renderGallery,
-//   renderPublicGallery,
-//   openLightbox,
-//   closeLightbox
-// };
