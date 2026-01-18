@@ -159,7 +159,7 @@ Client-side gatekeeping (casual security by design):
 - Uses `sessionStorage` for session persistence
 - 3-attempt limit with humorous "drunk redirect"
 
-**Documentation:** See `FANCLUB_ACCESS.md`
+**Documentation:** See `docs/FANCLUB_ACCESS.md`
 
 ---
 
