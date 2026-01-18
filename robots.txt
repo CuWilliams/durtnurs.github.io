@@ -1,62 +1,15 @@
 # robots.txt for durtnurs.com
 # Prevents search engines from indexing protected Fan Club area
-#
-# IMPORTANT UNDERSTANDING:
-# =======================
-# This is a POLITE REQUEST to compliant web crawlers.
-# This is NOT enforcement or access control.
-#
-# What this does:
-# - Tells well-behaved search engine bots (Google, Bing, etc.) to skip certain pages
-# - Helps prevent Fan Club content from appearing in search results
-# - Works in combination with meta robots tags in HTML
-#
-# What this does NOT do:
-# - Does not prevent direct access via URL
-# - Does not stop malicious bots (they ignore robots.txt)
-# - Does not provide security
-# - Does not hide content from determined users
-#
-# For this hobby band website, this level of protection is perfect.
-# We're creating a "members only" feeling, not Fort Knox.
 
 # Default rule: Allow all bots to index main site
 User-agent: *
 Allow: /
 
 # Disallow Fan Club area (members only)
-# This prevents indexing but does NOT prevent direct access
-Disallow: /fanclub.html
+Disallow: /fanclub/
 
-# Optional: Prevent indexing of JavaScript files
-# (Uncomment if you want to prevent bots from reading JS source)
-# Disallow: /assets/js/fanclub-auth.js
-# Disallow: /assets/js/fanclub-gallery.js
+# Disallow message page (utility page, not useful in search)
+Disallow: /message/
 
 # Sitemap location
 Sitemap: https://durtnurs.com/sitemap.xml
-
-# ============================================
-# EDUCATIONAL NOTES
-# ============================================
-#
-# robots.txt Syntax:
-# - User-agent: * means "all bots"
-# - User-agent: Googlebot would target only Google
-# - Allow: / means "everything is allowed by default"
-# - Disallow: /path means "don't index this path"
-# - # comments are ignored by bots
-#
-# Testing:
-# - Visit https://durtnurs.com/robots.txt to see this file
-# - Google Search Console has a robots.txt tester
-# - Most search engines respect this file
-#
-# Alternative approaches for real security:
-# - Server-side authentication (login systems)
-# - .htaccess password protection (Apache servers)
-# - Cloudflare Access (managed authentication)
-# - OAuth/SAML integration
-# - VPN-only access
-#
-# But for casual friends-only gatekeeping? This + meta robots is perfect.

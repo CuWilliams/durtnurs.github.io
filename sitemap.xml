@@ -3,75 +3,59 @@
   <!-- Homepage -->
   <url>
     <loc>https://durtnurs.com/</loc>
-    <lastmod>2024-12-07</lastmod>
+    <lastmod>2025-01-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <!-- Main Content Pages -->
   <url>
-    <loc>https://durtnurs.com/about.html</loc>
-    <lastmod>2024-12-07</lastmod>
+    <loc>https://durtnurs.com/about/</loc>
+    <lastmod>2025-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://durtnurs.com/news.html</loc>
-    <lastmod>2024-12-07</lastmod>
+    <loc>https://durtnurs.com/news/</loc>
+    <lastmod>2025-01-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://durtnurs.com/releases/</loc>
+    <lastmod>2025-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://durtnurs.com/releases.html</loc>
-    <lastmod>2024-12-07</lastmod>
+    <loc>https://durtnurs.com/gallery/</loc>
+    <lastmod>2025-01-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://durtnurs.com/gallery.html</loc>
-    <lastmod>2024-12-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://durtnurs.com/contact.html</loc>
-    <lastmod>2024-12-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Fan Club -->
-  <url>
-    <loc>https://durtnurs.com/fanclub.html</loc>
-    <lastmod>2024-12-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://durtnurs.com/contact/</loc>
+    <lastmod>2025-01-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
 
   <!-- Legal Pages -->
   <url>
-    <loc>https://durtnurs.com/privacy.html</loc>
-    <lastmod>2024-12-07</lastmod>
+    <loc>https://durtnurs.com/privacy/</loc>
+    <lastmod>2025-01-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <url>
-    <loc>https://durtnurs.com/terms.html</loc>
-    <lastmod>2024-12-07</lastmod>
+    <loc>https://durtnurs.com/terms/</loc>
+    <lastmod>2025-01-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-  </url>
-
-  <!-- Utility Pages -->
-  <url>
-    <loc>https://durtnurs.com/message.html</loc>
-    <lastmod>2024-12-07</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
   </url>
 </urlset>
