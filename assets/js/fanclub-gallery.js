@@ -51,48 +51,22 @@ let lightbox = null;
 /**
  * Fetches gallery media data from JSON file
  *
- * Same fetch logic as public gallery - we load the same data source.
- * The difference is in how we use it (show all vs show only public).
+ * Uses shared DurtNursUtils.fetchJSON for HTTP requests.
  *
  * @returns {Promise<Array>} Array of ALL media objects
  */
 async function fetchAllGalleryMedia() {
   try {
     console.log('📡 Fetching FULL gallery media for Fan Club...');
-    const response = await fetch('assets/data/gallery.json');
+    const data = await DurtNursUtils.fetchJSON('assets/data/gallery.json');
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    // Log the TOTAL count (including non-public items)
     console.log(`✅ Successfully loaded ${data.media.length} media items (all items, including private)`);
-
     return data.media;
 
   } catch (error) {
     console.error('❌ Error fetching gallery media:', error);
-    displayError('Unable to load Fan Club gallery. Please try again later.');
+    DurtNursUtils.displayError('fanclub-gallery-grid', 'Unable to load Fan Club gallery. Please try again later.');
     return [];
-  }
-}
-
-/**
- * Displays an error message to the user
- *
- * @param {string} message - Error message to display
- */
-function displayError(message) {
-  const container = document.getElementById('fanclub-gallery-grid');
-
-  if (container) {
-    container.innerHTML = `
-      <div class="error-message" role="alert">
-        <p><strong>Oops!</strong> ${message}</p>
-      </div>
-    `;
   }
 }
 
@@ -125,29 +99,6 @@ function sortAllMedia(media) {
 }
 
 // =============================================================================
-// DATE FORMATTING
-// =============================================================================
-
-/**
- * Converts ISO date string to readable format
- * Example: "2024-10-15" becomes "October 15, 2024"
- *
- * @param {string} isoDate - Date in ISO format (YYYY-MM-DD)
- * @returns {string} Formatted date string
- */
-function formatDate(isoDate) {
-  const date = new Date(isoDate);
-
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-
-  return formatter.format(date);
-}
-
-// =============================================================================
 // HTML GENERATION FOR GALLERY CARDS
 // =============================================================================
 
@@ -174,7 +125,7 @@ function renderMediaCard(mediaItem, index) {
     public: isPublic  // Destructure but we don't use it to filter!
   } = mediaItem;
 
-  const formattedDate = formatDate(date);
+  const formattedDate = DurtNursUtils.formatDate(date);
   const featuredClass = featured ? ' gallery-card--featured' : '';
 
   // Add a visual indicator for items that are Fan Club exclusive (not public)
@@ -403,14 +354,8 @@ function init() {
 // AUTO-INITIALIZATION
 // =============================================================================
 
-/**
- * Wait for DOM to be fully loaded before running code
- */
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
-}
+// Wait for DOM to be fully loaded before running code
+DurtNursUtils.onDOMReady(init);
 
 // =============================================================================
 // DEVELOPER CONSOLE MESSAGE

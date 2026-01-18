@@ -53,60 +53,22 @@ let lightbox = null;
 /**
  * Fetches gallery media data from JSON file
  *
- * The Fetch API is a modern interface for making HTTP requests.
- * It returns a Promise, representing an asynchronous operation.
- * We use async/await syntax to handle Promises more readably.
+ * Uses shared DurtNursUtils.fetchJSON for HTTP requests.
  *
  * @returns {Promise<Array>} Array of media objects
  */
 async function fetchGalleryMedia() {
   try {
     console.log('📡 Fetching gallery media from JSON...');
-    const response = await fetch('assets/data/gallery.json');
-
-    // Check HTTP response status
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    // Parse response body as JSON
-    const data = await response.json();
+    const data = await DurtNursUtils.fetchJSON('assets/data/gallery.json');
 
     console.log(`✅ Successfully loaded ${data.media.length} media items`);
-
-    // Return the media array from the parsed data
     return data.media;
 
   } catch (error) {
-    // Catch any errors: network failures, invalid JSON, 404s, etc.
     console.error('❌ Error fetching gallery media:', error);
-
-    // Display user-friendly error message in UI
-    displayError('Unable to load gallery. Please try again later.');
-
-    // Return empty array so rest of code doesn't break
+    DurtNursUtils.displayError('gallery-grid', 'Unable to load gallery. Please try again later.');
     return [];
-  }
-}
-
-/**
- * Displays an error message to the user
- * Called when gallery data cannot be loaded
- *
- * @param {string} message - Error message to display
- */
-function displayError(message) {
-  // Find the container where gallery should appear
-  const container = document.getElementById('gallery-grid');
-
-  if (container) {
-    // Create error message HTML
-    // role="alert" announces error to screen readers
-    container.innerHTML = `
-      <div class="error-message" role="alert">
-        <p><strong>Oops!</strong> ${message}</p>
-      </div>
-    `;
   }
 }
 
@@ -170,29 +132,6 @@ function sortMedia(media) {
 }
 
 // =============================================================================
-// DATE FORMATTING
-// =============================================================================
-
-/**
- * Converts ISO date string to readable format
- * Example: "2024-10-15" becomes "October 15, 2024"
- *
- * @param {string} isoDate - Date in ISO format (YYYY-MM-DD)
- * @returns {string} Formatted date string
- */
-function formatDate(isoDate) {
-  const date = new Date(isoDate);
-
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-
-  return formatter.format(date);
-}
-
-// =============================================================================
 // HTML GENERATION FOR GALLERY CARDS
 // =============================================================================
 
@@ -224,8 +163,8 @@ function renderMediaCard(mediaItem, index) {
     featured
   } = mediaItem;
 
-  // Format date for display
-  const formattedDate = formatDate(date);
+  // Format date for display using shared utility
+  const formattedDate = DurtNursUtils.formatDate(date);
 
   // Build modifier classes
   const featuredClass = featured ? ' gallery-card--featured' : '';
@@ -405,15 +344,5 @@ function init() {
 // AUTO-INITIALIZATION
 // =============================================================================
 
-/**
- * Wait for DOM to be fully loaded before running code
- *
- * DOMContentLoaded event fires when HTML is fully parsed.
- * This ensures all elements exist before we try to manipulate them.
- */
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  // DOM already loaded
-  init();
-}
+// Wait for DOM to be fully loaded before running code
+DurtNursUtils.onDOMReady(init);

@@ -45,37 +45,22 @@ const CONFIG = {
 
 /**
  * Fetches releases data from JSON file
- * Uses the Fetch API to load external data asynchronously
- *
- * The Fetch API returns a Promise, which we handle with async/await syntax
- * for more readable asynchronous code.
+ * Uses shared DurtNursUtils.fetchJSON for HTTP requests.
  *
  * @returns {Promise<Array>} Array of release objects
  * @throws {Error} If fetch fails or JSON is invalid
  */
 async function fetchReleases() {
   try {
-    // Send HTTP GET request to fetch the JSON file
     console.log('📡 Fetching releases data...');
-    const response = await fetch(CONFIG.dataUrl);
-
-    // Check if the HTTP request was successful
-    // response.ok is true for status codes 200-299
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    // Parse the JSON response into a JavaScript object
-    // .json() returns a Promise, so we await it
-    const data = await response.json();
+    const data = await DurtNursUtils.fetchJSON(CONFIG.dataUrl);
 
     console.log(`✅ Successfully loaded ${data.releases.length} releases`);
     return data.releases;
 
   } catch (error) {
-    // Catch any errors: network failures, invalid JSON, 404s, etc.
     console.error('❌ Error fetching releases:', error);
-    throw error; // Re-throw to be handled by caller
+    throw error;
   }
 }
 
@@ -129,35 +114,6 @@ function findFeaturedRelease(releases) {
   const mostRecent = sortedReleases[0];
   console.log(`📅 Using most recent release: ${mostRecent.title}`);
   return mostRecent;
-}
-
-// =============================================================================
-// DATE FORMATTING
-// =============================================================================
-
-/**
- * Formats an ISO date string into a readable format
- * Example: "2024-11-15" becomes "November 15, 2024"
- *
- * Uses the Intl.DateTimeFormat API for internationalized formatting
- * This is more robust than manual string manipulation
- *
- * @param {string} isoDate - Date in ISO format (YYYY-MM-DD)
- * @returns {string} Formatted date string
- */
-function formatDate(isoDate) {
-  // Create a Date object from the ISO string
-  const date = new Date(isoDate);
-
-  // Use Intl.DateTimeFormat for locale-aware formatting
-  // 'en-US' specifies American English conventions
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',   // Full year (2024)
-    month: 'long',     // Full month name (November)
-    day: 'numeric'     // Day without leading zero (15)
-  });
-
-  return formatter.format(date);
 }
 
 // =============================================================================
@@ -238,7 +194,7 @@ function renderFeaturedRelease(release) {
   } = release;
 
   // Format the release date for display
-  const formattedDate = formatDate(releaseDate);
+  const formattedDate = DurtNursUtils.formatDate(releaseDate);
 
   // Build streaming links HTML
   const streamingLinksHTML = buildStreamingLinks(streamingLinks);
@@ -402,28 +358,8 @@ async function init() {
 // AUTO-INITIALIZATION
 // =============================================================================
 
-/**
- * Wait for the DOM to be fully loaded before initializing
- *
- * The DOMContentLoaded event ensures:
- * - HTML is fully parsed
- * - DOM tree is complete
- * - All elements we need to manipulate exist
- *
- * We check document.readyState to handle two scenarios:
- * 1. If DOM is still loading: Wait for DOMContentLoaded event
- * 2. If DOM already loaded: Run init immediately
- *
- * This pattern works regardless of where the script tag is placed
- */
-if (document.readyState === 'loading') {
-  // DOM is still loading, wait for the event
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  // DOM already loaded (script was deferred or loaded late)
-  // Run immediately
-  init();
-}
+// Wait for DOM to be fully loaded before running code
+DurtNursUtils.onDOMReady(init);
 
 // =============================================================================
 // EDUCATIONAL NOTES

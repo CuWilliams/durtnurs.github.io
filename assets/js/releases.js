@@ -38,109 +38,28 @@
 
 /**
  * Fetches releases data from JSON file
- *
- * The Fetch API is a modern interface for making HTTP requests.
- * It returns a Promise, representing an asynchronous operation.
- * We use async/await syntax to handle Promises more readably.
- *
- * Why async/await?
- * - Makes asynchronous code look synchronous
- * - Easier error handling with try/catch
- * - More readable than .then() chains
+ * Uses shared DurtNursUtils.fetchJSON for HTTP requests.
  *
  * @returns {Promise<Array>} Array of release objects
  */
 async function fetchReleases() {
   try {
-    // fetch() sends HTTP GET request to the specified URL
-    // Returns a Promise that resolves to a Response object
     console.log('📡 Fetching releases from JSON...');
-    const response = await fetch('assets/data/releases.json');
-
-    // Check HTTP response status
-    // response.ok is true for status codes 200-299
-    // If false, throw error to jump to catch block
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    // Parse response body as JSON
-    // .json() also returns a Promise, so we await it
-    // This converts JSON string to JavaScript object
-    const data = await response.json();
+    const data = await DurtNursUtils.fetchJSON('assets/data/releases.json');
 
     console.log(`✅ Successfully loaded ${data.releases.length} releases`);
-
-    // Return the releases array from the parsed data
     return data.releases;
 
   } catch (error) {
-    // Catch any errors: network failures, invalid JSON, 404s, etc.
     console.error('❌ Error fetching releases:', error);
-
-    // Display user-friendly error message in UI
-    displayError('Unable to load releases. Please try again later.');
-
-    // Return empty array so rest of code doesn't break
-    // This is defensive programming - fail gracefully
+    DurtNursUtils.displayError('releases-grid', 'Unable to load releases. Please try again later.');
     return [];
   }
 }
 
-/**
- * Displays an error message to the user
- * Called when releases data cannot be loaded
- *
- * @param {string} message - Error message to display
- */
-function displayError(message) {
-  // Find the container where releases should appear
-  // Try both homepage and dedicated releases page containers
-  const container = document.getElementById('releases-grid') ||
-                   document.getElementById('homepage-releases');
-
-  if (container) {
-    // Create error message HTML
-    // role="alert" announces error to screen readers
-    container.innerHTML = `
-      <div class="error-message" role="alert">
-        <p><strong>Oops!</strong> ${message}</p>
-      </div>
-    `;
-  }
-}
-
 // =============================================================================
-// DATE FORMATTING
+// DATE HELPERS
 // =============================================================================
-
-/**
- * Converts ISO date string to readable format
- * Example: "2024-11-15" becomes "November 15, 2024"
- *
- * Why use Intl.DateTimeFormat?
- * - Locale-aware formatting (respects user's language/region)
- * - Built into JavaScript (no external libraries needed)
- * - Handles edge cases (time zones, leap years, etc.)
- *
- * @param {string} isoDate - Date in ISO format (YYYY-MM-DD)
- * @returns {string} Formatted date string
- */
-function formatDate(isoDate) {
-  // Create Date object from ISO string
-  // JavaScript Date constructor parses ISO 8601 format automatically
-  const date = new Date(isoDate);
-
-  // Intl.DateTimeFormat provides internationalized date formatting
-  // 'en-US' specifies American English conventions
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',   // Full year (2024)
-    month: 'long',     // Full month name (November)
-    day: 'numeric'     // Day without leading zero (15)
-  });
-
-  return formatter.format(date);
-}
 
 /**
  * Extracts year from ISO date string
@@ -192,8 +111,8 @@ function renderReleaseCard(release) {
     featured
   } = release;
 
-  // Format dates for display
-  const formattedDate = formatDate(releaseDate);
+  // Format dates for display using shared utility
+  const formattedDate = DurtNursUtils.formatDate(releaseDate);
   const year = getYear(releaseDate);
 
   // Build modifier classes
@@ -376,30 +295,8 @@ function init() {
 // AUTO-INITIALIZATION
 // =============================================================================
 
-/**
- * Wait for DOM to be fully loaded before running code
- *
- * DOMContentLoaded event fires when:
- * - HTML is fully parsed
- * - DOM tree is complete
- * - All deferred scripts have executed
- *
- * Why wait for DOMContentLoaded?
- * - Ensures all elements exist before we try to manipulate them
- * - Prevents "element not found" errors
- * - Best practice for DOM manipulation scripts
- *
- * Alternative: Place <script> at end of <body>
- * But this approach is more explicit and works anywhere
- */
-if (document.readyState === 'loading') {
-  // DOM is still loading, wait for event
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  // DOM already loaded (script was deferred or loaded late)
-  // Run immediately
-  init();
-}
+// Wait for DOM to be fully loaded before running code
+DurtNursUtils.onDOMReady(init);
 
 // =============================================================================
 // FUTURE ENHANCEMENTS (commented out for now)

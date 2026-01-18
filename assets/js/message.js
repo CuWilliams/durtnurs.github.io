@@ -334,16 +334,5 @@ function init() {
 // AUTO-INITIALIZATION
 // =============================================================================
 
-/**
- * Wait for the DOM to be fully loaded before running our code
- *
- * This ensures all HTML elements exist before we try to manipulate them.
- * We use the same pattern as announcements.js for consistency.
- */
-if (document.readyState === 'loading') {
-  // DOM is still loading, wait for the DOMContentLoaded event
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  // DOM is already loaded (script was loaded late), run immediately
-  init();
-}
+// Wait for DOM to be fully loaded before running code
+DurtNursUtils.onDOMReady(init);

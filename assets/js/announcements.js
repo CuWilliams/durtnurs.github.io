@@ -17,99 +17,27 @@
 
 /**
  * Fetches announcements data from JSON file
- *
- * The Fetch API is a modern way to make HTTP requests in JavaScript.
- * It returns a Promise, which represents a value that will be available in the future.
- * We use async/await syntax to work with Promises in a more readable way.
+ * Uses shared DurtNursUtils.fetchJSON for HTTP requests.
  *
  * @returns {Promise<Array>} Array of announcement objects
  */
 async function fetchAnnouncements() {
   try {
-    // fetch() sends an HTTP request to get the JSON file
-    // It returns a Promise that resolves to a Response object
     console.log('📡 Fetching announcements from JSON...');
-    const response = await fetch('assets/data/announcements.json');
-
-    // Check if the HTTP request was successful (status code 200-299)
-    // If not, throw an error to be caught by our catch block
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    // .json() parses the response body as JSON
-    // This also returns a Promise, so we await it
-    const data = await response.json();
+    const data = await DurtNursUtils.fetchJSON('assets/data/announcements.json');
 
     console.log(`✅ Successfully loaded ${data.announcements.length} announcements`);
-
-    // Return the announcements array from the parsed JSON
     return data.announcements;
 
   } catch (error) {
-    // If anything goes wrong (network error, invalid JSON, etc.)
-    // we catch the error here and log it
     console.error('❌ Error fetching announcements:', error);
 
-    // Display a user-friendly error message in the UI
-    displayError('Unable to load announcements. Please try again later.');
+    // Try to display error in whichever container is present
+    const containerId = document.getElementById('homepage-news') ? 'homepage-news' : 'news-archive';
+    DurtNursUtils.displayError(containerId, 'Unable to load announcements. Please try again later.');
 
-    // Return empty array so the rest of the code doesn't break
     return [];
   }
-}
-
-/**
- * Displays an error message to the user
- * This is called when we can't load the announcements data
- *
- * @param {string} message - Error message to display
- */
-function displayError(message) {
-  // Find the container where announcements should appear
-  const container = document.getElementById('homepage-news') ||
-                   document.getElementById('news-archive');
-
-  if (container) {
-    // Create error message HTML using template literals
-    // Template literals (backticks) allow multi-line strings and variable interpolation
-    container.innerHTML = `
-      <div class="error-message" role="alert">
-        <p><strong>Oops!</strong> ${message}</p>
-      </div>
-    `;
-  }
-}
-
-// =============================================================================
-// DATE FORMATTING
-// =============================================================================
-
-/**
- * Converts ISO date string (YYYY-MM-DD) to readable format (Month Day, Year)
- * Example: "2024-11-15" becomes "November 15, 2024"
- *
- * The Date object is JavaScript's built-in way to work with dates.
- * We use Intl.DateTimeFormat for locale-aware date formatting.
- *
- * @param {string} isoDate - Date in ISO format (YYYY-MM-DD)
- * @returns {string} Formatted date string
- */
-function formatDate(isoDate) {
-  // Create a Date object from the ISO string
-  // The Date constructor can parse ISO format automatically
-  const date = new Date(isoDate);
-
-  // Intl.DateTimeFormat provides locale-aware date formatting
-  // 'en-US' specifies American English formatting
-  // The options object specifies how to format the date
-  const formatter = new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',   // Full year (2024)
-    month: 'long',     // Full month name (November)
-    day: 'numeric'     // Day without leading zero (15)
-  });
-
-  return formatter.format(date);
 }
 
 // =============================================================================
@@ -168,7 +96,7 @@ function renderAnnouncementCard(announcement, isHomepage = false) {
   const { id, date, title, category, excerpt, content, link, featured } = announcement;
 
   // Format the date for display
-  const formattedDate = formatDate(date);
+  const formattedDate = DurtNursUtils.formatDate(date);
 
   // Determine the link text
   // For homepage, always show "Read More →"
@@ -376,22 +304,8 @@ function init() {
 // AUTO-INITIALIZATION
 // =============================================================================
 
-/**
- * Wait for the DOM to be fully loaded before running our code
- *
- * DOMContentLoaded fires when the HTML document has been completely parsed
- * and all deferred scripts have executed. This ensures all elements exist
- * before we try to manipulate them.
- *
- * We could also place our script at the end of <body>, but this is more explicit.
- */
-if (document.readyState === 'loading') {
-  // DOM is still loading, wait for the DOMContentLoaded event
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  // DOM is already loaded (script was loaded late), run immediately
-  init();
-}
+// Wait for DOM to be fully loaded before running code
+DurtNursUtils.onDOMReady(init);
 
 // =============================================================================
 // EXPORTS (for potential future module usage)

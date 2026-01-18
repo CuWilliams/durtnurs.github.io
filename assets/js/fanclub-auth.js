@@ -661,30 +661,8 @@ function initAuth() {
 // AUTO-INITIALIZATION
 // =============================================================================
 
-/**
- * Wait for DOM to be fully loaded before running code
- *
- * DOMContentLoaded event fires when HTML is fully parsed.
- * This ensures all elements exist before we try to access them.
- *
- * Why check readyState?
- * - If script loads after DOM is ready, event won't fire
- * - Checking readyState catches this case
- * - Ensures initialization happens regardless of script timing
- *
- * readyState values:
- * - "loading": Document still loading
- * - "interactive": DOM ready, resources still loading
- * - "complete": Everything loaded
- */
-if (document.readyState === 'loading') {
-  // DOM is still loading, wait for DOMContentLoaded event
-  document.addEventListener('DOMContentLoaded', initAuth);
-  console.log('⏳ Waiting for DOM to load...');
-} else {
-  // DOM is already loaded, initialize immediately
-  initAuth();
-}
+// Wait for DOM to be fully loaded before running code
+DurtNursUtils.onDOMReady(initAuth);
 
 // =============================================================================
 // DEVELOPER CONSOLE MESSAGES
