@@ -101,13 +101,15 @@ durtnurs.github.io/
 │   │   └── gallery/           # Gallery images directory
 │   │       └── README.md      # Gallery image guidelines
 │   └── js/
+│       ├── utils.js           # Shared utilities (formatDate, fetchJSON, displayError, onDOMReady)
+│       ├── lightbox.js        # Shared lightbox module (used by gallery & fanclub-gallery)
 │       ├── announcements.js   # Dynamic news loading (Phase 3, updated Phase 10)
 │       ├── releases.js        # Dynamic release loading (Phase 4)
-│       ├── gallery.js         # Public gallery & lightbox (Phase 5)
+│       ├── gallery.js         # Public gallery (Phase 5)
 │       ├── fanclub-auth.js    # Access code authentication (Phase 6)
 │       ├── fanclub-gallery.js # Full gallery display (Phase 6)
 │       ├── featured-release.js # Homepage featured release (Phase 7)
-│       └── message.js         # Message page timer & redirect (NEW - Phase 10)
+│       └── message.js         # Message page timer & redirect (Phase 10)
 ├── robots.txt                 # Search engine directives (Phase 6)
 ├── FANCLUB_ACCESS.md          # Fan Club documentation (Phase 6)
 ├── README.md                  # This file
@@ -529,7 +531,8 @@ The navigation uses a checkbox hack (no JavaScript required):
   - Accessible keyboard navigation
 
 - **Technical:**
-  - No external JavaScript libraries (lightbox built from scratch)
+  - Shared lightbox module (`lightbox.js`) used by both public and Fan Club galleries
+  - Shared utilities module (`utils.js`) for common functions
   - Event delegation for performance
   - Focus management (trapped in lightbox when open)
   - Body scroll prevention when lightbox is open
@@ -880,9 +883,21 @@ See **FANCLUB_ACCESS.md** for complete documentation on:
 - No external dependencies or libraries required
 - Scalable pattern for future similar features
 
+### Refactoring Complete ✅
+**Completed:** January 2025
+
+- [✅] Extracted shared lightbox module (`lightbox.js`) - Issue #27
+- [✅] Created shared utilities module (`utils.js`) - Issue #28
+- [✅] Removed ~400+ lines of duplicate code across 7 JS files
+- [✅] Single source of truth for common functions
+
+**Shared Modules:**
+- **utils.js:** `DurtNursUtils.formatDate()`, `fetchJSON()`, `displayError()`, `onDOMReady()`
+- **lightbox.js:** `createLightbox()` factory with configurable content renderers
+
 ### Phase 11 (Future)
 - [ ] Mailing list integration
-- [ ] Merch store
+- [ ] Merch store (Issue #26)
 
 ### Future Enhancements
 - [ ] Category filtering on news archive
