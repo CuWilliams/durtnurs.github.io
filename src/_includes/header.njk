@@ -1,0 +1,37 @@
+<!--
+  HEADER & NAVIGATION
+  Semantic <header> contains site-wide navigation
+  Uses checkbox hack for mobile menu (CSS-only, no JavaScript required)
+-->
+<header class="site-header">
+  <div class="container">
+    <nav class="main-nav" aria-label="Main navigation">
+
+      <!-- Logo/Band Name: Exact case preserved -->
+      <div class="main-nav__logo">
+        <a href="/" aria-label="tHE dURT nURS' home">
+          <span class="logo-text">tHE dURT nURS'</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Toggle: Hidden checkbox + label (CSS-only pattern) -->
+      <input type="checkbox" id="nav-toggle" class="main-nav__toggle" aria-label="Toggle navigation menu">
+      <label for="nav-toggle" class="main-nav__toggle-label" aria-label="Menu button">
+        <span class="hamburger"></span>
+      </label>
+
+      <!-- Navigation Links -->
+      <ul class="main-nav__list">
+        <li><a href="/" class="main-nav__link{% if activePage == 'home' %} main-nav__link--active" aria-current="page{% endif %}">Home</a></li>
+        <li><a href="/about/" class="main-nav__link{% if activePage == 'about' %} main-nav__link--active" aria-current="page{% endif %}">About</a></li>
+        <li><a href="/releases/" class="main-nav__link{% if activePage == 'releases' %} main-nav__link--active" aria-current="page{% endif %}">Releases</a></li>
+        <li><a href="/news/" class="main-nav__link{% if activePage == 'news' %} main-nav__link--active" aria-current="page{% endif %}">News</a></li>
+        <li><a href="/gallery/" class="main-nav__link{% if activePage == 'gallery' %} main-nav__link--active" aria-current="page{% endif %}">Gallery</a></li>
+        <li><a href="/fanclub/" class="main-nav__link main-nav__link--protected{% if activePage == 'fanclub' %} main-nav__link--active" aria-current="page{% endif %}">
+          <span class="nav-lock-icon" aria-hidden="true">🔒</span> Fan Club
+        </a></li>
+        <li><a href="/contact/" class="main-nav__link{% if activePage == 'contact' %} main-nav__link--active" aria-current="page{% endif %}">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

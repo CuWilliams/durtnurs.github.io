@@ -73,47 +73,59 @@ This is a static website built with semantic HTML5, modern CSS (Grid & Flexbox),
 
 ```
 durtnurs.github.io/
-├── index.html                 # Main homepage
-├── about.html                 # Band bio and member profiles
-├── news.html                  # News archive page (Phase 3)
-├── releases.html              # Releases/discography page (Phase 4)
-├── gallery.html               # Photo/video gallery (Phase 5)
-├── contact.html               # Contact page (Phase 5)
-├── fanclub.html               # Fan Club protected area (Phase 6)
-├── privacy.html               # Privacy Policy page (Phase 9)
-├── terms.html                 # Terms of Service page (Phase 9)
-├── message.html               # Humorous message page (NEW - Phase 10)
-├── assets/
+├── src/                       # Source files (11ty input)
+│   ├── _includes/             # Shared partials
+│   │   ├── head.njk           # HTML <head> content (meta, CSS, fonts)
+│   │   ├── header.njk         # Site header and navigation
+│   │   └── footer.njk         # Site footer
+│   ├── _layouts/              # Page templates
+│   │   ├── base.njk           # Standard page layout
+│   │   ├── base-fanclub.njk   # Fan Club layout (no main wrapper)
+│   │   ├── base-legal.njk     # Legal pages layout
+│   │   └── base-message.njk   # Message page layout (minimal)
+│   ├── index.njk              # Homepage
+│   ├── about.njk              # Band bio and member profiles
+│   ├── news.njk               # News archive page
+│   ├── releases.njk           # Releases/discography page
+│   ├── gallery.njk            # Photo/video gallery
+│   ├── contact.njk            # Contact page
+│   ├── fanclub.njk            # Fan Club protected area
+│   ├── privacy.njk            # Privacy Policy page
+│   ├── terms.njk              # Terms of Service page
+│   └── message.njk            # Humorous message page
+├── assets/                    # Static assets (copied to output)
 │   ├── css/
 │   │   ├── reset.css          # Modern CSS reset
 │   │   ├── variables.css      # Design tokens
 │   │   ├── layout.css         # CSS Grid layouts
-│   │   └── components.css     # UI components (updated Phase 10)
+│   │   └── components.css     # UI components
 │   ├── data/
-│   │   ├── announcements.json # News data (Phase 3)
-│   │   ├── releases.json      # Album/release data (Phase 4)
-│   │   └── gallery.json       # Gallery media data (Phase 5 & 6)
+│   │   ├── announcements.json # News data
+│   │   ├── releases.json      # Album/release data
+│   │   └── gallery.json       # Gallery media data
 │   ├── images/
 │   │   ├── logo.png           # Band logo
 │   │   ├── kraken-album.png   # Album artwork
-│   │   ├── deadbeat-placeholder.svg   # DeadBeat member photo
-│   │   ├── snowman-placeholder.svg    # SnowMan member photo
 │   │   └── gallery/           # Gallery images directory
-│   │       └── README.md      # Gallery image guidelines
 │   └── js/
-│       ├── utils.js           # Shared utilities (formatDate, fetchJSON, displayError, onDOMReady)
-│       ├── lightbox.js        # Shared lightbox module (used by gallery & fanclub-gallery)
-│       ├── announcements.js   # Dynamic news loading (Phase 3, updated Phase 10)
-│       ├── releases.js        # Dynamic release loading (Phase 4)
-│       ├── gallery.js         # Public gallery (Phase 5)
-│       ├── fanclub-auth.js    # Access code authentication (Phase 6)
-│       ├── fanclub-gallery.js # Full gallery display (Phase 6)
-│       ├── featured-release.js # Homepage featured release (Phase 7)
-│       └── message.js         # Message page timer & redirect (Phase 10)
-├── robots.txt                 # Search engine directives (Phase 6)
-├── FANCLUB_ACCESS.md          # Fan Club documentation (Phase 6)
-├── README.md                  # This file
+│       ├── utils.js           # Shared utilities
+│       ├── lightbox.js        # Shared lightbox module
+│       ├── announcements.js   # Dynamic news loading
+│       ├── releases.js        # Dynamic release loading
+│       ├── gallery.js         # Public gallery
+│       ├── fanclub-auth.js    # Access code authentication
+│       ├── fanclub-gallery.js # Full gallery display
+│       ├── featured-release.js # Homepage featured release
+│       └── message.js         # Message page timer & redirect
+├── _site/                     # Build output (gitignored)
+├── .github/
+│   └── workflows/
+│       └── build-deploy.yml   # GitHub Actions workflow
+├── .eleventy.js               # 11ty configuration
+├── package.json               # npm dependencies and scripts
+├── robots.txt                 # Search engine directives
 ├── CNAME                      # Custom domain configuration
+├── README.md                  # This file
 └── .gitignore                 # Git exclusions
 ```
 
@@ -172,29 +184,46 @@ All spacing uses an **8px base unit** for visual consistency:
 
 ## 💻 Local Development
 
-### Option 1: VS Code Live Server (Recommended)
+This site uses [11ty (Eleventy)](https://www.11ty.dev/) as a static site generator for templating.
 
-1. Install the [Live Server extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
-2. Open the project folder in VS Code
-3. Right-click `index.html` → **Open with Live Server**
-4. Site opens at `http://localhost:5500` with auto-reload
+### Prerequisites
 
-### Option 2: Python Simple HTTP Server
+- Node.js 18+ installed
+- npm (comes with Node.js)
+
+### Quick Start
 
 ```bash
-# Python 3.x
-cd /path/to/durtnurs.github.io
-python3 -m http.server 8000
+# Install dependencies
+npm install
 
-# Open browser to http://localhost:8000
+# Start development server with hot reload
+npm run serve
+
+# Site opens at http://localhost:8080
 ```
 
-### Option 3: Any Static Server
+### Available Commands
 
-Any static file server works since this is plain HTML/CSS:
-- Node.js: `npx serve`
-- PHP: `php -S localhost:8000`
-- nginx, Apache, etc.
+```bash
+npm run serve   # Start dev server with hot reload at localhost:8080
+npm run build   # Build site to _site/ directory
+```
+
+### How It Works
+
+- Source files are in `src/` directory (`.njk` Nunjucks templates)
+- Shared partials are in `src/_includes/` (head, header, footer)
+- Page layouts are in `src/_layouts/` (base templates)
+- Assets (CSS, JS, images, data) are copied from `assets/` unchanged
+- Built site outputs to `_site/` directory
+
+### Alternative: Direct File Access (Legacy)
+
+For quick edits without the build step, you can still:
+- Use VS Code Live Server on the `_site/` output
+- Use Python: `python3 -m http.server 8000 -d _site`
+- Use any static server pointed at `_site/`
 
 ---
 
@@ -352,18 +381,18 @@ Any static file server works since this is plain HTML/CSS:
 
 ### GitHub Pages Setup
 
-This site is hosted via GitHub Pages:
+This site is hosted via GitHub Pages with automated builds via GitHub Actions:
 
 1. **Repository Settings:**
    - Go to Settings → Pages
-   - Source: Deploy from `main` branch
-   - Folder: `/ (root)`
+   - Source: **GitHub Actions** (not "Deploy from branch")
+   - The workflow in `.github/workflows/build-deploy.yml` handles building and deployment
 
 2. **Custom Domain (Cloudflare):**
    - Domain registered via GoDaddy: `durtnurs.com`
    - DNS managed via Cloudflare
    - CNAME record: `durtnurs.com` → `cuwilliams.github.io`
-   - `CNAME` file in repo root contains: `durtnurs.com`
+   - `CNAME` file copied to build output automatically
 
 3. **SSL/HTTPS:**
    - Enforced via Cloudflare (Full SSL mode)
@@ -371,16 +400,25 @@ This site is hosted via GitHub Pages:
 
 ### Deployment Workflow
 
-Changes pushed to `main` branch are automatically deployed:
+Changes pushed to `main` branch trigger automatic build and deploy:
 
 ```bash
 # Make changes locally
+npm run build            # Test build locally first (optional)
 git add .
 git commit -m "Update news section"
 git push origin main
 
-# Site updates in ~1-2 minutes
+# GitHub Actions builds the site (~30 seconds)
+# Site updates automatically when build completes
 ```
+
+### Build Process
+
+1. GitHub Actions triggers on push to `main`
+2. Node.js and npm dependencies are installed
+3. `npm run build` runs 11ty to generate `_site/`
+4. Built site is deployed to GitHub Pages
 
 ---
 

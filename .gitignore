@@ -22,12 +22,11 @@ Desktop.ini
 .project
 .settings/
 
-# Node.js (if used in future)
+# Node.js
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-package-lock.json
 yarn.lock
 
 # Logs
@@ -49,7 +48,7 @@ tmp/
 temp/
 *.tmp
 
-# GitHub Pages Jekyll cache (if used)
+# Build output
 .jekyll-cache/
 _site/
 

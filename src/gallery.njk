@@ -1,0 +1,122 @@
+---
+layout: base.njk
+title: Gallery
+description: Photo and video gallery of tHE dURT nURS' - behind the scenes, live shots, and captured chaos
+ogDescription: Photographic evidence that we existed
+activePage: gallery
+keywords: gallery, photos, videos, images, behind the scenes
+scripts:
+  - lightbox.js
+  - gallery.js
+permalink: /gallery/index.html
+---
+
+<!--
+  HERO SECTION
+  Gallery page hero with title and introduction
+-->
+<section class="hero hero--gallery" aria-labelledby="gallery-heading">
+  <div class="container">
+    <h1 id="gallery-heading" class="hero__title">Captured Moments</h1>
+    <p class="hero__subtitle">Proof of Existence</p>
+    <p class="hero__description">
+      Here's photographic evidence that we existed. Some of these are even in focus.
+      If you're looking for professional band photography, you're in the wrong place.
+      If you're looking for authentic rock and roll chaos, welcome home.
+    </p>
+  </div>
+</section>
+
+<!--
+  GALLERY SECTION
+  Grid layout for photos and videos
+  Dynamic content loaded via JavaScript (see assets/js/gallery.js)
+-->
+<section class="gallery-section" aria-labelledby="gallery-section-heading">
+  <div class="container">
+    <h2 id="gallery-section-heading" class="visually-hidden">Photo and Video Gallery</h2>
+
+    <!-- Container for dynamically loaded gallery cards -->
+    <div id="gallery-grid" class="gallery-grid">
+      <!-- Loading message removed by JavaScript when content loads -->
+      <p class="loading-message">Loading gallery...</p>
+    </div>
+
+    <!-- Static fallback for users without JavaScript -->
+    <noscript>
+      <div class="gallery-grid">
+
+        <!-- Static Gallery Card 1 -->
+        <article class="gallery-card gallery-card--featured" data-type="photo">
+          <div class="gallery-card__thumbnail-wrapper">
+            <img src="/assets/images/logo.png" alt="The Secret Lair" class="gallery-card__thumbnail">
+          </div>
+          <div class="gallery-card__content">
+            <h3 class="gallery-card__title">The Secret Lair</h3>
+            <p class="gallery-card__description">
+              Our legendary practice shed. Where the magic (and several noise complaints) happen.
+            </p>
+            <time class="gallery-card__date" datetime="2024-10-15">October 15, 2024</time>
+          </div>
+        </article>
+
+        <!-- Static Gallery Card 2 -->
+        <article class="gallery-card" data-type="photo">
+          <div class="gallery-card__thumbnail-wrapper">
+            <img src="/assets/images/logo.png" alt="DeadBeat's Kit" class="gallery-card__thumbnail">
+          </div>
+          <div class="gallery-card__content">
+            <h3 class="gallery-card__title">DeadBeat's Kit</h3>
+            <p class="gallery-card__description">
+              The drums that launched a thousand hangovers. Vintage Ludwig, questionable tuning.
+            </p>
+            <time class="gallery-card__date" datetime="2024-09-22">September 22, 2024</time>
+          </div>
+        </article>
+
+        <!-- Static Gallery Card 3 -->
+        <article class="gallery-card" data-type="video">
+          <div class="gallery-card__thumbnail-wrapper">
+            <img src="/assets/images/logo.png" alt="Brass Knuckles Live Rehearsal" class="gallery-card__thumbnail">
+            <span class="gallery-card__play-icon" aria-hidden="true">▶</span>
+          </div>
+          <div class="gallery-card__content">
+            <h3 class="gallery-card__title">Brass Knuckles (Live Rehearsal)</h3>
+            <p class="gallery-card__description">
+              Raw footage from the shed. Before the polish. Before the mixing. Before we sobered up.
+            </p>
+            <time class="gallery-card__date" datetime="2024-11-01">November 1, 2024</time>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Note about JavaScript requirement -->
+      <div class="noscript-message">
+        <p>
+          <strong>Note:</strong> JavaScript is disabled in your browser.
+          You're seeing a limited preview. Enable JavaScript to view the full gallery with lightbox functionality.
+        </p>
+      </div>
+    </noscript>
+
+  </div>
+</section>
+
+<!--
+  CALL TO ACTION SECTION
+  Invite users to Fan Club (Phase 6)
+-->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="section-heading">Want More?</h2>
+    <p>
+      This is just the public gallery. Fan Club members get access to behind-the-scenes photos,
+      unreleased footage, and all the stuff we were too embarrassed to show everyone.
+    </p>
+    <div class="cta-buttons">
+      <a href="/fanclub/" class="button button--primary">Join the Fan Club</a>
+      <a href="/contact/" class="button button--secondary">Get in Touch</a>
+    </div>
+  </div>
+</section>

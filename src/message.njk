@@ -1,0 +1,51 @@
+---
+layout: base-message.njk
+title: Message
+description: A message from tHE dURT nURS' - You've reached a dead end
+ogDescription: A message from tHE dURT nURS'
+robots: noindex, nofollow
+scripts:
+  - message.js
+permalink: /message/index.html
+---
+
+<!--
+  MESSAGE PAGE
+  Full-page humorous message with timer and exit button
+  This page is intentionally minimal - no header or footer navigation
+  to emphasize the "dead-end" experience
+-->
+<main class="message-container" role="main">
+  <div class="message-content">
+
+    <!--
+      MESSAGE TEXT
+      Populated by JavaScript based on URL parameter
+      Default message shown for progressive enhancement
+    -->
+    <h1 class="message-text" id="message-text" aria-live="polite">
+      Well... there's really nothing more to add so... goodbye
+    </h1>
+
+    <!--
+      COUNTDOWN TIMER
+      Shows seconds remaining before auto-redirect
+      Hidden when JavaScript is disabled (progressive enhancement)
+    -->
+    <div class="message-timer" id="message-timer" aria-live="polite" aria-atomic="true">
+      <p class="message-timer__text">
+        Redirecting in <span class="message-timer__countdown" id="timer-countdown">7</span> seconds...
+      </p>
+    </div>
+
+    <!--
+      EXIT BUTTON
+      Provides immediate escape route back to news page
+      Styled to match Fan Club exit button
+    -->
+    <a href="/news/" class="message-exit" id="message-exit">
+      Get Me Out of Here
+    </a>
+
+  </div>
+</main>

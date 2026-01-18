@@ -1,0 +1,155 @@
+---
+layout: base.njk
+title: Releases
+description: Complete discography of tHE dURT nURS' - albums, EPs, singles, and live recordings
+ogDescription: Our complete musical catalog from basement recordings to slightly better basement recordings
+activePage: releases
+keywords: releases, albums, discography, music, songs
+scripts:
+  - releases.js
+permalink: /releases/index.html
+---
+
+<!--
+  HERO SECTION
+  Page title and self-aware tagline
+-->
+<section class="hero hero--releases" aria-labelledby="hero-heading">
+  <div class="container">
+    <div class="hero__content">
+      <h1 id="hero-heading" class="hero__title">Our Musical Legacy</h1>
+      <p class="hero__subtitle">From Basement Recordings to Slightly Better Basement Recordings</p>
+      <p class="hero__description">
+        Here's the complete catalog of our musical journey. Albums, EPs, live disasters,
+        and questionable decisions captured in audio form. We'd say "enjoy," but that
+        assumes a level of quality we're not prepared to guarantee.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!--
+  RELEASES SECTION
+  All albums/releases displayed in responsive grid layout
+  Container is populated by JavaScript (see releases.js)
+  Progressive enhancement: static cards in <noscript> for non-JS users
+-->
+<section class="releases-section" aria-labelledby="releases-heading">
+  <div class="container">
+
+    <h2 id="releases-heading" class="visually-hidden">Complete Discography</h2>
+
+    <!-- Releases grid container - populated by JavaScript -->
+    <div id="releases-grid" class="releases-grid">
+      <!-- JavaScript will insert release cards here -->
+      <p class="loading-message">Loading releases...</p>
+    </div>
+
+    <!--
+      PROGRESSIVE ENHANCEMENT FALLBACK
+      Static content displayed when JavaScript is disabled
+      Uses <noscript> to only show when JS is unavailable
+      Contains 1-2 featured releases for basic functionality
+    -->
+    <noscript>
+      <div class="releases-grid">
+
+        <!-- Static Release Card 1: Release the Kraken (Featured) -->
+        <article class="release-card release-card--featured" id="release-kraken-2024" data-type="album">
+
+          <!-- Album Cover -->
+          <div class="release-card__cover-wrapper">
+            <img src="/assets/images/kraken-album.png"
+                 alt="Release the Kraken album cover featuring a dark kraken emerging from a whiskey bottle"
+                 class="release-card__cover">
+          </div>
+
+          <!-- Release Content -->
+          <div class="release-card__content">
+
+            <!-- Header: Title and Type Badge -->
+            <header class="release-card__header">
+              <h3 class="release-card__title">Release the Kraken!</h3>
+              <span class="release-card__type-badge">album</span>
+            </header>
+
+            <!-- Artist Name -->
+            <p class="release-card__artist">tHE dURT nURS'</p>
+
+            <!-- Release Date -->
+            <time class="release-card__date" datetime="2024-11-15">
+              November 15, 2024
+            </time>
+
+            <!-- Description -->
+            <p class="release-card__description">
+              Our magnum opus. Eleven tracks of pure, unfiltered rock absurdity.
+              We spent literally tens of dollars on this production.
+            </p>
+
+            <!-- Tracklist (collapsible) -->
+            <details class="release-card__tracklist">
+              <summary class="release-card__tracklist-toggle">
+                Track List (11 tracks)
+              </summary>
+              <ol class="release-card__tracks">
+                <li>Brass Knuckles & Bad Decisions</li>
+                <li>Dive Bar Requiem</li>
+                <li>The Kraken's Lament</li>
+                <li>Whiskey-Soaked Wisdom</li>
+                <li>Maritime Metaphors</li>
+                <li>Existential Crisis at Sea</li>
+                <li>Three AM Regrets</li>
+                <li>Bourbon-Fueled Dreams</li>
+                <li>Anchor's Away (My Dignity)</li>
+                <li>The Shed Sessions</li>
+                <li>Rock Bottom (Reprise)</li>
+              </ol>
+            </details>
+
+          </div>
+
+        </article>
+
+        <!-- Static Release Card 2: Basement Tapes -->
+        <article class="release-card" id="release-basement-tapes-1995" data-type="compilation">
+
+          <!-- Album Cover -->
+          <div class="release-card__cover-wrapper">
+            <img src="/assets/images/kraken-album.png"
+                 alt="Basement Tapes album cover with vintage cassette tape aesthetic"
+                 class="release-card__cover">
+          </div>
+
+          <!-- Release Content -->
+          <div class="release-card__content">
+
+            <!-- Header: Title and Type Badge -->
+            <header class="release-card__header">
+              <h3 class="release-card__title">Basement Tapes Vol. 1: The Lost Sessions</h3>
+              <span class="release-card__type-badge">compilation</span>
+            </header>
+
+            <!-- Artist Name -->
+            <p class="release-card__artist">tHE dURT nURS'</p>
+
+            <!-- Release Date -->
+            <time class="release-card__date" datetime="2010-06-15">
+              June 15, 2010
+            </time>
+
+            <!-- Description -->
+            <p class="release-card__description">
+              Recorded on equipment we found in a dumpster. Seven tracks of raw,
+              unpolished chaos from our humble beginnings. Lo-fi before it was cool.
+            </p>
+
+          </div>
+
+        </article>
+
+      </div>
+    </noscript>
+
+  </div>
+</section>

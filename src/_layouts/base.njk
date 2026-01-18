@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include "head.njk" %}
+</head>
+<body>
+
+  {% include "header.njk" %}
+
+  <!--
+    MAIN CONTENT
+    Semantic <main> contains the primary content of the page
+    Uses CSS Grid layout defined in layout.css
+  -->
+  <main class="page-layout">
+    {{ content | safe }}
+  </main>
+
+  {% include "footer.njk" %}
+
+  <!--
+    PROGRESSIVE ENHANCEMENT
+    JavaScript for dynamic content loading
+    Site works perfectly without this (static fallback in <noscript> tags)
+  -->
+  <script src="/assets/js/utils.js"></script>
+  {% for script in scripts %}
+  <script src="/assets/js/{{ script }}"></script>
+  {% endfor %}
+
+</body>
+</html>

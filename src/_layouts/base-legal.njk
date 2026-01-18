@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include "head.njk" %}
+
+  <!-- Legal page specific styles -->
+  <style>
+    /* Legal page main container - centered with max-width */
+    .legal-content {
+      max-width: var(--max-width-prose);
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-md);
+    }
+
+    /* Legal page heading - prominent and styled like section headings */
+    .legal-content h1 {
+      font-family: var(--font-heading);
+      font-size: var(--font-size-4xl);
+      color: var(--color-accent);
+      margin-bottom: var(--space-md);
+      text-transform: uppercase;
+      letter-spacing: var(--letter-spacing-wide);
+    }
+
+    /* Legal subheadings - clear hierarchy */
+    .legal-content h2 {
+      font-family: var(--font-heading);
+      font-size: var(--font-size-2xl);
+      color: var(--color-primary);
+      margin-top: var(--space-2xl);
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: 2px solid var(--color-iron-gray);
+    }
+
+    .legal-content h3 {
+      font-family: var(--font-heading);
+      font-size: var(--font-size-lg);
+      color: var(--color-text-primary);
+      margin-top: var(--space-lg);
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Legal page paragraphs - readable line height */
+    .legal-content p {
+      margin-bottom: var(--space-md);
+      line-height: var(--line-height-loose);
+    }
+
+    /* Legal page lists - structured information display */
+    .legal-content ul,
+    .legal-content ol {
+      margin-bottom: var(--space-md);
+      margin-left: var(--space-lg);
+      line-height: var(--line-height-loose);
+    }
+
+    .legal-content li {
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Callout boxes for humorous asides - uses Iron Gray background */
+    .legal-aside {
+      background-color: var(--color-iron-gray);
+      border-left: 4px solid var(--color-primary);
+      padding: var(--space-md);
+      margin: var(--space-lg) 0;
+      border-radius: var(--border-radius);
+    }
+
+    .legal-aside p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Last updated timestamp */
+    .legal-meta {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-xl);
+      font-style: italic;
+    }
+
+    /* Strong emphasis for legal terms */
+    .legal-content strong {
+      color: var(--color-accent);
+      font-weight: var(--font-weight-bold);
+    }
+
+    /* Links within legal content */
+    .legal-content a {
+      color: var(--color-link);
+      text-decoration: underline;
+      transition: color var(--transition-fast);
+    }
+
+    .legal-content a:hover {
+      color: var(--color-link-hover);
+    }
+
+    /* Warning banner for parody notice */
+    .legal-warning {
+      background-color: var(--color-dried-blood);
+      border: 3px solid var(--color-primary);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-xl);
+      border-radius: var(--border-radius-md);
+      text-align: center;
+    }
+
+    .legal-warning h2 {
+      margin: 0 0 var(--space-sm) 0;
+      border: none;
+      padding: 0;
+      color: var(--color-primary);
+    }
+
+    .legal-warning p {
+      margin: 0;
+      font-size: var(--font-size-lg);
+      color: var(--color-text-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!--
+    SKIP TO CONTENT LINK
+    Allows keyboard users to skip navigation and jump to main content
+    Hidden until focused via Tab key
+  -->
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+  {% include "header.njk" %}
+
+  <!--
+    MAIN CONTENT
+    Semantic <main> contains the primary content of the page
+    Uses semantic <article> for the legal document structure
+  -->
+  <main id="main-content">
+    {{ content | safe }}
+  </main>
+
+  {% include "footer.njk" %}
+
+  <!--
+    PROGRESSIVE ENHANCEMENT
+    JavaScript for dynamic content loading
+    Site works perfectly without this (static fallback in <noscript> tags)
+  -->
+  <script src="/assets/js/utils.js"></script>
+  {% for script in scripts %}
+  <script src="/assets/js/{{ script }}"></script>
+  {% endfor %}
+
+</body>
+</html>

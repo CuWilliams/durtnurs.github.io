@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include "head.njk" %}
+</head>
+<body>
+
+  {{ content | safe }}
+
+  <!--
+    PROGRESSIVE ENHANCEMENT FALLBACK
+    Displayed when JavaScript is disabled
+    Provides accessible alternative experience
+  -->
+  <noscript>
+    <div class="noscript-message">
+      <p class="noscript-message__text">
+        Well, this is awkward. JavaScript is required for the full comedic timing experience.
+      </p>
+      <a href="/news/" class="button noscript-message__button">
+        Back to News
+      </a>
+    </div>
+
+    <!--
+      Hide timer when JavaScript is disabled
+      Timer only works with JavaScript, so we hide it to avoid confusion
+    -->
+    <style>
+      .message-timer {
+        display: none;
+      }
+    </style>
+  </noscript>
+
+  <!--
+    JAVASCRIPT MODULE
+    Handles message selection, timer, and redirect
+    Progressive enhancement: page still works without this
+  -->
+  <script src="/assets/js/utils.js"></script>
+  {% for script in scripts %}
+  <script src="/assets/js/{{ script }}"></script>
+  {% endfor %}
+
+</body>
+</html>

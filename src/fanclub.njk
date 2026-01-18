@@ -1,0 +1,185 @@
+---
+layout: base-fanclub.njk
+title: Fan Club
+description: tHE dURT nURS' Fan Club - Exclusive content for approved fans only
+ogDescription: Members only - exclusive content and behind the scenes access
+activePage: fanclub
+keywords: fan club, members only, exclusive content
+scripts:
+  - lightbox.js
+  - fanclub-auth.js
+  - fanclub-gallery.js
+permalink: /fanclub/index.html
+---
+
+<!--
+  ACCESS CODE OVERLAY
+  Shown by default, hidden after successful authentication
+  Contains form for entering access code
+-->
+<div class="fanclub-auth" id="fanclub-auth-overlay">
+  <div class="fanclub-auth__prompt">
+    <h2 class="fanclub-auth__heading">Members Only Area</h2>
+
+    <p class="fanclub-auth__message">
+      This area is for approved fans only. Enter the sacred code or be shunned!
+    </p>
+
+    <p class="fanclub-auth__note">
+      (If you don't have the code, you probably weren't meant to be here.)
+    </p>
+
+    <form id="fanclub-auth-form" class="fanclub-auth__form" aria-label="Access code form">
+      <!-- Visually hidden label for accessibility -->
+      <label for="fanclub-code-input" class="visually-hidden">Enter access code</label>
+
+      <input
+        type="password"
+        id="fanclub-code-input"
+        class="fanclub-auth__input"
+        placeholder="Enter Access Code"
+        autocomplete="off"
+        aria-required="true"
+        aria-describedby="fanclub-auth-error"
+        required>
+
+      <!--
+        PHASE 8: Error/message display area
+        Shows error messages, drunk redirect message, and countdown
+        Updated to handle multiple message types with different styling
+      -->
+      <p id="fanclub-auth-error" class="fanclub-auth__error" role="alert" aria-live="polite"></p>
+
+      <!--
+        PHASE 8: Button actions container
+        Groups submit and exit buttons together
+        Responsive layout: stacked on mobile, horizontal on tablet+
+      -->
+      <div class="fanclub-auth__actions">
+        <button type="submit" class="fanclub-auth__submit">Enter</button>
+        <a href="/" class="button button--secondary fanclub-auth__exit">Get Me Out of Here</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--
+  MAIN CONTENT
+  Hidden by default (via .hidden class), shown after authentication
+-->
+<div class="fanclub-content hidden" id="fanclub-main-content">
+
+  <!--
+    WELCOME SECTION
+    Greeting for authenticated members
+  -->
+  <section class="fanclub-welcome" aria-labelledby="welcome-heading">
+    <div class="container">
+      <h1 id="welcome-heading" class="fanclub-welcome__title">Welcome to the Inner Circle</h1>
+
+      <p class="fanclub-welcome__text">
+        You made it. This is where we keep everything - the good, the bad, and the embarrassing.
+        If you share these photos publicly, we'll know it was you and we'll be very disappointed.
+        Also possibly vindictive.
+      </p>
+    </div>
+  </section>
+
+  <!--
+    FULL GALLERY SECTION
+    Displays ALL media items from gallery.json (no public flag filtering)
+  -->
+  <section class="fanclub-gallery-section" aria-labelledby="gallery-heading">
+    <div class="container">
+      <h2 id="gallery-heading" class="section-heading">The Full Archive</h2>
+
+      <p class="fanclub-gallery-section__intro">
+        Every photo and video we have, including the ones we probably shouldn't share.
+        But you've earned access, so here you go. Enjoy the chaos.
+      </p>
+
+      <!-- Container for dynamically loaded gallery cards -->
+      <div id="fanclub-gallery-grid" class="gallery-grid">
+        <!-- Loading message removed by JavaScript when content loads -->
+        <p class="loading-message">Loading full gallery...</p>
+      </div>
+
+      <!-- Static fallback for users without JavaScript -->
+      <noscript>
+        <div class="noscript-message">
+          <p>
+            <strong>JavaScript Required:</strong> This area requires JavaScript to verify access and display the gallery.
+            Please enable JavaScript and reload the page.
+          </p>
+        </div>
+      </noscript>
+
+    </div>
+  </section>
+
+  <!--
+    DIRECT CONTACT SECTION
+    Individual member contact information
+  -->
+  <section class="fanclub-contact-section" aria-labelledby="contact-heading">
+    <div class="container">
+      <h2 id="contact-heading" class="section-heading">Direct Line to the Band</h2>
+
+      <p class="fanclub-contact-section__intro">
+        If you're going to bother us with an email then it better be good, like, sending us money good
+        cause we are on a fixed income.
+      </p>
+
+      <!-- Member Contact Grid -->
+      <div class="member-contact-grid">
+
+        <!-- DeadBeat Contact Card -->
+        <article class="member-contact-card">
+          <h3 class="member-contact-card__name">DeadBeat</h3>
+          <p class="member-contact-card__role">Drums & Vocals</p>
+          <a href="mailto:deadbeat@durtnurs.com" class="member-contact-card__email">
+            deadbeat@durtnurs.com
+          </a>
+          <p class="member-contact-card__note">
+            Responds to emails within 3-5 business days. Or never.
+          </p>
+        </article>
+
+        <!-- SnowMan Contact Card -->
+        <article class="member-contact-card">
+          <h3 class="member-contact-card__name">SnowMan</h3>
+          <p class="member-contact-card__role">Guitar, Bass & Vocals</p>
+          <a href="mailto:snowman@durtnurs.com" class="member-contact-card__email">
+            snowman@durtnurs.com
+          </a>
+          <p class="member-contact-card__note">
+            Actually checks email sometimes.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!--
+    EXCLUSIVE CONTENT NOTICE
+    Reminder about the privilege of access
+  -->
+  <section class="fanclub-notice-section">
+    <div class="container">
+      <div class="fanclub-notice">
+        <h2 class="fanclub-notice__title">A Friendly Reminder</h2>
+        <p class="fanclub-notice__text">
+          This content is for your eyes only. We trust you because we gave you the code.
+          Don't make us regret that decision.
+        </p>
+        <p class="fanclub-notice__text">
+          Seriously though, we appreciate you being part of the inner circle.
+          You're the reason we keep making music despite overwhelming evidence
+          that we should have quit years ago.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</div>

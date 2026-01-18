@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include "head.njk" %}
+</head>
+<body>
+
+  {% include "header.njk" %}
+
+  {{ content | safe }}
+
+  {% include "footer.njk" %}
+
+  <!--
+    PROGRESSIVE ENHANCEMENT
+    JavaScript for dynamic content loading
+    Site works perfectly without this (static fallback in <noscript> tags)
+  -->
+  <script src="/assets/js/utils.js"></script>
+  {% for script in scripts %}
+  <script src="/assets/js/{{ script }}"></script>
+  {% endfor %}
+
+</body>
+</html>

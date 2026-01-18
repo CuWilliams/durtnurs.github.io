@@ -1,0 +1,134 @@
+---
+layout: base.njk
+title: News & Announcements
+description: Latest news, announcements, and updates from tHE dURT nURS' - releases, shows, and general chaos
+ogDescription: News and announcements from the band
+activePage: news
+keywords: news, announcements, updates, releases, shows
+scripts:
+  - announcements.js
+permalink: /news/index.html
+---
+
+<!--
+  HERO SECTION
+  Page title and tagline
+-->
+<section class="hero hero--news" aria-labelledby="hero-heading">
+  <div class="container">
+    <div class="hero__content">
+      <h1 id="hero-heading" class="hero__title">News & Announcements</h1>
+      <p class="hero__subtitle">Latest Updates, Releases & Regrets</p>
+    </div>
+  </div>
+</section>
+
+<!--
+  NEWS ARCHIVE SECTION
+  All announcements displayed in grid layout
+  Container is populated by JavaScript (see announcements.js)
+-->
+<section class="news-archive-section" aria-labelledby="archive-heading">
+  <div class="container">
+
+    <!-- Optional: Future filter controls (commented for Phase 3) -->
+    <!--
+    <div class="news-filters">
+      <button class="filter-btn filter-btn--active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="news">News</button>
+      <button class="filter-btn" data-filter="release">Releases</button>
+      <button class="filter-btn" data-filter="show">Shows</button>
+      <button class="filter-btn" data-filter="general">General</button>
+    </div>
+    -->
+
+    <!-- Archive container - populated by JavaScript -->
+    <div id="news-archive" class="news-archive">
+      <!-- JavaScript will insert announcement cards here -->
+      <p class="loading-message">Loading announcements...</p>
+    </div>
+
+    <!--
+      PROGRESSIVE ENHANCEMENT FALLBACK
+      Static content displayed when JavaScript is disabled
+      Uses <noscript> to only show when JS is unavailable
+    -->
+    <noscript>
+      <div class="news-archive__grid">
+
+        <!-- Static Card 1: Release the Kraken -->
+        <article class="announcement-card announcement-card--release announcement-card--featured" id="001">
+          <header class="announcement-card__header">
+            <time class="announcement-card__date" datetime="2024-11-15">
+              November 15, 2024
+            </time>
+            <span class="announcement-card__category" aria-label="Category: release">
+              release
+            </span>
+          </header>
+
+          <h3 class="announcement-card__title">Release the Kraken!</h3>
+
+          <div class="announcement-card__content">
+            <p>After three years of bourbon-fueled studio sessions and one ill-advised yacht incident, our sophomore album is finally crawling out of the depths. 'Kraken Awakens' features ten tracks of maritime metaphors, whiskey-soaked wisdom, and guitar riffs that sound like a sea monster having an existential crisis.</p>
+            <p>Pre-order the chaos now. Your eardrums will thank you. Or sue us. Probably sue us.</p>
+          </div>
+
+          <a href="/message/?type=pre-order" class="announcement-card__link" aria-label="Read more about Release the Kraken!">
+            Pre-order Album
+          </a>
+        </article>
+
+        <!-- Static Card 2: Website Rebuild -->
+        <article class="announcement-card announcement-card--general" id="002">
+          <header class="announcement-card__header">
+            <time class="announcement-card__date" datetime="2024-11-08">
+              November 8, 2024
+            </time>
+            <span class="announcement-card__category" aria-label="Category: general">
+              general
+            </span>
+          </header>
+
+          <h3 class="announcement-card__title">New Website, Same Old Disappointment</h3>
+
+          <div class="announcement-card__content">
+            <p>Welcome to our shiny new website, built with modern technology we barely understand. We've upgraded from table layouts to flexbox, which is apparently a big deal in web development circles.</p>
+            <p>The site now features responsive design (it works on phones!), progressive enhancement (it works without JavaScript!), and our trademark self-loathing (that's just us!).</p>
+            <p>Special thanks to our AI overlords for helping us fake competence in modern web development.</p>
+          </div>
+
+          <a href="/message/?type=read-more" class="announcement-card__link" aria-label="Read more about New Website, Same Old Disappointment">
+            Read More →
+          </a>
+        </article>
+
+        <!-- Static Card 3: Fall Tour -->
+        <article class="announcement-card announcement-card--show" id="003">
+          <header class="announcement-card__header">
+            <time class="announcement-card__date" datetime="2024-10-28">
+              October 28, 2024
+            </time>
+            <span class="announcement-card__category" aria-label="Category: show">
+              show
+            </span>
+          </header>
+
+          <h3 class="announcement-card__title">Fall Tour: Six Cities, Eight Bars, Zero Rehearsals</h3>
+
+          <div class="announcement-card__content">
+            <p>We're taking our act on the road this December, which is either brave or monumentally stupid. Six ports across the North Atlantic, eight different dive bars (we're playing two ports twice because apparently we hate ourselves), and absolutely zero rehearsals planned.</p>
+            <p>Tickets are available at participating venues, which is a fancy way of saying 'show up and throw money at the bartender.' First come, first served, first to leave when we play our experimental jazz fusion number.</p>
+            <p>Ports include: Port Anne, Port Royal, Port Blandford, Van Tupes Tawny Port, and two surprise locations we haven't figured out yet. Stay tuned for actual dates once we consult a calendar.</p>
+          </div>
+
+          <a href="/message/?type=tour-dates" class="announcement-card__link" aria-label="Read more about Fall Tour: Six Cities, Eight Bars, Zero Rehearsals">
+            View Tour Dates
+          </a>
+        </article>
+
+      </div>
+    </noscript>
+
+  </div>
+</section>

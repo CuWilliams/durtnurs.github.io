@@ -1,0 +1,48 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="{{ description | default('tHE dURT nURS\' - Gritty authentic rock with self-aware absurdism. Release the Kraken!') }}">
+<meta name="keywords" content="the dirt nurse, rock band, music, alternative rock, kraken{{ ', ' + keywords if keywords }}">
+{% if robots %}
+<meta name="robots" content="{{ robots }}">
+{% endif %}
+
+<!-- Open Graph Tags for Social Media -->
+<meta property="og:title" content="{{ ogTitle | default(title + ' - tHE dURT nURS\'') }}">
+<meta property="og:description" content="{{ ogDescription | default(description) | default('Gritty authentic rock with self-aware absurdism') }}">
+<meta property="og:image" content="https://durtnurs.com/assets/images/logo-512-white.png">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="1024">
+<meta property="og:image:alt" content="tHE dURT nURS' logo">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://durtnurs.com{{ page.url | default('/') }}">
+
+<!-- Twitter Card Tags -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ ogTitle | default(title + ' - tHE dURT nURS\'') }}">
+<meta name="twitter:description" content="{{ ogDescription | default(description) | default('Gritty authentic rock with self-aware absurdism') }}">
+<meta name="twitter:image" content="https://durtnurs.com/assets/images/logo-512-white.png">
+<meta name="twitter:image:alt" content="tHE dURT nURS' logo">
+
+<title>{{ title }}{% if title != "tHE dURT nURS' - Official Website" %} - tHE dURT nURS'{% endif %}</title>
+
+<!-- CSS Architecture: Load in order of specificity -->
+<link rel="stylesheet" href="/assets/css/reset.css">
+<link rel="stylesheet" href="/assets/css/variables.css">
+<link rel="stylesheet" href="/assets/css/layout.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+
+<!-- Google Fonts: Oswald (headers) + Merriweather (body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="512x512" href="/assets/images/logo-512-white.png">
+<link rel="apple-touch-icon" sizes="512x512" href="/assets/images/logo-512-white.png">
+
+{% if schemaData %}
+<!-- Schema.org Structured Data -->
+<script type="application/ld+json">
+{{ schemaData | safe }}
+</script>
+{% endif %}
