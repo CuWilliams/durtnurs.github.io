@@ -1,24 +1,25 @@
-# CLAUDE.md
+# tHE dURT nURS' Website - Development Guide
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+**Static website for a fictional rock band with gritty aesthetic and self-aware absurdist humor.**
 
 ---
 
 ## Project Overview
 
-Static website for **tHE dURT nURS'**, a fictional rock band with gritty aesthetic and self-aware absurdist humor. Built with semantic HTML5, modern CSS (Grid & Flexbox), and vanilla JavaScript with progressive enhancement.
+Website for **tHE dURT nURS'**, featuring band info, discography, news, gallery, and a password-protected Fan Club area. Built with semantic HTML5, modern CSS, and vanilla JavaScript with progressive enhancement.
 
 **Live Site:** https://www.durtnurs.com
 
-**Current Status:** Production (Phase 10 complete)
+**Current Status:** Production (Phase 10 complete + 11ty templating)
 
 ---
 
 ## Tech Stack
 
 - **Language:** HTML5, CSS3, JavaScript (ES6+)
-- **Framework:** None (vanilla, no build tools)
-- **Platform:** Static site hosted on GitHub Pages
+- **Static Site Generator:** 11ty (Eleventy) v3.x
+- **Templating:** Nunjucks (.njk files)
+- **Platform:** GitHub Pages with GitHub Actions build
 - **Architecture:** Progressive enhancement, mobile-first responsive
 - **CSS Methodology:** BEM (Block Element Modifier)
 
@@ -28,69 +29,114 @@ Static website for **tHE dURT nURS'**, a fictional rock band with gritty aesthet
 
 ```
 durtnurs.github.io/
-├── assets/
-│   ├── css/
-│   │   ├── reset.css          # Browser reset
-│   │   ├── variables.css      # Design tokens (colors, typography, spacing)
-│   │   ├── layout.css         # CSS Grid layouts, containers
-│   │   └── components.css     # UI components (BEM classes)
-│   ├── data/
-│   │   ├── announcements.json # News data
-│   │   ├── releases.json      # Album/discography data
-│   │   └── gallery.json       # Media items (public/private flag)
-│   ├── images/
-│   │   └── gallery/           # Gallery images
-│   └── js/
-│       ├── announcements.js   # News page rendering
-│       ├── releases.js        # Releases page rendering
-│       ├── gallery.js         # Public gallery & lightbox
-│       ├── fanclub-auth.js    # Access code authentication
-│       ├── fanclub-gallery.js # Full gallery (all items)
-│       ├── featured-release.js # Homepage featured release
-│       └── message.js         # Humorous dead-end page
-├── index.html                 # Homepage
-├── about.html                 # Band bios
-├── news.html                  # News archive
-├── releases.html              # Discography
-├── gallery.html               # Public photo/video gallery
-├── contact.html               # Contact page
-├── fanclub.html               # Protected area (code: KRAKEN)
-├── privacy.html               # Satirical privacy policy
-├── terms.html                 # Satirical terms of service
-├── message.html               # Humorous redirect page
-└── robots.txt                 # Search engine directives
+├── src/                       # Source files (11ty input)
+│   ├── _includes/             # Shared partials
+│   │   ├── head.njk           # <head> content (meta, CSS, fonts)
+│   │   ├── header.njk         # Site header and navigation
+│   │   └── footer.njk         # Site footer
+│   ├── _layouts/              # Page templates
+│   │   ├── base.njk           # Standard page layout
+│   │   ├── base-fanclub.njk   # Fan Club (no main wrapper)
+│   │   ├── base-legal.njk     # Privacy/Terms pages
+│   │   └── base-message.njk   # Message page (minimal)
+│   └── *.njk                  # Page content files
+├── assets/                    # Static assets (copied unchanged)
+│   ├── css/                   # Stylesheets (reset → variables → layout → components)
+│   ├── data/                  # JSON content files
+│   ├── images/                # Images and gallery photos
+│   └── js/                    # JavaScript modules
+├── _site/                     # Build output (gitignored)
+├── .github/workflows/         # GitHub Actions for build/deploy
+├── .eleventy.js               # 11ty configuration
+└── package.json               # npm scripts and dependencies
 ```
-
-CSS is loaded in order: reset → variables → layout → components
 
 ---
 
 ## Core Concepts
 
+### 11ty Templating
+
+**Config:** `.eleventy.js`
+
+Pages use Nunjucks templates with front matter:
+```yaml
+---
+layout: base.njk
+title: Page Title
+description: Meta description
+activePage: about
+scripts:
+  - releases.js
+---
+```
+
+**Key Variables:**
+- `title` - Page title (used in `<title>` and Open Graph)
+- `description` - Meta description
+- `activePage` - Highlights current nav link (home, about, news, etc.)
+- `scripts` - Array of JS files to load (without utils.js, which is always included)
+
 ### Design Tokens
+
 **File:** `assets/css/variables.css`
 
-All design values are centralized as CSS custom properties:
-- Colors: `--color-aged-whiskey`, `--color-coal-black`, `--color-tarnished-brass`, etc.
+All design values as CSS custom properties:
+- Colors: `--color-aged-whiskey`, `--color-coal-black`, `--color-tarnished-brass`
 - Spacing: 8px base unit (`--space-xs` through `--space-4xl`)
 - Typography: `--font-heading` (Oswald), `--font-body` (Merriweather)
 
 ### JSON Data Pattern
+
 **Files:** `assets/data/*.json`
 
-Content is managed via JSON files, rendered dynamically with JavaScript:
-- `releases.json` - Set `"featured": true` for homepage display
-- `gallery.json` - Set `"public": false` for Fan Club exclusive items
+Content managed via JSON, rendered dynamically:
+- `releases.json` - Set `"featured": true` for homepage
+- `gallery.json` - Set `"public": false` for Fan Club exclusive
 - `announcements.json` - Categories: `news`, `release`, `show`, `general`
 
 ### Progressive Enhancement
-All pages work without JavaScript via `<noscript>` fallbacks. JavaScript enhances but is not required.
+
+All pages work without JavaScript via `<noscript>` fallbacks.
 
 ---
 
 ## Established Patterns
 
-### 1. BEM CSS Naming
+### 1. Shared Utilities Module
+
+**File:** `assets/js/utils.js`
+
+Centralized helper functions used across all JS files:
+
+```javascript
+// Available as DurtNursUtils namespace
+DurtNursUtils.formatDate(isoString)      // Returns "Month DD, YYYY"
+DurtNursUtils.fetchJSON(path)            // Fetch with error handling
+DurtNursUtils.displayError(container, message)  // Show error UI
+DurtNursUtils.onDOMReady(callback)       // Cross-browser DOM ready
+```
+
+**Rule:** Import utils.js before any page-specific JS. Use namespace to avoid conflicts.
+
+### 2. Shared Lightbox Module
+
+**File:** `assets/js/lightbox.js`
+
+Reusable modal for photos/videos:
+
+```javascript
+// Available as DurtNursLightbox namespace
+DurtNursLightbox.init(containerSelector)  // Initialize for a gallery
+DurtNursLightbox.open(index)              // Open at specific index
+DurtNursLightbox.close()                  // Close modal
+```
+
+**Features:** Keyboard nav (ESC, arrows), click-outside-to-close, ARIA labels
+
+**Rule:** Used by both `gallery.js` and `fanclub-gallery.js`.
+
+### 3. BEM CSS Naming
 
 **Pattern:**
 ```css
@@ -104,66 +150,55 @@ All pages work without JavaScript via `<noscript>` fallbacks. JavaScript enhance
 .news-card__title--featured { }
 ```
 
-**Rule:** All component CSS uses BEM naming for maintainability.
-
-### 2. Dynamic Content Rendering
-
-**Pattern:**
-```javascript
-async function loadData() {
-  const response = await fetch('assets/data/file.json');
-  const data = await response.json();
-  renderContent(data);
-}
-document.addEventListener('DOMContentLoaded', loadData);
-```
-
-**Examples:** `releases.js`, `announcements.js`, `gallery.js`
-
-**Rule:** Always include error handling and loading states.
-
-### 3. Fan Club Access Control
+### 4. Fan Club Access Control
 
 **File:** `assets/js/fanclub-auth.js`
 
-Client-side gatekeeping (not secure, intentionally simple):
-- Access code: `KRAKEN` (visible in source, by design)
+Client-side gatekeeping (casual security by design):
+- Access code: `KRAKEN`
 - Uses `sessionStorage` for session persistence
 - 3-attempt limit with humorous "drunk redirect"
 
-**Documentation:** See `FANCLUB_ACCESS.md` for full details.
+**Documentation:** See `FANCLUB_ACCESS.md`
 
 ---
 
 ## Local Development
 
-No build step required. Use any static file server:
+### Prerequisites
+- Node.js 18+
+- npm
+
+### Commands
 
 ```bash
-# VS Code Live Server (recommended)
-# Right-click index.html → Open with Live Server
+npm install          # Install dependencies (first time only)
+npm run serve        # Dev server with hot reload at localhost:8080
+npm run build        # Build to _site/ directory
+```
 
-# Python
-python3 -m http.server 8000
+### Alternative (Direct Access)
 
-# Node.js
-npx serve
+For quick edits without build:
+```bash
+python3 -m http.server 8000 -d _site
 ```
 
 ---
 
 ## Deployment
 
-Automatic via GitHub Pages on push to `main`:
+Automatic via GitHub Actions on push to `main`:
 
 ```bash
 git add .
 git commit -m "Description"
 git push origin main
-# Site updates in ~1-2 minutes
+# GitHub Actions builds and deploys (~30 seconds)
 ```
 
-**Custom Domain:** durtnurs.com (DNS via Cloudflare, CNAME in repo)
+**GitHub Pages:** Source set to "GitHub Actions"
+**Custom Domain:** durtnurs.com (DNS via Cloudflare)
 
 ---
 
@@ -172,17 +207,22 @@ git push origin main
 ### Change Featured Release
 1. Edit `assets/data/releases.json`
 2. Set `"featured": true` on desired release
-3. Set `"featured": false` on previous featured release
+3. Set `"featured": false` on previous
 
 ### Add Announcement
 1. Edit `assets/data/announcements.json`
-2. Add object with: `id`, `date` (YYYY-MM-DD), `title`, `category`, `excerpt`, `content`
+2. Add object: `id`, `date`, `title`, `category`, `excerpt`, `content`
 3. Optional: `link` object, `featured` boolean
 
-### Add Fan Club Exclusive Media
+### Add Gallery Media
 1. Add image to `assets/images/gallery/`
 2. Edit `assets/data/gallery.json`
-3. Add object with `"public": false`
+3. Set `"public": false` for Fan Club exclusive
+
+### Add/Edit Page
+1. Edit `src/[page].njk`
+2. Update front matter as needed
+3. Run `npm run build` to verify
 
 ---
 
@@ -197,10 +237,10 @@ git push origin main
 
 ## Known Limitations
 
-1. **Fan Club security is casual gatekeeping only** - Access code visible in source
-2. **No server-side processing** - GitHub Pages static hosting only
+1. **Fan Club is casual gatekeeping** - Access code visible in source (intentional)
+2. **No server-side processing** - Static hosting only
 3. **No database** - All content in JSON files
-4. **Streaming links are placeholders** - Currently set to `#`
+4. **Streaming links are placeholders** - Currently link to message page
 
 ---
 
@@ -208,9 +248,21 @@ git push origin main
 
 **Main Branch:** `main`
 
-**Commit Style:** Descriptive, present tense ("Add feature" not "Added feature")
+**Commit Style:** Descriptive present tense
 
-**Example Commit Messages:**
-- `Update featured release to new album`
+**Examples:**
 - `Add new gallery photos for Fan Club`
+- `Update featured release to new album`
 - `Fix mobile navigation alignment`
+
+---
+
+## Reference Documentation
+
+- **Fan Club Access:** `FANCLUB_ACCESS.md`
+- **GitHub Issues/Refactors:** `docs/GITHUB_ISSUES.md`
+- **Template Guide:** `docs/CLAUDE_MD_TEMPLATE.md`
+
+---
+
+*Maintained for Claude Code sessions. Last updated: January 2026*
