@@ -5,7 +5,7 @@
  * PURPOSE:
  * This module eliminates content duplication by creating a single source of truth.
  * Instead of hardcoding release information in index.html, we:
- * 1. Fetch data from releases.json (same data used by releases.html)
+ * 1. Fetch data from releases.json (same data used by /releases/)
  * 2. Find the release marked as "featured": true
  * 3. Dynamically populate the homepage featured section
  *
@@ -231,7 +231,7 @@ function renderFeaturedRelease(release) {
         <!-- Streaming Links and Actions -->
         <div class="album-card__actions">
           ${streamingLinksHTML}
-          <a href="releases.html" class="button button--secondary">View All Releases</a>
+          <a href="/releases/" class="button button--secondary">View All Releases</a>
         </div>
       </div>
     </div>
@@ -284,7 +284,7 @@ function showError(message) {
     // Update error message if needed
     const errorText = errorEl.querySelector('p');
     if (errorText && message) {
-      errorText.innerHTML = `${message} <a href="releases.html">View all releases</a>.`;
+      errorText.innerHTML = `${message} <a href="/releases/">View all releases</a>.`;
     }
   }
 
