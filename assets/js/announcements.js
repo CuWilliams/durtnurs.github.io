@@ -104,14 +104,15 @@ function renderAnnouncementCard(announcement, isHomepage = false) {
   const linkText = isHomepage ? 'Read More →' : (link?.text || 'Read More →');
 
   // Determine the link URL
-  // All announcement links now point to /message/ with appropriate type parameter
-  // This creates the humorous dead-end experience described in Phase 10
   let linkUrl;
   if (isHomepage) {
-    // Homepage links always go to read-more message
-    linkUrl = '/message/?type=read-more';
+    // Homepage links go to the full announcement on the news page
+    linkUrl = `/news/#${id}`;
+  } else if (link?.url && link.url !== '#') {
+    // Use the actual URL from the data if it exists and isn't a placeholder
+    linkUrl = link.url;
   } else {
-    // Archive page links map to specific message types based on link text
+    // Fall back to message page with type based on link text
     const messageType = getLinkTypeFromText(linkText);
     linkUrl = `/message/?type=${messageType}`;
   }
