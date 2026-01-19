@@ -12,7 +12,7 @@ The official website for tHE dURT nURS' — a rock band that takes the music ser
 
 tHE dURT nURS' consists of two members who met at a dive bar and decided the world needed more songs about whiskey, regret, and mythological sea creatures. The website reflects this ethos: weathered aesthetics, gruff humor, and the kind of warmth you only find at 2 AM in a bar that definitely fails health inspections.
 
-**Motto:** *Release the Kraken!*
+**Motto:** *Blessed Be the Noise!*
 
 ---
 
@@ -154,4 +154,4 @@ This is a personal band site, but if you spot bugs:
 
 Built with grit, aged whiskey, and questionable decisions.
 
-**Release the Kraken!**
+**Blessed Be the Noise!**

@@ -1,7 +1,7 @@
 {
   "announcements": [
     {
-  "id": "006",
+  "id": "005",
   "date": "2025-01-19",
   "title": "Divine Intervention: We Actually Have Music Now",
   "category": "release",
@@ -13,19 +13,6 @@
   },
   "featured": true
 },
-    {
-      "id": "005",
-      "date": "2024-11-15",
-      "title": "Release the Kraken!",
-      "category": "release",
-      "excerpt": "New album 'Kraken Awakens' drops December 1st. Three years of bourbon-fueled chaos, now in audio form.",
-      "content": "<p>After three years of bourbon-fueled studio sessions and one ill-advised yacht incident, our sophomore album is finally crawling out of the depths. 'Kraken Awakens' features ten tracks of maritime metaphors, whiskey-soaked wisdom, and guitar riffs that sound like a sea monster having an existential crisis.</p><p>Pre-order the chaos now. Your eardrums will thank you. Or sue us. Probably sue us.</p>",
-      "link": {
-        "url": "#listen",
-        "text": "Pre-order Album"
-      },
-      "featured": false
-    },
     {
       "id": "004",
       "date": "2024-11-08",

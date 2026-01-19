@@ -1,6 +1,6 @@
 # Fan Club Access Code Documentation
 
-**Current Access Code:** `KRAKEN`
+**Current Access Code:** `ECCLESIASTICS`
 
 ## Purpose
 
@@ -96,9 +96,9 @@ If you need to change the access code (new season, security refresh, etc.):
 1. Open `assets/js/fanclub-auth.js`
 2. Find this line (around line 45):
    ```javascript
-   const FANCLUB_CODE = 'KRAKEN';
+   const FANCLUB_CODE = 'ECCLESIASTICS';
    ```
-3. Replace `'KRAKEN'` with your new code:
+3. Replace `'ECCLESIASTICS'` with your new code:
    ```javascript
    const FANCLUB_CODE = 'YOURNEWCODE';
    ```
@@ -168,7 +168,7 @@ _(Add rows as you approve new fans)_
 ### "I entered the code but it's not working"
 
 Check:
-- ✅ Code is spelled correctly (KRAKEN)
+- ✅ Code is spelled correctly (ECCLESIASTICS)
 - ✅ No extra spaces before/after
 - ✅ JavaScript is enabled in browser
 - ✅ Browser supports sessionStorage (all modern browsers do)
@@ -261,5 +261,5 @@ Contact the site maintainer or band members:
 ---
 
 **Last Updated:** December 3, 2024
-**Current Code:** KRAKEN
+**Current Code:** ECCLESIASTICS
 **Next Review:** March 2025

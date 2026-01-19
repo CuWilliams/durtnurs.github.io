@@ -8,7 +8,7 @@
   "type": "studio",
   "coverArt": "/assets/images/the-ecclesiastical-tapes.png",
   "coverArtAlt": "Two robed figures playing instruments at sunset with apocalyptic skies and inexplicable shepherds' staffs",
-  "description": "We found religion. Or maybe the whiskey finally found us. Either way, we traded our bar stools for shepherd's staffs and recorded seven tracks that answer the eternal question: 'What if prophets, but make it rock?' Features 100% more robes than our previous work. May contain traces of actual musical competence. Light that dumpster fire and join us for the most confusing career pivot since that time we tried yacht rock.",
+  "description": "We found religion. Or maybe the whiskey finally found us. Either way, we traded our bar stools for shepherd's staffs and recorded eight tracks that answer the eternal question: 'What if prophets, but make it rock?' Features 100% more robes than our previous work. May contain traces of actual musical competence. Light that dumpster fire and join us for the most confusing career pivot since that time we tried yacht rock.",
   "tracklist": [
     { "title": "Holy Roller Coaster (We're Getting Off)", "hasAudio": false },
     { "title": "Sermon on the Amount", "hasAudio": false },
@@ -26,35 +26,6 @@
       },
   "featured": true
 },
-    {
-      "id": "release-kraken-2024",
-      "title": "Release the Kraken!",
-      "artist": "tHE dURT nURS'",
-      "releaseDate": "2024-11-15",
-      "type": "album",
-      "coverArt": "/assets/images/kraken-album.png",
-      "coverArtAlt": "Release the Kraken album cover featuring a dark kraken emerging from a whiskey bottle",
-      "description": "Our magnum opus. Eleven tracks of pure, unfiltered rock absurdity. We spent literally tens of dollars on this production.",
-      "tracklist": [
-        { "title": "Brass Knuckles & Bad Decisions", "hasAudio": false },
-        { "title": "Dive Bar Requiem", "hasAudio": false },
-        { "title": "The Kraken's Lament", "hasAudio": false },
-        { "title": "Whiskey-Soaked Wisdom", "hasAudio": false },
-        { "title": "Maritime Metaphors", "hasAudio": false },
-        { "title": "Existential Crisis at Sea", "hasAudio": false },
-        { "title": "Three AM Regrets", "hasAudio": false },
-        { "title": "Bourbon-Fueled Dreams", "hasAudio": false },
-        { "title": "Anchor's Away (My Dignity)", "hasAudio": false },
-        { "title": "The Shed Sessions", "hasAudio": false },
-        { "title": "Rock Bottom (Reprise)", "hasAudio": false }
-      ],
-      "streamingLinks": {
-        "spotify": "#",
-        "apple": "#",
-        "bandcamp": "#"
-      },
-      "featured": false
-    },
     {
       "id": "release-basement-tapes-1995",
       "title": "Basement Tapes Vol. 1: The Lost Sessions",

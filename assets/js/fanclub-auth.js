@@ -60,10 +60,10 @@ const CONFIG = {
    * This is intentional - we're not trying to hide it from determined users.
    * We're just creating a "members only" feeling.
    *
-   * The code "KRAKEN" references the band's album "Release the Kraken!"
+   * The code "ECCLESIASTICS" references the band's album "The Ecclesiatical Tapes!"
    * It's memorable for approved fans and fits the band's aesthetic.
    */
-  accessCode: 'KRAKEN',
+  accessCode: 'ECCLESIASTICS',
 
   /**
    * Maximum failed attempts before "drunk redirect"
@@ -108,7 +108,7 @@ const CONFIG = {
  */
 const ERROR_MESSAGES = [
   "Nope. That ain't it. Try again, genius.",
-  "Still wrong. Did you even listen to 'Release the Kraken'?",
+  "Still wrong. Did you ever even listen to 'The Ecclesiastical Tapes'?",
   "Strike three coming up. Last chance before we assume you're hammered...",
   "Wrong again. You sure you're not already drunk?",
   "Seriously? The code is literally in the album title.",
@@ -556,9 +556,9 @@ function handleFormSubmit(event) {
 
   // Sanitization steps:
   // 1. trim() removes whitespace from beginning and end
-  //    "  KRAKEN  " becomes "KRAKEN"
+  //    "  ECCLESIASTICS  " becomes "ECCLESIASTICS"
   // 2. toUpperCase() normalizes case for comparison
-  //    "kraken" becomes "KRAKEN"
+  //    "kraken" becomes "ECCLESIASTICS"
   //    Makes code entry case-insensitive (better UX)
   enteredCode = enteredCode.trim().toUpperCase();
 

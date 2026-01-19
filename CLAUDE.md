@@ -162,7 +162,7 @@ DurtNursLightbox.close()                  // Close modal
 **File:** `assets/js/fanclub-auth.js`
 
 Client-side gatekeeping (casual security by design):
-- Access code: `KRAKEN`
+- Access code: `ECCLESIASTICS`
 - Uses `sessionStorage` for session persistence
 - 3-attempt limit with humorous "drunk redirect"
 
