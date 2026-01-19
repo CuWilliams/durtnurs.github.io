@@ -90,10 +90,17 @@ All design values as CSS custom properties:
 
 **Files:** `assets/data/*.json`
 
+**Schema Documentation:** See `docs/DATA_SCHEMA.md` for full field reference.
+
 Content managed via JSON, rendered dynamically:
 - `releases.json` - Set `"featured": true` for homepage
 - `gallery.json` - Set `"public": false` for Fan Club exclusive
 - `announcements.json` - Categories: `news`, `release`, `show`, `general`
+
+**Key conventions:**
+- Dates: ISO 8601 format (`YYYY-MM-DD`) with leading zeros
+- IDs: kebab-case with optional type prefix (`release-kraken-2024`)
+- Placeholders: Use `"#"` for inactive URLs
 
 ### Progressive Enhancement
 
@@ -259,8 +266,8 @@ git push origin main
 
 ## Reference Documentation
 
-- **Fan Club Access:** `FANCLUB_ACCESS.md`
-- **GitHub Issues/Refactors:** `docs/GITHUB_ISSUES.md`
+- **Fan Club Access:** `docs/FANCLUB_ACCESS.md`
+- **JSON Data Schemas:** `docs/DATA_SCHEMA.md`
 - **Template Guide:** `docs/CLAUDE_MD_TEMPLATE.md`
 
 ---

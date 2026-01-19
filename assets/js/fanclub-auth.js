@@ -685,17 +685,3 @@ console.log('4. Failure = humorous error message');
 console.log('5. Authentication persists until browser closes (sessionStorage)');
 console.log('%cThis is NOT secure. This is casual friends-only gatekeeping.', 'color: #5B1A1A; font-weight: bold;');
 
-// =============================================================================
-// EXPORTS (for potential future module usage)
-// =============================================================================
-
-/**
- * If using ES6 modules in the future, uncomment to export functions
- * Example: import { isAuthenticated, grantAccess } from './fanclub-auth.js'
- */
-// export {
-//   isAuthenticated,
-//   grantAccess,
-//   denyAccess,
-//   initAuth
-// };

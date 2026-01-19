@@ -403,30 +403,3 @@ DurtNursUtils.onDOMReady(init);
  * 5. Done! Both homepage and releases page update automatically
  */
 
-// =============================================================================
-// FUTURE ENHANCEMENTS
-// =============================================================================
-
-/**
- * POTENTIAL FEATURES TO ADD:
- *
- * 1. Featured Release Rotation:
- *    - Rotate between multiple featured releases
- *    - Could be time-based or random
- *
- * 2. Animation:
- *    - Fade in effect when release loads
- *    - Smooth transitions between content states
- *
- * 3. Preloading:
- *    - Preload the featured release image for faster display
- *    - Use <link rel="preload"> for critical resources
- *
- * 4. Caching:
- *    - Cache releases.json to reduce network requests
- *    - Use localStorage or Service Workers
- *
- * 5. Analytics:
- *    - Track which streaming platform users click
- *    - Monitor error rates
- */

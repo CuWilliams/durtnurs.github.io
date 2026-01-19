@@ -307,14 +307,3 @@ function init() {
 // Wait for DOM to be fully loaded before running code
 DurtNursUtils.onDOMReady(init);
 
-// =============================================================================
-// EXPORTS (for potential future module usage)
-// =============================================================================
-
-/**
- * Export functions for use in other scripts if needed
- * This uses ES6 module syntax, which may require a build step or native browser support
- * For now, these are available globally through the script tag
- */
-// Uncomment if using ES6 modules:
-// export { fetchAnnouncements, renderAnnouncementCard, renderHomepageNews, renderNewsArchive, formatDate };
