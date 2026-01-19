@@ -1,6 +1,32 @@
 {
   "releases": [
     {
+  "id": "release-ecclesiastical-tapes-2025",
+  "title": "The Ecclesiastical Tapes",
+  "artist": "tHE dURT nURS'",
+  "releaseDate": "2026-01-19",
+  "type": "studio",
+  "coverArt": "/assets/images/the-ecclesiastical-tapes.png",
+  "coverArtAlt": "Two robed figures playing instruments at sunset with apocalyptic skies and inexplicable shepherds' staffs",
+  "description": "We found religion. Or maybe the whiskey finally found us. Either way, we traded our bar stools for shepherd's staffs and recorded seven tracks that answer the eternal question: 'What if prophets, but make it rock?' Features 100% more robes than our previous work. May contain traces of actual musical competence. Light that dumpster fire and join us for the most confusing career pivot since that time we tried yacht rock.",
+  "tracklist": [
+    { "title": "Holy Roller Coaster (We're Getting Off)", "hasAudio": false },
+    { "title": "Sermon on the Amount", "hasAudio": false },
+    { "title": "Two Sticks", "hasAudio": true, "audioFile": "/assets/audio/ecclesiastical-tapes/two-sticks.mp3", "duration": "3:42" },
+    { "title": "Confession Booth Blues", "hasAudio": false },
+    { "title": "The Book of Regrets (Chapters 1-47)", "hasAudio": false },
+    { "title": "Disciples of Dysfunction", "hasAudio": false },
+    { "title": "Apocalypse? More Like Apoca-Nips (Of Whiskey)", "hasAudio": false },
+    { "title": "Amen (We Think That's How It Ends)", "hasAudio": false }
+  ],
+  "streamingLinks": {
+        "spotify": "#",
+        "apple": "#",
+        "bandcamp": "#"
+      },
+  "featured": true
+},
+    {
       "id": "release-kraken-2024",
       "title": "Release the Kraken!",
       "artist": "tHE dURT nURS'",
@@ -10,8 +36,8 @@
       "coverArtAlt": "Release the Kraken album cover featuring a dark kraken emerging from a whiskey bottle",
       "description": "Our magnum opus. Eleven tracks of pure, unfiltered rock absurdity. We spent literally tens of dollars on this production.",
       "tracklist": [
-        { "title": "Brass Knuckles & Bad Decisions", "hasAudio": true, "audioFile": "/assets/audio/kraken/brass-knuckles.mp3", "duration": "3:42" },
-        { "title": "Dive Bar Requiem", "hasAudio": true, "audioFile": "/assets/audio/kraken/dive-bar-requiem.mp3", "duration": "4:15" },
+        { "title": "Brass Knuckles & Bad Decisions", "hasAudio": false },
+        { "title": "Dive Bar Requiem", "hasAudio": false },
         { "title": "The Kraken's Lament", "hasAudio": false },
         { "title": "Whiskey-Soaked Wisdom", "hasAudio": false },
         { "title": "Maritime Metaphors", "hasAudio": false },
@@ -27,7 +53,7 @@
         "apple": "#",
         "bandcamp": "#"
       },
-      "featured": true
+      "featured": false
     },
     {
       "id": "release-basement-tapes-1995",
@@ -70,7 +96,7 @@
         { "title": "Wrong Chord, Right Feeling", "hasAudio": false },
         { "title": "The Ballad of Broken Strings", "hasAudio": false },
         { "title": "Someone's Phone Ringing (feat. Unknown Caller)", "hasAudio": false },
-        { "title": "Last Call Lament", "hasAudio": false },
+        { "title": "3AM Regrets", "hasAudio": true, "audioFile": "/assets/audio/empty-room/3am-regrets.mp3", "duration": "5:03" },
         { "title": "Closing Time (We're Still Here)", "hasAudio": false }
       ],
       "streamingLinks": {
