@@ -25,7 +25,8 @@
  * - coverArtAlt: Accessible alt text for cover art (string)
  *   Why stored in data? Ensures alt text is content-managed, not hardcoded
  * - description: Album description (string, supports plain text)
- * - tracklist: Array of track names (strings)
+ * - tracklist: Array of track objects (or strings for backward compatibility)
+ *   Each track object contains: title, hasAudio, and optional audioFile, duration, sunoUrl, artwork, featured
  * - streamingLinks: Object with platform keys (spotify, apple, bandcamp)
  *   Values are URLs (string). Use "#" for placeholder/inactive links
  * - featured: Boolean flag to highlight primary/newest release
@@ -142,14 +143,18 @@ function renderReleaseCard(release) {
 
   // Generate tracklist HTML
   // Create an ordered list of tracks
-  // Optional: could be collapsed/expandable in future
+  // Supports both object format (new) and string format (backward compatible)
   const tracklistHTML = tracklist && tracklist.length > 0 ? `
     <details class="release-card__tracklist">
       <summary class="release-card__tracklist-toggle">
         Track List (${tracklist.length} tracks)
       </summary>
       <ol class="release-card__tracks">
-        ${tracklist.map(track => `<li>${track}</li>`).join('')}
+        ${tracklist.map(track => {
+          // Handle both string (legacy) and object (new) formats
+          const trackTitle = typeof track === 'string' ? track : track.title;
+          return `<li>${trackTitle}</li>`;
+        }).join('')}
       </ol>
     </details>
   ` : '';

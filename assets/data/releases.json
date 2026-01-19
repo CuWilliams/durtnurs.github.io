@@ -10,17 +10,17 @@
       "coverArtAlt": "Release the Kraken album cover featuring a dark kraken emerging from a whiskey bottle",
       "description": "Our magnum opus. Eleven tracks of pure, unfiltered rock absurdity. We spent literally tens of dollars on this production.",
       "tracklist": [
-        "Brass Knuckles & Bad Decisions",
-        "Dive Bar Requiem",
-        "The Kraken's Lament",
-        "Whiskey-Soaked Wisdom",
-        "Maritime Metaphors",
-        "Existential Crisis at Sea",
-        "Three AM Regrets",
-        "Bourbon-Fueled Dreams",
-        "Anchor's Away (My Dignity)",
-        "The Shed Sessions",
-        "Rock Bottom (Reprise)"
+        { "title": "Brass Knuckles & Bad Decisions", "hasAudio": false },
+        { "title": "Dive Bar Requiem", "hasAudio": false },
+        { "title": "The Kraken's Lament", "hasAudio": false },
+        { "title": "Whiskey-Soaked Wisdom", "hasAudio": false },
+        { "title": "Maritime Metaphors", "hasAudio": false },
+        { "title": "Existential Crisis at Sea", "hasAudio": false },
+        { "title": "Three AM Regrets", "hasAudio": false },
+        { "title": "Bourbon-Fueled Dreams", "hasAudio": false },
+        { "title": "Anchor's Away (My Dignity)", "hasAudio": false },
+        { "title": "The Shed Sessions", "hasAudio": false },
+        { "title": "Rock Bottom (Reprise)", "hasAudio": false }
       ],
       "streamingLinks": {
         "spotify": "#",
@@ -39,13 +39,13 @@
       "coverArtAlt": "Basement Tapes album cover with vintage cassette tape aesthetic",
       "description": "Recorded on equipment we found in a dumpster. Seven tracks of raw, unpolished chaos from our humble beginnings. Lo-fi before it was cool.",
       "tracklist": [
-        "First Chord (We Learned)",
-        "Microphone Check 1-2-3",
-        "That One Good Riff",
-        "Accidentally Blues",
-        "The Song We Forgot",
-        "Amp Feedback Interlude",
-        "Maybe We Should Practice"
+        { "title": "First Chord (We Learned)", "hasAudio": false },
+        { "title": "Microphone Check 1-2-3", "hasAudio": false },
+        { "title": "That One Good Riff", "hasAudio": false },
+        { "title": "Accidentally Blues", "hasAudio": false },
+        { "title": "The Song We Forgot", "hasAudio": false },
+        { "title": "Amp Feedback Interlude", "hasAudio": false },
+        { "title": "Maybe We Should Practice", "hasAudio": false }
       ],
       "streamingLinks": {
         "spotify": "#",
@@ -64,14 +64,14 @@
       "coverArtAlt": "Live album cover showing an empty dive bar with a single microphone stand",
       "description": "Our most intimate performance. Literally just us. The bartender left halfway through. Recorded on someone's phone. Peak authenticity.",
       "tracklist": [
-        "Opening Banter (Empty Room Echo)",
-        "That Song Everyone Requested (But Nobody Came)",
-        "Improvised Blues in E",
-        "Wrong Chord, Right Feeling",
-        "The Ballad of Broken Strings",
-        "Someone's Phone Ringing (feat. Unknown Caller)",
-        "Last Call Lament",
-        "Closing Time (We're Still Here)"
+        { "title": "Opening Banter (Empty Room Echo)", "hasAudio": false },
+        { "title": "That Song Everyone Requested (But Nobody Came)", "hasAudio": false },
+        { "title": "Improvised Blues in E", "hasAudio": false },
+        { "title": "Wrong Chord, Right Feeling", "hasAudio": false },
+        { "title": "The Ballad of Broken Strings", "hasAudio": false },
+        { "title": "Someone's Phone Ringing (feat. Unknown Caller)", "hasAudio": false },
+        { "title": "Last Call Lament", "hasAudio": false },
+        { "title": "Closing Time (We're Still Here)", "hasAudio": false }
       ],
       "streamingLinks": {
         "spotify": "#",
@@ -90,10 +90,10 @@
       "coverArtAlt": "EP cover featuring an empty whiskey glass and scattered guitar picks",
       "description": "Four tracks, forty takes, fourteen bottles. An EP that captures the essence of bad decisions and good intentions. Surprisingly coherent for the circumstances.",
       "tracklist": [
-        "Pour Decisions",
-        "On The Rocks (Like My Career)",
-        "Bourbon Street Blues",
-        "Last Call Revolution"
+        { "title": "Pour Decisions", "hasAudio": false },
+        { "title": "On The Rocks (Like My Career)", "hasAudio": false },
+        { "title": "Bourbon Street Blues", "hasAudio": false },
+        { "title": "Last Call Revolution", "hasAudio": false }
       ],
       "streamingLinks": {
         "spotify": "#",

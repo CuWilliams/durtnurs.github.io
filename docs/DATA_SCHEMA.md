@@ -101,13 +101,13 @@ Discography and album data.
 | `coverArt` | string | Yes | Path to cover image |
 | `coverArtAlt` | string | Yes | Alt text for accessibility |
 | `description` | string | Yes | Album description |
-| `tracklist` | array | Yes | Array of track titles (strings) |
+| `tracklist` | array | Yes | Array of track objects (see Track Schema below) |
 | `streamingLinks` | object | No | Platform URLs (use `"#"` for placeholders) |
 | `featured` | boolean | No | Highlight on homepage (default: false) |
 
-### Track Schema (Future Enhancement)
+### Track Schema
 
-When audio playback is implemented, tracks will expand to objects:
+Each track in the tracklist is an object with the following fields:
 
 ```json
 "tracklist": [
@@ -116,9 +116,9 @@ When audio playback is implemented, tracks will expand to objects:
     "hasAudio": true,
     "audioFile": "/assets/audio/album/track.mp3",
     "duration": "3:42",
-    "sunoUrl": "https://suno.ai/song/id",
+    "sunoUrl": "https://suno.com/song/abc123",
     "artwork": "/assets/images/tracks/track-art.png",
-    "featured": false
+    "featured": true
   },
   {
     "title": "Unreleased Track",
@@ -126,6 +126,16 @@ When audio playback is implemented, tracks will expand to objects:
   }
 ]
 ```
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `title` | string | Yes | Track name |
+| `hasAudio` | boolean | Yes | Whether playable audio exists |
+| `audioFile` | string | If hasAudio | Path to MP3 file |
+| `duration` | string | If hasAudio | Track length (MM:SS format) |
+| `sunoUrl` | string | No | Link to Suno platform |
+| `artwork` | string | No | Track-specific artwork (falls back to album art) |
+| `featured` | boolean | No | Highlight as featured song (default: false) |
 
 ---
 
