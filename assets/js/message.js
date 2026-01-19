@@ -59,7 +59,7 @@ const MESSAGE_CONFIG = {
  * Constants for countdown timer behavior
  */
 const COUNTDOWN_DURATION = 7; // seconds
-const REDIRECT_URL = 'news.html';
+const REDIRECT_URL = '/news/';
 
 // =============================================================================
 // URL PARAMETER PARSING

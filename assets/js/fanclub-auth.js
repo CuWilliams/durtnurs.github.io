@@ -376,7 +376,7 @@ function handleDrunkRedirect() {
   redirectTimer = setTimeout(() => {
     clearInterval(countdownInterval);
     console.log('🏠 Redirecting to homepage...');
-    window.location.href = 'index.html';
+    window.location.href = '/';
   }, CONFIG.redirectDelay);
 }
 
