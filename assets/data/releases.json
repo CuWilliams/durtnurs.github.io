@@ -10,8 +10,8 @@
       "coverArtAlt": "Release the Kraken album cover featuring a dark kraken emerging from a whiskey bottle",
       "description": "Our magnum opus. Eleven tracks of pure, unfiltered rock absurdity. We spent literally tens of dollars on this production.",
       "tracklist": [
-        { "title": "Brass Knuckles & Bad Decisions", "hasAudio": false },
-        { "title": "Dive Bar Requiem", "hasAudio": false },
+        { "title": "Brass Knuckles & Bad Decisions", "hasAudio": true, "audioFile": "/assets/audio/kraken/brass-knuckles.mp3", "duration": "3:42" },
+        { "title": "Dive Bar Requiem", "hasAudio": true, "audioFile": "/assets/audio/kraken/dive-bar-requiem.mp3", "duration": "4:15" },
         { "title": "The Kraken's Lament", "hasAudio": false },
         { "title": "Whiskey-Soaked Wisdom", "hasAudio": false },
         { "title": "Maritime Metaphors", "hasAudio": false },

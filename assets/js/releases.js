@@ -142,7 +142,7 @@ function renderReleaseCard(release) {
     .join(''); // Combine all link HTML strings
 
   // Generate tracklist HTML
-  // Create an ordered list of tracks
+  // Create an ordered list of tracks with optional play buttons
   // Supports both object format (new) and string format (backward compatible)
   const tracklistHTML = tracklist && tracklist.length > 0 ? `
     <details class="release-card__tracklist">
@@ -150,10 +150,36 @@ function renderReleaseCard(release) {
         Track List (${tracklist.length} tracks)
       </summary>
       <ol class="release-card__tracks">
-        ${tracklist.map(track => {
+        ${tracklist.map((track) => {
           // Handle both string (legacy) and object (new) formats
           const trackTitle = typeof track === 'string' ? track : track.title;
-          return `<li>${trackTitle}</li>`;
+          const hasAudio = typeof track === 'object' && track.hasAudio && track.audioFile;
+
+          if (hasAudio) {
+            // Build data attributes for the play button
+            const trackData = {
+              title: track.title,
+              audioFile: track.audioFile,
+              duration: track.duration || '',
+              artwork: track.artwork || coverArt,
+              albumTitle: title,
+              artist: artist
+            };
+            const dataAttr = encodeURIComponent(JSON.stringify(trackData));
+
+            return `<li class="release-card__track release-card__track--playable">
+              <button class="release-card__play-btn"
+                      type="button"
+                      aria-label="Play ${trackTitle}"
+                      data-track="${dataAttr}">
+                <span class="release-card__play-icon" aria-hidden="true"></span>
+              </button>
+              <span class="release-card__track-title">${trackTitle}</span>
+              ${track.duration ? `<span class="release-card__track-duration">${track.duration}</span>` : ''}
+            </li>`;
+          } else {
+            return `<li class="release-card__track">${trackTitle}</li>`;
+          }
         }).join('')}
       </ol>
     </details>
@@ -282,18 +308,60 @@ async function renderAllReleases() {
  *
  * This function runs when the page loads (see auto-initialization below)
  */
-function init() {
+async function init() {
   console.log('🚀 Initializing releases module...');
 
   // Check if we're on the releases page
   // Look for the releases grid container
   if (document.getElementById('releases-grid')) {
     console.log('📍 Detected releases page');
-    renderAllReleases();
+    await renderAllReleases();
+
+    // Bind click handlers for track play buttons
+    bindTrackPlayButtons();
   }
   else {
     console.log('ℹ️ No release containers found on this page');
   }
+}
+
+/**
+ * Binds click event handlers to all track play buttons
+ * Uses event delegation on the releases grid for efficiency
+ */
+function bindTrackPlayButtons() {
+  const container = document.getElementById('releases-grid');
+  if (!container) return;
+
+  container.addEventListener('click', (e) => {
+    const playBtn = e.target.closest('.release-card__play-btn');
+    if (!playBtn) return;
+
+    e.preventDefault();
+
+    // Parse track data from button's data attribute
+    const trackDataStr = playBtn.getAttribute('data-track');
+    if (!trackDataStr) {
+      console.warn('⚠️ No track data found on play button');
+      return;
+    }
+
+    try {
+      const trackData = JSON.parse(decodeURIComponent(trackDataStr));
+      console.log('🎵 Playing track:', trackData.title);
+
+      // Call the audio player
+      if (typeof DurtNursPlayer !== 'undefined') {
+        DurtNursPlayer.play(trackData);
+      } else {
+        console.error('❌ DurtNursPlayer not available');
+      }
+    } catch (err) {
+      console.error('❌ Error parsing track data:', err);
+    }
+  });
+
+  console.log('✅ Track play button handlers bound');
 }
 
 // =============================================================================
