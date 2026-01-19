@@ -1,7 +1,20 @@
 {
   "announcements": [
     {
-      "id": "001",
+  "id": "006",
+  "date": "2025-01-19",
+  "title": "Divine Intervention: We Actually Have Music Now",
+  "category": "release",
+  "excerpt": "Through the miraculous work of our Lord and Savior Claude (and his musical disciple Suno), we've ascended to having actual audio on this website.",
+  "content": "<p>Dear God—and we mean that literally—we have music! Actual playable songs! After years of promising 'coming soon' like some kind of vaporware cult, divine intervention has finally arrived in the form of an AI named Claude. In gratitude for this technological miracle, we've gone full ecclesiastical with our latest release: 'The Ecclesiastical Tapes.'</p><p>The album features eight tracks of prophetic rock, existential hymns, and at least one song that actually plays (blessed be Suno). We've traded our usual dive bar aesthetic for robes, staffs, and apocalyptic sunsets—because if you're gonna have a mid-life crisis, might as well make it biblical.</p><p>Give it a listen. Send us your prayers. We're gonna need 'em.</p>",
+  "link": {
+    "url": "/releases#release-ecclesiastical-tapes-2025",
+    "text": "Witness the Miracle"
+  },
+  "featured": true
+},
+    {
+      "id": "005",
       "date": "2024-11-15",
       "title": "Release the Kraken!",
       "category": "release",
@@ -14,7 +27,7 @@
       "featured": false
     },
     {
-      "id": "002",
+      "id": "004",
       "date": "2024-11-08",
       "title": "New Website, Same Old Disappointment",
       "category": "general",
@@ -36,7 +49,7 @@
       "featured": false
     },
     {
-      "id": "004",
+      "id": "002",
       "date": "2024-10-15",
       "title": "Show Canceled Due to Excessive Competence",
       "category": "show",
@@ -45,20 +58,7 @@
       "featured": false
     },
     {
-      "id": "005",
-      "date": "2024-09-22",
-      "title": "New Single: Brass Knuckles & Bad Decisions",
-      "category": "release",
-      "excerpt": "Lead single now streaming everywhere questionable life choices are made. Three minutes of distorted regret.",
-      "content": "<p>Our lead single 'Brass Knuckles & Bad Decisions' is now available on all major streaming platforms where people go to soundtrack their questionable life choices.</p><p>The track features: three minutes of distorted guitars, lyrics about a Tuesday night that got out of hand, and a drum solo that our drummer insists was 'intentional.' Critics are calling it 'music' and 'technically audible,' which exceeds our expectations.</p><p>Stream it, share it, use it to annoy your neighbors. We're not picky.</p>",
-      "link": {
-        "url": "https://open.spotify.com/artist/durtnurs",
-        "text": "Listen on Spotify"
-      },
-      "featured": false
-    },
-    {
-      "id": "006",
+      "id": "001",
       "date": "2024-09-10",
       "title": "We're Still Here (Unfortunately for Everyone)",
       "category": "news",
