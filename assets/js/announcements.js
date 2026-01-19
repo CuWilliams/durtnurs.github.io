@@ -24,7 +24,7 @@
 async function fetchAnnouncements() {
   try {
     console.log('📡 Fetching announcements from JSON...');
-    const data = await DurtNursUtils.fetchJSON('assets/data/announcements.json');
+    const data = await DurtNursUtils.fetchJSON('/assets/data/announcements.json');
 
     console.log(`✅ Successfully loaded ${data.announcements.length} announcements`);
     return data.announcements;

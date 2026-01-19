@@ -60,7 +60,7 @@ let lightbox = null;
 async function fetchGalleryMedia() {
   try {
     console.log('📡 Fetching gallery media from JSON...');
-    const data = await DurtNursUtils.fetchJSON('assets/data/gallery.json');
+    const data = await DurtNursUtils.fetchJSON('/assets/data/gallery.json');
 
     console.log(`✅ Successfully loaded ${data.media.length} media items`);
     return data.media;
@@ -172,8 +172,8 @@ function renderMediaCard(mediaItem, index) {
   // Build thumbnail path
   // Photos use thumbnail images, videos use thumbnail images with play icon overlay
   const thumbnailPath = type === 'photo'
-    ? `assets/images/gallery/${thumbnail}`
-    : `assets/images/gallery/${thumbnail}`;
+    ? `/assets/images/gallery/${thumbnail}`
+    : `/assets/images/gallery/${thumbnail}`;
 
   // Determine if this is a photo or video for styling and behavior
   const dataType = type === 'video' ? 'video' : 'photo';
@@ -196,7 +196,7 @@ function renderMediaCard(mediaItem, index) {
              alt="${title}"
              class="gallery-card__thumbnail"
              loading="lazy"
-             onerror="this.src='assets/images/logo.png'; this.alt='Image unavailable';">
+             onerror="this.src='/assets/images/logo.png'; this.alt='Image unavailable';">
 
         <!-- Play icon overlay for videos -->
         ${type === 'video' ? '<span class="gallery-card__play-icon" aria-hidden="true">▶</span>' : ''}

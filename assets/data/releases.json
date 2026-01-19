@@ -6,7 +6,7 @@
       "artist": "tHE dURT nURS'",
       "releaseDate": "2024-11-15",
       "type": "album",
-      "coverArt": "assets/images/kraken-album.png",
+      "coverArt": "/assets/images/kraken-album.png",
       "coverArtAlt": "Release the Kraken album cover featuring a dark kraken emerging from a whiskey bottle",
       "description": "Our magnum opus. Eleven tracks of pure, unfiltered rock absurdity. We spent literally tens of dollars on this production.",
       "tracklist": [
@@ -35,7 +35,7 @@
       "artist": "tHE dURT nURS'",
       "releaseDate": "1995-06-15",
       "type": "compilation",
-      "coverArt": "assets/images/basement-tapes-album.png",
+      "coverArt": "/assets/images/basement-tapes-album.png",
       "coverArtAlt": "Basement Tapes album cover with vintage cassette tape aesthetic",
       "description": "Recorded on equipment we found in a dumpster. Seven tracks of raw, unpolished chaos from our humble beginnings. Lo-fi before it was cool.",
       "tracklist": [
@@ -60,7 +60,7 @@
       "artist": "tHE dURT nURS'",
       "releaseDate": "2010-10-31",
       "type": "live",
-      "coverArt": "assets/images/live-at-the-empty-room-album.png",
+      "coverArt": "/assets/images/live-at-the-empty-room-album.png",
       "coverArtAlt": "Live album cover showing an empty dive bar with a single microphone stand",
       "description": "Our most intimate performance. Literally just us. The bartender left halfway through. Recorded on someone's phone. Peak authenticity.",
       "tracklist": [
@@ -86,7 +86,7 @@
       "artist": "tHE dURT nURS'",
       "releaseDate": "2000-11-01",
       "type": "ep",
-      "coverArt": "assets/images/the-whiskey-sessions-album.png",
+      "coverArt": "/assets/images/the-whiskey-sessions-album.png",
       "coverArtAlt": "EP cover featuring an empty whiskey glass and scattered guitar picks",
       "description": "Four tracks, forty takes, fourteen bottles. An EP that captures the essence of bad decisions and good intentions. Surprisingly coherent for the circumstances.",
       "tracklist": [

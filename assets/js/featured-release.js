@@ -33,7 +33,7 @@
  * Centralizes all IDs and paths in one place for easy maintenance
  */
 const CONFIG = {
-  dataUrl: 'assets/data/releases.json',
+  dataUrl: '/assets/data/releases.json',
   containerId: 'featured-release-container',
   loadingId: 'featured-release-loading',
   errorId: 'featured-release-error'
@@ -209,7 +209,7 @@ function renderFeaturedRelease(release) {
              alt="${coverArtAlt}"
              class="album-card__image"
              loading="eager"
-             onerror="this.src='assets/images/logo.png'; this.alt='Album cover unavailable';">
+             onerror="this.src='/assets/images/logo.png'; this.alt='Album cover unavailable';">
       </div>
 
       <!-- Album Details and Actions -->

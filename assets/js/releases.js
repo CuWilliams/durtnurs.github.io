@@ -45,7 +45,7 @@
 async function fetchReleases() {
   try {
     console.log('📡 Fetching releases from JSON...');
-    const data = await DurtNursUtils.fetchJSON('assets/data/releases.json');
+    const data = await DurtNursUtils.fetchJSON('/assets/data/releases.json');
 
     console.log(`✅ Successfully loaded ${data.releases.length} releases`);
     return data.releases;
@@ -168,7 +168,7 @@ function renderReleaseCard(release) {
              alt="${coverArtAlt}"
              class="release-card__cover"
              loading="lazy"
-             onerror="this.src='assets/images/logo.png'; this.alt='Album cover unavailable';">
+             onerror="this.src='/assets/images/logo.png'; this.alt='Album cover unavailable';">
       </div>
 
       <!-- Release Content -->

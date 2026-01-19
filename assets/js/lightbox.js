@@ -101,12 +101,12 @@ function defaultRenderContent(mediaItem, contentContainer, counterContainer, sta
   // Render based on media type
   if (mediaItem.type === 'photo') {
     const img = document.createElement('img');
-    img.src = `assets/images/gallery/${mediaItem.filename}`;
+    img.src = `/assets/images/gallery/${mediaItem.filename}`;
     img.alt = mediaItem.title;
     img.className = 'lightbox__image';
 
     img.onerror = function() {
-      this.src = 'assets/images/logo.png';
+      this.src = '/assets/images/logo.png';
       this.alt = 'Image unavailable';
     };
 

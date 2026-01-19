@@ -58,7 +58,7 @@ let lightbox = null;
 async function fetchAllGalleryMedia() {
   try {
     console.log('📡 Fetching FULL gallery media for Fan Club...');
-    const data = await DurtNursUtils.fetchJSON('assets/data/gallery.json');
+    const data = await DurtNursUtils.fetchJSON('/assets/data/gallery.json');
 
     console.log(`✅ Successfully loaded ${data.media.length} media items (all items, including private)`);
     return data.media;
@@ -133,8 +133,8 @@ function renderMediaCard(mediaItem, index) {
   const exclusiveBadge = !isPublic ? '<span class="fanclub-exclusive-badge" aria-label="Fan Club Exclusive">★ Exclusive</span>' : '';
 
   const thumbnailPath = type === 'photo'
-    ? `assets/images/gallery/${thumbnail}`
-    : `assets/images/gallery/${thumbnail}`;
+    ? `/assets/images/gallery/${thumbnail}`
+    : `/assets/images/gallery/${thumbnail}`;
 
   const dataType = type === 'video' ? 'video' : 'photo';
 
@@ -154,7 +154,7 @@ function renderMediaCard(mediaItem, index) {
              alt="${title}"
              class="gallery-card__thumbnail"
              loading="lazy"
-             onerror="this.src='assets/images/logo.png'; this.alt='Image unavailable';">
+             onerror="this.src='/assets/images/logo.png'; this.alt='Image unavailable';">
 
         <!-- Play icon overlay for videos -->
         ${type === 'video' ? '<span class="gallery-card__play-icon" aria-hidden="true">▶</span>' : ''}
@@ -196,12 +196,12 @@ function renderFanclubLightboxContent(mediaItem, contentContainer, counterContai
   // Render based on media type
   if (mediaItem.type === 'photo') {
     const img = document.createElement('img');
-    img.src = `assets/images/gallery/${mediaItem.filename}`;
+    img.src = `/assets/images/gallery/${mediaItem.filename}`;
     img.alt = mediaItem.title;
     img.className = 'lightbox__image';
 
     img.onerror = function() {
-      this.src = 'assets/images/logo.png';
+      this.src = '/assets/images/logo.png';
       this.alt = 'Image unavailable';
     };
 
