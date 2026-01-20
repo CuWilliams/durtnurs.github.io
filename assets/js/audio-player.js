@@ -8,6 +8,7 @@
  * - Play/pause, seek, volume controls
  * - Keyboard accessible
  * - Volume preference saved to localStorage
+ * - Playback persists across page navigation (auto-resumes)
  *
  * Usage:
  * DurtNursPlayer.play({ title, audioFile, duration, artwork, albumTitle, artist })
@@ -121,6 +122,7 @@ const DurtNursPlayer = {
       this._audio.src = '';
     }
     this._currentTrack = null;
+    this._clearPlaybackState();
     this._hidePlayer();
   },
 
@@ -148,6 +150,8 @@ const DurtNursPlayer = {
     this._setupAudio();
     this._bindEvents();
     this._loadVolumePreference();
+    this._setupPersistence();
+    this._restorePlaybackState();
 
     this._isInitialized = true;
     console.log('DurtNursPlayer: Initialized');
@@ -480,6 +484,129 @@ const DurtNursPlayer = {
    */
   _saveVolumePreference(volume) {
     localStorage.setItem('durtNursPlayerVolume', volume);
+  },
+
+  // ==========================================================================
+  // PRIVATE METHODS - PLAYBACK PERSISTENCE
+  // ==========================================================================
+
+  /**
+   * Storage key for playback state
+   */
+  _STORAGE_KEY: 'durtNursPlayerState',
+
+  /**
+   * Set up persistence - save state before page unload
+   */
+  _setupPersistence() {
+    window.addEventListener('beforeunload', () => {
+      this._savePlaybackState();
+    });
+
+    // Also save on visibility change (mobile browsers may not fire beforeunload)
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        this._savePlaybackState();
+      }
+    });
+  },
+
+  /**
+   * Save current playback state to sessionStorage
+   */
+  _savePlaybackState() {
+    // Only save if we have an active track
+    if (!this._currentTrack || !this._audio) return;
+
+    const state = {
+      track: this._currentTrack,
+      currentTime: this._audio.currentTime,
+      isPlaying: !this._audio.paused,
+      timestamp: Date.now()
+    };
+
+    try {
+      sessionStorage.setItem(this._STORAGE_KEY, JSON.stringify(state));
+      console.log('DurtNursPlayer: State saved', state.track.title, state.currentTime);
+    } catch (e) {
+      console.warn('DurtNursPlayer: Could not save state', e);
+    }
+  },
+
+  /**
+   * Restore playback state from sessionStorage
+   */
+  _restorePlaybackState() {
+    try {
+      const savedState = sessionStorage.getItem(this._STORAGE_KEY);
+      if (!savedState) return;
+
+      const state = JSON.parse(savedState);
+
+      // Validate state has required data
+      if (!state.track || !state.track.audioFile) {
+        this._clearPlaybackState();
+        return;
+      }
+
+      // Check if state is stale (more than 1 hour old)
+      const ONE_HOUR = 60 * 60 * 1000;
+      if (Date.now() - state.timestamp > ONE_HOUR) {
+        console.log('DurtNursPlayer: Saved state expired, clearing');
+        this._clearPlaybackState();
+        return;
+      }
+
+      console.log('DurtNursPlayer: Restoring state', state.track.title, state.currentTime);
+
+      // Load the track
+      this._currentTrack = state.track;
+      this._audio.src = state.track.audioFile;
+      this._audio.load();
+
+      // Update UI immediately
+      this._updateTrackInfo(state.track);
+      this._showPlayer();
+
+      // Wait for audio to be ready, then seek and optionally play
+      this._audio.addEventListener('loadedmetadata', () => {
+        // Seek to saved position
+        if (state.currentTime && state.currentTime > 0) {
+          this._audio.currentTime = state.currentTime;
+        }
+
+        // Resume playing if it was playing before
+        if (state.isPlaying) {
+          this._audio.play().catch(err => {
+            // Autoplay may be blocked - that's OK, user can click play
+            console.log('DurtNursPlayer: Autoplay blocked, user interaction required');
+            this._updatePlayButton(false);
+          });
+        }
+      }, { once: true });
+
+      // Handle load errors
+      this._audio.addEventListener('error', () => {
+        console.warn('DurtNursPlayer: Could not restore track, file may be unavailable');
+        this._clearPlaybackState();
+        this._hidePlayer();
+      }, { once: true });
+
+    } catch (e) {
+      console.warn('DurtNursPlayer: Could not restore state', e);
+      this._clearPlaybackState();
+    }
+  },
+
+  /**
+   * Clear saved playback state
+   */
+  _clearPlaybackState() {
+    try {
+      sessionStorage.removeItem(this._STORAGE_KEY);
+    } catch (e) {
+      // Ignore errors
+    }
   }
 
 };

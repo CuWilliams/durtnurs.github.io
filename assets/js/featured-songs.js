@@ -33,6 +33,7 @@ const SONGS_CONFIG = {
 /**
  * Collects all featured tracks from all releases
  * Attaches album context (title, artwork, id) to each track
+ * Uses track-specific artwork if available, falls back to album cover
  *
  * @param {Array} releases - Array of release objects
  * @returns {Array} Array of track objects with album context
@@ -46,16 +47,23 @@ function collectFeaturedSongs(releases) {
     release.tracklist.forEach(track => {
       // Only include tracks that are featured, have audio, and have an audio file
       if (track.featured && track.hasAudio && track.audioFile) {
+        // Use track artwork if available, otherwise fall back to album cover
+        const artwork = track.artwork || release.coverArt;
+        const artworkAlt = track.artworkAlt || track.artwork
+          ? `${track.title} song artwork`
+          : release.coverArtAlt;
+
         featuredSongs.push({
           // Track data
           title: track.title,
           audioFile: track.audioFile,
           duration: track.duration || '',
+          // Artwork (track-specific or album fallback)
+          artwork: artwork,
+          artworkAlt: artworkAlt,
           // Album context for display and audio player
           albumTitle: release.title,
           albumId: release.id,
-          artwork: release.coverArt,
-          artworkAlt: release.coverArtAlt,
           artist: release.artist || "tHE dURT nURS'"
         });
       }
