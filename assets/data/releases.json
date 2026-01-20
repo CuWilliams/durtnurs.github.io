@@ -19,11 +19,6 @@
     { "title": "Apocalypse? More Like Apoca-Nips (Of Whiskey)", "hasAudio": false },
     { "title": "Amen (We Think That's How It Ends)", "hasAudio": false }
   ],
-  "streamingLinks": {
-        "spotify": "#",
-        "apple": "#",
-        "bandcamp": "#"
-      },
   "featured": true
 },
     {
@@ -44,11 +39,6 @@
         { "title": "Amp Feedback Interlude", "hasAudio": false },
         { "title": "Maybe We Should Practice", "hasAudio": false }
       ],
-      "streamingLinks": {
-        "spotify": "#",
-        "apple": "#",
-        "bandcamp": "#"
-      },
       "featured": false
     },
     {
@@ -70,11 +60,6 @@
         { "title": "3AM Regrets", "hasAudio": true, "audioFile": "/assets/audio/empty-room/3am-regrets.mp3", "duration": "2:09", "featured": true, "artwork": "/assets/images/songs/3am-regrets.png", "artworkAlt": "A drink and cigarettes on a nightstand at 3AM"},
         { "title": "Closing Time (We're Still Here)", "hasAudio": false }
       ],
-      "streamingLinks": {
-        "spotify": "#",
-        "apple": "#",
-        "bandcamp": "#"
-      },
       "featured": false
     },
     {
@@ -92,11 +77,6 @@
         { "title": "Bourbon Street Blues", "hasAudio": false },
         { "title": "Last Call Revolution", "hasAudio": false }
       ],
-      "streamingLinks": {
-        "spotify": "#",
-        "apple": "#",
-        "bandcamp": "#"
-      },
       "featured": false
     }
   ]

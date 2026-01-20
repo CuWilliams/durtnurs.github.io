@@ -27,8 +27,6 @@
  * - description: Album description (string, supports plain text)
  * - tracklist: Array of track objects (or strings for backward compatibility)
  *   Each track object contains: title, hasAudio, and optional audioFile, duration, sunoUrl, artwork, featured
- * - streamingLinks: Object with platform keys (spotify, apple, bandcamp)
- *   Values are URLs (string). Use "#" for placeholder/inactive links
  * - featured: Boolean flag to highlight primary/newest release
  *   Featured releases get special styling (larger cards, prominent borders)
  */
@@ -108,7 +106,6 @@ function renderReleaseCard(release) {
     coverArtAlt,
     description,
     tracklist,
-    streamingLinks,
     featured
   } = release;
 
@@ -124,22 +121,6 @@ function renderReleaseCard(release) {
   // Allows CSS styling based on release type
   // Example: .release-card[data-type="live"] { ... }
   const dataTypeAttr = `data-type="${type}"`;
-
-  // Generate streaming links HTML
-  // Only show links that aren't placeholders (#)
-  // Object.entries() converts object to array of [key, value] pairs
-  const streamingLinksHTML = Object.entries(streamingLinks)
-    .filter(([platform, url]) => url && url !== '#') // Remove empty/placeholder links
-    .map(([platform, url]) => `
-      <a href="${url}"
-         class="release-card__link"
-         target="_blank"
-         rel="noopener noreferrer"
-         aria-label="Listen on ${platform}">
-        ${platform.charAt(0).toUpperCase() + platform.slice(1)}
-      </a>
-    `)
-    .join(''); // Combine all link HTML strings
 
   // Generate tracklist HTML
   // Create an ordered list of tracks with optional play buttons
@@ -224,13 +205,6 @@ function renderReleaseCard(release) {
 
         <!-- Tracklist (collapsible) -->
         ${tracklistHTML}
-
-        <!-- Streaming Links -->
-        ${streamingLinksHTML ? `
-          <div class="release-card__links">
-            ${streamingLinksHTML}
-          </div>
-        ` : ''}
 
       </div>
 

@@ -121,43 +121,6 @@ function findFeaturedRelease(releases) {
 // =============================================================================
 
 /**
- * Builds HTML for streaming links section
- * Only includes active links (not placeholders marked with "#")
- *
- * @param {Object} streamingLinks - Object with platform keys and URL values
- * @returns {string} HTML string for streaming links
- */
-function buildStreamingLinks(streamingLinks) {
-  // If no streaming links provided, return empty string
-  if (!streamingLinks || Object.keys(streamingLinks).length === 0) {
-    return '';
-  }
-
-  // Convert streamingLinks object to array of [platform, url] pairs
-  // Filter out placeholder links (marked with "#")
-  // Map to HTML anchor elements
-  const linksHTML = Object.entries(streamingLinks)
-    .filter(([platform, url]) => url && url !== '#')
-    .map(([platform, url]) => {
-      // Capitalize platform name: spotify -> Spotify
-      const platformName = platform.charAt(0).toUpperCase() + platform.slice(1);
-
-      return `
-        <a href="${url}"
-           class="button button--secondary"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="Listen on ${platformName}">
-          Listen on ${platformName}
-        </a>
-      `;
-    })
-    .join('');
-
-  return linksHTML;
-}
-
-/**
  * Renders the featured release HTML into the container
  *
  * This function generates the complete HTML structure for the featured release
@@ -184,20 +147,15 @@ function renderFeaturedRelease(release) {
   // Destructure release data for cleaner code
   const {
     title,
-    artist,
     releaseDate,
     type,
     coverArt,
     coverArtAlt,
-    description,
-    streamingLinks
+    description
   } = release;
 
   // Format the release date for display
   const formattedDate = DurtNursUtils.formatDate(releaseDate);
-
-  // Build streaming links HTML
-  const streamingLinksHTML = buildStreamingLinks(streamingLinks);
 
   // Generate complete HTML using template literals
   // Template literals allow multi-line strings and embedded expressions
@@ -228,9 +186,8 @@ function renderFeaturedRelease(release) {
         <!-- Album Description -->
         <p class="album-card__description">${description}</p>
 
-        <!-- Streaming Links and Actions -->
+        <!-- Actions -->
         <div class="album-card__actions">
-          ${streamingLinksHTML}
           <a href="/releases/" class="button button--secondary">View All Releases</a>
         </div>
       </div>

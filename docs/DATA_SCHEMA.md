@@ -38,14 +38,7 @@ Use `true`/`false` only. Common flags:
 
 ### Placeholder Values
 
-Use `"#"` for placeholder URLs that are not yet active:
-
-```json
-"streamingLinks": {
-  "spotify": "#",
-  "suno": "https://suno.ai/song/actual-id"
-}
-```
+Use `"#"` for placeholder URLs that are not yet active.
 
 ### ID Format
 
@@ -76,13 +69,9 @@ Discography and album data.
       "coverArtAlt": "Description for screen readers",
       "description": "Album description text",
       "tracklist": [
-        "Track 1 Title",
-        "Track 2 Title"
+        { "title": "Track 1 Title", "hasAudio": false },
+        { "title": "Track 2 Title", "hasAudio": true, "audioFile": "/assets/audio/album/track2.mp3", "duration": "3:42" }
       ],
-      "streamingLinks": {
-        "suno": "https://suno.ai/...",
-        "bandcamp": "#"
-      },
       "featured": true
     }
   ]
@@ -102,8 +91,9 @@ Discography and album data.
 | `coverArtAlt` | string | Yes | Alt text for accessibility |
 | `description` | string | Yes | Album description |
 | `tracklist` | array | Yes | Array of track objects (see Track Schema below) |
-| `streamingLinks` | object | No | Platform URLs (use `"#"` for placeholders) |
 | `featured` | boolean | No | Highlight on homepage (default: false) |
+
+> **Note:** Streaming links (Spotify, Apple Music, etc.) are not currently supported at the release level. Audio playback is handled via individual tracks with the `audioFile` field, and external links can be added at the track level via `sunoUrl`.
 
 ### Track Schema
 
