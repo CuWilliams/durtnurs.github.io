@@ -3827,3 +3827,157 @@ p.origin-placeholder {
   background-color: var(--color-aged-whiskey);
   color: var(--color-coal-black);
 }
+
+
+/* ============================================
+   SONG CARDS
+   Card-based design for featured songs
+   ============================================ */
+
+/*
+  Song Card Grid: Responsive layout for song cards
+  Uses same breakpoint pattern as news-grid
+*/
+.song-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 640px) {
+  .song-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .song-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/*
+  Song Card: BEM structure
+  .song-card (block)
+  .song-card__artwork (element)
+  .song-card__title (element)
+  etc.
+*/
+.song-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.song-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+/* Artwork wrapper with play button overlay */
+.song-card__artwork-wrapper {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background-color: var(--color-iron-gray);
+}
+
+.song-card__artwork {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Play button overlay - centered on artwork */
+.song-card__play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background-color: rgba(160, 90, 36, 0.9);
+  border: none;
+  border-radius: var(--border-radius-full);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--transition-base), transform var(--transition-fast);
+}
+
+.song-card:hover .song-card__play-btn,
+.song-card__play-btn:focus {
+  opacity: 1;
+}
+
+.song-card__play-btn:hover {
+  background-color: var(--color-tarnished-brass);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.song-card__play-btn:active {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+.song-card__play-btn:focus {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Play icon (CSS triangle) */
+.song-card__play-icon {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 12px 0 12px 20px;
+  border-color: transparent transparent transparent var(--color-text-primary);
+  margin-left: 4px;
+}
+
+/* Song info section */
+.song-card__info {
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.song-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.song-card__album {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.song-card__album a {
+  color: var(--color-accent);
+  transition: color var(--transition-base);
+}
+
+.song-card__album a:hover,
+.song-card__album a:focus {
+  color: var(--color-primary);
+}
+
+.song-card__duration {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}

@@ -12,7 +12,7 @@
   "tracklist": [
     { "title": "Holy Roller Coaster (We're Getting Off)", "hasAudio": false },
     { "title": "Sermon on the Amount", "hasAudio": false },
-    { "title": "Two Sticks", "hasAudio": true, "audioFile": "/assets/audio/ecclesiastical-tapes/two-sticks.mp3", "duration": "3:13" },
+    { "title": "Two Sticks", "hasAudio": true, "audioFile": "/assets/audio/ecclesiastical-tapes/two-sticks.mp3", "duration": "3:13", "featured": true },
     { "title": "Confession Booth Blues", "hasAudio": false },
     { "title": "The Book of Regrets (Chapters 1-47)", "hasAudio": false },
     { "title": "Disciples of Dysfunction", "hasAudio": false },
@@ -67,7 +67,7 @@
         { "title": "Wrong Chord, Right Feeling", "hasAudio": false },
         { "title": "The Ballad of Broken Strings", "hasAudio": false },
         { "title": "Someone's Phone Ringing (feat. Unknown Caller)", "hasAudio": false },
-        { "title": "3AM Regrets", "hasAudio": true, "audioFile": "/assets/audio/empty-room/3am-regrets.mp3", "duration": "2:09" },
+        { "title": "3AM Regrets", "hasAudio": true, "audioFile": "/assets/audio/empty-room/3am-regrets.mp3", "duration": "2:09", "featured": true },
         { "title": "Closing Time (We're Still Here)", "hasAudio": false }
       ],
       "streamingLinks": {

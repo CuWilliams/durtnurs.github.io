@@ -304,6 +304,19 @@ function hideStates() {
   if (errorEl) errorEl.style.display = 'none';
 }
 
+/**
+ * Shows/hides the entire Featured Release section
+ * Implements collapse behavior when no featured release exists
+ *
+ * @param {boolean} hasContent - Whether to show the section
+ */
+function toggleSectionVisibility(hasContent) {
+  const section = document.getElementById('latest-release');
+  if (section) {
+    section.style.display = hasContent ? '' : 'none';
+  }
+}
+
 // =============================================================================
 // INITIALIZATION
 // =============================================================================
@@ -334,8 +347,10 @@ async function init() {
     const featuredRelease = findFeaturedRelease(releases);
 
     // Check if we found a release to display
+    // If no featured release, hide the entire section
     if (!featuredRelease) {
-      showError('No featured release available.');
+      console.log('ℹ️ No featured release found, hiding section');
+      toggleSectionVisibility(false);
       return;
     }
 

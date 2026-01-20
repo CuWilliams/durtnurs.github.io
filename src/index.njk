@@ -6,6 +6,7 @@ activePage: home
 scripts:
   - announcements.js
   - featured-release.js
+  - featured-songs.js
 schemaData: |
   {
     "@context": "https://schema.org",
@@ -162,6 +163,44 @@ permalink: /index.html
           </p>
         </div>
       </div>
+    </noscript>
+
+  </div>
+</section>
+
+<!--
+  FEATURED SONGS SECTION
+  Card-based layout for featured playable tracks from any album
+  Grid area: "songs"
+  Dynamic content loaded via JavaScript (see assets/js/featured-songs.js)
+  Section hides automatically when no songs are featured
+-->
+<section class="featured-songs-section" id="featured-songs-section" aria-labelledby="featured-songs-heading">
+  <div class="container">
+    <h2 id="featured-songs-heading" class="section-heading">Featured Songs</h2>
+
+    <!-- Container for dynamically loaded song cards -->
+    <div id="featured-songs-container">
+      <!-- JavaScript will populate this with featured songs -->
+    </div>
+
+    <!-- Loading state -->
+    <div id="featured-songs-loading" class="featured-songs__loading" style="display: none;">
+      <p class="text-center">Loading featured songs...</p>
+    </div>
+
+    <!-- Error state -->
+    <div id="featured-songs-error" class="featured-songs__error" style="display: none;">
+      <p class="text-center">
+        Unable to load featured songs. <a href="/releases/">View all releases</a>.
+      </p>
+    </div>
+
+    <!-- Fallback for users without JavaScript -->
+    <noscript>
+      <p class="text-center">
+        Check out our music on the <a href="/releases/">Releases page</a>.
+      </p>
     </noscript>
 
   </div>
