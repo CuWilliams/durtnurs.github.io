@@ -43,22 +43,22 @@
     },
     {
       "id": "release-empty-room-2010",
-      "title": "Live at The Empty Room",
+      "title": "The Empty Room",
       "artist": "tHE dURT nURS'",
       "releaseDate": "2010-10-31",
-      "type": "live",
-      "coverArt": "/assets/images/live-at-the-empty-room-album.png",
-      "coverArtAlt": "Live album cover showing an empty dive bar with a single microphone stand",
-      "description": "Our most intimate performance. Literally just us. The bartender left halfway through. Recorded on someone's phone. Peak authenticity.",
+      "type": "studio",
+      "coverArt": "/assets/images/the-empty-room-album.png",
+      "coverArtAlt": "Band rocking out to an empty room",
+      "description": "Our most intimate performance. Literally just us. Recorded on Snowman's phone. Peak authenticity.",
       "tracklist": [
         { "title": "Opening Banter (Empty Room Echo)", "hasAudio": false },
-        { "title": "That Song Everyone Requested (But Nobody Came)", "hasAudio": false },
+        { "title": "A Song for Everyone (But Nobody Came)", "hasAudio": false },
         { "title": "Improvised Blues in E", "hasAudio": false },
         { "title": "Wrong Chord, Right Feeling", "hasAudio": false },
         { "title": "The Ballad of Broken Strings", "hasAudio": false },
-        { "title": "Someone's Phone Ringing (feat. Unknown Caller)", "hasAudio": false },
+        { "title": "Who's Phone is Ringing?", "hasAudio": false },
         { "title": "3AM Regrets", "hasAudio": true, "audioFile": "/assets/audio/empty-room/3am-regrets.mp3", "duration": "2:09", "featured": true, "artwork": "/assets/images/songs/3am-regrets.png", "artworkAlt": "A drink and cigarettes on a nightstand at 3AM"},
-        { "title": "Closing Time (We're Still Here)", "hasAudio": false }
+        { "title": "We're Still Here", "hasAudio": false }
       ],
       "featured": false
     },
@@ -72,7 +72,8 @@
       "coverArtAlt": "EP cover featuring an empty whiskey glass and scattered guitar picks",
       "description": "Four tracks, forty takes, fourteen bottles. An EP that captures the essence of bad decisions and good intentions. Surprisingly coherent for the circumstances.",
       "tracklist": [
-        { "title": "Pour Decisions", "hasAudio": false },
+        { "title": "The Choice", "hasAudio": true, "audioFile": "/assets/audio/whiskey-sessions/the-choice.mp3", "duration": "3:25", "featured": true, "artwork": "/assets/images/songs/the-choice.png", "artworkAlt": "Guy holding a guitar in a dimly lit room"},
+        { "title": "Last Call Blues", "hasAudio": false },
         { "title": "On The Rocks (Like My Career)", "hasAudio": false },
         { "title": "Bourbon Street Blues", "hasAudio": false },
         { "title": "Last Call Revolution", "hasAudio": false }
