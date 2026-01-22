@@ -45,6 +45,7 @@ durtnurs.github.io/
 │   ├── data/                  # JSON content files
 │   ├── images/                # Images and gallery photos
 │   └── js/                    # JavaScript modules
+├── scripts/                   # Build scripts (minification, etc.)
 ├── _site/                     # Build output (gitignored)
 ├── .github/workflows/         # GitHub Actions for build/deploy
 ├── .eleventy.js               # 11ty configuration
@@ -181,7 +182,9 @@ Client-side gatekeeping (casual security by design):
 ```bash
 npm install          # Install dependencies (first time only)
 npm run serve        # Dev server with hot reload at localhost:8080
-npm run build        # Build to _site/ directory
+npm run build        # Production build (11ty + CSS/JS minification)
+npm run build:dev    # Development build (11ty only, faster)
+npm run minify       # Run minification on existing _site/ output
 ```
 
 ### Alternative (Direct Access)
