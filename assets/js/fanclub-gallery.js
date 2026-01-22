@@ -138,6 +138,15 @@ function renderMediaCard(mediaItem, index) {
 
   const dataType = type === 'video' ? 'video' : 'photo';
 
+  // Generate thumbnail with WebP support
+  const thumbnailHTML = DurtNursUtils.pictureElement({
+    src: thumbnailPath,
+    alt: title,
+    className: 'gallery-card__thumbnail',
+    loading: 'lazy',
+    onerror: "this.src='/assets/images/logo.png'; this.alt='Image unavailable';"
+  });
+
   return `
     <article class="gallery-card${featuredClass}"
              id="${id}"
@@ -150,11 +159,7 @@ function renderMediaCard(mediaItem, index) {
       <!-- Thumbnail Image -->
       <div class="gallery-card__thumbnail-wrapper">
         ${exclusiveBadge}
-        <img src="${thumbnailPath}"
-             alt="${title}"
-             class="gallery-card__thumbnail"
-             loading="lazy"
-             onerror="this.src='/assets/images/logo.png'; this.alt='Image unavailable';">
+        ${thumbnailHTML}
 
         <!-- Play icon overlay for videos -->
         ${type === 'video' ? '<span class="gallery-card__play-icon" aria-hidden="true">▶</span>' : ''}

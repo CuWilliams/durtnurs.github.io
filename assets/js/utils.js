@@ -80,6 +80,31 @@ const DurtNursUtils = {
     } else {
       callback();
     }
+  },
+
+  /**
+   * Generates HTML for a picture element with WebP source and fallback
+   * Provides modern image format with graceful degradation
+   *
+   * @param {Object} options - Image options
+   * @param {string} options.src - Original image path (PNG/JPG)
+   * @param {string} options.alt - Alt text for accessibility
+   * @param {string} [options.className] - CSS class for the img element
+   * @param {string} [options.loading='lazy'] - Loading strategy ('lazy' or 'eager')
+   * @param {string} [options.onerror] - Error handler for fallback
+   * @returns {string} HTML string for picture element
+   */
+  pictureElement({ src, alt, className = '', loading = 'lazy', onerror = '' }) {
+    // Generate WebP path by replacing extension
+    const webpSrc = src.replace(/\.(png|jpe?g)$/i, '.webp');
+
+    const classAttr = className ? ` class="${className}"` : '';
+    const errorAttr = onerror ? ` onerror="${onerror}"` : '';
+
+    return `<picture>
+      <source srcset="${webpSrc}" type="image/webp">
+      <img src="${src}" alt="${alt}"${classAttr} loading="${loading}"${errorAttr}>
+    </picture>`;
   }
 
 };

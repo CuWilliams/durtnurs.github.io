@@ -166,6 +166,15 @@ function renderReleaseCard(release) {
     </details>
   ` : '';
 
+  // Generate cover art with WebP support
+  const coverArtHTML = DurtNursUtils.pictureElement({
+    src: coverArt,
+    alt: coverArtAlt,
+    className: 'release-card__cover',
+    loading: 'lazy',
+    onerror: "this.src='/assets/images/logo.png'; this.alt='Album cover unavailable';"
+  });
+
   // Return complete card HTML using template literals
   // Template literals allow:
   // - Multi-line strings
@@ -176,11 +185,7 @@ function renderReleaseCard(release) {
 
       <!-- Album Cover -->
       <div class="release-card__cover-wrapper">
-        <img src="${coverArt}"
-             alt="${coverArtAlt}"
-             class="release-card__cover"
-             loading="lazy"
-             onerror="this.src='/assets/images/logo.png'; this.alt='Album cover unavailable';">
+        ${coverArtHTML}
       </div>
 
       <!-- Release Content -->

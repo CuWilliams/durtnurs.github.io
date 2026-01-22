@@ -97,13 +97,18 @@ function renderSongCard(song) {
   };
   const dataAttr = encodeURIComponent(JSON.stringify(trackData));
 
+  // Generate artwork with WebP support
+  const artworkHTML = DurtNursUtils.pictureElement({
+    src: song.artwork,
+    alt: song.artworkAlt || song.albumTitle + ' album artwork',
+    className: 'song-card__artwork',
+    loading: 'lazy'
+  });
+
   return `
     <article class="song-card">
       <div class="song-card__artwork-wrapper">
-        <img src="${song.artwork}"
-             alt="${song.artworkAlt || song.albumTitle + ' album artwork'}"
-             class="song-card__artwork"
-             loading="lazy">
+        ${artworkHTML}
         <button class="song-card__play-btn"
                 type="button"
                 aria-label="Play ${song.title}"

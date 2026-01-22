@@ -185,6 +185,7 @@ npm run serve        # Dev server with hot reload at localhost:8080
 npm run build        # Production build (11ty + CSS/JS minification)
 npm run build:dev    # Development build (11ty only, faster)
 npm run minify       # Run minification on existing _site/ output
+npm run optimize-images  # Generate WebP versions of all images
 ```
 
 ### Alternative (Direct Access)

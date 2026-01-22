@@ -157,17 +157,22 @@ function renderFeaturedRelease(release) {
   // Format the release date for display
   const formattedDate = DurtNursUtils.formatDate(releaseDate);
 
+  // Generate cover art with WebP support
+  const coverArtHTML = DurtNursUtils.pictureElement({
+    src: coverArt,
+    alt: coverArtAlt,
+    className: 'album-card__image',
+    loading: 'eager',
+    onerror: "this.src='/assets/images/logo.png'; this.alt='Album cover unavailable';"
+  });
+
   // Generate complete HTML using template literals
   // Template literals allow multi-line strings and embedded expressions
   const html = `
     <div class="album-card">
       <!-- Album Cover Artwork -->
       <div class="album-card__artwork">
-        <img src="${coverArt}"
-             alt="${coverArtAlt}"
-             class="album-card__image"
-             loading="eager"
-             onerror="this.src='/assets/images/logo.png'; this.alt='Album cover unavailable';">
+        ${coverArtHTML}
       </div>
 
       <!-- Album Details and Actions -->
