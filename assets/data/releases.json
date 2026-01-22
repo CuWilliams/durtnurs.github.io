@@ -73,7 +73,7 @@
       "coverArtAlt": "EP cover featuring an empty whiskey glass and scattered guitar picks",
       "description": "Four tracks, forty takes, fourteen bottles. An EP that captures the essence of bad decisions and good intentions. Surprisingly coherent for the circumstances.",
       "tracklist": [
-        { "title": "The Choice", "hasAudio": true, "audioFile": "/assets/audio/whiskey-sessions/the-choice.mp3", "duration": "3:25", "featured": true, "artwork": "/assets/images/songs/the-choice.png", "artworkAlt": "Guy holding a guitar in a dimly lit room"},
+        { "title": "The Choice", "hasAudio": true, "audioFile": "/assets/audio/whiskey-sessions/the-choice.mp3", "duration": "2:52", "featured": true, "artwork": "/assets/images/songs/the-choice.png", "artworkAlt": "Guy holding a guitar in a dimly lit room"},
         { "title": "Last Call Blues", "hasAudio": false },
         { "title": "On The Rocks (Like My Career)", "hasAudio": false },
         { "title": "Bourbon Street Blues", "hasAudio": false },
