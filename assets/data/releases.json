@@ -12,7 +12,7 @@
   "tracklist": [
     { "title": "Holy Roller Coaster (We're Getting Off)", "hasAudio": false },
     { "title": "Sermon on the Amount", "hasAudio": false },
-    { "title": "Two Sticks", "hasAudio": true, "audioFile": "/assets/audio/ecclesiastical-tapes/two-sticks.mp3", "duration": "3:13", "featured": true, "artwork": "/assets/images/songs/two-sticks.png", "artworkAlt": "Biblical mosh pit"},
+    { "title": "Two Sticks", "hasAudio": true, "audioFile": "/assets/audio/ecclesiastical-tapes/two-sticks.mp3", "duration": "3:22", "featured": true, "artwork": "/assets/images/songs/two-sticks.png", "artworkAlt": "Biblical mosh pit"},
     { "title": "Confession Booth Blues", "hasAudio": false },
     { "title": "The Book of Regrets (Chapters 1-47)", "hasAudio": false },
     { "title": "Disciples of Dysfunction", "hasAudio": true, "audioFile": "/assets/audio/ecclesiastical-tapes/disciples-of-dysfunction.mp3", "duration": "3:54", "featured": true, "artwork": "/assets/images/songs/disciples-of-dysfunction.png", "artworkAlt": "Roman rock bar"},
@@ -58,7 +58,7 @@
         { "title": "Wrong Chord, Right Feeling", "hasAudio": false },
         { "title": "The Ballad of Broken Strings", "hasAudio": false },
         { "title": "Who's Phone is Ringing?", "hasAudio": false },
-        { "title": "3AM Regrets", "hasAudio": true, "audioFile": "/assets/audio/empty-room/3am-regrets.mp3", "duration": "2:09", "featured": true, "artwork": "/assets/images/songs/3am-regrets.png", "artworkAlt": "A drink and cigarettes on a nightstand at 3AM"},
+        { "title": "3AM Regrets", "hasAudio": true, "audioFile": "/assets/audio/empty-room/3am-regrets.mp3", "duration": "2:24", "featured": true, "artwork": "/assets/images/songs/3am-regrets.png", "artworkAlt": "A drink and cigarettes on a nightstand at 3AM"},
         { "title": "We're Still Here", "hasAudio": false }
       ],
       "featured": false
