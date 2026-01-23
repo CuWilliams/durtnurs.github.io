@@ -35,7 +35,7 @@
         { "title": "First Chord (We Learned)", "hasAudio": false },
         { "title": "Microphone Check 1-2-3", "hasAudio": false },
         { "title": "That One Good Riff", "hasAudio": false },
-        { "title": "Accidentally Blues", "hasAudio": false },
+        { "title": "Sleezy Wheezy", "hasAudio": true, "audioFile": "/assets/audio/basement-tapes/sleezy-wheezy.mp3", "duration": "3:27", "featured": false, "artwork": "/assets/images/songs/sleezy-wheezy.png", "artworkAlt": "A confident Woman with her entourage in a back alley"},
         { "title": "The Song We Forgot", "hasAudio": false },
         { "title": "Amp Feedback Interlude", "hasAudio": false },
         { "title": "Maybe We Should Practice", "hasAudio": false }
