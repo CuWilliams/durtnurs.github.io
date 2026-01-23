@@ -14,6 +14,41 @@ Website for **tHE dURT nURS'**, featuring band info, discography, news, gallery,
 
 ---
 
+## Voice & Tone Guidelines
+
+**CRITICAL:** Before writing ANY user-facing content, read `docs/VOICE_AND_TONE.md`.
+
+### When Voice Guide Is Required
+
+You MUST read the voice guide before generating:
+- Error messages or authentication prompts
+- Announcements or news content
+- Album descriptions or track titles
+- Social media captions
+- Empty state messages
+- Legal page content
+- Any text the user will see
+
+### Why This Matters
+
+The band has a specific voice: self-aware absurdism with warmth underneath. Generic humor breaks immersion. The voice guide contains:
+- Specific humor techniques (juxtaposition, escalating absurdity, understatement)
+- Context-specific tone shifts (errors vs. releases vs. social)
+- Language patterns that define character
+- Sacred/profane balance (what we mock vs. what we respect)
+- Anti-patterns that break voice
+
+### Implementation Pattern
+
+1. User requests content creation
+2. You read `docs/VOICE_AND_TONE.md` 
+3. You generate content following documented patterns
+4. You check against Copy Checklist in voice guide
+
+Skip the voice guide and you'll produce content that sounds like a marketing team wrote it instead of two retired friends making music over whiskey.
+
+---
+
 ## Tech Stack
 
 - **Language:** HTML5, CSS3, JavaScript (ES6+)
