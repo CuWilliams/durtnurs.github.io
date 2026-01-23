@@ -1,7 +1,7 @@
 {
   "announcements": [
     {
-  "id": "005",
+  "id": "003",
   "date": "2025-01-19",
   "title": "Divine Intervention: We Actually Have Music Now",
   "category": "release",
@@ -14,14 +14,18 @@
   "featured": true
 },
     {
-      "id": "004",
-      "date": "2024-11-08",
-      "title": "New Website, Same Old Disappointment",
-      "category": "general",
-      "excerpt": "We rebuilt our website. It's still us, just with more CSS and fewer broken links. Progress is relative.",
-      "content": "<p>Welcome to our shiny new website, built with modern technology we barely understand. We've upgraded from table layouts to flexbox, which is apparently a big deal in web development circles.</p><p>The site now features responsive design (it works on phones!), progressive enhancement (it works without JavaScript!), and our trademark self-loathing (that's just us!).</p><p>Special thanks to our AI overlords for helping us fake competence in modern web development.</p>",
-      "featured": false
-    },
+  "id": "002",
+  "date": "2025-01-15",
+  "title": "Website 2.0: Now With More Confusion",
+  "category": "announcement",
+  "excerpt": "We've rebuilt the site with 11ty—a static site generator we chose because it sounded intimidating.",
+  "content": "<p>Welcome to our newly reconstructed digital disaster, now powered by 11ty—a static site generator we chose because it sounded intimidating. We've graduated from 'pile of HTML files' to 'pile of HTML files with YAML frontmatter,' which our AI consultant assures us is progress.</p><p>The site still works on phones, still works without JavaScript, and still features our trademark existential dread. Now with 100% more build processes we don't fully understand.</p>",
+  "link": {
+    "url": "/",
+    "text": "Explore the Chaos"
+  },
+  "featured": false
+},
     {
       "id": "001",
       "date": "2024-09-10",
