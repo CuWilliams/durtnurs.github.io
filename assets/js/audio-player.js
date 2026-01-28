@@ -28,6 +28,11 @@ const DurtNursPlayer = {
   _isInitialized: false,
   _currentTrack: null,
 
+  // Auto-queue state
+  _trackCatalog: [],          // All available tracks from releases.json
+  _autoQueueEnabled: false,   // Whether to auto-play next track
+  _catalogLoaded: false,      // Whether track catalog has been fetched
+
   // DOM element references (populated during init)
   _elements: {
     artwork: null,
@@ -37,7 +42,9 @@ const DurtNursPlayer = {
     seek: null,
     time: null,
     volume: null,
-    closeBtn: null
+    volumeBtn: null,
+    closeBtn: null,
+    autoQueueBtn: null
   },
 
   // ==========================================================================
@@ -150,6 +157,7 @@ const DurtNursPlayer = {
     this._setupAudio();
     this._bindEvents();
     this._loadVolumePreference();
+    this._loadAutoQueuePreference();
     this._setupPersistence();
     this._restorePlaybackState();
 
@@ -172,6 +180,7 @@ const DurtNursPlayer = {
           <div class="audio-player__text">
             <span class="audio-player__title">No track selected</span>
             <span class="audio-player__artist">tHE dURT nURS'</span>
+            <a href="https://suno.com/@thedurtnurs" class="audio-player__suno-link" target="_blank" rel="noopener noreferrer">More on Suno</a>
           </div>
         </div>
 
@@ -207,6 +216,10 @@ const DurtNursPlayer = {
                    aria-valuemax="100"
                    aria-valuenow="80">
           </div>
+
+          <button class="audio-player__autoqueue-btn" aria-label="Auto-queue: Off" aria-pressed="false" type="button" title="Auto-play next track">
+            <span class="audio-player__autoqueue-icon" aria-hidden="true"></span>
+          </button>
         </div>
 
         <button class="audio-player__close" aria-label="Close player" type="button">
@@ -234,7 +247,8 @@ const DurtNursPlayer = {
       time: this._container.querySelector('.audio-player__time'),
       volume: this._container.querySelector('.audio-player__volume'),
       volumeBtn: this._container.querySelector('.audio-player__volume-btn'),
-      closeBtn: this._container.querySelector('.audio-player__close')
+      closeBtn: this._container.querySelector('.audio-player__close'),
+      autoQueueBtn: this._container.querySelector('.audio-player__autoqueue-btn')
     };
   },
 
@@ -262,6 +276,7 @@ const DurtNursPlayer = {
     this._elements.seek.addEventListener('input', (e) => this._onSeekInput(e));
     this._elements.volume.addEventListener('input', (e) => this._onVolumeInput(e));
     this._elements.volumeBtn.addEventListener('click', () => this._toggleMute());
+    this._elements.autoQueueBtn.addEventListener('click', () => this._toggleAutoQueue());
     this._elements.closeBtn.addEventListener('click', () => this.stop());
 
     // Keyboard shortcuts (when player is focused)
@@ -278,6 +293,11 @@ const DurtNursPlayer = {
   _onTrackEnded() {
     this._updatePlayButton(false);
     this._elements.seek.value = 0;
+
+    // Auto-queue next track if enabled
+    if (this._autoQueueEnabled) {
+      this._playNextTrack();
+    }
   },
 
   /**
@@ -484,6 +504,120 @@ const DurtNursPlayer = {
    */
   _saveVolumePreference(volume) {
     localStorage.setItem('durtNursPlayerVolume', volume);
+  },
+
+  // ==========================================================================
+  // PRIVATE METHODS - AUTO-QUEUE
+  // ==========================================================================
+
+  /**
+   * Toggle auto-queue mode
+   */
+  _toggleAutoQueue() {
+    this._autoQueueEnabled = !this._autoQueueEnabled;
+    this._updateAutoQueueButton();
+    this._saveAutoQueuePreference();
+
+    // Load track catalog if enabling and not yet loaded
+    if (this._autoQueueEnabled && !this._catalogLoaded) {
+      this._loadTrackCatalog();
+    }
+
+    console.log(`🔀 Auto-queue ${this._autoQueueEnabled ? 'enabled' : 'disabled'}`);
+  },
+
+  /**
+   * Update auto-queue button UI state
+   */
+  _updateAutoQueueButton() {
+    const btn = this._elements.autoQueueBtn;
+    btn.setAttribute('aria-pressed', this._autoQueueEnabled);
+    btn.setAttribute('aria-label', `Auto-queue: ${this._autoQueueEnabled ? 'On' : 'Off'}`);
+    this._container.classList.toggle('audio-player--autoqueue', this._autoQueueEnabled);
+  },
+
+  /**
+   * Load auto-queue preference from localStorage
+   */
+  _loadAutoQueuePreference() {
+    const saved = localStorage.getItem('durtNursPlayerAutoQueue');
+    this._autoQueueEnabled = saved === 'true';
+    this._updateAutoQueueButton();
+
+    // Pre-load track catalog if auto-queue is enabled
+    if (this._autoQueueEnabled) {
+      this._loadTrackCatalog();
+    }
+  },
+
+  /**
+   * Save auto-queue preference to localStorage
+   */
+  _saveAutoQueuePreference() {
+    localStorage.setItem('durtNursPlayerAutoQueue', this._autoQueueEnabled);
+  },
+
+  /**
+   * Load all available tracks from releases.json
+   */
+  async _loadTrackCatalog() {
+    if (this._catalogLoaded) return;
+
+    try {
+      const data = await DurtNursUtils.fetchJSON('/assets/data/releases.json');
+      this._trackCatalog = [];
+
+      // Extract all tracks with audio
+      for (const release of data.releases) {
+        for (const track of release.tracklist) {
+          if (track.hasAudio && track.audioFile) {
+            this._trackCatalog.push({
+              title: track.title,
+              audioFile: track.audioFile,
+              duration: track.duration,
+              artwork: track.artwork || release.coverArt,
+              albumTitle: release.title,
+              artist: release.artist
+            });
+          }
+        }
+      }
+
+      this._catalogLoaded = true;
+      console.log(`📚 Loaded ${this._trackCatalog.length} tracks for auto-queue`);
+
+    } catch (error) {
+      console.error('❌ Failed to load track catalog:', error);
+    }
+  },
+
+  /**
+   * Play the next track (random selection, excluding current)
+   */
+  _playNextTrack() {
+    if (this._trackCatalog.length === 0) {
+      console.warn('No tracks available for auto-queue');
+      return;
+    }
+
+    // Filter out current track
+    const availableTracks = this._trackCatalog.filter(
+      track => !this._currentTrack || track.audioFile !== this._currentTrack.audioFile
+    );
+
+    if (availableTracks.length === 0) {
+      console.log('No other tracks available, replaying current');
+      this._audio.currentTime = 0;
+      this._audio.play();
+      return;
+    }
+
+    // Random selection
+    const randomIndex = Math.floor(Math.random() * availableTracks.length);
+    const nextTrack = availableTracks[randomIndex];
+
+    console.log(`⏭️ Auto-queuing: ${nextTrack.title}`);
+    this.play(nextTrack);
   },
 
   // ==========================================================================

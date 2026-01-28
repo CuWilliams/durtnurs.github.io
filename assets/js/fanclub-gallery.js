@@ -362,6 +362,13 @@ function init() {
 // Wait for DOM to be fully loaded before running code
 DurtNursUtils.onDOMReady(init);
 
+// Register with SPA navigation for page transitions
+if (typeof DurtNursSPA !== 'undefined') {
+  DurtNursSPA.registerModule('fanclub-gallery', init, {
+    pages: ['fanclub']
+  });
+}
+
 // =============================================================================
 // DEVELOPER CONSOLE MESSAGE
 // =============================================================================

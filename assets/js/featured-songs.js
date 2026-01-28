@@ -262,3 +262,10 @@ async function initFeaturedSongs() {
 // =============================================================================
 
 DurtNursUtils.onDOMReady(initFeaturedSongs);
+
+// Register with SPA navigation for page transitions
+if (typeof DurtNursSPA !== 'undefined') {
+  DurtNursSPA.registerModule('featured-songs', initFeaturedSongs, {
+    pages: ['home']
+  });
+}

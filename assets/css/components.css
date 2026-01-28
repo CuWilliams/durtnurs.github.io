@@ -2157,6 +2157,8 @@ p.origin-placeholder {
     Similar to background-size: cover but for <img> elements
   */
   object-fit: cover;
+  /* Respect EXIF orientation data for rotated images */
+  image-orientation: from-image;
   display: block;
   transition: transform var(--transition-slow);
 }

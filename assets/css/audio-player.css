@@ -84,6 +84,19 @@
   max-width: 150px;
 }
 
+.audio-player__suno-link {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  color: var(--color-aged-whiskey);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.audio-player__suno-link:hover {
+  color: var(--color-tarnished-brass);
+  text-decoration: underline;
+}
+
 /* ==========================================================================
    CONTROLS
    ========================================================================== */
@@ -338,6 +351,74 @@
 }
 
 /* ==========================================================================
+   AUTO-QUEUE BUTTON
+   ========================================================================== */
+
+.audio-player__autoqueue-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+
+  transition: color var(--transition-fast);
+}
+
+.audio-player__autoqueue-btn:hover {
+  color: var(--color-text-primary);
+}
+
+.audio-player__autoqueue-btn:focus {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Auto-queue Icon (shuffle arrows) */
+.audio-player__autoqueue-icon {
+  position: relative;
+  width: 16px;
+  height: 14px;
+}
+
+/* Two crossing arrows via CSS */
+.audio-player__autoqueue-icon::before,
+.audio-player__autoqueue-icon::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 2px;
+  background: currentColor;
+}
+
+.audio-player__autoqueue-icon::before {
+  top: 3px;
+  left: 0;
+  transform: rotate(20deg);
+}
+
+.audio-player__autoqueue-icon::after {
+  bottom: 3px;
+  left: 0;
+  transform: rotate(-20deg);
+}
+
+/* Active state - highlight color */
+.audio-player--autoqueue .audio-player__autoqueue-btn {
+  color: var(--color-aged-whiskey);
+}
+
+.audio-player--autoqueue .audio-player__autoqueue-icon::before,
+.audio-player--autoqueue .audio-player__autoqueue-icon::after {
+  background: var(--color-aged-whiskey);
+}
+
+/* ==========================================================================
    CLOSE BUTTON
    ========================================================================== */
 
@@ -409,6 +490,14 @@
   .audio-player__artist {
     font-size: 10px;
     max-width: 120px;
+  }
+
+  .audio-player__suno-link {
+    display: none; /* Hide on small screens to keep player compact */
+  }
+
+  .audio-player__autoqueue-btn {
+    display: none; /* Hide on small screens to keep player compact */
   }
 
   .audio-player__play-btn {

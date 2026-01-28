@@ -350,3 +350,10 @@ function bindTrackPlayButtons() {
 // Wait for DOM to be fully loaded before running code
 DurtNursUtils.onDOMReady(init);
 
+// Register with SPA navigation for page transitions
+if (typeof DurtNursSPA !== 'undefined') {
+  DurtNursSPA.registerModule('releases', init, {
+    pages: ['releases']
+  });
+}
+
