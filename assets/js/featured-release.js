@@ -52,14 +52,14 @@ const CONFIG = {
  */
 async function fetchReleases() {
   try {
-    console.log('📡 Fetching releases data...');
+    DurtNursUtils.debug('📡 Fetching releases data...');
     const data = await DurtNursUtils.fetchJSON(CONFIG.dataUrl);
 
-    console.log(`✅ Successfully loaded ${data.releases.length} releases`);
+    DurtNursUtils.debug(`✅ Successfully loaded ${data.releases.length} releases`);
     return data.releases;
 
   } catch (error) {
-    console.error('❌ Error fetching releases:', error);
+    DurtNursUtils.debugError('❌ Error fetching releases:', error);
     throw error;
   }
 }
@@ -84,7 +84,7 @@ async function fetchReleases() {
 function findFeaturedRelease(releases) {
   // Edge case: no releases available
   if (!releases || releases.length === 0) {
-    console.warn('⚠️ No releases available');
+    DurtNursUtils.debugWarn('⚠️ No releases available');
     return null;
   }
 
@@ -93,13 +93,13 @@ function findFeaturedRelease(releases) {
   let featured = releases.find(release => release.featured === true);
 
   if (featured) {
-    console.log(`✨ Found featured release: ${featured.title}`);
+    DurtNursUtils.debug(`✨ Found featured release: ${featured.title}`);
     return featured;
   }
 
   // Fallback: No featured release found, use most recent by date
   // Sort by date (newest first) and take the first one
-  console.log('ℹ️ No featured flag found, using most recent release');
+  DurtNursUtils.debug('ℹ️ No featured flag found, using most recent release');
 
   // Create a copy of the array before sorting (don't mutate original)
   // Array.slice() creates a shallow copy
@@ -112,7 +112,7 @@ function findFeaturedRelease(releases) {
 
   // Return the most recent release (first in sorted array)
   const mostRecent = sortedReleases[0];
-  console.log(`📅 Using most recent release: ${mostRecent.title}`);
+  DurtNursUtils.debug(`📅 Using most recent release: ${mostRecent.title}`);
   return mostRecent;
 }
 
@@ -140,7 +140,7 @@ function renderFeaturedRelease(release) {
   const container = document.getElementById(CONFIG.containerId);
 
   if (!container) {
-    console.error(`❌ Container #${CONFIG.containerId} not found`);
+    DurtNursUtils.debugError(`❌ Container #${CONFIG.containerId} not found`);
     return;
   }
 
@@ -205,7 +205,7 @@ function renderFeaturedRelease(release) {
   // Never use innerHTML with untrusted user input (XSS risk)
   container.innerHTML = html;
 
-  console.log(`✅ Featured release rendered: ${title}`);
+  DurtNursUtils.debug(`✅ Featured release rendered: ${title}`);
 }
 
 // =============================================================================
@@ -251,7 +251,7 @@ function showError(message) {
   }
 
   // Log to console for debugging
-  console.error(`❌ Error: ${message}`);
+  DurtNursUtils.debugError(`❌ Error: ${message}`);
 }
 
 /**
@@ -296,7 +296,7 @@ function toggleSectionVisibility(hasContent) {
  * 6. Handle any errors gracefully
  */
 async function init() {
-  console.log('🚀 Initializing featured release module...');
+  DurtNursUtils.debug('🚀 Initializing featured release module...');
 
   try {
     // Step 1: Show loading indicator
@@ -311,7 +311,7 @@ async function init() {
     // Check if we found a release to display
     // If no featured release, hide the entire section
     if (!featuredRelease) {
-      console.log('ℹ️ No featured release found, hiding section');
+      DurtNursUtils.debug('ℹ️ No featured release found, hiding section');
       toggleSectionVisibility(false);
       return;
     }
@@ -322,11 +322,11 @@ async function init() {
     // Step 5: Hide loading/error states
     hideStates();
 
-    console.log('✅ Featured release module initialized successfully');
+    DurtNursUtils.debug('✅ Featured release module initialized successfully');
 
   } catch (error) {
     // Catch any errors that occurred during the process
-    console.error('❌ Failed to initialize featured release:', error);
+    DurtNursUtils.debugError('❌ Failed to initialize featured release:', error);
     showError('Unable to load featured release.');
   }
 }

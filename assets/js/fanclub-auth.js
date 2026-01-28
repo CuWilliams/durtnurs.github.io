@@ -191,7 +191,7 @@ function isAuthenticated() {
   const authenticated = authStatus === 'authenticated';
 
   // Log for debugging (helps developers understand flow)
-  console.log(`🔐 Auth check: ${authenticated ? 'Authenticated' : 'Not authenticated'}`);
+  DurtNursUtils.debug(`🔐 Auth check: ${authenticated ? 'Authenticated' : 'Not authenticated'}`);
 
   return authenticated;
 }
@@ -223,7 +223,7 @@ function grantAccess() {
   // Reset attempt counter (fresh start for next session)
   attemptCount = 0;
 
-  console.log('✅ Access granted - authentication stored in sessionStorage');
+  DurtNursUtils.debug('✅ Access granted - authentication stored in sessionStorage');
 
   // Show the protected content
   showContent();
@@ -252,12 +252,12 @@ function grantAccess() {
 function denyAccess(attemptedCode) {
   // Log the failed attempt (helps with debugging)
   // In production security system, you'd log to server
-  console.warn(`❌ Access denied - incorrect code: "${attemptedCode}"`);
+  DurtNursUtils.debugWarn(`❌ Access denied - incorrect code: "${attemptedCode}"`);
 
   // Increment attempt counter
   attemptCount++;
 
-  console.log(`📊 Failed attempts: ${attemptCount} / ${CONFIG.maxAttempts}`);
+  DurtNursUtils.debug(`📊 Failed attempts: ${attemptCount} / ${CONFIG.maxAttempts}`);
 
   // Check if user has reached max attempts
   if (attemptCount >= CONFIG.maxAttempts) {
@@ -292,7 +292,7 @@ function showErrorMessage(attempt) {
   const messageEl = document.getElementById('fanclub-auth-error');
 
   if (!messageEl) {
-    console.warn('⚠️ Error message element not found');
+    DurtNursUtils.debugWarn('⚠️ Error message element not found');
     return;
   }
 
@@ -310,7 +310,7 @@ function showErrorMessage(attempt) {
   // role="alert" causes screen readers to announce immediately
   messageEl.setAttribute('role', 'alert');
 
-  console.log(`💬 Displaying error message #${attempt}: "${message}"`);
+  DurtNursUtils.debug(`💬 Displaying error message #${attempt}: "${message}"`);
 }
 
 /**
@@ -339,7 +339,7 @@ function handleDrunkRedirect() {
   const messageEl = document.getElementById('fanclub-auth-error');
 
   if (!messageEl) {
-    console.warn('⚠️ Error message element not found');
+    DurtNursUtils.debugWarn('⚠️ Error message element not found');
     return;
   }
 
@@ -361,7 +361,7 @@ function handleDrunkRedirect() {
     submitBtn.style.cursor = 'not-allowed';
   }
 
-  console.log('🍺 Drunk redirect initiated - user will be redirected in 5 seconds');
+  DurtNursUtils.debug('🍺 Drunk redirect initiated - user will be redirected in 5 seconds');
 
   // Update countdown every second
   const countdownInterval = setInterval(() => {
@@ -375,7 +375,7 @@ function handleDrunkRedirect() {
   // Redirect after delay
   redirectTimer = setTimeout(() => {
     clearInterval(countdownInterval);
-    console.log('🏠 Redirecting to homepage...');
+    DurtNursUtils.debug('🏠 Redirecting to homepage...');
     window.location.href = '/';
   }, CONFIG.redirectDelay);
 }
@@ -453,9 +453,9 @@ function showContent() {
 
   if (content) {
     content.classList.remove('hidden');
-    console.log('📖 Fan Club content is now visible');
+    DurtNursUtils.debug('📖 Fan Club content is now visible');
   } else {
-    console.warn('⚠️ Fan Club content container not found');
+    DurtNursUtils.debugWarn('⚠️ Fan Club content container not found');
   }
 }
 
@@ -470,9 +470,9 @@ function hidePrompt() {
 
   if (prompt) {
     prompt.classList.add('hidden');
-    console.log('🚪 Access prompt hidden');
+    DurtNursUtils.debug('🚪 Access prompt hidden');
   } else {
-    console.warn('⚠️ Access prompt element not found');
+    DurtNursUtils.debugWarn('⚠️ Access prompt element not found');
   }
 }
 
@@ -487,7 +487,7 @@ function showPrompt() {
 
   if (prompt) {
     prompt.classList.remove('hidden');
-    console.log('🔒 Access prompt displayed');
+    DurtNursUtils.debug('🔒 Access prompt displayed');
 
     // Focus the input field for immediate user interaction
     // setTimeout ensures DOM is ready before focusing
@@ -498,7 +498,7 @@ function showPrompt() {
       }
     }, 100);
   } else {
-    console.warn('⚠️ Access prompt element not found');
+    DurtNursUtils.debugWarn('⚠️ Access prompt element not found');
   }
 }
 
@@ -529,14 +529,14 @@ function handleFormSubmit(event) {
   // We want to handle submission with JavaScript instead
   event.preventDefault();
 
-  console.log('📝 Form submitted');
+  DurtNursUtils.debug('📝 Form submitted');
 
   // PHASE 8: Clear any existing redirect timer
   // If user submits during countdown, cancel the redirect
   if (redirectTimer) {
     clearTimeout(redirectTimer);
     redirectTimer = null;
-    console.log('⏹️ Redirect timer cleared');
+    DurtNursUtils.debug('⏹️ Redirect timer cleared');
   }
 
   // Clear any existing error message
@@ -547,7 +547,7 @@ function handleFormSubmit(event) {
 
   // Defensive check
   if (!input) {
-    console.error('❌ Input element not found');
+    DurtNursUtils.debugError('❌ Input element not found');
     return;
   }
 
@@ -578,11 +578,11 @@ function handleFormSubmit(event) {
   // Compare entered code with stored code (both uppercase)
   if (enteredCode === CONFIG.accessCode.toUpperCase()) {
     // Correct code!
-    console.log('✅ Correct code entered');
+    DurtNursUtils.debug('✅ Correct code entered');
     grantAccess();
   } else {
     // Wrong code
-    console.log('❌ Incorrect code entered');
+    DurtNursUtils.debug('❌ Incorrect code entered');
     denyAccess(enteredCode);
   }
 }
@@ -605,19 +605,19 @@ function handleFormSubmit(event) {
  * 5. Manage focus for accessibility
  */
 function initAuth() {
-  console.log('🚀 Initializing Fan Club authentication...');
+  DurtNursUtils.debug('🚀 Initializing Fan Club authentication...');
 
   // Check current authentication status
   if (isAuthenticated()) {
     // User is already authenticated in this session
     // Show content, hide prompt
-    console.log('✅ User already authenticated');
+    DurtNursUtils.debug('✅ User already authenticated');
     showContent();
     hidePrompt();
   } else {
     // User is not authenticated
     // Hide content, show prompt
-    console.log('🔒 User not authenticated - showing access prompt');
+    DurtNursUtils.debug('🔒 User not authenticated - showing access prompt');
     showPrompt();
 
     // Ensure content is hidden
@@ -635,9 +635,9 @@ function initAuth() {
     // Add submit event listener
     // This fires when user clicks submit button OR presses Enter in input
     form.addEventListener('submit', handleFormSubmit);
-    console.log('✅ Form submit handler attached');
+    DurtNursUtils.debug('✅ Form submit handler attached');
   } else {
-    console.warn('⚠️ Auth form not found - authentication may not work');
+    DurtNursUtils.debugWarn('⚠️ Auth form not found - authentication may not work');
   }
 
   // Additional keyboard shortcuts (optional enhancement)
@@ -650,11 +650,11 @@ function initAuth() {
       // - Show a hint
       // - Navigate back to main gallery
       // For now, we'll just log it
-      console.log('⌨️ Escape key pressed');
+      DurtNursUtils.debug('⌨️ Escape key pressed');
     }
   });
 
-  console.log('✅ Fan Club authentication initialized');
+  DurtNursUtils.debug('✅ Fan Club authentication initialized');
 }
 
 // =============================================================================
@@ -681,14 +681,14 @@ if (typeof DurtNursSPA !== 'undefined') {
  * This helps developers (and curious users) understand the system.
  * It's educational and transparent about the security level.
  */
-console.log('%c🎸 tHE dURT nURS\' Fan Club Authentication', 'font-size: 16px; font-weight: bold; color: #A05A24;');
-console.log('%cSecurity Level: Casual Gatekeeping', 'color: #8B7A43;');
-console.log('%cThe access code is visible in this file. This is intentional.', 'color: #A8A29E;');
-console.log('%cFor educational purposes, here\'s what\'s happening:', 'color: #A8A29E;');
-console.log('1. User enters access code');
-console.log('2. Code is compared to stored value in JavaScript');
-console.log('3. Success = sessionStorage flag + show content');
-console.log('4. Failure = humorous error message');
-console.log('5. Authentication persists until browser closes (sessionStorage)');
-console.log('%cThis is NOT secure. This is casual friends-only gatekeeping.', 'color: #5B1A1A; font-weight: bold;');
+DurtNursUtils.debug('%c🎸 tHE dURT nURS\' Fan Club Authentication', 'font-size: 16px; font-weight: bold; color: #A05A24;');
+DurtNursUtils.debug('%cSecurity Level: Casual Gatekeeping', 'color: #8B7A43;');
+DurtNursUtils.debug('%cThe access code is visible in this file. This is intentional.', 'color: #A8A29E;');
+DurtNursUtils.debug('%cFor educational purposes, here\'s what\'s happening:', 'color: #A8A29E;');
+DurtNursUtils.debug('1. User enters access code');
+DurtNursUtils.debug('2. Code is compared to stored value in JavaScript');
+DurtNursUtils.debug('3. Success = sessionStorage flag + show content');
+DurtNursUtils.debug('4. Failure = humorous error message');
+DurtNursUtils.debug('5. Authentication persists until browser closes (sessionStorage)');
+DurtNursUtils.debug('%cThis is NOT secure. This is casual friends-only gatekeeping.', 'color: #5B1A1A; font-weight: bold;');
 

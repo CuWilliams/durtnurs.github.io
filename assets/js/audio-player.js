@@ -63,12 +63,12 @@ const DurtNursPlayer = {
    */
   play(trackData) {
     if (!this._isInitialized) {
-      console.warn('DurtNursPlayer: Not initialized');
+      DurtNursUtils.debugWarn('DurtNursPlayer: Not initialized');
       return;
     }
 
     if (!trackData || !trackData.audioFile) {
-      console.error('DurtNursPlayer: Missing audioFile in trackData');
+      DurtNursUtils.debugError('DurtNursPlayer: Missing audioFile in trackData');
       return;
     }
 
@@ -90,7 +90,7 @@ const DurtNursPlayer = {
 
     // Play when ready
     this._audio.play().catch(err => {
-      console.error('DurtNursPlayer: Playback failed', err);
+      DurtNursUtils.debugError('DurtNursPlayer: Playback failed', err);
       this._updatePlayButton(false);
     });
   },
@@ -112,7 +112,7 @@ const DurtNursPlayer = {
 
     if (this._audio.paused) {
       this._audio.play().catch(err => {
-        console.error('DurtNursPlayer: Playback failed', err);
+        DurtNursUtils.debugError('DurtNursPlayer: Playback failed', err);
       });
     } else {
       this._audio.pause();
@@ -162,7 +162,7 @@ const DurtNursPlayer = {
     this._restorePlaybackState();
 
     this._isInitialized = true;
-    console.log('DurtNursPlayer: Initialized');
+    DurtNursUtils.debug('DurtNursPlayer: Initialized');
   },
 
   // ==========================================================================
@@ -332,7 +332,7 @@ const DurtNursPlayer = {
    * Handle audio errors
    */
   _onAudioError(e) {
-    console.error('DurtNursPlayer: Audio error', e);
+    DurtNursUtils.debugError('DurtNursPlayer: Audio error', e);
     this._elements.title.textContent = 'Error loading track';
     this._updatePlayButton(false);
   },
@@ -523,7 +523,7 @@ const DurtNursPlayer = {
       this._loadTrackCatalog();
     }
 
-    console.log(`🔀 Auto-queue ${this._autoQueueEnabled ? 'enabled' : 'disabled'}`);
+    DurtNursUtils.debug(`🔀 Auto-queue ${this._autoQueueEnabled ? 'enabled' : 'disabled'}`);
   },
 
   /**
@@ -584,10 +584,10 @@ const DurtNursPlayer = {
       }
 
       this._catalogLoaded = true;
-      console.log(`📚 Loaded ${this._trackCatalog.length} tracks for auto-queue`);
+      DurtNursUtils.debug(`📚 Loaded ${this._trackCatalog.length} tracks for auto-queue`);
 
     } catch (error) {
-      console.error('❌ Failed to load track catalog:', error);
+      DurtNursUtils.debugError('❌ Failed to load track catalog:', error);
     }
   },
 
@@ -596,7 +596,7 @@ const DurtNursPlayer = {
    */
   _playNextTrack() {
     if (this._trackCatalog.length === 0) {
-      console.warn('No tracks available for auto-queue');
+      DurtNursUtils.debugWarn('No tracks available for auto-queue');
       return;
     }
 
@@ -606,7 +606,7 @@ const DurtNursPlayer = {
     );
 
     if (availableTracks.length === 0) {
-      console.log('No other tracks available, replaying current');
+      DurtNursUtils.debug('No other tracks available, replaying current');
       this._audio.currentTime = 0;
       this._audio.play();
       return;
@@ -616,7 +616,7 @@ const DurtNursPlayer = {
     const randomIndex = Math.floor(Math.random() * availableTracks.length);
     const nextTrack = availableTracks[randomIndex];
 
-    console.log(`⏭️ Auto-queuing: ${nextTrack.title}`);
+    DurtNursUtils.debug(`⏭️ Auto-queuing: ${nextTrack.title}`);
     this.play(nextTrack);
   },
 
@@ -661,9 +661,9 @@ const DurtNursPlayer = {
 
     try {
       sessionStorage.setItem(this._STORAGE_KEY, JSON.stringify(state));
-      console.log('DurtNursPlayer: State saved', state.track.title, state.currentTime);
+      DurtNursUtils.debug('DurtNursPlayer: State saved', state.track.title, state.currentTime);
     } catch (e) {
-      console.warn('DurtNursPlayer: Could not save state', e);
+      DurtNursUtils.debugWarn('DurtNursPlayer: Could not save state', e);
     }
   },
 
@@ -686,12 +686,12 @@ const DurtNursPlayer = {
       // Check if state is stale (more than 1 hour old)
       const ONE_HOUR = 60 * 60 * 1000;
       if (Date.now() - state.timestamp > ONE_HOUR) {
-        console.log('DurtNursPlayer: Saved state expired, clearing');
+        DurtNursUtils.debug('DurtNursPlayer: Saved state expired, clearing');
         this._clearPlaybackState();
         return;
       }
 
-      console.log('DurtNursPlayer: Restoring state', state.track.title, state.currentTime);
+      DurtNursUtils.debug('DurtNursPlayer: Restoring state', state.track.title, state.currentTime);
 
       // Load the track
       this._currentTrack = state.track;
@@ -713,7 +713,7 @@ const DurtNursPlayer = {
         if (state.isPlaying) {
           this._audio.play().catch(err => {
             // Autoplay may be blocked - that's OK, user can click play
-            console.log('DurtNursPlayer: Autoplay blocked, user interaction required');
+            DurtNursUtils.debug('DurtNursPlayer: Autoplay blocked, user interaction required');
             this._updatePlayButton(false);
           });
         }
@@ -721,13 +721,13 @@ const DurtNursPlayer = {
 
       // Handle load errors
       this._audio.addEventListener('error', () => {
-        console.warn('DurtNursPlayer: Could not restore track, file may be unavailable');
+        DurtNursUtils.debugWarn('DurtNursPlayer: Could not restore track, file may be unavailable');
         this._clearPlaybackState();
         this._hidePlayer();
       }, { once: true });
 
     } catch (e) {
-      console.warn('DurtNursPlayer: Could not restore state', e);
+      DurtNursUtils.debugWarn('DurtNursPlayer: Could not restore state', e);
       this._clearPlaybackState();
     }
   },

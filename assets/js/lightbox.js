@@ -34,7 +34,7 @@
  * @returns {HTMLElement} Lightbox element (appended to body)
  */
 function createLightboxStructure() {
-  console.log('🔨 Creating lightbox structure...');
+  DurtNursUtils.debug('🔨 Creating lightbox structure...');
 
   const lightbox = document.createElement('div');
   lightbox.id = 'lightbox';
@@ -216,11 +216,11 @@ window.createLightbox = function(config) {
     const mediaItem = state.allMedia[index];
 
     if (!mediaItem) {
-      console.warn(`⚠️ No media item at index ${index}`);
+      DurtNursUtils.debugWarn(`⚠️ No media item at index ${index}`);
       return;
     }
 
-    console.log(`🔍 Opening lightbox for: ${mediaItem.title}`);
+    DurtNursUtils.debug(`🔍 Opening lightbox for: ${mediaItem.title}`);
 
     // Get or create lightbox
     if (!lightboxElement) {
@@ -259,7 +259,7 @@ window.createLightbox = function(config) {
    * Closes lightbox
    */
   function close() {
-    console.log('❌ Closing lightbox');
+    DurtNursUtils.debug('❌ Closing lightbox');
 
     if (lightboxElement) {
       lightboxElement.classList.remove('lightbox--active');
@@ -365,7 +365,7 @@ window.createLightbox = function(config) {
     const index = parseInt(card.dataset.index, 10);
 
     if (isNaN(index)) {
-      console.warn('⚠️ Card missing data-index attribute');
+      DurtNursUtils.debugWarn('⚠️ Card missing data-index attribute');
       return;
     }
 
@@ -384,7 +384,7 @@ window.createLightbox = function(config) {
       const container = document.getElementById(containerId);
 
       if (!container) {
-        console.warn(`⚠️ Lightbox container #${containerId} not found`);
+        DurtNursUtils.debugWarn(`⚠️ Lightbox container #${containerId} not found`);
         return;
       }
 
@@ -399,7 +399,7 @@ window.createLightbox = function(config) {
         }
       });
 
-      console.log(`🔍 Lightbox initialized for #${containerId}`);
+      DurtNursUtils.debug(`🔍 Lightbox initialized for #${containerId}`);
     },
 
     /**
@@ -446,4 +446,4 @@ window.createLightbox = function(config) {
 // MODULE LOADED MESSAGE
 // =============================================================================
 
-console.log('%c🔲 Lightbox Module Loaded', 'font-size: 12px; font-weight: bold; color: #8B7A43;');
+DurtNursUtils.debug('%c🔲 Lightbox Module Loaded', 'font-size: 12px; font-weight: bold; color: #8B7A43;');

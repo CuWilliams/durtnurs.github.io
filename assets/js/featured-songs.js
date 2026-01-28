@@ -70,7 +70,7 @@ function collectFeaturedSongs(releases) {
     });
   });
 
-  console.log(`🎵 Found ${featuredSongs.length} featured song(s)`);
+  DurtNursUtils.debug(`🎵 Found ${featuredSongs.length} featured song(s)`);
   return featuredSongs;
 }
 
@@ -194,10 +194,10 @@ function bindSongPlayButtons() {
       if (typeof DurtNursPlayer !== 'undefined') {
         DurtNursPlayer.play(trackData);
       } else {
-        console.warn('⚠️ DurtNursPlayer not available');
+        DurtNursUtils.debugWarn('⚠️ DurtNursPlayer not available');
       }
     } catch (err) {
-      console.error('Error parsing track data:', err);
+      DurtNursUtils.debugError('Error parsing track data:', err);
     }
   });
 }
@@ -211,11 +211,11 @@ function bindSongPlayButtons() {
  * Loads featured songs and renders them, or hides section if none found
  */
 async function initFeaturedSongs() {
-  console.log('🎵 Initializing featured songs module...');
+  DurtNursUtils.debug('🎵 Initializing featured songs module...');
 
   const container = document.getElementById(SONGS_CONFIG.containerId);
   if (!container) {
-    console.log('ℹ️ Featured songs container not found, skipping');
+    DurtNursUtils.debug('ℹ️ Featured songs container not found, skipping');
     return;
   }
 
@@ -228,7 +228,7 @@ async function initFeaturedSongs() {
 
     // If no featured songs, hide the entire section
     if (featuredSongs.length === 0) {
-      console.log('ℹ️ No featured songs found, hiding section');
+      DurtNursUtils.debug('ℹ️ No featured songs found, hiding section');
       toggleSongsSectionVisibility(false);
       return;
     }
@@ -248,10 +248,10 @@ async function initFeaturedSongs() {
     toggleSongsSectionVisibility(true);
     bindSongPlayButtons();
 
-    console.log('✅ Featured songs module initialized successfully');
+    DurtNursUtils.debug('✅ Featured songs module initialized successfully');
 
   } catch (error) {
-    console.error('❌ Failed to load featured songs:', error);
+    DurtNursUtils.debugError('❌ Failed to load featured songs:', error);
     // On error, hide the section rather than showing an error message
     toggleSongsSectionVisibility(false);
   }

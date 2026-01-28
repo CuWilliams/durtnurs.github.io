@@ -71,7 +71,7 @@ const DurtNursSPA = {
     // Set up browser history handling
     this._bindPopState();
 
-    console.log('🚀 SPA navigation initialized');
+    DurtNursUtils.debug('🚀 SPA navigation initialized');
   },
 
   /**
@@ -89,7 +89,7 @@ const DurtNursSPA = {
       cleanup: options.cleanup || null,
       pages: options.pages || null // null means runs on all pages
     };
-    console.log(`📦 Registered SPA module: ${name}`);
+    DurtNursUtils.debug(`📦 Registered SPA module: ${name}`);
   },
 
   /**
@@ -229,11 +229,11 @@ const DurtNursSPA = {
         detail: { url: fullUrl }
       }));
 
-      console.log(`✅ SPA navigated to: ${fullUrl}`);
+      DurtNursUtils.debug(`✅ SPA navigated to: ${fullUrl}`);
       return true;
 
     } catch (error) {
-      console.error('❌ SPA navigation failed:', error);
+      DurtNursUtils.debugError('❌ SPA navigation failed:', error);
       // Fall back to traditional navigation
       window.location.href = url;
       return false;
@@ -379,9 +379,9 @@ const DurtNursSPA = {
 
       try {
         module.init();
-        console.log(`🔄 Reinitialized module: ${name}`);
+        DurtNursUtils.debug(`🔄 Reinitialized module: ${name}`);
       } catch (error) {
-        console.error(`❌ Failed to reinitialize ${name}:`, error);
+        DurtNursUtils.debugError(`❌ Failed to reinitialize ${name}:`, error);
       }
     }
   },
@@ -411,7 +411,7 @@ const DurtNursSPA = {
         try {
           module.cleanup();
         } catch (error) {
-          console.error(`❌ Cleanup failed for ${name}:`, error);
+          DurtNursUtils.debugError(`❌ Cleanup failed for ${name}:`, error);
         }
       }
     }

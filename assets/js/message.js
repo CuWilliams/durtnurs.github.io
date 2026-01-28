@@ -83,7 +83,7 @@ function getMessageType() {
   // Example: if URL is "message.html?type=read-more", this returns "?type=read-more"
   const queryString = window.location.search;
 
-  console.log('🔍 Reading URL parameters:', queryString);
+  DurtNursUtils.debug('🔍 Reading URL parameters:', queryString);
 
   // URLSearchParams parses the query string into a searchable object
   // It automatically handles URL decoding (e.g., %20 → space)
@@ -93,7 +93,7 @@ function getMessageType() {
   // Returns null if the parameter doesn't exist
   const type = params.get('type');
 
-  console.log('📝 Message type:', type || 'none (will use default)');
+  DurtNursUtils.debug('📝 Message type:', type || 'none (will use default)');
 
   // Return the type, or null if not found
   // The calling function will handle the null case
@@ -110,19 +110,19 @@ function getMessageType() {
 function getMessageForType(type) {
   // If no type provided, use default
   if (!type) {
-    console.log('⚠️ No type parameter found, using default message');
+    DurtNursUtils.debug('⚠️ No type parameter found, using default message');
     return MESSAGE_CONFIG.default;
   }
 
   // Check if we have a message for this type
   // The 'in' operator checks if a property exists in an object
   if (type in MESSAGE_CONFIG) {
-    console.log(`✅ Found message for type: ${type}`);
+    DurtNursUtils.debug(`✅ Found message for type: ${type}`);
     return MESSAGE_CONFIG[type];
   }
 
   // Type exists but we don't have a message for it
-  console.log(`⚠️ Unknown message type: ${type}, using default`);
+  DurtNursUtils.debug(`⚠️ Unknown message type: ${type}, using default`);
   return MESSAGE_CONFIG.default;
 }
 
@@ -137,7 +137,7 @@ function getMessageForType(type) {
  * with the appropriate humorous message based on the URL parameter
  */
 function displayMessage() {
-  console.log('💬 Displaying message...');
+  DurtNursUtils.debug('💬 Displaying message...');
 
   // Find the message text element by its ID
   const messageElement = document.getElementById('message-text');
@@ -145,7 +145,7 @@ function displayMessage() {
   // Defensive programming: check if element exists
   // This prevents errors if the HTML structure changes
   if (!messageElement) {
-    console.error('❌ Message element not found!');
+    DurtNursUtils.debugError('❌ Message element not found!');
     return;
   }
 
@@ -160,7 +160,7 @@ function displayMessage() {
   // (though in this case we control all the messages, so it's not a risk)
   messageElement.textContent = message;
 
-  console.log('✅ Message displayed');
+  DurtNursUtils.debug('✅ Message displayed');
 }
 
 // =============================================================================
@@ -191,13 +191,13 @@ let countdownInterval = null;
  * 3. When reaches 0: stop timer and redirect
  */
 function startCountdown() {
-  console.log('⏱️ Starting countdown timer...');
+  DurtNursUtils.debug('⏱️ Starting countdown timer...');
 
   // Find the countdown display element
   const countdownElement = document.getElementById('timer-countdown');
 
   if (!countdownElement) {
-    console.error('❌ Countdown element not found!');
+    DurtNursUtils.debugError('❌ Countdown element not found!');
     return;
   }
 
@@ -214,14 +214,14 @@ function startCountdown() {
     // Decrement the seconds remaining
     secondsRemaining--;
 
-    console.log(`⏳ Countdown: ${secondsRemaining} seconds remaining`);
+    DurtNursUtils.debug(`⏳ Countdown: ${secondsRemaining} seconds remaining`);
 
     // Update the display
     countdownElement.textContent = secondsRemaining;
 
     // Check if countdown has finished
     if (secondsRemaining <= 0) {
-      console.log('🚀 Countdown complete! Redirecting...');
+      DurtNursUtils.debug('🚀 Countdown complete! Redirecting...');
 
       // Stop the interval from running again
       // clearInterval stops a setInterval timer
@@ -234,7 +234,7 @@ function startCountdown() {
     }
   }, 1000); // Run every 1000ms (1 second)
 
-  console.log('✅ Countdown timer started');
+  DurtNursUtils.debug('✅ Countdown timer started');
 }
 
 // =============================================================================
@@ -248,12 +248,12 @@ function startCountdown() {
  * the user clicks the exit button, which could cause issues.
  */
 function setupExitButton() {
-  console.log('🚪 Setting up exit button...');
+  DurtNursUtils.debug('🚪 Setting up exit button...');
 
   const exitButton = document.getElementById('message-exit');
 
   if (!exitButton) {
-    console.error('❌ Exit button not found!');
+    DurtNursUtils.debugError('❌ Exit button not found!');
     return;
   }
 
@@ -261,13 +261,13 @@ function setupExitButton() {
   // We use addEventListener instead of onclick for better practice
   // addEventListener allows multiple handlers and better control
   exitButton.addEventListener('click', (event) => {
-    console.log('👆 Exit button clicked');
+    DurtNursUtils.debug('👆 Exit button clicked');
 
     // Stop the countdown timer
     // This prevents the timer from continuing after we leave the page
     if (countdownInterval) {
       clearInterval(countdownInterval);
-      console.log('⏹️ Timer stopped');
+      DurtNursUtils.debug('⏹️ Timer stopped');
     }
 
     // Note: We don't need to preventDefault() here because
@@ -275,7 +275,7 @@ function setupExitButton() {
     // The browser will naturally navigate to that URL
   });
 
-  console.log('✅ Exit button ready');
+  DurtNursUtils.debug('✅ Exit button ready');
 }
 
 // =============================================================================
@@ -290,7 +290,7 @@ function setupExitButton() {
  */
 function cleanup() {
   if (countdownInterval) {
-    console.log('🧹 Cleaning up timer on page unload');
+    DurtNursUtils.debug('🧹 Cleaning up timer on page unload');
     clearInterval(countdownInterval);
     countdownInterval = null;
   }
@@ -311,7 +311,7 @@ function cleanup() {
  * 4. Register cleanup handler for page unload
  */
 function init() {
-  console.log('🚀 Initializing message page...');
+  DurtNursUtils.debug('🚀 Initializing message page...');
 
   // Display the message
   displayMessage();
@@ -327,7 +327,7 @@ function init() {
   // This could be from clicking a link, closing the tab, or the timer redirect
   window.addEventListener('beforeunload', cleanup);
 
-  console.log('✅ Message page initialized successfully');
+  DurtNursUtils.debug('✅ Message page initialized successfully');
 }
 
 // =============================================================================

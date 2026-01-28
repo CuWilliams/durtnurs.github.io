@@ -7,12 +7,56 @@
  * - JSON fetching with error handling
  * - Error display in containers
  * - DOM ready detection
+ * - Debug logging (conditionally enabled)
  *
  * Usage: Include this script BEFORE other scripts that depend on it.
  * All functions are exposed via the global DurtNursUtils object.
  */
 
+/**
+ * Debug mode flag - automatically enabled on localhost for development
+ * Set to true manually to enable debug logging in production
+ */
+const DEBUG = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
 const DurtNursUtils = {
+
+  /**
+   * Debug logging - only outputs when DEBUG is true (localhost)
+   * Use instead of console.log for development messages
+   *
+   * @param {...any} args - Arguments to pass to console.log
+   */
+  debug(...args) {
+    if (DEBUG) {
+      console.log(...args);
+    }
+  },
+
+  /**
+   * Debug warning - only outputs when DEBUG is true (localhost)
+   * Use instead of console.warn for development warnings
+   *
+   * @param {...any} args - Arguments to pass to console.warn
+   */
+  debugWarn(...args) {
+    if (DEBUG) {
+      console.warn(...args);
+    }
+  },
+
+  /**
+   * Debug error - only outputs when DEBUG is true (localhost)
+   * Use instead of console.error for development errors
+   * Note: Critical errors that should always be logged should use console.error directly
+   *
+   * @param {...any} args - Arguments to pass to console.error
+   */
+  debugError(...args) {
+    if (DEBUG) {
+      console.error(...args);
+    }
+  },
 
   /**
    * Converts ISO date string (YYYY-MM-DD) to readable format (Month Day, Year)

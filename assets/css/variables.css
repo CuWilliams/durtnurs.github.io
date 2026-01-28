@@ -238,3 +238,150 @@ h6 { font-size: var(--font-size-lg); }
   white-space: nowrap;
   border-width: 0;
 }
+
+
+/* ============================================
+   UTILITY CLASSES
+   Reusable single-purpose classes for common patterns
+   Prefix: u- (utility)
+   ============================================ */
+
+/* -----------------------------------------
+   BORDERS
+   Usage: <div class="u-border">
+   ----------------------------------------- */
+.u-border {
+  border: var(--border-width) solid var(--border-color);
+}
+
+.u-border-primary {
+  border: var(--border-width) solid var(--color-primary);
+}
+
+.u-border-accent {
+  border: var(--border-width) solid var(--color-accent);
+}
+
+.u-border-none {
+  border: none;
+}
+
+/* -----------------------------------------
+   SHADOWS
+   Usage: <div class="u-shadow-md">
+   ----------------------------------------- */
+.u-shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.u-shadow-md {
+  box-shadow: var(--shadow-md);
+}
+
+.u-shadow-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+.u-shadow-xl {
+  box-shadow: var(--shadow-xl);
+}
+
+.u-shadow-none {
+  box-shadow: none;
+}
+
+/* -----------------------------------------
+   TRANSITIONS
+   Usage: <div class="u-transition">
+   ----------------------------------------- */
+.u-transition {
+  transition: all var(--transition-base);
+}
+
+.u-transition-fast {
+  transition: all var(--transition-fast);
+}
+
+.u-transition-slow {
+  transition: all var(--transition-slow);
+}
+
+.u-transition-color {
+  transition: color var(--transition-base);
+}
+
+.u-transition-transform {
+  transition: transform var(--transition-base);
+}
+
+.u-transition-opacity {
+  transition: opacity var(--transition-base);
+}
+
+/* -----------------------------------------
+   INTERACTIVE HOVER STATES
+   Usage: <div class="u-hover-lift u-transition">
+   Note: Combine with u-transition for smooth effect
+   ----------------------------------------- */
+.u-hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.u-hover-glow:hover {
+  box-shadow: 0 0 20px var(--color-primary);
+}
+
+.u-hover-brighten:hover {
+  filter: brightness(1.1);
+}
+
+/* -----------------------------------------
+   TEXT UTILITIES
+   Usage: <p class="u-text-center">
+   ----------------------------------------- */
+.u-text-center {
+  text-align: center;
+}
+
+.u-text-left {
+  text-align: left;
+}
+
+.u-text-right {
+  text-align: right;
+}
+
+.u-text-uppercase {
+  text-transform: uppercase;
+}
+
+.u-text-muted {
+  color: var(--color-text-secondary);
+}
+
+/* -----------------------------------------
+   DISPLAY UTILITIES
+   Usage: <div class="u-hidden">
+   ----------------------------------------- */
+.u-hidden {
+  display: none;
+}
+
+.u-block {
+  display: block;
+}
+
+.u-inline-block {
+  display: inline-block;
+}
+
+.u-flex {
+  display: flex;
+}
+
+.u-flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

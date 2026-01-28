@@ -23,14 +23,14 @@
  */
 async function fetchAnnouncements() {
   try {
-    console.log('📡 Fetching announcements from JSON...');
+    DurtNursUtils.debug('📡 Fetching announcements from JSON...');
     const data = await DurtNursUtils.fetchJSON('/assets/data/announcements.json');
 
-    console.log(`✅ Successfully loaded ${data.announcements.length} announcements`);
+    DurtNursUtils.debug(`✅ Successfully loaded ${data.announcements.length} announcements`);
     return data.announcements;
 
   } catch (error) {
-    console.error('❌ Error fetching announcements:', error);
+    DurtNursUtils.debugError('❌ Error fetching announcements:', error);
 
     // Try to display error in whichever container is present
     const containerId = document.getElementById('homepage-news') ? 'homepage-news' : 'news-archive';
@@ -165,7 +165,7 @@ function renderAnnouncementCard(announcement, isHomepage = false) {
  * change what appears on the page.
  */
 async function renderHomepageNews() {
-  console.log('🏠 Rendering homepage news...');
+  DurtNursUtils.debug('🏠 Rendering homepage news...');
 
   // Get the container element where announcements will be inserted
   // getElementById is the fastest way to find an element by its ID
@@ -174,7 +174,7 @@ async function renderHomepageNews() {
   // Defensive programming: check if the element exists
   // This prevents errors if the HTML structure changes
   if (!container) {
-    console.warn('⚠️ Homepage news container not found');
+    DurtNursUtils.debugWarn('⚠️ Homepage news container not found');
     return;
   }
 
@@ -191,7 +191,7 @@ async function renderHomepageNews() {
   // slice(0, 3) gets elements at index 0, 1, and 2
   const recentAnnouncements = announcements.slice(0, 3);
 
-  console.log(`📰 Displaying ${recentAnnouncements.length} recent announcements`);
+  DurtNursUtils.debug(`📰 Displaying ${recentAnnouncements.length} recent announcements`);
 
   // Generate HTML for each announcement using map()
   // map() transforms each item in an array and returns a new array
@@ -209,7 +209,7 @@ async function renderHomepageNews() {
     </div>
   `;
 
-  console.log('✅ Homepage news rendered successfully');
+  DurtNursUtils.debug('✅ Homepage news rendered successfully');
 }
 
 // =============================================================================
@@ -223,13 +223,13 @@ async function renderHomepageNews() {
  * @param {string|null} filterCategory - Optional category to filter by
  */
 async function renderNewsArchive(filterCategory = null) {
-  console.log('📚 Rendering news archive...');
+  DurtNursUtils.debug('📚 Rendering news archive...');
 
   // Get the container element for the archive
   const container = document.getElementById('news-archive');
 
   if (!container) {
-    console.warn('⚠️ News archive container not found');
+    DurtNursUtils.debugWarn('⚠️ News archive container not found');
     return;
   }
 
@@ -250,7 +250,7 @@ async function renderNewsArchive(filterCategory = null) {
     announcements = announcements.filter(
       announcement => announcement.category === filterCategory
     );
-    console.log(`🔍 Filtered to ${announcements.length} ${filterCategory} announcements`);
+    DurtNursUtils.debug(`🔍 Filtered to ${announcements.length} ${filterCategory} announcements`);
   }
 
   // Generate HTML for all announcements
@@ -266,7 +266,7 @@ async function renderNewsArchive(filterCategory = null) {
     </div>
   `;
 
-  console.log(`✅ Archive rendered with ${announcements.length} announcements`);
+  DurtNursUtils.debug(`✅ Archive rendered with ${announcements.length} announcements`);
 }
 
 // =============================================================================
@@ -281,23 +281,23 @@ async function renderNewsArchive(filterCategory = null) {
  * This is a simple but effective way to handle different page behaviors
  */
 function init() {
-  console.log('🚀 Initializing announcements module...');
+  DurtNursUtils.debug('🚀 Initializing announcements module...');
 
   // Check if we're on the homepage
   // querySelector is a flexible way to find elements using CSS selectors
   if (document.getElementById('homepage-news')) {
-    console.log('📍 Detected homepage');
+    DurtNursUtils.debug('📍 Detected homepage');
     renderHomepageNews();
   }
 
   // Check if we're on the news archive page
   else if (document.getElementById('news-archive')) {
-    console.log('📍 Detected news archive page');
+    DurtNursUtils.debug('📍 Detected news archive page');
     renderNewsArchive();
   }
 
   else {
-    console.log('ℹ️ No announcement containers found on this page');
+    DurtNursUtils.debug('ℹ️ No announcement containers found on this page');
   }
 }
 

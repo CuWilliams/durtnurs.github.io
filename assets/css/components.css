@@ -645,46 +645,100 @@ figcaption {
 
 
 /* ============================================
-   ABOUT PAGE COMPONENTS (Phase 2)
+   HERO SECTION - BASE STYLES
+   Consolidated hero with CSS custom properties
+   Page modifiers only override colors
    ============================================ */
 
 /*
-  Hero variant for About page
-  Simpler, text-focused hero section
+  Base hero styles using CSS custom properties
+  Each page modifier sets its own gradient and colors
 */
-.hero--about {
+.hero {
+  /* Default CSS custom properties (can be overridden by modifiers) */
+  --hero-gradient-start: var(--color-coal-black);
+  --hero-gradient-mid: var(--color-burnt-umber);
+  --hero-gradient-end: var(--color-burnt-umber);
+  --hero-title-color: var(--color-primary);
+  --hero-subtitle-color: var(--color-accent);
+  --hero-description-color: var(--color-text-secondary);
+  --hero-title-size: var(--font-size-4xl);
+  --hero-title-size-md: var(--font-size-5xl);
+  --hero-subtitle-size: var(--font-size-xl);
+  --hero-subtitle-size-md: var(--font-size-2xl);
+  --hero-description-size: var(--font-size-base);
+  --hero-description-size-md: var(--font-size-lg);
+
+  /* Base layout styles */
   background: linear-gradient(
     135deg,
-    var(--color-coal-black) 0%,
-    var(--color-burnt-umber) 100%
+    var(--hero-gradient-start) 0%,
+    var(--hero-gradient-mid) 50%,
+    var(--hero-gradient-end) 100%
   );
   padding: var(--space-3xl) 0 var(--space-2xl);
   text-align: center;
 }
 
-.hero--about .hero__title {
-  font-size: var(--font-size-4xl);
-  color: var(--color-primary);
+.hero__title {
+  font-size: var(--hero-title-size);
+  color: var(--hero-title-color);
   margin-bottom: var(--space-sm);
 }
 
-.hero--about .hero__subtitle {
+.hero__subtitle {
   font-family: var(--font-heading);
-  font-size: var(--font-size-xl);
-  color: var(--color-accent);
+  font-size: var(--hero-subtitle-size);
+  color: var(--hero-subtitle-color);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
+.hero__description {
+  font-family: var(--font-body);
+  font-size: var(--hero-description-size);
+  line-height: var(--line-height-relaxed);
+  color: var(--hero-description-color);
+  max-width: 700px;
+  margin: var(--space-md) auto 0;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* Responsive: scale up sizes on larger screens */
 @media (min-width: 768px) {
-  .hero--about .hero__title {
-    font-size: var(--font-size-5xl);
+  .hero__title {
+    font-size: var(--hero-title-size-md);
   }
 
-  .hero--about .hero__subtitle {
-    font-size: var(--font-size-2xl);
+  .hero__subtitle {
+    font-size: var(--hero-subtitle-size-md);
+  }
+
+  .hero__description {
+    font-size: var(--hero-description-size-md);
   }
 }
+
+
+/* ============================================
+   HERO PAGE MODIFIERS
+   Each modifier only overrides custom properties
+   ============================================ */
+
+/* About page: warm whiskey gradient */
+.hero--about {
+  --hero-gradient-start: var(--color-coal-black);
+  --hero-gradient-mid: var(--color-burnt-umber);
+  --hero-gradient-end: var(--color-burnt-umber);
+  --hero-title-color: var(--color-primary);
+  --hero-subtitle-color: var(--color-accent);
+}
+
+
+/* ============================================
+   ABOUT PAGE COMPONENTS (Phase 2)
+   ============================================ */
 
 
 /* ============================================
@@ -1280,39 +1334,13 @@ p.origin-placeholder {
   Hero variant for News archive page
   Similar to About hero but with news-specific styling
 */
+/* News page: blood red gradient */
 .hero--news {
-  background: linear-gradient(
-    135deg,
-    var(--color-coal-black) 0%,
-    var(--color-dried-blood) 50%,
-    var(--color-burnt-umber) 100%
-  );
-  padding: var(--space-3xl) 0 var(--space-2xl);
-  text-align: center;
-}
-
-.hero--news .hero__title {
-  font-size: var(--font-size-4xl);
-  color: var(--color-aged-whiskey);
-  margin-bottom: var(--space-sm);
-}
-
-.hero--news .hero__subtitle {
-  font-family: var(--font-heading);
-  font-size: var(--font-size-xl);
-  color: var(--color-tarnished-brass);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-@media (min-width: 768px) {
-  .hero--news .hero__title {
-    font-size: var(--font-size-5xl);
-  }
-
-  .hero--news .hero__subtitle {
-    font-size: var(--font-size-2xl);
-  }
+  --hero-gradient-start: var(--color-coal-black);
+  --hero-gradient-mid: var(--color-dried-blood);
+  --hero-gradient-end: var(--color-burnt-umber);
+  --hero-title-color: var(--color-aged-whiskey);
+  --hero-subtitle-color: var(--color-tarnished-brass);
 }
 
 
@@ -1325,55 +1353,13 @@ p.origin-placeholder {
   RELEASES HERO VARIANT
   Unique gradient for releases/discography page
 */
+/* Releases page: whiskey amber gradient */
 .hero--releases {
-  background: linear-gradient(
-    135deg,
-    var(--color-coal-black) 0%,
-    var(--color-aged-whiskey) 50%,
-    var(--color-burnt-umber) 100%
-  );
-  padding: var(--space-3xl) 0 var(--space-2xl);
-  text-align: center;
-}
-
-.hero--releases .hero__title {
-  font-size: var(--font-size-4xl);
-  color: var(--color-tarnished-brass);
-  margin-bottom: var(--space-sm);
-}
-
-.hero--releases .hero__subtitle {
-  font-family: var(--font-heading);
-  font-size: var(--font-size-xl);
-  color: var(--color-text-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: var(--space-md);
-}
-
-.hero--releases .hero__description {
-  font-family: var(--font-body);
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-relaxed);
-  color: var(--color-text-secondary);
-  max-width: 700px;
-  margin: 0 auto;
-  text-transform: none;
-  letter-spacing: normal;
-}
-
-@media (min-width: 768px) {
-  .hero--releases .hero__title {
-    font-size: var(--font-size-5xl);
-  }
-
-  .hero--releases .hero__subtitle {
-    font-size: var(--font-size-2xl);
-  }
-
-  .hero--releases .hero__description {
-    font-size: var(--font-size-lg);
-  }
+  --hero-gradient-start: var(--color-coal-black);
+  --hero-gradient-mid: var(--color-aged-whiskey);
+  --hero-gradient-end: var(--color-burnt-umber);
+  --hero-title-color: var(--color-tarnished-brass);
+  --hero-subtitle-color: var(--color-text-primary);
 }
 
 
@@ -1947,55 +1933,13 @@ p.origin-placeholder {
   GALLERY HERO VARIANT
   Unique gradient for gallery page
 */
+/* Gallery page: iron gray gradient */
 .hero--gallery {
-  background: linear-gradient(
-    135deg,
-    var(--color-coal-black) 0%,
-    var(--color-iron-gray) 50%,
-    var(--color-burnt-umber) 100%
-  );
-  padding: var(--space-3xl) 0 var(--space-2xl);
-  text-align: center;
-}
-
-.hero--gallery .hero__title {
-  font-size: var(--font-size-4xl);
-  color: var(--color-tarnished-brass);
-  margin-bottom: var(--space-sm);
-}
-
-.hero--gallery .hero__subtitle {
-  font-family: var(--font-heading);
-  font-size: var(--font-size-xl);
-  color: var(--color-text-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: var(--space-md);
-}
-
-.hero--gallery .hero__description {
-  font-family: var(--font-body);
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-relaxed);
-  color: var(--color-text-secondary);
-  max-width: 700px;
-  margin: 0 auto;
-  text-transform: none;
-  letter-spacing: normal;
-}
-
-@media (min-width: 768px) {
-  .hero--gallery .hero__title {
-    font-size: var(--font-size-5xl);
-  }
-
-  .hero--gallery .hero__subtitle {
-    font-size: var(--font-size-2xl);
-  }
-
-  .hero--gallery .hero__description {
-    font-size: var(--font-size-lg);
-  }
+  --hero-gradient-start: var(--color-coal-black);
+  --hero-gradient-mid: var(--color-iron-gray);
+  --hero-gradient-end: var(--color-burnt-umber);
+  --hero-title-color: var(--color-tarnished-brass);
+  --hero-subtitle-color: var(--color-text-primary);
 }
 
 /*
@@ -2519,39 +2463,15 @@ p.origin-placeholder {
   CONTACT HERO VARIANT
   Dark, moody gradient for contact page
 */
+/* Contact page: blood-to-coal gradient, larger title */
 .hero--contact {
-  background: linear-gradient(
-    135deg,
-    var(--color-dried-blood) 0%,
-    var(--color-coal-black) 50%,
-    var(--color-burnt-umber) 100%
-  );
-  padding: var(--space-3xl) 0 var(--space-2xl);
-  text-align: center;
-}
-
-.hero--contact .hero__title {
-  font-size: var(--font-size-5xl);
-  color: var(--color-aged-whiskey);
-  margin-bottom: var(--space-sm);
-}
-
-.hero--contact .hero__subtitle {
-  font-family: var(--font-heading);
-  font-size: var(--font-size-xl);
-  color: var(--color-iron-gray);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-@media (min-width: 768px) {
-  .hero--contact .hero__title {
-    font-size: var(--font-size-6xl);
-  }
-
-  .hero--contact .hero__subtitle {
-    font-size: var(--font-size-2xl);
-  }
+  --hero-gradient-start: var(--color-dried-blood);
+  --hero-gradient-mid: var(--color-coal-black);
+  --hero-gradient-end: var(--color-burnt-umber);
+  --hero-title-color: var(--color-aged-whiskey);
+  --hero-subtitle-color: var(--color-iron-gray);
+  --hero-title-size: var(--font-size-5xl);
+  --hero-title-size-md: var(--font-size-6xl);
 }
 
 /*

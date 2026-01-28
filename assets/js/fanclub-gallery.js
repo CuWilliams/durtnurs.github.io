@@ -57,14 +57,14 @@ let lightbox = null;
  */
 async function fetchAllGalleryMedia() {
   try {
-    console.log('📡 Fetching FULL gallery media for Fan Club...');
+    DurtNursUtils.debug('📡 Fetching FULL gallery media for Fan Club...');
     const data = await DurtNursUtils.fetchJSON('/assets/data/gallery.json');
 
-    console.log(`✅ Successfully loaded ${data.media.length} media items (all items, including private)`);
+    DurtNursUtils.debug(`✅ Successfully loaded ${data.media.length} media items (all items, including private)`);
     return data.media;
 
   } catch (error) {
-    console.error('❌ Error fetching gallery media:', error);
+    DurtNursUtils.debugError('❌ Error fetching gallery media:', error);
     DurtNursUtils.displayError('fanclub-gallery-grid', 'Unable to load Fan Club gallery. Please try again later.');
     return [];
   }
@@ -262,12 +262,12 @@ function renderFanclubLightboxContent(mediaItem, contentContainer, counterContai
  * @param {Array} allMedia - Array of ALL media items to render
  */
 async function renderFullGallery(allMedia) {
-  console.log('🖼️ Rendering FULL Fan Club gallery...');
+  DurtNursUtils.debug('🖼️ Rendering FULL Fan Club gallery...');
 
   const container = document.getElementById('fanclub-gallery-grid');
 
   if (!container) {
-    console.warn('⚠️ Fan Club gallery container not found');
+    DurtNursUtils.debugWarn('⚠️ Fan Club gallery container not found');
     return;
   }
 
@@ -287,11 +287,11 @@ async function renderFullGallery(allMedia) {
   // We create a copy with [...allMedia] to avoid mutating the original
   const sortedMedia = sortAllMedia([...allMedia]);
 
-  console.log(`📸 Rendering ${sortedMedia.length} media items (FULL gallery - no filtering)`);
+  DurtNursUtils.debug(`📸 Rendering ${sortedMedia.length} media items (FULL gallery - no filtering)`);
 
   // Count how many are exclusive (not public)
   const exclusiveCount = sortedMedia.filter(item => !item.public).length;
-  console.log(`⭐ ${exclusiveCount} exclusive items (not in public gallery)`);
+  DurtNursUtils.debug(`⭐ ${exclusiveCount} exclusive items (not in public gallery)`);
 
   // Generate HTML for each media card
   const cardsHTML = sortedMedia
@@ -307,7 +307,7 @@ async function renderFullGallery(allMedia) {
   // Initialize lightbox with custom content renderer
   initLightbox();
 
-  console.log('✅ Full Fan Club gallery rendered successfully');
+  DurtNursUtils.debug('✅ Full Fan Club gallery rendered successfully');
 }
 
 // =============================================================================
@@ -331,7 +331,7 @@ function initLightbox() {
   // Initialize click handlers
   lightbox.init();
 
-  console.log('🔍 Fan Club lightbox initialized');
+  DurtNursUtils.debug('🔍 Fan Club lightbox initialized');
 }
 
 // =============================================================================
@@ -343,15 +343,15 @@ function initLightbox() {
  * Detects container and renders full gallery
  */
 function init() {
-  console.log('🚀 Initializing Fan Club gallery module...');
+  DurtNursUtils.debug('🚀 Initializing Fan Club gallery module...');
 
   // Check if we're on the Fan Club page
   if (document.getElementById('fanclub-gallery-grid')) {
-    console.log('📍 Detected Fan Club gallery page');
-    console.log('⭐ Rendering FULL gallery (no public flag filtering)');
+    DurtNursUtils.debug('📍 Detected Fan Club gallery page');
+    DurtNursUtils.debug('⭐ Rendering FULL gallery (no public flag filtering)');
     renderFullGallery();
   } else {
-    console.log('ℹ️ No Fan Club gallery container found on this page');
+    DurtNursUtils.debug('ℹ️ No Fan Club gallery container found on this page');
   }
 }
 
@@ -373,6 +373,6 @@ if (typeof DurtNursSPA !== 'undefined') {
 // DEVELOPER CONSOLE MESSAGE
 // =============================================================================
 
-console.log('%c⭐ Fan Club Gallery Module Loaded', 'font-size: 14px; font-weight: bold; color: #A05A24;');
-console.log('%cThis module displays ALL media items (no public flag filtering)', 'color: #8B7A43;');
-console.log('%cUses shared lightbox.js with custom content renderer', 'color: #A8A29E;');
+DurtNursUtils.debug('%c⭐ Fan Club Gallery Module Loaded', 'font-size: 14px; font-weight: bold; color: #A05A24;');
+DurtNursUtils.debug('%cThis module displays ALL media items (no public flag filtering)', 'color: #8B7A43;');
+DurtNursUtils.debug('%cUses shared lightbox.js with custom content renderer', 'color: #A8A29E;');

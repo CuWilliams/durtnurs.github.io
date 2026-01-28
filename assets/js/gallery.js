@@ -59,14 +59,14 @@ let lightbox = null;
  */
 async function fetchGalleryMedia() {
   try {
-    console.log('📡 Fetching gallery media from JSON...');
+    DurtNursUtils.debug('📡 Fetching gallery media from JSON...');
     const data = await DurtNursUtils.fetchJSON('/assets/data/gallery.json');
 
-    console.log(`✅ Successfully loaded ${data.media.length} media items`);
+    DurtNursUtils.debug(`✅ Successfully loaded ${data.media.length} media items`);
     return data.media;
 
   } catch (error) {
-    console.error('❌ Error fetching gallery media:', error);
+    DurtNursUtils.debugError('❌ Error fetching gallery media:', error);
     DurtNursUtils.displayError('gallery-grid', 'Unable to load gallery. Please try again later.');
     return [];
   }
@@ -101,7 +101,7 @@ function filterPublicMedia(media) {
   // "for each item, return true if item.public is true"
   const publicMedia = media.filter(item => item.public === true);
 
-  console.log(`🔍 Filtered ${media.length} items to ${publicMedia.length} public items`);
+  DurtNursUtils.debug(`🔍 Filtered ${media.length} items to ${publicMedia.length} public items`);
 
   return publicMedia;
 }
@@ -232,14 +232,14 @@ function renderMediaCard(mediaItem, index) {
  * @param {string} containerId - ID of container element
  */
 async function renderGallery(media, containerId) {
-  console.log(`🖼️ Rendering gallery to #${containerId}...`);
+  DurtNursUtils.debug(`🖼️ Rendering gallery to #${containerId}...`);
 
   // Find the grid container element
   const container = document.getElementById(containerId);
 
   // Defensive check: ensure element exists
   if (!container) {
-    console.warn(`⚠️ Gallery container #${containerId} not found`);
+    DurtNursUtils.debugWarn(`⚠️ Gallery container #${containerId} not found`);
     return;
   }
 
@@ -259,7 +259,7 @@ async function renderGallery(media, containerId) {
   // Sort media by featured status and date
   const sortedMedia = sortMedia([...media]); // [...media] creates copy to avoid mutating original
 
-  console.log(`📸 Rendering ${sortedMedia.length} media items`);
+  DurtNursUtils.debug(`📸 Rendering ${sortedMedia.length} media items`);
 
   // Generate HTML for each media card
   const cardsHTML = sortedMedia
@@ -275,7 +275,7 @@ async function renderGallery(media, containerId) {
   // Initialize lightbox using shared module
   initLightbox();
 
-  console.log('✅ Gallery rendered successfully');
+  DurtNursUtils.debug('✅ Gallery rendered successfully');
 }
 
 /**
@@ -283,7 +283,7 @@ async function renderGallery(media, containerId) {
  * This is the main function called by gallery.html
  */
 async function renderPublicGallery() {
-  console.log('🎨 Rendering PUBLIC gallery...');
+  DurtNursUtils.debug('🎨 Rendering PUBLIC gallery...');
 
   // Fetch all media
   let allMedia = await fetchGalleryMedia();
@@ -322,7 +322,7 @@ function initLightbox() {
   // Initialize click handlers
   lightbox.init();
 
-  console.log('🔍 Lightbox initialized');
+  DurtNursUtils.debug('🔍 Lightbox initialized');
 }
 
 // =============================================================================
@@ -334,14 +334,14 @@ function initLightbox() {
  * Detects which page we're on and calls appropriate render function
  */
 function init() {
-  console.log('🚀 Initializing gallery module...');
+  DurtNursUtils.debug('🚀 Initializing gallery module...');
 
   // Check if we're on the public gallery page
   if (document.getElementById('gallery-grid')) {
-    console.log('📍 Detected gallery page');
+    DurtNursUtils.debug('📍 Detected gallery page');
     renderPublicGallery();
   } else {
-    console.log('ℹ️ No gallery containers found on this page');
+    DurtNursUtils.debug('ℹ️ No gallery containers found on this page');
   }
 }
 

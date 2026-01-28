@@ -43,14 +43,14 @@
  */
 async function fetchReleases() {
   try {
-    console.log('📡 Fetching releases from JSON...');
+    DurtNursUtils.debug('📡 Fetching releases from JSON...');
     const data = await DurtNursUtils.fetchJSON('/assets/data/releases.json');
 
-    console.log(`✅ Successfully loaded ${data.releases.length} releases`);
+    DurtNursUtils.debug(`✅ Successfully loaded ${data.releases.length} releases`);
     return data.releases;
 
   } catch (error) {
-    console.error('❌ Error fetching releases:', error);
+    DurtNursUtils.debugError('❌ Error fetching releases:', error);
     DurtNursUtils.displayError('releases-grid', 'Unable to load releases. Please try again later.');
     return [];
   }
@@ -227,14 +227,14 @@ function renderReleaseCard(release) {
  * Applies grid layout via CSS
  */
 async function renderAllReleases() {
-  console.log('🎸 Rendering all releases...');
+  DurtNursUtils.debug('🎸 Rendering all releases...');
 
   // Find the grid container element
   const container = document.getElementById('releases-grid');
 
   // Defensive check: ensure element exists
   if (!container) {
-    console.warn('⚠️ Releases grid container not found');
+    DurtNursUtils.debugWarn('⚠️ Releases grid container not found');
     return;
   }
 
@@ -259,7 +259,7 @@ async function renderAllReleases() {
     return new Date(b.releaseDate) - new Date(a.releaseDate);
   });
 
-  console.log(`📀 Rendering ${releases.length} releases`);
+  DurtNursUtils.debug(`📀 Rendering ${releases.length} releases`);
 
   // Generate HTML for each release
   // map() transforms each release object into HTML string
@@ -274,7 +274,7 @@ async function renderAllReleases() {
   // Never use innerHTML with user-generated content (XSS risk)
   container.innerHTML = cardsHTML;
 
-  console.log('✅ Releases rendered successfully');
+  DurtNursUtils.debug('✅ Releases rendered successfully');
 }
 
 // =============================================================================
@@ -288,19 +288,19 @@ async function renderAllReleases() {
  * This function runs when the page loads (see auto-initialization below)
  */
 async function init() {
-  console.log('🚀 Initializing releases module...');
+  DurtNursUtils.debug('🚀 Initializing releases module...');
 
   // Check if we're on the releases page
   // Look for the releases grid container
   if (document.getElementById('releases-grid')) {
-    console.log('📍 Detected releases page');
+    DurtNursUtils.debug('📍 Detected releases page');
     await renderAllReleases();
 
     // Bind click handlers for track play buttons
     bindTrackPlayButtons();
   }
   else {
-    console.log('ℹ️ No release containers found on this page');
+    DurtNursUtils.debug('ℹ️ No release containers found on this page');
   }
 }
 
@@ -321,26 +321,26 @@ function bindTrackPlayButtons() {
     // Parse track data from button's data attribute
     const trackDataStr = playBtn.getAttribute('data-track');
     if (!trackDataStr) {
-      console.warn('⚠️ No track data found on play button');
+      DurtNursUtils.debugWarn('⚠️ No track data found on play button');
       return;
     }
 
     try {
       const trackData = JSON.parse(decodeURIComponent(trackDataStr));
-      console.log('🎵 Playing track:', trackData.title);
+      DurtNursUtils.debug('🎵 Playing track:', trackData.title);
 
       // Call the audio player
       if (typeof DurtNursPlayer !== 'undefined') {
         DurtNursPlayer.play(trackData);
       } else {
-        console.error('❌ DurtNursPlayer not available');
+        DurtNursUtils.debugError('❌ DurtNursPlayer not available');
       }
     } catch (err) {
-      console.error('❌ Error parsing track data:', err);
+      DurtNursUtils.debugError('❌ Error parsing track data:', err);
     }
   });
 
-  console.log('✅ Track play button handlers bound');
+  DurtNursUtils.debug('✅ Track play button handlers bound');
 }
 
 // =============================================================================
