@@ -52,6 +52,9 @@ function collectFeaturedSongs(releases) {
         const artworkAlt = track.artworkAlt || track.artwork
           ? `${track.title} song artwork`
           : release.coverArtAlt;
+        // Use track video if available, otherwise fall back to album video
+        const artworkVideo = track.artworkVideo || release.coverArtVideo;
+        const artworkVideoPoster = track.artworkVideoPoster || track.artwork || release.coverArtVideoPoster || release.coverArt;
 
         featuredSongs.push({
           // Track data
@@ -61,6 +64,8 @@ function collectFeaturedSongs(releases) {
           // Artwork (track-specific or album fallback)
           artwork: artwork,
           artworkAlt: artworkAlt,
+          artworkVideo: artworkVideo,
+          artworkVideoPoster: artworkVideoPoster,
           // Album context for display and audio player
           albumTitle: release.title,
           albumId: release.id,
@@ -97,9 +102,11 @@ function renderSongCard(song) {
   };
   const dataAttr = encodeURIComponent(JSON.stringify(trackData));
 
-  // Generate artwork with WebP support
-  const artworkHTML = DurtNursUtils.pictureElement({
+  // Generate artwork (supports both static images and animated video)
+  const artworkHTML = DurtNursUtils.mediaElement({
     src: song.artwork,
+    video: song.artworkVideo,
+    poster: song.artworkVideoPoster || song.artwork,
     alt: song.artworkAlt || song.albumTitle + ' album artwork',
     className: 'song-card__artwork',
     loading: 'lazy'

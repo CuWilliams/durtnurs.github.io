@@ -151,15 +151,19 @@ function renderFeaturedRelease(release) {
     type,
     coverArt,
     coverArtAlt,
+    coverArtVideo,
+    coverArtVideoPoster,
     description
   } = release;
 
   // Format the release date for display
   const formattedDate = DurtNursUtils.formatDate(releaseDate);
 
-  // Generate cover art with WebP support
-  const coverArtHTML = DurtNursUtils.pictureElement({
+  // Generate cover art (supports both static images and animated video)
+  const coverArtHTML = DurtNursUtils.mediaElement({
     src: coverArt,
+    video: coverArtVideo,
+    poster: coverArtVideoPoster || coverArt,
     alt: coverArtAlt,
     className: 'album-card__image',
     loading: 'eager',

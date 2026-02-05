@@ -348,6 +348,18 @@ section {
 }
 
 /*
+  VIDEO COVER ART
+  Animated album artwork using looping video
+  Same styling as images for consistent appearance
+*/
+.album-card__artwork video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/*
   DETAILS SECTION
   Contains title, date, description, and action buttons
 */

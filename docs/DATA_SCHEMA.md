@@ -67,6 +67,8 @@ Discography and album data.
       "type": "album",
       "coverArt": "/assets/images/album-cover.png",
       "coverArtAlt": "Description for screen readers",
+      "coverArtVideo": "/assets/images/album-cover.mp4",
+      "coverArtVideoPoster": "/assets/images/album-cover.png",
       "description": "Album description text",
       "tracklist": [
         { "title": "Track 1 Title", "hasAudio": false },
@@ -89,9 +91,29 @@ Discography and album data.
 | `type` | string | Yes | One of: `album`, `ep`, `single`, `live`, `compilation` |
 | `coverArt` | string | Yes | Path to cover image |
 | `coverArtAlt` | string | Yes | Alt text for accessibility |
+| `coverArtVideo` | string | No | Path to animated cover video (MP4) |
+| `coverArtVideoPoster` | string | No | Poster image for video (defaults to coverArt) |
 | `description` | string | Yes | Album description |
 | `tracklist` | array | Yes | Array of track objects (see Track Schema below) |
 | `featured` | boolean | No | Highlight on homepage (default: false) |
+
+### Animated Cover Art (Video)
+
+Releases can have animated cover art using MP4/WebM video files. The video autoplays, loops, and is muted for a seamless visual experience.
+
+**File naming convention:**
+- MP4: `/assets/images/album-name.mp4`
+- WebM: `/assets/images/album-name.webm` (auto-detected from MP4 path)
+- Poster: Use the static PNG/JPG cover art as the poster
+
+**Example:**
+```json
+{
+  "coverArt": "/assets/images/the-ecclesiastical-tapes.png",
+  "coverArtAlt": "Two robed figures playing instruments",
+  "coverArtVideo": "/assets/images/the-ecclesiastical-tapes.mp4"
+}
+```
 
 > **Note:** Streaming links (Spotify, Apple Music, etc.) are not currently supported at the release level. Audio playback is handled via individual tracks with the `audioFile` field, and external links can be added at the track level via `sunoUrl`.
 
@@ -107,7 +129,10 @@ Each track in the tracklist is an object with the following fields:
     "audioFile": "/assets/audio/album/track.mp3",
     "duration": "3:42",
     "sunoUrl": "https://suno.com/song/abc123",
-    "artwork": "/assets/images/tracks/track-art.png",
+    "artwork": "/assets/images/songs/track-art.png",
+    "artworkAlt": "Description of track artwork",
+    "artworkVideo": "/assets/images/songs/track-art.mp4",
+    "artworkVideoPoster": "/assets/images/songs/track-art.png",
     "featured": true
   },
   {
@@ -125,7 +150,12 @@ Each track in the tracklist is an object with the following fields:
 | `duration` | string | If hasAudio | Track length (MM:SS format) |
 | `sunoUrl` | string | No | Link to Suno platform |
 | `artwork` | string | No | Track-specific artwork (falls back to album art) |
+| `artworkAlt` | string | No | Alt text for track artwork |
+| `artworkVideo` | string | No | Animated track artwork video (MP4) |
+| `artworkVideoPoster` | string | No | Poster image for video (defaults to artwork) |
 | `featured` | boolean | No | Highlight as featured song (default: false) |
+
+> **Note:** Track artwork video fields follow the same conventions as album cover videos. If a track has `artworkVideo` specified, it will display as animated artwork. If not, the track inherits the album's video (if any) or falls back to static images.
 
 ---
 
@@ -252,4 +282,4 @@ Consider adding JSON Schema validation in the future for stricter enforcement.
 
 ---
 
-*Last updated: January 2026*
+*Last updated: February 2026*

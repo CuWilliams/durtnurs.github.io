@@ -104,6 +104,8 @@ function renderReleaseCard(release) {
     type,
     coverArt,
     coverArtAlt,
+    coverArtVideo,
+    coverArtVideoPoster,
     description,
     tracklist,
     featured
@@ -166,9 +168,11 @@ function renderReleaseCard(release) {
     </details>
   ` : '';
 
-  // Generate cover art with WebP support
-  const coverArtHTML = DurtNursUtils.pictureElement({
+  // Generate cover art (supports both static images and animated video)
+  const coverArtHTML = DurtNursUtils.mediaElement({
     src: coverArt,
+    video: coverArtVideo,
+    poster: coverArtVideoPoster || coverArt,
     alt: coverArtAlt,
     className: 'release-card__cover',
     loading: 'lazy',

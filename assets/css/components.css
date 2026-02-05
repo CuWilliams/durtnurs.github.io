@@ -1543,6 +1543,32 @@ p.origin-placeholder {
   transform: scale(1.05);
 }
 
+/*
+  VIDEO COVER ART
+  Animated album/track artwork using looping video
+  Same styling as images for consistent appearance
+*/
+.release-card__cover-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Disable hover zoom for videos (can cause performance issues on some devices) */
+.release-card:hover video.release-card__cover {
+  transform: none;
+}
+
+/* Fallback for browsers without aspect-ratio support */
+@supports not (aspect-ratio: 1 / 1) {
+  .release-card__cover-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
 
 /*
   CARD CONTENT SECTION
@@ -3815,6 +3841,14 @@ p.origin-placeholder {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Video artwork for animated song covers */
+.song-card__artwork-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* Play button overlay - centered on artwork */

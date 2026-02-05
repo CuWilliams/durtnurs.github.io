@@ -149,6 +149,68 @@ const DurtNursUtils = {
       <source srcset="${webpSrc}" type="image/webp">
       <img src="${src}" alt="${alt}"${classAttr} loading="${loading}"${errorAttr}>
     </picture>`;
+  },
+
+  /**
+   * Generates HTML for a video element with WebM and MP4 sources
+   * Used for animated album/track artwork that loops silently
+   *
+   * @param {Object} options - Video options
+   * @param {string} options.src - Video path (MP4)
+   * @param {string} [options.poster] - Poster image shown before video loads
+   * @param {string} options.alt - Description for accessibility (aria-label)
+   * @param {string} [options.className] - CSS class for the video element
+   * @param {boolean} [options.loop=true] - Whether video should loop
+   * @param {boolean} [options.muted=true] - Whether video should be muted
+   * @param {boolean} [options.autoplay=true] - Whether video should autoplay
+   * @param {boolean} [options.playsinline=true] - Prevents fullscreen on iOS
+   * @returns {string} HTML string for video element
+   */
+  videoElement({ src, poster, alt, className = '', loop = true, muted = true, autoplay = true, playsinline = true }) {
+    // Generate WebM path by replacing extension
+    const webmSrc = src.replace(/\.mp4$/i, '.webm');
+
+    const classAttr = className ? ` class="${className}"` : '';
+    const posterAttr = poster ? ` poster="${poster}"` : '';
+
+    // Build attribute string for boolean attributes
+    const attrs = [
+      loop ? 'loop' : '',
+      muted ? 'muted' : '',
+      autoplay ? 'autoplay' : '',
+      playsinline ? 'playsinline' : ''
+    ].filter(Boolean).join(' ');
+
+    return `<video${classAttr}${posterAttr} ${attrs} aria-label="${alt}">
+      <source src="${webmSrc}" type="video/webm">
+      <source src="${src}" type="video/mp4">
+    </video>`;
+  },
+
+  /**
+   * Generates HTML for either a video or picture element based on content type
+   * Use this when rendering media that could be either animated (video) or static (image)
+   *
+   * @param {Object} options - Media options
+   * @param {string} options.src - Image path (PNG/JPG) - also used as default poster
+   * @param {string} [options.video] - Video path (MP4) - if provided, renders video element
+   * @param {string} [options.poster] - Custom poster image (defaults to src if not specified)
+   * @param {string} options.alt - Alt text/aria-label for accessibility
+   * @param {string} [options.className] - CSS class for the element
+   * @param {string} [options.loading='lazy'] - Loading strategy for images
+   * @param {string} [options.onerror] - Error handler for image fallback
+   * @returns {string} HTML string for picture or video element
+   */
+  mediaElement({ src, video, poster, alt, className = '', loading = 'lazy', onerror = '' }) {
+    if (video) {
+      return this.videoElement({
+        src: video,
+        poster: poster || src,
+        alt,
+        className
+      });
+    }
+    return this.pictureElement({ src, alt, className, loading, onerror });
   }
 
 };
