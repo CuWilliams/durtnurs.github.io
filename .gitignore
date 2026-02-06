@@ -14,6 +14,9 @@ Desktop.ini
 .vscode/
 *.code-workspace
 
+# Claude Code
+.claude/
+
 # Editors
 .idea/
 *.swp
