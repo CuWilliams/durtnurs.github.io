@@ -10,7 +10,7 @@ Website for **tHE dURT nURS'**, featuring band info, discography, news, gallery,
 
 **Live Site:** https://www.durtnurs.com
 
-**Current Status:** Production (Phase 10 complete + 11ty templating)
+**Current Status:** Production (v2.3.0 - Merch & Features)
 
 ---
 
@@ -132,6 +132,7 @@ Content managed via JSON, rendered dynamically:
 - `releases.json` - Set `"featured": true` for homepage
 - `gallery.json` - Set `"public": false` for Fan Club exclusive
 - `announcements.json` - Categories: `news`, `release`, `show`, `general`
+- `merch.json` - Products with badges (`new`, `sold`, `wow`, `hot`) and sales banner
 
 **Key conventions:**
 - Dates: ISO 8601 format (`YYYY-MM-DD`) with leading zeros
@@ -311,4 +312,4 @@ git push origin main
 
 ---
 
-*Maintained for Claude Code sessions. Last updated: January 2026*
+*Maintained for Claude Code sessions. Last updated: February 2026*

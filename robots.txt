@@ -8,8 +8,9 @@ Allow: /
 # Disallow Fan Club area (members only)
 Disallow: /fanclub/
 
-# Disallow message page (utility page, not useful in search)
+# Disallow utility pages (not useful in search)
 Disallow: /message/
+Disallow: /checkout/
 
 # Sitemap location
 Sitemap: https://durtnurs.com/sitemap.xml

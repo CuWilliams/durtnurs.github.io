@@ -253,6 +253,59 @@ Photos and videos for public gallery and Fan Club.
 
 ---
 
+## Schema: merch.json
+
+Product catalog for the parody merchandise store.
+
+```json
+{
+  "merchandise": [
+    {
+      "id": "merch-product-name",
+      "title": "Product Title",
+      "price": "49.99",
+      "image": "/assets/images/merch/product.png",
+      "imageAlt": "Product description for accessibility",
+      "description": "Humorous product description",
+      "badge": "new",
+      "available": true,
+      "category": "apparel",
+      "featured": true
+    }
+  ],
+  "salesBanner": {
+    "active": true,
+    "message": "FLASH SALE: Banner text",
+    "subtext": "Optional subtext"
+  }
+}
+```
+
+### Field Reference
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string | Yes | Unique identifier with `merch-` prefix |
+| `title` | string | Yes | Product name |
+| `price` | string | Yes | Display price (without $ symbol) |
+| `image` | string | Yes | Path to product image |
+| `imageAlt` | string | Yes | Alt text for accessibility |
+| `description` | string | Yes | Humorous product description |
+| `badge` | string | No | One of: `new`, `sold`, `wow`, `hot`, or null |
+| `available` | boolean | Yes | Whether item can be "purchased" |
+| `category` | string | Yes | Product category (apparel, drinkware, accessories) |
+| `featured` | boolean | No | Highlight on page (default: false) |
+
+### Sales Banner
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `active` | boolean | Yes | Show/hide banner |
+| `message` | string | Yes | Main banner text (uppercase recommended) |
+| `subtext` | string | No | Secondary italic text |
+
+---
+
 ## Adding New Data Files
 
 When creating new JSON data files:

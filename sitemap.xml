@@ -38,6 +38,13 @@
   </url>
 
   <url>
+    <loc>https://durtnurs.com/merch/</loc>
+    <lastmod>2026-02-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
     <loc>https://durtnurs.com/contact/</loc>
     <lastmod>2025-01-18</lastmod>
     <changefreq>yearly</changefreq>
