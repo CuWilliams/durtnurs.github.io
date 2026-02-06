@@ -3937,3 +3937,385 @@ p.origin-placeholder {
   font-size: var(--font-size-xs);
   color: var(--color-text-secondary);
 }
+
+/* ============================================
+   MERCH COMPONENTS
+   Merchandise page styling - product cards,
+   sales banner, price tags, and badges
+   ============================================ */
+
+/* --------------------------------------------
+   Sales Banner
+   Full-width announcement bar for promotions
+   -------------------------------------------- */
+
+.sales-banner {
+  background: linear-gradient(
+    90deg,
+    var(--color-dried-blood) 0%,
+    var(--color-aged-whiskey) 50%,
+    var(--color-dried-blood) 100%
+  );
+  padding: var(--space-md) var(--space-lg);
+  text-align: center;
+  border-top: var(--border-width) solid var(--color-tarnished-brass);
+  border-bottom: var(--border-width) solid var(--color-tarnished-brass);
+  box-shadow: var(--shadow-md);
+}
+
+.sales-banner--hidden {
+  display: none;
+}
+
+.sales-banner__text {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.sales-banner__subtext {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: var(--space-xs) 0 0;
+  font-style: italic;
+}
+
+@media (min-width: 768px) {
+  .sales-banner__text {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/* --------------------------------------------
+   Merch Grid
+   Responsive grid layout for product cards
+   -------------------------------------------- */
+
+.merch-section {
+  padding: var(--space-3xl) 0;
+  min-height: 60vh;
+}
+
+.merch-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .merch-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .merch-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1440px) {
+  .merch-grid {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* --------------------------------------------
+   Merch Card
+   Product card with image, price tag, badge
+   -------------------------------------------- */
+
+.merch-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.merch-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.merch-card:focus {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Sold out styling */
+.merch-card[data-available="false"] {
+  opacity: 0.7;
+}
+
+.merch-card[data-available="false"]:hover {
+  transform: none;
+  cursor: not-allowed;
+}
+
+/* Featured card modifier */
+.merch-card--featured {
+  border-width: var(--border-width-thick);
+  border-color: var(--color-tarnished-brass);
+}
+
+/* --------------------------------------------
+   Merch Card Image Wrapper
+   -------------------------------------------- */
+
+.merch-card__image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background-color: var(--color-iron-gray);
+}
+
+.merch-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-base);
+}
+
+.merch-card:hover .merch-card__image {
+  transform: scale(1.05);
+}
+
+.merch-card[data-available="false"]:hover .merch-card__image {
+  transform: none;
+}
+
+/* --------------------------------------------
+   Price Tag
+   Ragged paper effect with clip-path
+   -------------------------------------------- */
+
+.merch-card__price-tag {
+  position: absolute;
+  bottom: var(--space-sm);
+  right: var(--space-sm);
+  background-color: #F5E6D3;
+  color: var(--color-coal-black);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  padding: var(--space-sm) var(--space-md);
+  transform: rotate(-5deg);
+  box-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.4),
+    inset 0 0 10px rgba(0, 0, 0, 0.1);
+  clip-path: polygon(
+    0% 5%,
+    3% 0%,
+    8% 6%,
+    12% 2%,
+    18% 4%,
+    25% 0%,
+    30% 5%,
+    35% 2%,
+    42% 6%,
+    48% 1%,
+    55% 4%,
+    62% 0%,
+    68% 5%,
+    75% 2%,
+    82% 6%,
+    88% 1%,
+    95% 4%,
+    100% 0%,
+    100% 95%,
+    97% 100%,
+    92% 94%,
+    88% 98%,
+    82% 96%,
+    75% 100%,
+    70% 95%,
+    65% 98%,
+    58% 94%,
+    52% 99%,
+    45% 96%,
+    38% 100%,
+    32% 95%,
+    25% 98%,
+    18% 94%,
+    12% 99%,
+    5% 96%,
+    0% 100%
+  );
+  z-index: 5;
+}
+
+/* Strikethrough for sold items */
+.merch-card[data-available="false"] .merch-card__price-tag {
+  text-decoration: line-through;
+  opacity: 0.8;
+}
+
+/* Fallback for browsers without clip-path */
+@supports not (clip-path: polygon(0 0)) {
+  .merch-card__price-tag {
+    border: 2px dashed var(--color-coal-black);
+    border-radius: var(--border-radius-sm);
+  }
+}
+
+/* --------------------------------------------
+   Badges (Corner Ribbons)
+   "New!", "Sold!", "Wow!", "Hot!"
+   -------------------------------------------- */
+
+.merch-card__badge {
+  position: absolute;
+  top: var(--space-md);
+  left: calc(-1 * var(--space-lg));
+  background-color: var(--color-dried-blood);
+  color: var(--color-text-primary);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--space-xs) var(--space-2xl);
+  transform: rotate(-45deg);
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+}
+
+/* Badge color variants */
+.merch-card__badge--new {
+  background-color: var(--color-aged-whiskey);
+  color: var(--color-text-dark);
+}
+
+.merch-card__badge--sold {
+  background-color: var(--color-iron-gray);
+  color: var(--color-text-primary);
+}
+
+.merch-card__badge--wow {
+  background: linear-gradient(
+    45deg,
+    var(--color-tarnished-brass) 0%,
+    var(--color-aged-whiskey) 50%,
+    var(--color-tarnished-brass) 100%
+  );
+  color: var(--color-text-dark);
+  animation: badge-shimmer 2s infinite;
+}
+
+.merch-card__badge--hot {
+  background-color: var(--color-dried-blood);
+  animation: badge-pulse 1.5s infinite;
+}
+
+@keyframes badge-shimmer {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes badge-pulse {
+  0%, 100% { transform: rotate(-45deg) scale(1); }
+  50% { transform: rotate(-45deg) scale(1.05); }
+}
+
+/* --------------------------------------------
+   Merch Card Content
+   -------------------------------------------- */
+
+.merch-card__content {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  flex-grow: 1;
+}
+
+.merch-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.merch-card__description {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin: 0;
+  flex-grow: 1;
+}
+
+.merch-card__cta {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  align-self: flex-start;
+  margin-top: var(--space-sm);
+}
+
+.merch-card:hover .merch-card__cta {
+  color: var(--color-primary);
+}
+
+.merch-card[data-available="false"] .merch-card__cta {
+  color: var(--color-text-secondary);
+}
+
+/* --------------------------------------------
+   Checkout Page Styles
+   Dead-end page with humorous messaging
+   -------------------------------------------- */
+
+.checkout-subtext {
+  font-family: var(--font-body);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin: var(--space-lg) 0;
+  font-style: italic;
+}
+
+.checkout-waiting {
+  margin: var(--space-xl) 0;
+}
+
+.checkout-waiting__dots {
+  font-size: var(--font-size-4xl);
+  color: var(--color-text-secondary);
+  animation: checkout-dots 1.5s infinite;
+}
+
+@keyframes checkout-dots {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.checkout-update {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin: var(--space-lg) 0 var(--space-2xl);
+}

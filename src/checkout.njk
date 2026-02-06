@@ -1,0 +1,61 @@
+---
+layout: base-message.njk
+title: Checkout
+description: You've reached the checkout. There is no checkout.
+ogDescription: Seriously? You want to buy this crap?
+robots: noindex, nofollow
+permalink: /checkout/index.html
+---
+
+<!--
+  CHECKOUT PAGE
+  Dead-end page with humorous messaging
+  This page is intentionally minimal - uses base-message.njk layout
+  No header/footer navigation to emphasize the "trapped" experience
+-->
+<main class="message-container" role="main">
+  <div class="message-content">
+
+    <!--
+      MAIN MESSAGE
+      The big question nobody expected to answer
+    -->
+    <h1 class="message-text" id="checkout-heading">
+      Seriously? You want to buy this crap?
+    </h1>
+
+    <!--
+      RESPONSE MESSAGE
+      The band's "helpful" response
+    -->
+    <p class="checkout-subtext">
+      Well... we'll go find a cash register. So, sit tight.
+    </p>
+
+    <!--
+      WAITING ANIMATION
+      Animated dots to simulate "searching"
+    -->
+    <div class="checkout-waiting" aria-hidden="true">
+      <span class="checkout-waiting__dots">...</span>
+    </div>
+
+    <!--
+      UPDATE MESSAGE
+      Additional humor after the "wait"
+    -->
+    <p class="checkout-update">
+      Still looking. Have you considered that this might be a sign?
+    </p>
+
+    <!--
+      EXIT BUTTON
+      Standard "Get Me Out of Here" button - returns to merch page
+      Same styling as message.njk exit button
+    -->
+    <a href="/merch/" class="message-exit">
+      Get Me Out of Here
+    </a>
+
+  </div>
+</main>

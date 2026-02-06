@@ -1,0 +1,148 @@
+---
+layout: base.njk
+title: Merch
+description: Official merchandise from tHE dURT nURS' - robes, flasks, and regrettable decisions
+ogDescription: Buy our crap. Or don't. We're not your boss.
+activePage: merch
+keywords: merchandise, merch, shirts, apparel, band merch, gifts
+scripts:
+  - merch.js
+permalink: /merch/index.html
+---
+
+<!--
+  HERO SECTION
+  Merch page hero with self-deprecating introduction
+-->
+<section class="hero hero--merch" aria-labelledby="merch-heading">
+  <div class="container">
+    <div class="hero__content">
+      <h1 id="merch-heading" class="hero__title">The Gift Shop</h1>
+      <p class="hero__subtitle">Official Merchandise* for the Discerning Fan</p>
+      <p class="hero__description">
+        Welcome to our collection of fine goods and questionable decisions.
+        Every purchase comes with a complimentary sense of regret and a
+        reminder that you could have spent this money on literally anything else.
+      </p>
+      <p class="hero__footnote">*"Official" is doing a lot of heavy lifting here</p>
+    </div>
+  </div>
+</section>
+
+<!--
+  SALES BANNER
+  Full-width announcement bar, populated by JavaScript from JSON
+-->
+<div id="sales-banner" class="sales-banner sales-banner--hidden" aria-live="polite">
+  <!-- Populated by merch.js based on salesBanner config in merch.json -->
+</div>
+
+<!--
+  MERCH SECTION
+  Grid layout for product cards
+  Dynamic content loaded via JavaScript (see assets/js/merch.js)
+-->
+<section class="merch-section" aria-labelledby="merch-section-heading">
+  <div class="container">
+    <h2 id="merch-section-heading" class="visually-hidden">Available Merchandise</h2>
+
+    <!-- Container for dynamically loaded product cards -->
+    <div id="merch-grid" class="merch-grid">
+      <!-- Loading message removed by JavaScript when content loads -->
+      <p class="loading-message">Loading merchandise...</p>
+    </div>
+
+    <!-- Static fallback for users without JavaScript -->
+    <noscript>
+      <div class="merch-grid">
+
+        <!-- Static Fallback Card -->
+        <article class="merch-card merch-card--featured" data-available="true">
+          <div class="merch-card__image-wrapper">
+            <picture>
+              <source srcset="/assets/images/logo.webp" type="image/webp">
+              <img src="/assets/images/logo.png" alt="Sample merchandise item" class="merch-card__image" loading="lazy">
+            </picture>
+            <span class="merch-card__badge merch-card__badge--new">New!</span>
+            <div class="merch-card__price-tag">$49.99</div>
+          </div>
+          <div class="merch-card__content">
+            <h3 class="merch-card__title">Robes of Regret</h3>
+            <p class="merch-card__description">
+              Embrace your inner prophet of poor decisions. 100% polyester, 0% dignity.
+              Machine washable (unlike your conscience).
+            </p>
+            <span class="merch-card__cta">Add to Regrets →</span>
+          </div>
+        </article>
+
+        <!-- Static Fallback Card 2 -->
+        <article class="merch-card" data-available="true">
+          <div class="merch-card__image-wrapper">
+            <picture>
+              <source srcset="/assets/images/logo.webp" type="image/webp">
+              <img src="/assets/images/logo.png" alt="Flask merchandise" class="merch-card__image" loading="lazy">
+            </picture>
+            <span class="merch-card__badge merch-card__badge--wow">Wow!</span>
+            <div class="merch-card__price-tag">$24.99</div>
+          </div>
+          <div class="merch-card__content">
+            <h3 class="merch-card__title">The Holy Flask</h3>
+            <p class="merch-card__description">
+              8oz of spiritual enlightenment awaits. Engraved with 'In Robes We Trust.'
+              BYO bourbon.
+            </p>
+            <span class="merch-card__cta">Add to Regrets →</span>
+          </div>
+        </article>
+
+        <!-- Static Fallback Card 3 (Sold Out) -->
+        <article class="merch-card" data-available="false">
+          <div class="merch-card__image-wrapper">
+            <picture>
+              <source srcset="/assets/images/logo.webp" type="image/webp">
+              <img src="/assets/images/logo.png" alt="Vintage tour shirt" class="merch-card__image" loading="lazy">
+            </picture>
+            <span class="merch-card__badge merch-card__badge--sold">Sold!</span>
+            <div class="merch-card__price-tag">$29.99</div>
+          </div>
+          <div class="merch-card__content">
+            <h3 class="merch-card__title">Vintage Tour Shirt</h3>
+            <p class="merch-card__description">
+              From our 1997 'Empty Room' tour. The one show we played. To ourselves.
+            </p>
+            <span class="merch-card__cta">Sold Out (Somehow)</span>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Note about JavaScript requirement -->
+      <div class="noscript-message">
+        <p>
+          <strong>Note:</strong> JavaScript is disabled in your browser.
+          You're seeing a limited preview. Enable JavaScript to view our full collection
+          of regrettable merchandise.
+        </p>
+      </div>
+    </noscript>
+
+  </div>
+</section>
+
+<!--
+  CALL TO ACTION SECTION
+  Questions/Contact prompt
+-->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="section-heading">Questions?</h2>
+    <p>
+      We don't have answers, but we appreciate the effort.
+      For sizing, shipping, or existential inquiries, reach out below.
+    </p>
+    <div class="cta-buttons">
+      <a href="/contact/" class="button button--secondary">Contact Us</a>
+    </div>
+  </div>
+</section>
