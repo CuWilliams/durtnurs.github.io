@@ -5,7 +5,9 @@ description: About tHE dURT nURS' - Two retired rockers faking it until they mak
 ogDescription: Meet DeadBeat and SnowMan - the band behind the music
 activePage: about
 keywords: about, band members
-scripts: []
+scripts:
+  - lightbox.js
+  - about-lyrics.js
 permalink: /about/index.html
 ---
 
@@ -32,11 +34,79 @@ permalink: /about/index.html
     <div class="story-content">
       <p>We are tHE dURT nURS'—an alive and kicking rock band that's all about fun and good times. But seriously, we ain't that good! (Yet. Give us time.  We are practicing monthly now that we are retired. Hmmm... we actually don't have much time.)</p>
 
-      <p>Here's the thing: we believe in ourselves, we like our brand, and we're having the time of our lives. We're a couple of retired farts who spent decades in the working world, and now we're doing what we should have done years ago—making noise and having fun.</p>
+      <p>Here's the thing: we believe in ourselves, we like our brand, and we're having the time of our lives. We're a couple of retired farts who spent decades in the working world doing what responsible adults do—which is to say, NOT pursuing our lifelong passion for creating and recording original music. Noble ambitions? Sure. But life is life, and sometimes you just got to pay that mortgage (ffs).</p>
 
-      <p>And here's a fun fact: AI has opened up a whole new realm of possibility for us. We can fake it until we make it! With a little help from our artificial friends, we're creating the music we've always heard in our heads but could never quite pull off with just two guys and a dream.</p>
+      <p>Fast forward to today: we've got time, we've got technology, and we've got AI. Those hand-scribbled lyrics and iPhone recordings that sounded like dying animals? With help from Claude and Suno, they're turning into actual music. Solid gold? Nah. Solid pyrite? Absolutely. We're finally creating what we always heard in our heads but could never pull off with just two guys and a dream (and questionable musical ability).</p>
 
-      <p>We've jammed together for years, played a few parties and dances (never for pay, always for beer), and now we're ready to unleash our nonsense on the world. Blessed Be the Noise indeed.</p>
+      <p>We've jammed together for years, played a few parties and dances (never for pay, always for beer), and now we're ready to unleash our nonsense onto the world.</p>
+      
+      <p>Want to see the transformation? Check out a couple of handwritten originals from 30+ years ago - 'Who's Going?' and 'No Name Song' - newly revived as 'Disciples of Dysfunction'.  We pounded on the guitar and drums as we yelled the lyrics into our iPhones, let Claude and Suno work the production like Butch Vig and voilà!  From incomprehensible scrawl to almost-competent rock music. It's basically a miracle. Blessed Be the Noise indeed.</p>
+
+      <!-- Handwritten Lyrics Showcase -->
+      <div class="lyrics-showcase" id="lyrics-showcase">
+
+        <!-- Song Group 1: Who's Going? -->
+        <div class="lyrics-showcase__group"
+             data-song-title="Who's Going?"
+             data-audio-file="/assets/audio/empty-room/who's-going.mp3"
+             data-album-title="Empty Room"
+             data-artist="tHE dURT nURS'">
+          <h3 class="lyrics-showcase__song-title">Who's Going?</h3>
+          <div class="lyrics-showcase__pages">
+            <button class="lyrics-showcase__page lyrics-showcase__page--pos-a"
+                    data-index="0"
+                    type="button"
+                    aria-label="View handwritten lyrics for Who's Going, page 1">
+              <img src="/assets/images/lyrics/whos-going-page-1.jpg"
+                   alt="Handwritten lyrics for Who's Going - page 1"
+                   class="lyrics-showcase__image"
+                   loading="lazy">
+            </button>
+            <button class="lyrics-showcase__page lyrics-showcase__page--pos-b"
+                    data-index="1"
+                    type="button"
+                    aria-label="View handwritten lyrics for Who's Going, page 2">
+              <img src="/assets/images/lyrics/whos-going-page-2.jpg"
+                   alt="Handwritten lyrics for Who's Going - page 2"
+                   class="lyrics-showcase__image"
+                   loading="lazy">
+            </button>
+          </div>
+        </div>
+
+        <!-- Song Group 2: Disciples of Dysfunction -->
+        <div class="lyrics-showcase__group"
+             data-song-title="Disciples of Dysfunction"
+             data-audio-file="/assets/audio/ecclesiastical-tapes/disciples-of-dysfunction.mp3"
+             data-album-title="The Ecclesiastical Tapes"
+             data-artist="tHE dURT nURS'">
+          <h3 class="lyrics-showcase__song-title">Disciples of Dysfunction</h3>
+          <div class="lyrics-showcase__pages">
+            <button class="lyrics-showcase__page lyrics-showcase__page--pos-c"
+                    data-index="2"
+                    type="button"
+                    aria-label="View handwritten lyrics for Disciples of Dysfunction, page 1">
+              <img src="/assets/images/lyrics/disciples-page-1.jpg"
+                   alt="Handwritten lyrics for Disciples of Dysfunction - page 1"
+                   class="lyrics-showcase__image"
+                   loading="lazy">
+            </button>
+            <button class="lyrics-showcase__page lyrics-showcase__page--pos-d"
+                    data-index="3"
+                    type="button"
+                    aria-label="View handwritten lyrics for Disciples of Dysfunction, page 2">
+              <img src="/assets/images/lyrics/disciples-page-2.jpg"
+                   alt="Handwritten lyrics for Disciples of Dysfunction - page 2"
+                   class="lyrics-showcase__image"
+                   loading="lazy">
+            </button>
+          </div>
+        </div>
+
+        <noscript>
+          <p class="u-text-muted">Enable JavaScript to view lyrics fullscreen and hear the songs.</p>
+        </noscript>
+      </div>
     </div>
   </div>
 </section>

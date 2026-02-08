@@ -4319,3 +4319,130 @@ p.origin-placeholder {
   color: var(--color-text-secondary);
   margin: var(--space-lg) 0 var(--space-2xl);
 }
+
+/* ============================================
+   LYRICS SHOWCASE
+   Handwritten lyrics thumbnails on About page
+   Two groups, each with overlapping askew pages
+   ============================================ */
+
+.lyrics-showcase {
+  margin-top: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+  align-items: center;
+}
+
+.lyrics-showcase__group {
+  text-align: center;
+}
+
+.lyrics-showcase__song-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  color: var(--color-tarnished-brass);
+  margin-bottom: var(--space-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.lyrics-showcase__pages {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  padding: var(--space-md);
+}
+
+.lyrics-showcase__page {
+  background: none;
+  border: 3px solid var(--color-iron-gray);
+  padding: 4px;
+  cursor: pointer;
+  display: block;
+  width: 140px;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  box-shadow: var(--shadow-md);
+  background-color: var(--color-coal-black);
+  border-radius: var(--border-radius);
+  position: relative;
+}
+
+.lyrics-showcase__page + .lyrics-showcase__page {
+  margin-left: -30px;
+}
+
+.lyrics-showcase__page:hover {
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-aged-whiskey);
+  z-index: 10;
+}
+
+.lyrics-showcase__page:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+  z-index: 10;
+}
+
+.lyrics-showcase__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--border-radius-sm);
+}
+
+/* Askew positions — unique rotation per page so groups look different */
+
+.lyrics-showcase__page--pos-a {
+  transform: rotate(2.5deg);
+  z-index: 2;
+}
+
+.lyrics-showcase__page--pos-b {
+  transform: rotate(-3.5deg);
+  z-index: 1;
+}
+
+.lyrics-showcase__page--pos-c {
+  transform: rotate(-1.5deg);
+  z-index: 1;
+}
+
+.lyrics-showcase__page--pos-d {
+  transform: rotate(4deg);
+  z-index: 2;
+}
+
+/* Hover preserves rotation and adds lift + scale */
+.lyrics-showcase__page--pos-a:hover { transform: rotate(2.5deg) translateY(-8px) scale(1.05); }
+.lyrics-showcase__page--pos-b:hover { transform: rotate(-3.5deg) translateY(-8px) scale(1.05); }
+.lyrics-showcase__page--pos-c:hover { transform: rotate(-1.5deg) translateY(-8px) scale(1.05); }
+.lyrics-showcase__page--pos-d:hover { transform: rotate(4deg) translateY(-8px) scale(1.05); }
+
+/* Responsive */
+
+@media (min-width: 768px) {
+  .lyrics-showcase {
+    flex-direction: row;
+    justify-content: center;
+    gap: var(--space-3xl);
+  }
+
+  .lyrics-showcase__page {
+    width: 180px;
+  }
+
+  .lyrics-showcase__page + .lyrics-showcase__page {
+    margin-left: -40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lyrics-showcase__page {
+    width: 220px;
+  }
+
+  .lyrics-showcase__page + .lyrics-showcase__page {
+    margin-left: -50px;
+  }
+}
