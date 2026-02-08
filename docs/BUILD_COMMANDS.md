@@ -21,6 +21,21 @@ npm run optimize-images # Generate WebP versions of new images
 npm run build           # Then build as usual
 ```
 
+## When Adding/Removing Hero Animation Images
+
+```bash
+# 1. Add or remove PNGs in your source folder
+# 2. Run prepare-hero (resizes to 200px, renames, generates manifest)
+npm run prepare-hero                              # Default source: ~/Desktop/kaleidoscope-images/
+npm run prepare-hero -- --source /path/to/folder  # Custom source folder
+# 3. Generate WebP versions
+npm run optimize-images
+# 4. Build as usual
+npm run build
+```
+
+Images must be PNGs (transparency recommended). The script resizes to max 200px, renames to `hero-obj-01.png` etc., and regenerates `assets/data/hero-objects.json`.
+
 ## Individual Scripts
 
 | Command | What it does |
@@ -30,6 +45,7 @@ npm run build           # Then build as usual
 | `npm run build:dev` | 11ty only (faster, no minification) |
 | `npm run minify` | Minify CSS/JS in existing `_site/` |
 | `npm run optimize-images` | Generate WebP from PNG/JPG images |
+| `npm run prepare-hero` | Resize hero animation PNGs and generate manifest |
 
 ## Workflow Examples
 

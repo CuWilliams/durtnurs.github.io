@@ -1,0 +1,172 @@
+{
+  "objects": [
+    {
+      "id": "hero-obj-01",
+      "src": "/assets/images/hero-objects/hero-obj-01.png",
+      "width": 200,
+      "height": 133
+    },
+    {
+      "id": "hero-obj-02",
+      "src": "/assets/images/hero-objects/hero-obj-02.png",
+      "width": 200,
+      "height": 133
+    },
+    {
+      "id": "hero-obj-03",
+      "src": "/assets/images/hero-objects/hero-obj-03.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-04",
+      "src": "/assets/images/hero-objects/hero-obj-04.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-05",
+      "src": "/assets/images/hero-objects/hero-obj-05.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-06",
+      "src": "/assets/images/hero-objects/hero-obj-06.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-07",
+      "src": "/assets/images/hero-objects/hero-obj-07.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-08",
+      "src": "/assets/images/hero-objects/hero-obj-08.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-09",
+      "src": "/assets/images/hero-objects/hero-obj-09.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-10",
+      "src": "/assets/images/hero-objects/hero-obj-10.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-11",
+      "src": "/assets/images/hero-objects/hero-obj-11.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-12",
+      "src": "/assets/images/hero-objects/hero-obj-12.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-13",
+      "src": "/assets/images/hero-objects/hero-obj-13.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-14",
+      "src": "/assets/images/hero-objects/hero-obj-14.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-15",
+      "src": "/assets/images/hero-objects/hero-obj-15.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-16",
+      "src": "/assets/images/hero-objects/hero-obj-16.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-17",
+      "src": "/assets/images/hero-objects/hero-obj-17.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-18",
+      "src": "/assets/images/hero-objects/hero-obj-18.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-19",
+      "src": "/assets/images/hero-objects/hero-obj-19.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-20",
+      "src": "/assets/images/hero-objects/hero-obj-20.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-21",
+      "src": "/assets/images/hero-objects/hero-obj-21.png",
+      "width": 200,
+      "height": 133
+    },
+    {
+      "id": "hero-obj-22",
+      "src": "/assets/images/hero-objects/hero-obj-22.png",
+      "width": 200,
+      "height": 133
+    },
+    {
+      "id": "hero-obj-23",
+      "src": "/assets/images/hero-objects/hero-obj-23.png",
+      "width": 200,
+      "height": 133
+    },
+    {
+      "id": "hero-obj-24",
+      "src": "/assets/images/hero-objects/hero-obj-24.png",
+      "width": 200,
+      "height": 133
+    },
+    {
+      "id": "hero-obj-25",
+      "src": "/assets/images/hero-objects/hero-obj-25.png",
+      "width": 200,
+      "height": 133
+    },
+    {
+      "id": "hero-obj-26",
+      "src": "/assets/images/hero-objects/hero-obj-26.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-27",
+      "src": "/assets/images/hero-objects/hero-obj-27.png",
+      "width": 200,
+      "height": 133
+    },
+    {
+      "id": "hero-obj-28",
+      "src": "/assets/images/hero-objects/hero-obj-28.png",
+      "width": 200,
+      "height": 133
+    }
+  ]
+}
