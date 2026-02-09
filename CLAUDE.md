@@ -10,7 +10,7 @@ Website for **tHE dURT nURS'**, featuring band info, discography, news, gallery,
 
 **Live Site:** https://www.durtnurs.com
 
-**Current Status:** Production (v2.3.0 - Merch & Features)
+**Current Status:** Production (v2.4.0 - Hero Kaleidoscope)
 
 ---
 
