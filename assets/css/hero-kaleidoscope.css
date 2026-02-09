@@ -1,0 +1,175 @@
+/* ============================================
+   HERO KALEIDOSCOPE
+   Animated orbiting objects behind the hero logo
+
+   Objects emerge from behind the logo, arc outward
+   in a semicircle (3 o'clock → 9 o'clock), then
+   recede back behind the logo. Continuous loop.
+
+   Custom properties defined in variables.css
+   ============================================ */
+
+/* Container - fills entire hero section */
+.hero-kaleidoscope {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Individual orbiting object */
+.hero-kaleidoscope__object {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--hero-object-size);
+  max-height: var(--hero-object-size);
+  object-fit: contain;
+  opacity: 0;
+
+  /* Motion path setup (path set via JS) */
+  offset-rotate: 0deg;
+  offset-distance: 0%;
+
+  /* GPU acceleration */
+  will-change: offset-distance, opacity, filter;
+
+  /* Glow / backlit effect */
+  filter:
+    drop-shadow(0 0 var(--hero-glow-spread) var(--hero-glow-color))
+    brightness(1.1);
+}
+
+/* Active state: currently animating along arc */
+.hero-kaleidoscope__object--active {
+  animation: hero-orbit var(--orbit-duration, 8s) var(--ease-in-out) forwards;
+}
+
+/* ============================================
+   KEYFRAMES
+   ============================================ */
+
+/* Object orbit: emerge → arc outward → return */
+@keyframes hero-orbit {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+    transform: scale(0.2);
+    filter:
+      drop-shadow(0 0 var(--hero-glow-spread) var(--hero-glow-color))
+      brightness(1.0);
+  }
+  12% {
+    opacity: var(--hero-object-opacity);
+    transform: scale(0.8);
+  }
+  25% {
+    transform: scale(1);
+    filter:
+      drop-shadow(0 0 var(--hero-glow-spread) var(--hero-glow-color))
+      brightness(1.1);
+  }
+  50% {
+    /* Peak of arc - maximum visibility and glow */
+    offset-distance: 50%;
+    opacity: var(--hero-object-opacity);
+    transform: scale(1);
+    filter:
+      drop-shadow(0 0 calc(var(--hero-glow-spread) * 1.8) var(--hero-glow-color))
+      brightness(1.25);
+  }
+  75% {
+    transform: scale(1);
+    filter:
+      drop-shadow(0 0 var(--hero-glow-spread) var(--hero-glow-color))
+      brightness(1.1);
+  }
+  88% {
+    opacity: var(--hero-object-opacity);
+    transform: scale(0.8);
+  }
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+    transform: scale(0.2);
+    filter:
+      drop-shadow(0 0 var(--hero-glow-spread) var(--hero-glow-color))
+      brightness(1.0);
+  }
+}
+
+/* Fallback for browsers without offset-path support */
+@keyframes hero-orbit-fallback {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
+    filter:
+      drop-shadow(0 0 var(--hero-glow-spread) var(--hero-glow-color))
+      brightness(1.0);
+  }
+  15% {
+    opacity: var(--hero-object-opacity);
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: var(--hero-object-opacity);
+    transform: translate(-50%, -50%) scale(1);
+    filter:
+      drop-shadow(0 0 calc(var(--hero-glow-spread) * 1.8) var(--hero-glow-color))
+      brightness(1.25);
+  }
+  85% {
+    opacity: var(--hero-object-opacity);
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
+    filter:
+      drop-shadow(0 0 var(--hero-glow-spread) var(--hero-glow-color))
+      brightness(1.0);
+  }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+/* Mobile: hide orbit animation (tilt parallax handled by JS) */
+@media (max-width: 767px) {
+  .hero-kaleidoscope {
+    display: none;
+  }
+}
+
+/* Tablet: medium object size */
+@media (min-width: 768px) {
+  .hero-kaleidoscope__object {
+    width: var(--hero-object-size-md);
+    max-height: var(--hero-object-size-md);
+  }
+}
+
+/* Desktop: larger object size */
+@media (min-width: 1024px) {
+  .hero-kaleidoscope__object {
+    width: var(--hero-object-size-lg);
+    max-height: var(--hero-object-size-lg);
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   Respect user motion preferences
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-kaleidoscope {
+    display: none;
+  }
+
+}

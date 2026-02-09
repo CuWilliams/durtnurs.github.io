@@ -4,6 +4,7 @@ title: tHE dURT nURS' - Official Website
 description: tHE dURT nURS' - Gritty authentic rock with self-aware absurdism. Blessed Be the Noise!
 activePage: home
 scripts:
+  - hero-kaleidoscope.js
   - announcements.js
   - featured-release.js
   - featured-songs.js
@@ -44,11 +45,14 @@ permalink: /index.html
   Grid area: "hero"
 -->
 <section class="hero" aria-label="tHE dURT nURS' hero banner">
+  <!-- Kaleidoscope animation layer (behind logo, purely decorative) -->
+  <div class="hero-kaleidoscope" id="hero-kaleidoscope" aria-hidden="true"></div>
+
   <div class="container">
     <div class="hero__content">
       <picture>
         <source srcset="/assets/images/logo.webp" type="image/webp">
-        <img src="/assets/images/logo.png" alt="tHE dURT nURS' logo" class="hero__logo">
+        <img src="/assets/images/logo.png" alt="tHE dURT nURS' logo" class="hero__logo" id="hero-logo">
       </picture>
     </div>
   </div>

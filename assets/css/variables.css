@@ -150,6 +150,19 @@
 
 
   /* ============================================
+     HERO KALEIDOSCOPE ANIMATION
+     Adjustable parameters for orbiting objects effect
+     ============================================ */
+
+  --hero-object-size: 120px;          /* Object rendered size - mobile/base */
+  --hero-object-size-md: 150px;       /* Tablet size */
+  --hero-object-size-lg: 180px;       /* Desktop size */
+  --hero-object-opacity: 0.7;         /* Peak opacity during arc */
+  --hero-glow-color: rgba(160, 90, 36, 0.4);  /* Warm whiskey glow */
+  --hero-glow-spread: 15px;           /* Glow radius */
+
+
+  /* ============================================
      Z-INDEX SCALE
      Manages stacking order consistently
      ============================================ */

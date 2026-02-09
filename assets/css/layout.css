@@ -235,7 +235,7 @@ section {
 
 .hero__content {
   position: relative;
-  z-index: var(--z-base);
+  z-index: 2;  /* Above hero-kaleidoscope animation layer (z-index: 1) */
   max-width: 800px;
   margin: 0 auto;
   padding: var(--space-xl);
