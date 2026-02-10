@@ -147,14 +147,14 @@
     {
       "id": "hero-obj-25",
       "src": "/assets/images/hero-objects/hero-obj-25.png",
-      "width": 200,
-      "height": 133
+      "width": 133,
+      "height": 200
     },
     {
       "id": "hero-obj-26",
       "src": "/assets/images/hero-objects/hero-obj-26.png",
-      "width": 133,
-      "height": 200
+      "width": 200,
+      "height": 133
     },
     {
       "id": "hero-obj-27",
@@ -165,12 +165,72 @@
     {
       "id": "hero-obj-28",
       "src": "/assets/images/hero-objects/hero-obj-28.png",
-      "width": 200,
-      "height": 133
+      "width": 133,
+      "height": 200
     },
     {
       "id": "hero-obj-29",
       "src": "/assets/images/hero-objects/hero-obj-29.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-30",
+      "src": "/assets/images/hero-objects/hero-obj-30.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-31",
+      "src": "/assets/images/hero-objects/hero-obj-31.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-32",
+      "src": "/assets/images/hero-objects/hero-obj-32.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-33",
+      "src": "/assets/images/hero-objects/hero-obj-33.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-34",
+      "src": "/assets/images/hero-objects/hero-obj-34.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-35",
+      "src": "/assets/images/hero-objects/hero-obj-35.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-36",
+      "src": "/assets/images/hero-objects/hero-obj-36.png",
+      "width": 200,
+      "height": 133
+    },
+    {
+      "id": "hero-obj-37",
+      "src": "/assets/images/hero-objects/hero-obj-37.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-38",
+      "src": "/assets/images/hero-objects/hero-obj-38.png",
+      "width": 133,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-39",
+      "src": "/assets/images/hero-objects/hero-obj-39.png",
       "width": 133,
       "height": 200
     }
