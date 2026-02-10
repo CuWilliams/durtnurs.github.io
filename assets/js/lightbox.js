@@ -123,19 +123,20 @@ function defaultRenderContent(mediaItem, contentContainer, counterContainer, sta
     contentContainer.appendChild(iframe);
   }
 
-  // Add title and description
+  // Update counter
+  const current = state.currentIndex + 1;
+  const total = state.allMedia.length;
+  counterContainer.textContent = `${current} / ${total}`;
+
+  // Add title, description, and counter below image
   const infoDiv = document.createElement('div');
   infoDiv.className = 'lightbox__info';
   infoDiv.innerHTML = `
     <h3 class="lightbox__title">${mediaItem.title}</h3>
     <p class="lightbox__description">${mediaItem.description}</p>
   `;
+  infoDiv.appendChild(counterContainer);
   contentContainer.appendChild(infoDiv);
-
-  // Update counter
-  const current = state.currentIndex + 1;
-  const total = state.allMedia.length;
-  counterContainer.textContent = `${current} / ${total}`;
 }
 
 // =============================================================================

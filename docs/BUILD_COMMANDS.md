@@ -21,6 +21,25 @@ npm run optimize-images # Generate WebP versions of new images
 npm run build           # Then build as usual
 ```
 
+## When Adding Gallery Photos
+
+```bash
+# 1. Add photos to the gallery directory
+#    assets/images/gallery/
+
+# 2. Generate thumbnails (400px, JPEG)
+npm run generate-thumbnails
+
+# 3. Generate WebP versions of both full-size and thumbnails
+npm run optimize-images
+
+# 4. Add entry to assets/data/gallery.json
+# 5. Build as usual
+npm run build
+```
+
+Thumbnails are named `[basename]-thumb.jpg` (e.g., `my-photo.jpg` → `my-photo-thumb.jpg`). The script skips images that already have up-to-date thumbnails.
+
 ## When Adding/Removing Hero Animation Images
 
 ```bash
@@ -44,6 +63,7 @@ Images must be PNGs (transparency recommended). The script resizes to max 200px,
 | `npm run build` | Production build (11ty + minify CSS/JS) |
 | `npm run build:dev` | 11ty only (faster, no minification) |
 | `npm run minify` | Minify CSS/JS in existing `_site/` |
+| `npm run generate-thumbnails` | Generate 400px thumbnails for gallery images |
 | `npm run optimize-images` | Generate WebP from PNG/JPG images |
 | `npm run prepare-hero` | Resize hero animation PNGs and generate manifest |
 

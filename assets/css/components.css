@@ -2264,7 +2264,7 @@ p.origin-placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  overflow-y: auto;
   animation: lightboxFadeIn var(--transition-base);
 }
 
@@ -2315,6 +2315,7 @@ p.origin-placeholder {
 */
 .lightbox__info {
   margin-top: var(--space-lg);
+  padding-bottom: var(--space-lg);
   text-align: center;
   max-width: 600px;
 }
@@ -2408,13 +2409,11 @@ p.origin-placeholder {
 
 /*
   Lightbox Counter
-  Shows current position (e.g., "3 / 8")
+  Shows current position (e.g., "3 / 8") below description
 */
 .lightbox__counter {
-  position: absolute;
-  bottom: var(--space-lg);
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: var(--space-md);
+  display: inline-block;
   background: rgba(11, 11, 12, 0.8);
   color: var(--color-text-primary);
   padding: var(--space-xs) var(--space-md);

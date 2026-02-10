@@ -4,19 +4,19 @@
       "id": "photo-001",
       "type": "photo",
       "title": "The Secret Lair",
-      "description": "Our legendary practice shed. Where the magic (and several noise complaints) happen.",
+      "description": "Our legendary practice shed where the ambient rarely gets above freezing. Where the magic (and several noise complaints) happen.",
       "filename": "secret-lair-1.jpeg",
       "thumbnail": "secret-lair-1-thumb.jpg",
       "date": "2024-05-29",
       "category": "band",
       "public": true,
-      "featured": true
+      "featured": false
     },
     {
       "id": "photo-002",
       "type": "photo",
-      "title": "DeadBeat's Kit",
-      "description": "The drums that launched a thousand hangovers. Vintage Ludwig (don't let the bass drum fool you).",
+      "title": "DeadBeat's Kit - 3 of 4",
+      "description": "Pulled from Brain's basement in questionable condition. DeadBeat's restoration process: Step 1, moose antlers. Step 2, scotch. There was no Step 3. Somehow, they sound incredible.",
       "filename": "deadbeat-kit.jpg",
       "thumbnail": "deadbeat-kit-thumb.jpg",
       "date": "2021-12-18",
@@ -37,28 +37,16 @@
       "featured": false
     },
     {
-      "id": "video-001",
-      "type": "video",
-      "title": "Brass Knuckles (Live Rehearsal)",
-      "description": "Raw footage from the shed. Before the polish. Before the mixing. Before we sobered up.",
-      "embedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      "thumbnail": "video-001-thumb.jpg",
-      "date": "2024-11-01",
-      "category": "performance",
-      "public": false,
-      "featured": false
-    },
-    {
       "id": "photo-004",
       "type": "photo",
-      "title": "The Empty Room Gig",
-      "description": "Our most intimate performance. Population: 2 (us). Plus one very confused bartender.",
-      "filename": "empty-room-gig.jpg",
-      "thumbnail": "empty-room-gig-thumb.jpg",
-      "date": "2015-10-31",
+      "title": "Odd Fellows Hall Set List",
+      "description": "Snowman's 40th. Odd Fellows Hall (we fit right in). Friends, beer, and a setlist we had no business attempting. DeadBeat's voice checked out mid-show. The audience was relieved.",
+      "filename": "oddfellows-hall-set-list.jpg",
+      "thumbnail": "oddfellows-hall-set-list-thumb.jpg",
+      "date": "2004-06-05",
       "category": "performance",
-      "public": false,
-      "featured": false
+      "public": true,
+      "featured": true
     },
     {
       "id": "photo-005",

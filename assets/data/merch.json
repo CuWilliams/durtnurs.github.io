@@ -1,15 +1,15 @@
 {
   "merchandise": [
     {
-      "id": "merch-robes-of-regret",
-      "title": "Robes of Regret",
-      "price": "49.99",
-      "image": "/assets/images/logo.png",
-      "imageAlt": "Luxurious brown robes for pretending you have your life together",
-      "description": "Embrace your inner prophet of poor decisions. 100% polyester, 0% dignity. Machine washable (unlike your conscience).",
+      "id": "merch-wence-it-all-began",
+      "title": "From wence it all began",
+      "price": "449.99",
+      "image": "/assets/images/merch/first-bottle.png",
+      "imageAlt": "Empty whiskey bottle from the first first durt nurs' jam session",
+      "description": "The ultimate collectors item.  Polished off in Dickey's basement as he pounded on the kit with broom handles.  It was the first night of mayhem with the original trio. For an extra $100 we'll even sign it for you.  We just need to find out what happened to Dickey.",
       "badge": "new",
       "available": true,
-      "category": "apparel",
+      "category": "collectors items",
       "featured": true
     },
     {
