@@ -276,6 +276,37 @@
   border-bottom-color: var(--color-primary);
 }
 
+/* Exit button: "Get Me Out of Here" escape route */
+.button--exit {
+  background-color: var(--color-iron-gray);
+  color: var(--color-text-primary);
+  border-color: var(--color-aged-whiskey);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  padding: var(--space-lg) var(--space-xxl);
+}
+
+.button--exit:hover,
+.button--exit:focus {
+  background-color: var(--color-aged-whiskey);
+  color: var(--color-coal-black);
+  border-color: var(--color-aged-whiskey);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.button--exit:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (min-width: 768px) {
+  .button--exit {
+    font-size: var(--font-size-xl);
+    padding: var(--space-xl) var(--space-3xl);
+  }
+}
+
 
 /* ============================================
    NEWS CARDS
@@ -3137,6 +3168,14 @@ p.origin-placeholder {
   margin-top: var(--space-sm);
 }
 
+/* Exit button sizing within the auth actions container */
+.fanclub-auth__actions .button--exit {
+  width: 100%;
+  font-size: var(--font-size-xl);
+  padding: var(--space-md) var(--space-xl);
+  box-sizing: border-box;
+}
+
 /* PHASE 8: Horizontal layout on larger screens */
 @media (min-width: 480px) {
   .fanclub-auth__actions {
@@ -3144,25 +3183,12 @@ p.origin-placeholder {
     justify-content: center;
     gap: var(--space-md);
   }
+
+  .fanclub-auth__actions .button--exit {
+    width: auto;
+  }
 }
 
-/* PHASE 8: Exit button specific styling */
-.fanclub-auth__exit {
-  /* Ensure text is centered in link-styled-as-button */
-  text-align: center;
-  text-decoration: none;
-
-  /* Slightly less prominent than submit button */
-  opacity: 0.9;
-
-  /* Match submit button sizing */
-  padding: var(--space-md) var(--space-lg);
-  font-size: var(--font-size-base);
-}
-
-.fanclub-auth__exit:hover {
-  opacity: 1;
-}
 
 /* Tablet and up: Larger prompt card */
 @media (min-width: 768px) {
@@ -3663,63 +3689,6 @@ p.origin-placeholder {
   text-align: center;
 }
 
-/**
- * Message Exit Button
- * "Get Me Out of Here" button
- * Styled to match Fan Club exit button pattern
- *
- * Design notes:
- * - High contrast for accessibility
- * - Large click target for mobile
- * - Clear hover/focus states
- * - Smooth transitions for polish
- */
-.message-exit {
-  display: inline-block;
-  padding: var(--space-md) var(--space-xl);
-  font-family: var(--font-heading);
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-  background-color: var(--color-iron-gray);
-  border: 2px solid var(--color-aged-whiskey);
-  border-radius: var(--border-radius-base);
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  transition: all var(--transition-base);
-  cursor: pointer;
-}
-
-/**
- * Exit Button Hover State
- * Inverted colors for clear feedback
- */
-.message-exit:hover,
-.message-exit:focus {
-  background-color: var(--color-aged-whiskey);
-  color: var(--color-coal-black);
-  border-color: var(--color-aged-whiskey);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-}
-
-/**
- * Exit Button Active State
- * Slight press effect for tactile feedback
- */
-.message-exit:active {
-  transform: translateY(0);
-  box-shadow: var(--shadow-sm);
-}
-
-/* Tablet and desktop: larger button */
-@media (min-width: 768px) {
-  .message-exit {
-    font-size: var(--font-size-xl);
-    padding: var(--space-lg) var(--space-xxl);
-  }
-}
 
 /**
  * Noscript Message

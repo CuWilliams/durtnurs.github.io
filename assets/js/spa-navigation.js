@@ -35,7 +35,8 @@ const DurtNursSPA = {
       /\.(pdf|zip|mp3|wav|ogg)$/i,        // File downloads
       /^mailto:/i,                         // Email links
       /^tel:/i,                            // Phone links
-      /#/                                  // Hash-only links (anchor jumps)
+      /#/,                                 // Hash-only links (anchor jumps)
+      /^\/(message|checkout)\//i           // Pages using base-message layout (no main.page-layout)
     ]
   },
 
