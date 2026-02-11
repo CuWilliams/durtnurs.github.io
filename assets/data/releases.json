@@ -15,7 +15,7 @@
     { "title": "Two Sticks", "hasAudio": true, "audioFile": "/assets/audio/ecclesiastical-tapes/two-sticks.mp3", "duration": "3:22", "featured": false, "artwork": "/assets/images/songs/two-sticks.png", "artworkAlt": "Biblical mosh pit"},
     { "title": "Confession Booth Blues", "hasAudio": false },
     { "title": "The Book of Regrets (Chapters 1-47)", "hasAudio": false },
-    { "title": "Disciples of Dysfunction", "hasAudio": true, "audioFile": "/assets/audio/ecclesiastical-tapes/disciples-of-dysfunction.mp3", "duration": "3:54", "featured": true, "artwork": "/assets/images/songs/disciples-of-dysfunction.png", "artworkAlt": "Roman rock bar"},
+    { "title": "Disciples of Dysfunction", "hasAudio": true, "audioFile": "/assets/audio/ecclesiastical-tapes/disciples-of-dysfunction.mp3", "duration": "3:54", "featured": true, "artwork": "/assets/images/songs/disciples-of-dysfunction.png", "artworkAlt": "Roman rock bar", "streamingLinks": [{ "platform": "apple-music", "url": "https://music.apple.com/ca/album/disciples-of-dysfunction/1876451162?i=1876451163" },{ "platform": "spotify", "url": "https://open.spotify.com/album/5fu2bfKTX2Lc5nDztcJMpb" }]},
     { "title": "Confession Booth Blues", "hasAudio": false },
     { "title": "Apocalypse? More Like Apoca-Nips (Of Whiskey)", "hasAudio": false },
     { "title": "Amen (We Think That's How It Ends)", "hasAudio": false }

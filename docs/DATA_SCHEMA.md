@@ -115,7 +115,7 @@ Releases can have animated cover art using MP4/WebM video files. The video autop
 }
 ```
 
-> **Note:** Streaming links (Spotify, Apple Music, etc.) are not currently supported at the release level. Audio playback is handled via individual tracks with the `audioFile` field, and external links can be added at the track level via `sunoUrl`.
+> **Note:** Streaming links (Spotify, Apple Music, Suno) are supported at the track level via the `streamingLinks` array. Audio playback is handled via the `audioFile` field.
 
 ### Track Schema
 
@@ -128,7 +128,11 @@ Each track in the tracklist is an object with the following fields:
     "hasAudio": true,
     "audioFile": "/assets/audio/album/track.mp3",
     "duration": "3:42",
-    "sunoUrl": "https://suno.com/song/abc123",
+    "streamingLinks": [
+      { "platform": "apple-music", "url": "https://music.apple.com/..." },
+      { "platform": "spotify", "url": "https://open.spotify.com/..." },
+      { "platform": "suno", "url": "https://suno.com/song/abc123" }
+    ],
     "artwork": "/assets/images/songs/track-art.png",
     "artworkAlt": "Description of track artwork",
     "artworkVideo": "/assets/images/songs/track-art.mp4",
@@ -148,12 +152,21 @@ Each track in the tracklist is an object with the following fields:
 | `hasAudio` | boolean | Yes | Whether playable audio exists |
 | `audioFile` | string | If hasAudio | Path to MP3 file |
 | `duration` | string | If hasAudio | Track length (MM:SS format) |
-| `sunoUrl` | string | No | Link to Suno platform |
+| `streamingLinks` | array | No | Array of streaming platform links (see below) |
 | `artwork` | string | No | Track-specific artwork (falls back to album art) |
 | `artworkAlt` | string | No | Alt text for track artwork |
 | `artworkVideo` | string | No | Animated track artwork video (MP4) |
 | `artworkVideoPoster` | string | No | Poster image for video (defaults to artwork) |
 | `featured` | boolean | No | Highlight as featured song (default: false) |
+
+### Streaming Links Schema
+
+Each entry in `streamingLinks` is an object:
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `platform` | string | Yes | One of: `apple-music`, `spotify`, `suno` |
+| `url` | string | Yes | Full URL to the track on that platform |
 
 > **Note:** Track artwork video fields follow the same conventions as album cover videos. If a track has `artworkVideo` specified, it will display as animated artwork. If not, the track inherits the album's video (if any) or falls back to static images.
 

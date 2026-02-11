@@ -26,10 +26,20 @@
  *   Why stored in data? Ensures alt text is content-managed, not hardcoded
  * - description: Album description (string, supports plain text)
  * - tracklist: Array of track objects (or strings for backward compatibility)
- *   Each track object contains: title, hasAudio, and optional audioFile, duration, sunoUrl, artwork, featured
+ *   Each track object contains: title, hasAudio, and optional audioFile, duration, streamingLinks, artwork, featured
  * - featured: Boolean flag to highlight primary/newest release
  *   Featured releases get special styling (larger cards, prominent borders)
  */
+
+// =============================================================================
+// STREAMING PLATFORM CONFIG
+// =============================================================================
+
+const STREAMING_PLATFORMS = {
+  'apple-music': { label: 'Apple Music', icon: '🍎' },
+  'spotify':     { label: 'Spotify',     icon: '🎧' },
+  'suno':        { label: 'Suno',        icon: '🎵' }
+};
 
 // =============================================================================
 // DATA FETCHING
@@ -150,6 +160,12 @@ function renderReleaseCard(release) {
             };
             const dataAttr = encodeURIComponent(JSON.stringify(trackData));
 
+            const streamingHTML = (track.streamingLinks || []).map(link => {
+              const config = STREAMING_PLATFORMS[link.platform];
+              if (!config) return '';
+              return `<a class="release-card__streaming-link" href="${link.url}" target="_blank" rel="noopener noreferrer" aria-label="Listen to ${trackTitle} on ${config.label}" title="${config.label}">${config.icon}</a>`;
+            }).join('');
+
             return `<li class="release-card__track release-card__track--playable">
               <button class="release-card__play-btn"
                       type="button"
@@ -159,6 +175,7 @@ function renderReleaseCard(release) {
               </button>
               <span class="release-card__track-title">${trackTitle}</span>
               ${track.duration ? `<span class="release-card__track-duration">${track.duration}</span>` : ''}
+              ${streamingHTML}
             </li>`;
           } else {
             return `<li class="release-card__track">${trackTitle}</li>`;

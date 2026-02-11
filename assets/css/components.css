@@ -1871,6 +1871,19 @@ p.origin-placeholder {
   flex-shrink: 0;
 }
 
+.release-card__streaming-link {
+  flex-shrink: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+.release-card__streaming-link:hover,
+.release-card__streaming-link:focus {
+  color: var(--color-primary);
+}
+
 
 /*
   STREAMING LINKS

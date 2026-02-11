@@ -1,6 +1,18 @@
 {
   "announcements": [
-    {
+   {
+  "id": "004",
+  "date": "2025-02-11",
+  "title": "From Garage to Global: dURT Goes Streaming",
+  "category": "release",
+  "excerpt": "We did something terrifying. We put our music on the actual internet. 'Disciples of Dysfunction' is now streaming everywhere alongside actual musicians.",
+  "content": "<p>We did something terrifying. We put our music on the internet. Not just our internet — the internet. Spotify. Apple Music. Everywhere. 'Disciples of Dysfunction' is now streaming on every major platform alongside actual musicians who actually know what they're doing.</p><p>Most of our families don't know yet. We're not hiding it. We're just... strategically delaying that conversation.</p><p>The road to distribution wasn't without incident. Our AI-generated album art had to be pulled and re-submitted after we noticed the drummer's hand was on the wrong arm. The distribution Inspectors didn't flag it. We almost went global with a medical anomaly on the cover. Classic.</p><p>So here we are. Two grizzled rocker wannabes, one single, and every streaming platform known to mankind. If this ain't retirement, we don't know what is. Give it a listen. Put it on your playlist. Hit repeat. At our current royalty rate, we should recoup the $9.99 distribution fee by 2087.</p>",
+  "link": {
+    "url": "https://music.apple.com/ca/album/disciples-of-dysfunction/1876451162?i=1876451163",
+    "text": "Stream Disciples of Dysfunction"
+  },
+  "featured": true
+}, {
   "id": "003",
   "date": "2025-01-19",
   "title": "Divine Intervention: We Actually Have Music Now",
@@ -11,7 +23,7 @@
     "url": "/releases#release-ecclesiastical-tapes-2025",
     "text": "Witness the Miracle"
   },
-  "featured": true
+  "featured": false
 },
     {
   "id": "002",
