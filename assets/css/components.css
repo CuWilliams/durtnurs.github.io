@@ -1250,6 +1250,46 @@ p.origin-placeholder {
   text-decoration: underline;
 }
 
+/*
+  Streaming Links: Platform icon buttons for announcements
+*/
+.announcement-card__streaming-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.announcement-card__streaming-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-primary);
+  background-color: transparent;
+  border: 1px solid var(--color-iron-gray);
+  border-radius: var(--border-radius-sm);
+  padding: var(--space-xs) var(--space-sm);
+  text-decoration: none;
+  transition: all var(--transition-base);
+}
+
+.announcement-card__streaming-link:hover,
+.announcement-card__streaming-link:focus {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text-dark);
+  transform: translateY(-2px);
+}
+
+.announcement-card__streaming-icon {
+  font-size: var(--font-size-base);
+}
+
 
 /* ============================================
    NEWS ARCHIVE PAGE LAYOUT

@@ -12,6 +12,16 @@
  */
 
 // =============================================================================
+// STREAMING PLATFORM CONFIG
+// =============================================================================
+
+const ANNOUNCEMENT_STREAMING_PLATFORMS = {
+  'apple-music': { label: 'Apple Music', icon: '🍎' },
+  'spotify':     { label: 'Spotify',     icon: '🎧' },
+  'suno':        { label: 'Suno',        icon: '🎵' }
+};
+
+// =============================================================================
 // DATA FETCHING
 // =============================================================================
 
@@ -93,7 +103,7 @@ function getLinkTypeFromText(linkText) {
 function renderAnnouncementCard(announcement, isHomepage = false) {
   // Destructure the announcement object to extract properties
   // This is cleaner than writing announcement.title, announcement.date, etc.
-  const { id, date, title, category, excerpt, content, link, featured } = announcement;
+  const { id, date, title, category, excerpt, content, link, streamingLinks, featured } = announcement;
 
   // Format the date for display
   const formattedDate = DurtNursUtils.formatDate(date);
@@ -145,9 +155,18 @@ function renderAnnouncementCard(announcement, isHomepage = false) {
         `<div class="announcement-card__content">${content}</div>`
       }
 
-      <a href="${linkUrl}" class="announcement-card__link" aria-label="Read more about ${title}">
-        ${linkText}
-      </a>
+      ${streamingLinks && streamingLinks.length > 0 && !isHomepage
+        ? `<div class="announcement-card__streaming-links">
+            ${streamingLinks.map(sl => {
+              const config = ANNOUNCEMENT_STREAMING_PLATFORMS[sl.platform];
+              if (!config) return '';
+              return `<a class="announcement-card__streaming-link" href="${sl.url}" target="_blank" rel="noopener noreferrer" aria-label="Listen on ${config.label}" title="${config.label}"><span class="announcement-card__streaming-icon">${config.icon}</span> ${config.label}</a>`;
+            }).join('')}
+          </div>`
+        : `<a href="${linkUrl}" class="announcement-card__link" aria-label="Read more about ${title}">
+            ${linkText}
+          </a>`
+      }
     </article>
   `;
 }
