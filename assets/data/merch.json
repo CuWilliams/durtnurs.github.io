@@ -16,11 +16,11 @@
       "id": "merch-holy-flask",
       "title": "The Holy Flask",
       "price": "24.99",
-      "image": "/assets/images/logo.png",
+      "image": "/assets/images/merch/the-holy-flask.png",
       "imageAlt": "A flask with questionable religious iconography",
       "description": "8oz of spiritual enlightenment awaits. Engraved with 'In Robes We Trust.' BYO bourbon.",
-      "badge": "wow",
-      "available": true,
+      "badge": "sold",
+      "available": false,
       "category": "drinkware",
       "featured": false
     },
@@ -28,7 +28,7 @@
       "id": "merch-vintage-tour-shirt",
       "title": "Vintage Tour Shirt",
       "price": "29.99",
-      "image": "/assets/images/logo.png",
+      "image": "/assets/images/merch/vintage-tour-shirt.png",
       "imageAlt": "Faded t-shirt from a tour that never happened",
       "description": "From our 1997 'Empty Room' tour. The one show we played. To ourselves. Pre-distressed for authenticity.",
       "badge": "sold",
@@ -37,14 +37,14 @@
       "featured": false
     },
     {
-      "id": "merch-sacred-coffee-mug",
-      "title": "Sacred Coffee Mug",
+      "id": "merch-coffee-mug",
+      "title": "Coffee Mug",
       "price": "14.99",
-      "image": "/assets/images/logo.png",
+      "image": "/assets/images/merch/coffee-mug.png",
       "imageAlt": "A mug that has seen things",
       "description": "Holds 12oz of regret. Text reads: 'I survived a dURT nURS' show (barely).' Microwave safe. Your sanity is not.",
       "badge": "hot",
-      "available": true,
+      "available": false,
       "category": "drinkware",
       "featured": false
     },
@@ -52,9 +52,9 @@
       "id": "merch-autographed-air-guitar",
       "title": "Autographed Air Guitar",
       "price": "999.99",
-      "image": "/assets/images/logo.png",
+      "image": "/assets/images/merch/autographed-air-guitar.png",
       "imageAlt": "Invisible guitar with very real signatures",
-      "description": "Signed by both band members. Includes certificate of authenticity (not authentic). Strings sold separately (they don't exist).",
+      "description": "Signed by both band members (in our minds). Includes certificate of authenticity (not authentic). Strings sold separately (they don't exist).",
       "badge": null,
       "available": true,
       "category": "instruments",
@@ -63,7 +63,7 @@
   ],
   "salesBanner": {
     "active": true,
-    "message": "FLASH SALE: Everything 100% off! (We'll pay YOU to take this stuff)",
+    "message": "FLASH SALE: Everything 100% off! (on items we don't have stocked)",
     "subtext": "Offer valid until we change our minds"
   }
 }

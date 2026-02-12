@@ -8,7 +8,7 @@
   "type": "studio",
   "coverArt": "/assets/images/the-ecclesiastical-tapes.png",
   "coverArtAlt": "Two robed figures playing instruments at sunset with apocalyptic skies and inexplicable shepherds' staffs",
-  "description": "We found religion. Or maybe the whiskey finally found us. Either way, we traded our bar stools for shepherd's staffs and recorded eight tracks that answer the eternal question: 'What if prophets, but make it rock?' Features 100% more robes than our previous work. May contain traces of actual musical competence. Light that dumpster fire and join us for the most confusing career pivot since that time we tried yacht rock.",
+  "description": "We found religion. Or maybe the whiskey finally found us. Either way, we traded our bar stools for shepherd's staffs and recorded nine tracks that answer the eternal question: 'What if prophets, but make it rock?' Features 100% more robes than our previous work. May contain traces of actual musical competence. Light that dumpster fire and join us for the most confusing career pivot since that time we tried yacht rock.",
   "tracklist": [
     { "title": "Holy Roller Coaster (We're Getting Off)", "hasAudio": false },
     { "title": "Sermon on the Amount", "hasAudio": false },
@@ -46,7 +46,7 @@
       "id": "release-empty-room-2010",
       "title": "The Empty Room",
       "artist": "tHE dURT nURS'",
-      "releaseDate": "2010-10-31",
+      "releaseDate": "1997-10-31",
       "type": "studio",
       "coverArt": "/assets/images/the-empty-room-album.png",
       "coverArtAlt": "Band rocking out to an empty room",
@@ -71,7 +71,7 @@
       "type": "ep",
       "coverArt": "/assets/images/the-whiskey-sessions-album.png",
       "coverArtAlt": "EP cover featuring an empty whiskey glass and scattered guitar picks",
-      "description": "Four tracks, forty takes, fourteen bottles. An EP that captures the essence of bad decisions and good intentions. Surprisingly coherent for the circumstances.",
+      "description": "Five tracks, forty takes, fourteen bottles. An EP that captures the essence of bad decisions and good intentions. Surprisingly coherent for the circumstances.",
       "tracklist": [
         { "title": "The Choice", "hasAudio": true, "audioFile": "/assets/audio/whiskey-sessions/the-choice.mp3", "duration": "2:52", "featured": false, "artwork": "/assets/images/songs/the-choice.png", "artworkAlt": "Guy holding a guitar in a dimly lit room"},
         { "title": "Last Call Blues", "hasAudio": false },
