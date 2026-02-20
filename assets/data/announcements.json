@@ -1,6 +1,19 @@
 {
   "announcements": [
-   {
+    {
+      "id": "005",
+      "date": "2026-02-20",
+      "title": "Lyrics, YouTube, and Sticking it to the Man",
+      "category": "release",
+      "excerpt": "We built our own lyric video generator in Python, launched a YouTube channel, and our lyrics are now streaming on Spotify and Apple Music. We're kind of a big deal. Don't tell anyone.",
+      "content": "<p>Disciples of Dysfunction, our debut single composed entirely by us (yes, us), is now streaming on Spotify and Apple Music — full lyrics included. Read along. Confirm we actually wrote them. We'll wait.</p><p>We also built our own lyric music video. In Python. From scratch. Because when the \"professionals\" quoted us embarrassing money for their mediocre versions, we told them where to stick it and built our own generator. It's actually pretty epic.</p><p>tHE dURT nURS' now have a YouTube channel and our first official lyric video is up. And if any fellow indie rock brethren need a lyric video and can't stomach the quotes — we're open to negotiations. We accept beer.</p>",
+      "link": {
+        "url": "https://www.youtube.com/@TheDurtNurs",
+        "text": "Watch the Lyric Video"
+      },
+      "featured": true
+    },
+    {
   "id": "004",
   "date": "2025-02-11",
   "title": "From Garage to Global: dURT Goes Streaming",
@@ -11,7 +24,7 @@
     { "platform": "apple-music", "url": "https://music.apple.com/ca/album/disciples-of-dysfunction/1876451162?i=1876451163" },
     { "platform": "spotify", "url": "https://open.spotify.com/album/5fu2bfKTX2Lc5nDztcJMpb" }
   ],
-  "featured": true
+  "featured": false
 }, {
   "id": "003",
   "date": "2025-01-19",
