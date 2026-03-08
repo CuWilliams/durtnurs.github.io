@@ -231,6 +231,18 @@
     {
       "id": "hero-obj-39",
       "src": "/assets/images/hero-objects/hero-obj-39.png",
+      "width": 150,
+      "height": 200
+    },
+    {
+      "id": "hero-obj-40",
+      "src": "/assets/images/hero-objects/hero-obj-40.png",
+      "width": 200,
+      "height": 150
+    },
+    {
+      "id": "hero-obj-41",
+      "src": "/assets/images/hero-objects/hero-obj-41.png",
       "width": 133,
       "height": 200
     }
