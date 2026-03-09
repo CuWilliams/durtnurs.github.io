@@ -75,7 +75,7 @@
       "tracklist": [
         { "title": "The Choice", "hasAudio": true, "audioFile": "/assets/audio/whiskey-sessions/the-choice.mp3", "duration": "2:52", "featured": false, "artwork": "/assets/images/songs/the-choice.png", "artworkAlt": "Guy holding a guitar in a dimly lit room"},
         { "title": "Last Call Blues", "hasAudio": false },
-        { "title": "On The Rocks (Like My Career)", "hasAudio": false },
+        { "title": "Careers (On The Rocks)", "hasAudio": true, "audioFile": "/assets/audio/whiskey-sessions/careers.mp3", "duration": "2:24", "featured": true, "artwork": "/assets/images/songs/careers.png", "artworkAlt": "Whiskey lowball salute to those about to work"},
         { "title": "Bourbon Street Blues", "hasAudio": false },
         { "title": "Last Call Revolution", "hasAudio": false }
       ],

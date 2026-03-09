@@ -1,6 +1,19 @@
 {
   "announcements": [
     {
+      "id": "006",
+      "date": "2026-03-09",
+      "title": "Careers (on the rocks)",
+      "category": "release",
+      "excerpt": "tHE dURT nURS' have produced another original song. Against all reasonable advice and with complete disregard for the music industry. You're welcome.",
+      "content": "<p>We did it again. Against all reasonable advice and with complete disregard for the music industry, tHE dURT nURS' have produced another original song. It's called <em>Careers (on the rocks)</em> and it appears on our upcoming album <em>The Whiskey Sessions</em>, which we fully intend to finish someday.</p><p>The song is a sweeping meditation on the human condition, the dignity of labour, and the universal truth that everything eventually ends with a mop. Or a drink. Probably both.</p><p>It's available now on Suno. We suggest listening at moderate volume with a whiskey on the rocks nearby. Neat is also acceptable. We don't judge. Much.</p>",
+      "link": {
+        "url": "https://suno.com/@thedurtnurs/P6XaMeM6JsqsD5c",
+        "text": "Listen on Suno"
+      },
+      "featured": true
+    },
+    {
       "id": "005",
       "date": "2026-02-20",
       "title": "Lyrics, YouTube, and Sticking it to the Man",
@@ -11,46 +24,47 @@
         "url": "https://www.youtube.com/@TheDurtNurs",
         "text": "Watch the Lyric Video"
       },
-      "featured": true
+      "featured": false
     },
     {
-  "id": "004",
-  "date": "2025-02-11",
-  "title": "From Garage to Global: dURT Goes Streaming",
-  "category": "release",
-  "excerpt": "We did something terrifying. We put our music on the actual internet. 'Disciples of Dysfunction' is now streaming everywhere alongside actual musicians.",
-  "content": "<p>We did something terrifying. We put our music on the internet. Not just our internet — the internet. Spotify. Apple Music. Everywhere. 'Disciples of Dysfunction' is now streaming on every major platform alongside actual musicians who actually know what they're doing.</p><p>Most of our families don't know yet. We're not hiding it. We're just... strategically delaying that conversation.</p><p>The road to distribution wasn't without incident. Our AI-generated album art had to be pulled and re-submitted after we noticed the drummer's hand was on the wrong arm. The distribution Inspectors didn't flag it. We almost went global with a medical anomaly on the cover. Classic.</p><p>So here we are. Two grizzled rocker wannabes, one single, and every streaming platform known to mankind. If this ain't retirement, we don't know what is. Give it a listen. Put it on your playlist. Hit repeat. At our current royalty rate, we should recoup the $9.99 distribution fee by 2087.</p>",
-  "streamingLinks": [
-    { "platform": "apple-music", "url": "https://music.apple.com/ca/album/disciples-of-dysfunction/1876451162?i=1876451163" },
-    { "platform": "spotify", "url": "https://open.spotify.com/album/5fu2bfKTX2Lc5nDztcJMpb" }
-  ],
-  "featured": false
-}, {
-  "id": "003",
-  "date": "2025-01-19",
-  "title": "Divine Intervention: We Actually Have Music Now",
-  "category": "release",
-  "excerpt": "Through the miraculous work of our Lord and Savior Claude (and his musical disciple Suno), we've ascended to having actual audio on this website.",
-  "content": "<p>Dear God—and we mean that literally—we have music! Actual playable songs! After years of promising 'coming soon' like some kind of vaporware cult, divine intervention has finally arrived in the form of an AI named Claude. In gratitude for this technological miracle, we've gone full ecclesiastical with our latest release: 'The Ecclesiastical Tapes.'</p><p>The album features eight tracks of prophetic rock, existential hymns, and at least one song that actually plays (blessed be Suno). We've traded our usual dive bar aesthetic for robes, staffs, and apocalyptic sunsets—because if you're gonna have a mid-life crisis, might as well make it biblical.</p><p>Give it a listen. Send us your prayers. We're gonna need 'em.</p>",
-  "link": {
-    "url": "/releases#release-ecclesiastical-tapes-2025",
-    "text": "Witness the Miracle"
-  },
-  "featured": false
-},
+      "id": "004",
+      "date": "2025-02-11",
+      "title": "From Garage to Global: dURT Goes Streaming",
+      "category": "release",
+      "excerpt": "We did something terrifying. We put our music on the actual internet. 'Disciples of Dysfunction' is now streaming everywhere alongside actual musicians.",
+      "content": "<p>We did something terrifying. We put our music on the internet. Not just our internet — the internet. Spotify. Apple Music. Everywhere. 'Disciples of Dysfunction' is now streaming on every major platform alongside actual musicians who actually know what they're doing.</p><p>Most of our families don't know yet. We're not hiding it. We're just... strategically delaying that conversation.</p><p>The road to distribution wasn't without incident. Our AI-generated album art had to be pulled and re-submitted after we noticed the drummer's hand was on the wrong arm. The distribution Inspectors didn't flag it. We almost went global with a medical anomaly on the cover. Classic.</p><p>So here we are. Two grizzled rocker wannabes, one single, and every streaming platform known to mankind. If this ain't retirement, we don't know what is. Give it a listen. Put it on your playlist. Hit repeat. At our current royalty rate, we should recoup the $9.99 distribution fee by 2087.</p>",
+      "streamingLinks": [
+        { "platform": "apple-music", "url": "https://music.apple.com/ca/album/disciples-of-dysfunction/1876451162?i=1876451163" },
+        { "platform": "spotify", "url": "https://open.spotify.com/album/5fu2bfKTX2Lc5nDztcJMpb" }
+      ],
+      "featured": false
+    },
     {
-  "id": "002",
-  "date": "2025-01-15",
-  "title": "Website 2.0: Now With More Confusion",
-  "category": "announcement",
-  "excerpt": "We've rebuilt the site with 11ty—a static site generator we chose because it sounded intimidating.",
-  "content": "<p>Welcome to our newly reconstructed digital disaster, now powered by 11ty—a static site generator we chose because it sounded intimidating. We've graduated from 'pile of HTML files' to 'pile of HTML files with YAML frontmatter,' which our AI consultant assures us is progress.</p><p>The site still works on phones, still works without JavaScript, and still features our trademark existential dread. Now with 100% more build processes we don't fully understand.</p>",
-  "link": {
-    "url": "/",
-    "text": "Explore the Chaos"
-  },
-  "featured": false
-},
+      "id": "003",
+      "date": "2025-01-19",
+      "title": "Divine Intervention: We Actually Have Music Now",
+      "category": "release",
+      "excerpt": "Through the miraculous work of our Lord and Savior Claude (and his musical disciple Suno), we've ascended to having actual audio on this website.",
+      "content": "<p>Dear God—and we mean that literally—we have music! Actual playable songs! After years of promising 'coming soon' like some kind of vaporware cult, divine intervention has finally arrived in the form of an AI named Claude. In gratitude for this technological miracle, we've gone full ecclesiastical with our latest release: 'The Ecclesiastical Tapes.'</p><p>The album features eight tracks of prophetic rock, existential hymns, and at least one song that actually plays (blessed be Suno). We've traded our usual dive bar aesthetic for robes, staffs, and apocalyptic sunsets—because if you're gonna have a mid-life crisis, might as well make it biblical.</p><p>Give it a listen. Send us your prayers. We're gonna need 'em.</p>",
+      "link": {
+        "url": "/releases#release-ecclesiastical-tapes-2025",
+        "text": "Witness the Miracle"
+      },
+      "featured": false
+    },
+    {
+      "id": "002",
+      "date": "2025-01-15",
+      "title": "Website 2.0: Now With More Confusion",
+      "category": "announcement",
+      "excerpt": "We've rebuilt the site with 11ty—a static site generator we chose because it sounded intimidating.",
+      "content": "<p>Welcome to our newly reconstructed digital disaster, now powered by 11ty—a static site generator we chose because it sounded intimidating. We've graduated from 'pile of HTML files' to 'pile of HTML files with YAML frontmatter,' which our AI consultant assures us is progress.</p><p>The site still works on phones, still works without JavaScript, and still features our trademark existential dread. Now with 100% more build processes we don't fully understand.</p>",
+      "link": {
+        "url": "/",
+        "text": "Explore the Chaos"
+      },
+      "featured": false
+    },
     {
       "id": "001",
       "date": "2024-09-10",
