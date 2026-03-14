@@ -43,10 +43,10 @@
       "featured": false
     },
     {
-      "id": "release-empty-room-2010",
+      "id": "release-empty-room-2000",
       "title": "The Empty Room",
       "artist": "tHE dURT nURS'",
-      "releaseDate": "1997-10-31",
+      "releaseDate": "2000-11-01",
       "type": "studio",
       "coverArt": "/assets/images/the-empty-room-album.png",
       "coverArtAlt": "Band rocking out to an empty room",
@@ -58,23 +58,23 @@
         { "title": "Wrong Chord, Right Feeling", "hasAudio": false },
         { "title": "The Ballad of Broken Strings", "hasAudio": false },
         { "title": "Who's Going?", "hasAudio": true, "audioFile": "/assets/audio/empty-room/who's-going.mp3", "duration": "4:44", "featured": true, "artworkVideo": "/assets/images/songs/who's-going.mp4", "artworkAlt": "evil spirits asking a question"},
-        { "title": "3AM Regrets", "hasAudio": true, "audioFile": "/assets/audio/empty-room/3am-regrets.mp3", "duration": "2:24", "featured": true, "artwork": "/assets/images/songs/3am-regrets.png", "artworkAlt": "A drink and cigarettes on a nightstand at 3AM"},
+        { "title": "Last Call Blues", "hasAudio": false },
         { "title": "We're Still Here", "hasAudio": false }
       ],
       "featured": false
     },
     {
-      "id": "release-whiskey-sessions-2000",
+      "id": "release-whiskey-sessions-1997",
       "title": "The Whiskey Sessions",
       "artist": "tHE dURT nURS'",
-      "releaseDate": "2000-11-01",
+      "releaseDate": "1997-10-31",
       "type": "ep",
       "coverArt": "/assets/images/the-whiskey-sessions-album.png",
       "coverArtAlt": "EP cover featuring an empty whiskey glass and scattered guitar picks",
       "description": "Five tracks, forty takes, fourteen bottles. An EP that captures the essence of bad decisions and good intentions. Surprisingly coherent for the circumstances.",
       "tracklist": [
         { "title": "The Choice", "hasAudio": true, "audioFile": "/assets/audio/whiskey-sessions/the-choice.mp3", "duration": "2:52", "featured": false, "artwork": "/assets/images/songs/the-choice.png", "artworkAlt": "Guy holding a guitar in a dimly lit room"},
-        { "title": "Last Call Blues", "hasAudio": false },
+        { "title": "3AM Regrets", "hasAudio": true, "audioFile": "/assets/audio/whiskey-sessions/3am-regrets.mp3", "duration": "2:24", "featured": true, "artwork": "/assets/images/songs/3am-regrets.png", "artworkAlt": "A drink and cigarettes on a nightstand at 3AM"},
         { "title": "Careers (On The Rocks)", "hasAudio": true, "audioFile": "/assets/audio/whiskey-sessions/careers.mp3", "duration": "2:24", "featured": true, "artwork": "/assets/images/songs/careers.png", "artworkAlt": "Whiskey lowball salute to those about to work"},
         { "title": "Bourbon Street Blues", "hasAudio": false },
         { "title": "Last Call Revolution", "hasAudio": false }
