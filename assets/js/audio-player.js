@@ -32,6 +32,7 @@ const DurtNursPlayer = {
   _trackCatalog: [],          // All available tracks from releases.json
   _autoQueueEnabled: false,   // Whether to auto-play next track
   _catalogLoaded: false,      // Whether track catalog has been fetched
+  _catalogLoadPromise: null,  // In-flight fetch Promise (prevents race conditions)
 
   // DOM element references (populated during init)
   _elements: {
@@ -559,42 +560,51 @@ const DurtNursPlayer = {
 
   /**
    * Load all available tracks from releases.json
+   * Returns a Promise that resolves when the catalog is ready.
+   * Stores the in-flight Promise so callers can await it without triggering duplicate fetches.
    */
-  async _loadTrackCatalog() {
-    if (this._catalogLoaded) return;
+  _loadTrackCatalog() {
+    if (!this._catalogLoadPromise) {
+      this._catalogLoadPromise = (async () => {
+        try {
+          const data = await DurtNursUtils.fetchJSON('/assets/data/releases.json');
+          this._trackCatalog = [];
 
-    try {
-      const data = await DurtNursUtils.fetchJSON('/assets/data/releases.json');
-      this._trackCatalog = [];
-
-      // Extract all tracks with audio
-      for (const release of data.releases) {
-        for (const track of release.tracklist) {
-          if (track.hasAudio && track.audioFile) {
-            this._trackCatalog.push({
-              title: track.title,
-              audioFile: track.audioFile,
-              duration: track.duration,
-              artwork: track.artwork || release.coverArt,
-              albumTitle: release.title,
-              artist: release.artist
-            });
+          // Extract all tracks with audio
+          for (const release of data.releases) {
+            for (const track of release.tracklist) {
+              if (track.hasAudio && track.audioFile) {
+                this._trackCatalog.push({
+                  title: track.title,
+                  audioFile: track.audioFile,
+                  duration: track.duration,
+                  artwork: track.artwork || release.coverArt,
+                  albumTitle: release.title,
+                  artist: release.artist
+                });
+              }
+            }
           }
+
+          this._catalogLoaded = true;
+          DurtNursUtils.debug(`📚 Loaded ${this._trackCatalog.length} tracks for auto-queue`);
+
+        } catch (error) {
+          DurtNursUtils.debugError('❌ Failed to load track catalog:', error);
         }
-      }
-
-      this._catalogLoaded = true;
-      DurtNursUtils.debug(`📚 Loaded ${this._trackCatalog.length} tracks for auto-queue`);
-
-    } catch (error) {
-      DurtNursUtils.debugError('❌ Failed to load track catalog:', error);
+      })();
     }
+
+    return this._catalogLoadPromise || Promise.resolve();
   },
 
   /**
    * Play the next track (random selection, excluding current)
    */
-  _playNextTrack() {
+  async _playNextTrack() {
+    // Ensure catalog is loaded; safe to call repeatedly (returns cached Promise)
+    await this._loadTrackCatalog();
+
     if (this._trackCatalog.length === 0) {
       DurtNursUtils.debugWarn('No tracks available for auto-queue');
       return;
@@ -711,7 +721,7 @@ const DurtNursPlayer = {
 
         // Resume playing if it was playing before
         if (state.isPlaying) {
-          this._audio.play().catch(err => {
+          this._audio.play().catch(() => {
             // Autoplay may be blocked - that's OK, user can click play
             DurtNursUtils.debug('DurtNursPlayer: Autoplay blocked, user interaction required');
             this._updatePlayButton(false);
