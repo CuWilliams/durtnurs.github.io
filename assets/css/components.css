@@ -139,6 +139,8 @@
   transition: transform var(--transition-base);
   box-shadow: var(--shadow-xl);
   border-left: var(--border-width) solid var(--color-iron-gray);
+  overflow-y: auto;
+  overflow-x: hidden;
 
   display: flex;
   flex-direction: column;
