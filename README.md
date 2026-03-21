@@ -45,9 +45,12 @@ tHE dURT nURS' consists of two members who met at a dive bar and decided the wor
 
 - **Band Info** — Member profiles, origin story (it involves whiskey)
 - **News** — Announcements, filtered by how much we've had to drink
-- **Releases** — Full discography with collapsible tracklists
+- **Releases** — Full discography with collapsible tracklists and in-browser audio previews
+- **Streaming** — Links to Spotify and Apple Music, because apparently that's a thing now
 - **Gallery** — Photos and videos of questionable quality and excellent memories
+- **Merch** — Store with a flash sale that is definitely not a joke (it is a joke)
 - **Fan Club** — Password-protected area for our closest friends (access code may or may not be hidden in plain sight)
+- **Hero Kaleidoscope** — Animated homepage hero that does things we didn't fully plan
 - **Contact** — Email us at `biteme@durtnurs.com` (yes, really)
 
 ---
@@ -78,9 +81,12 @@ Because sometimes you don't need React to tell people about your band. Also, it'
 ### Quick Start
 
 ```bash
-npm install        # Install dependencies
-npm run serve      # Start dev server at localhost:8080
-npm run build      # Build to _site/
+npm install               # Install dependencies
+npm run serve             # Start dev server at localhost:8080
+npm run build             # Build to _site/
+npm run optimize-images   # Generate WebP versions of all images
+npm run generate-thumbnails  # Generate gallery thumbnails
+npm run prepare-hero      # Resize hero PNGs and regenerate manifest
 ```
 
 ### Project Structure
@@ -95,7 +101,9 @@ durtnurs.github.io/
 │   ├── css/               # Stylesheets
 │   ├── js/                # JavaScript modules
 │   ├── data/              # JSON content files
-│   └── images/            # Band photos, album art
+│   ├── images/            # Band photos, album art, hero objects
+│   └── audio/             # Track audio files
+├── scripts/               # Build automation (thumbnails, hero, image optimization)
 ├── _site/                 # Build output (gitignored)
 └── .github/workflows/     # Automated deployment
 ```
@@ -109,6 +117,8 @@ All content lives in JSON files. No database, no CMS, no problem.
 - **News:** `assets/data/announcements.json`
 - **Releases:** `assets/data/releases.json`
 - **Gallery:** `assets/data/gallery.json`
+- **Merch:** `assets/data/merch.json`
+- **Hero Objects:** `assets/data/hero-objects.json` *(auto-generated — run `prepare-hero`)*
 
 To update the featured release on the homepage, just flip `"featured": true` in `releases.json`.
 
@@ -150,7 +160,7 @@ This is a personal band site, but if you spot bugs:
 
 ## License
 
-© 2024-2025 tHE dURT nURS'. All rights reserved.
+© 2024-2026 tHE dURT nURS'. All rights reserved.
 
 Built with grit, aged whiskey, and questionable decisions.
 
