@@ -547,6 +547,67 @@
   letter-spacing: 0.05em;
 }
 
+/* Hero streaming platform badges */
+.hero__streaming-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-top: var(--space-lg);
+}
+
+.streaming-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--color-coal-black);
+  border: var(--border-width) solid var(--color-tarnished-brass);
+  border-radius: 9999px;
+  color: var(--color-text-primary);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: all var(--transition-base);
+  min-height: 44px;
+}
+
+.streaming-badge:hover,
+.streaming-badge:focus {
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.streaming-badge:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.streaming-badge--spotify:hover,
+.streaming-badge--spotify:focus {
+  border-color: #1DB954;
+  color: #1DB954;
+}
+
+.streaming-badge--apple:hover,
+.streaming-badge--apple:focus {
+  border-color: #fc3c44;
+  color: #fc3c44;
+}
+
+.streaming-badge__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.streaming-badge__label {
+  white-space: nowrap;
+}
+
 /* Footer navigation */
 .site-footer__nav {
   margin-bottom: var(--space-lg);
