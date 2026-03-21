@@ -319,4 +319,13 @@ git push origin main
 
 ---
 
+## Related Project
+
+**LV-Gen (Lyric Video Generator):** `/Users/curtiswilliams/Projects_Local_Repo/lyric-video-generator`
+
+The download page for this tool will live on this site. When working across both repos, 
+reference LV-Gen files by absolute path. The LV-Gen repo has its own CLAUDE.md.
+
+---
+
 *Maintained for Claude Code sessions. Last updated: February 2026*
