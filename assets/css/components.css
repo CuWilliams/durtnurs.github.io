@@ -199,6 +199,62 @@
     font-size: var(--font-size-base);
     padding: var(--space-xs);
   }
+
+  /* Desktop dropdown: reveal on hover/focus */
+  .main-nav__item--has-dropdown {
+    position: relative;
+  }
+
+  .main-nav__dropdown {
+    display: block; /* override mobile flex — block stacking fills width naturally */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    background-color: var(--color-coal-black);
+    border: var(--border-width) solid var(--color-iron-gray);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-xs) 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-6px);
+    transition: opacity var(--transition-base), transform var(--transition-base), visibility var(--transition-base);
+    z-index: calc(var(--z-header) + 10);
+    list-style: none;
+    margin: 0;
+  }
+
+  .main-nav__item--has-dropdown:hover .main-nav__dropdown,
+  .main-nav__item--has-dropdown:focus-within .main-nav__dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .main-nav__dropdown-link {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: var(--space-xs) var(--space-sm);
+    transition: color var(--transition-base), background-color var(--transition-base);
+    white-space: nowrap;
+  }
+
+  .main-nav__dropdown-link:hover,
+  .main-nav__dropdown-link:focus {
+    color: var(--color-primary);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .main-nav__dropdown-link--active {
+    color: var(--color-accent);
+  }
 }
 
 
@@ -764,6 +820,27 @@ figcaption {
   --hero-gradient-end: var(--color-burnt-umber);
   --hero-title-color: var(--color-primary);
   --hero-subtitle-color: var(--color-accent);
+}
+
+/* Sponsors page: brass/gold gradient */
+.hero--sponsors {
+  --hero-gradient-start: var(--color-coal-black);
+  --hero-gradient-mid: var(--color-tarnished-brass);
+  --hero-gradient-end: var(--color-coal-black);
+}
+
+/* Reality page: iron gray — muted, honest */
+.hero--reality {
+  --hero-gradient-start: var(--color-coal-black);
+  --hero-gradient-mid: var(--color-iron-gray);
+  --hero-gradient-end: var(--color-coal-black);
+}
+
+/* LV-Gen page: deep coal — tool, not party */
+.hero--lv-gen {
+  --hero-gradient-start: var(--color-coal-black);
+  --hero-gradient-mid: var(--color-burnt-umber);
+  --hero-gradient-end: var(--color-coal-black);
 }
 
 
@@ -3582,6 +3659,93 @@ p.origin-placeholder {
   font-size: 0.85em;
   margin-right: 4px;
   opacity: 0.8;
+}
+
+/* =============================================================================
+   NAV DROPDOWN — MOBILE STYLES
+   Scoped to max-width: 767px to prevent cascade bleed into desktop.
+   Desktop styles live in the @media (min-width: 768px) block above.
+   On mobile, dropdown items are always visible, indented under their parent.
+   The parent trigger label acts as a section header (non-interactive).
+   ============================================================================= */
+@media (max-width: 767px) {
+
+  /* Dropdown trigger: non-interactive section header on mobile */
+  .main-nav__link--dropdown-trigger {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    letter-spacing: 0.1em;
+    padding-bottom: 0;
+    border-bottom: none;
+    cursor: default;
+  }
+
+  /* Mobile dropdown list: always expanded, indented */
+  .main-nav__dropdown {
+    list-style: none;
+    margin: 0 0 var(--space-sm) 0;
+    padding: 0 0 0 var(--space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .main-nav__dropdown-link {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: var(--space-xs) var(--space-sm);
+    transition: color var(--transition-base);
+  }
+
+  .main-nav__dropdown-link:hover,
+  .main-nav__dropdown-link:focus {
+    color: var(--color-primary);
+  }
+
+  .main-nav__dropdown-link--active {
+    color: var(--color-accent);
+  }
+
+  /* Active parent: highlight the trigger label */
+  .main-nav__item--active .main-nav__link--dropdown-trigger {
+    color: var(--color-accent);
+  }
+
+}
+
+/* =============================================================================
+   COMING SOON BLOCK
+   Placeholder content for pages not yet built.
+   Used by sponsors.njk, reality.njk, lv-gen.njk.
+   ============================================================================= */
+
+.coming-soon-block {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--space-3xl) var(--space-lg);
+  text-align: center;
+}
+
+.coming-soon-block__body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-md);
+}
+
+.coming-soon-block__body em {
+  color: var(--color-text-primary);
+  font-style: italic;
+}
+
+.coming-soon-block__actions {
+  margin-top: var(--space-xl);
 }
 
 /* =============================================================================

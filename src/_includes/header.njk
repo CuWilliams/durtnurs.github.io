@@ -2,12 +2,15 @@
   HEADER & NAVIGATION
   Semantic <header> contains site-wide navigation
   Uses checkbox hack for mobile menu (CSS-only, no JavaScript required)
+
+  Dropdown menus use :hover + :focus-within (CSS-only, no JS needed for mouse/keyboard).
+  On mobile the sidebar shows all items inline — dropdowns are always expanded.
 -->
 <header class="site-header">
   <div class="container">
     <nav class="main-nav" aria-label="Main navigation">
 
-      <!-- Logo/Band Name: Exact case preserved -->
+      <!-- Logo/Band Name: Exact case preserved. Also serves as the Home link. -->
       <div class="main-nav__logo">
         <a href="/" aria-label="tHE dURT nURS' home">
           <span class="logo-text">tHE dURT nURS'</span>
@@ -22,16 +25,43 @@
 
       <!-- Navigation Links -->
       <ul class="main-nav__list">
-        <li><a href="/" class="main-nav__link{% if activePage == 'home' %} main-nav__link--active" aria-current="page{% endif %}">Home</a></li>
+
         <li><a href="/about/" class="main-nav__link{% if activePage == 'about' %} main-nav__link--active" aria-current="page{% endif %}">About</a></li>
-        <li><a href="/releases/" class="main-nav__link{% if activePage == 'releases' %} main-nav__link--active" aria-current="page{% endif %}">Releases</a></li>
+
+        <!-- Music dropdown: Releases + Reality (when it ships) -->
+        <li class="main-nav__item--has-dropdown{% if activePage == 'releases' or activePage == 'reality' %} main-nav__item--active{% endif %}">
+          <span class="main-nav__link main-nav__link--dropdown-trigger" aria-haspopup="true">Music</span>
+          <ul class="main-nav__dropdown" role="menu">
+            <li role="none"><a href="/releases/" class="main-nav__dropdown-link{% if activePage == 'releases' %} main-nav__dropdown-link--active" aria-current="page{% endif %}" role="menuitem">Releases</a></li>
+            <li role="none"><a href="/reality/" class="main-nav__dropdown-link{% if activePage == 'reality' %} main-nav__dropdown-link--active" aria-current="page{% endif %}" role="menuitem">Reality</a></li>
+          </ul>
+        </li>
+
         <li><a href="/news/" class="main-nav__link{% if activePage == 'news' %} main-nav__link--active" aria-current="page{% endif %}">News</a></li>
         <li><a href="/gallery/" class="main-nav__link{% if activePage == 'gallery' %} main-nav__link--active" aria-current="page{% endif %}">Gallery</a></li>
-        <li><a href="/merch/" class="main-nav__link{% if activePage == 'merch' %} main-nav__link--active" aria-current="page{% endif %}">Merch</a></li>
+
+        <!-- Store dropdown: Merch + Sponsors (when it ships) -->
+        <li class="main-nav__item--has-dropdown{% if activePage == 'merch' or activePage == 'sponsors' %} main-nav__item--active{% endif %}">
+          <span class="main-nav__link main-nav__link--dropdown-trigger" aria-haspopup="true">Store</span>
+          <ul class="main-nav__dropdown" role="menu">
+            <li role="none"><a href="/merch/" class="main-nav__dropdown-link{% if activePage == 'merch' %} main-nav__dropdown-link--active" aria-current="page{% endif %}" role="menuitem">Merch</a></li>
+            <li role="none"><a href="/sponsors/" class="main-nav__dropdown-link{% if activePage == 'sponsors' %} main-nav__dropdown-link--active" aria-current="page{% endif %}" role="menuitem">Sponsors</a></li>
+          </ul>
+        </li>
+
+        <!-- More dropdown: LV-Gen + future tools -->
+        <li class="main-nav__item--has-dropdown{% if activePage == 'lv-gen' %} main-nav__item--active{% endif %}">
+          <span class="main-nav__link main-nav__link--dropdown-trigger" aria-haspopup="true">More</span>
+          <ul class="main-nav__dropdown" role="menu">
+            <li role="none"><a href="/lv-gen/" class="main-nav__dropdown-link{% if activePage == 'lv-gen' %} main-nav__dropdown-link--active" aria-current="page{% endif %}" role="menuitem">LV-Gen</a></li>
+          </ul>
+        </li>
+
         <li><a href="/fanclub/" class="main-nav__link main-nav__link--protected{% if activePage == 'fanclub' %} main-nav__link--active" aria-current="page{% endif %}">
           <span class="nav-lock-icon" aria-hidden="true">🔒</span> Fan Club
         </a></li>
         <li><a href="/contact/" class="main-nav__link{% if activePage == 'contact' %} main-nav__link--active" aria-current="page{% endif %}">Contact</a></li>
+
       </ul>
     </nav>
   </div>
