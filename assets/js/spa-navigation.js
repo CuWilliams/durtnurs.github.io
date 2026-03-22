@@ -72,6 +72,9 @@ const DurtNursSPA = {
     // Set up browser history handling
     this._bindPopState();
 
+    // Lock body scroll when mobile nav is open
+    this._bindNavToggle();
+
     DurtNursUtils.debug('🚀 SPA navigation initialized');
   },
 
@@ -311,6 +314,19 @@ const DurtNursSPA = {
     const toggle = document.getElementById('nav-toggle');
     if (toggle && toggle.checked) {
       toggle.checked = false;
+      document.body.classList.remove('nav-open');
+    }
+  },
+
+  /**
+   * Bind body scroll lock to the mobile nav toggle checkbox
+   */
+  _bindNavToggle() {
+    const toggle = document.getElementById('nav-toggle');
+    if (toggle) {
+      toggle.addEventListener('change', () => {
+        document.body.classList.toggle('nav-open', toggle.checked);
+      });
     }
   },
 
