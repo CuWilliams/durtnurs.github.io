@@ -1,52 +1,221 @@
 ---
 layout: base.njk
 title: LV-Gen Download
-description: LV-Gen Lyric Video Generator — a tool that makes lyric videos, download coming soon
-ogDescription: We built a thing. It makes lyric videos. Instructions pending DeadBeat's understanding of terminals.
+description: LV-Gen Lyric Video Generator — free macOS app that turns a lyrics JSON file and audio into a YouTube-ready 1080p lyric video.
+ogDescription: We made a whole separate piece of software. Snowman wrote it. DeadBeat mostly watched. You can download it for free, which is exactly what it's worth.
 activePage: lv-gen
 permalink: /lv-gen/index.html
+scripts:
+  - lv-gen.js
 ---
 
-<!--
-  LV-GEN DOWNLOAD PAGE — PLACEHOLDER
-  Full download page coming in Issue #55.
-  Voice: Empty-state "Apologetically Absurd" — name the obstacle, blame DeadBeat specifically.
--->
-
 <!-- HERO SECTION -->
-<section class="hero hero--lv-gen" aria-labelledby="hero-heading">
+<section class="hero hero--lv-gen" aria-labelledby="lv-gen-hero-heading">
   <div class="container">
     <div class="hero__content">
-      <h1 id="hero-heading" class="hero__title">LV-Gen</h1>
+      <h1 id="lv-gen-hero-heading" class="hero__title">LV-Gen</h1>
       <p class="hero__subtitle">Lyric Video Generator</p>
+      <p class="hero__description">
+        We built a tool that turns a JSON file and an audio track into a
+        YouTube-ready lyric video. It works surprisingly well, which surprised
+        us most of all.
+      </p>
     </div>
   </div>
 </section>
 
-<!-- COMING SOON CONTENT -->
-<section class="section" aria-label="Coming soon">
+<!-- DOWNLOAD SECTION -->
+<section class="download-section" aria-labelledby="download-heading">
   <div class="container">
-    <div class="coming-soon-block">
+    <h2 id="download-heading" class="section-heading">Download</h2>
 
-      <p class="coming-soon-block__body">
-        We built a thing. It makes lyric videos. You can download it and use it on your own
-        music, which is almost certainly better than ours.
-      </p>
+    <!-- lv-gen.js populates this div with version badge + platform cards -->
+    <div id="lv-gen-download">
+      <p class="loading-message">Checking for the latest version...</p>
+    </div>
 
-      <p class="coming-soon-block__body">
-        This page will explain all of that properly as soon as we finish writing instructions
-        a human being can follow — which will happen as soon as Snowman finishes explaining
-        to DeadBeat what a terminal window is.
-      </p>
+    <!-- Static fallback for users with JavaScript disabled -->
+    <noscript>
+      <div class="download-section__noscript">
+        <p>
+          JavaScript is disabled, so we can't fetch the version automatically.
+          Head to GitHub and grab the latest <code>LV-Gen-vX.X.X.dmg</code>
+          from the Assets section. It's free, which remains its finest quality.
+        </p>
+        <a
+          href="https://github.com/CuWilliams/lyric-video-generator/releases/latest"
+          class="button button--primary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Releases on GitHub
+        </a>
+      </div>
+    </noscript>
+  </div>
+</section>
 
-      <p class="coming-soon-block__body">
-        We're on week three of that conversation. Inexplicably, he keeps opening TextEdit.
-      </p>
+<!-- FEATURES SECTION -->
+<section class="section features-section" aria-labelledby="features-heading">
+  <div class="container">
+    <h2 id="features-heading" class="section-heading">What It Does</h2>
+    <div class="feature-grid">
 
-      <div class="coming-soon-block__actions">
-        <a href="/" class="button button--primary">Fine, Go Back Home</a>
+      <div class="feature-card">
+        <span class="feature-card__icon" aria-hidden="true">🎬</span>
+        <h3 class="feature-card__title">1080p Output</h3>
+        <p class="feature-card__description">
+          YouTube-ready H.264 MP4 at 1080p. We did not expect it to look
+          this decent either.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-card__icon" aria-hidden="true">⏱</span>
+        <h3 class="feature-card__title">Visual Timeline Editor</h3>
+        <p class="feature-card__description">
+          Drag markers to sync lyrics with audio. Considerably less miserable
+          than editing JSON by hand, which was our first approach.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-card__icon" aria-hidden="true">🎨</span>
+        <h3 class="feature-card__title">Live Theme Editor</h3>
+        <p class="feature-card__description">
+          Colors, fonts, glow effects — all adjustable in real time. See
+          changes before committing to a look you'll immediately second-guess.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-card__icon" aria-hidden="true">🖥</span>
+        <h3 class="feature-card__title">GUI + CLI</h3>
+        <p class="feature-card__description">
+          Desktop app for humans. Command-line interface for those who
+          enjoy typing things out. Both produce the same result.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-card__icon" aria-hidden="true">✨</span>
+        <h3 class="feature-card__title">Word &amp; Character Highlighting</h3>
+        <p class="feature-card__description">
+          Highlight by full line, word, or individual character as audio plays.
+          Line mode is the default. The others are for show-offs.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-card__icon" aria-hidden="true">▶</span>
+        <h3 class="feature-card__title">Embedded Preview</h3>
+        <p class="feature-card__description">
+          Preview your video inside the app before exporting. No need to open
+          a separate player and pretend to be professional about it.
+        </p>
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- INSTALL STEPS SECTION -->
+<section class="section install-section" aria-labelledby="install-heading">
+  <div class="container">
+    <h2 id="install-heading" class="section-heading">How to Install</h2>
+    <ol class="install-steps" aria-label="Installation steps">
+
+      <li class="install-step">
+        <span class="install-step__number" aria-hidden="true">1</span>
+        <div class="install-step__content">
+          <h3 class="install-step__title">Download the .dmg</h3>
+          <p class="install-step__description">
+            Click the download button above. The file will be named
+            <code>LV-Gen-vX.X.X.dmg</code>. It is larger than you expect
+            because it bundles Python. This is normal and not your fault.
+          </p>
+        </div>
+      </li>
+
+      <li class="install-step">
+        <span class="install-step__number" aria-hidden="true">2</span>
+        <div class="install-step__content">
+          <h3 class="install-step__title">Drag to Applications</h3>
+          <p class="install-step__description">
+            Open the .dmg and drag LV-Gen to your Applications folder.
+            Same as every other Mac app. You've done this before.
+          </p>
+        </div>
+      </li>
+
+      <li class="install-step">
+        <span class="install-step__number" aria-hidden="true">3</span>
+        <div class="install-step__content">
+          <h3 class="install-step__title">Install FFmpeg</h3>
+          <p class="install-step__description">
+            Open Terminal and run: <code>brew install ffmpeg</code>.
+            FFmpeg handles the video encoding. Without it, nothing exports.
+            If you don't have Homebrew yet, get it at
+            <a href="https://brew.sh" target="_blank" rel="noopener noreferrer">brew.sh</a>
+            first.
+          </p>
+        </div>
+      </li>
+
+      <li class="install-step">
+        <span class="install-step__number" aria-hidden="true">4</span>
+        <div class="install-step__content">
+          <h3 class="install-step__title">First Launch: Right-Click → Open</h3>
+          <p class="install-step__description">
+            macOS will refuse to open it the first time because we are not
+            registered with Apple. Right-click the app icon, choose
+            <strong>Open</strong>, and confirm. After that, it launches normally.
+            We promise it's not malware. We barely got it to make videos.
+          </p>
+        </div>
+      </li>
+
+    </ol>
+  </div>
+</section>
+
+<!-- SYSTEM REQUIREMENTS SECTION -->
+<section class="section requirements-section" aria-labelledby="requirements-heading">
+  <div class="container">
+    <h2 id="requirements-heading" class="section-heading">System Requirements</h2>
+    <ul class="requirements-list" aria-label="System requirements">
+
+      <li class="requirements-list__item">
+        <strong>macOS</strong> — Apple Silicon and Intel both supported.
+      </li>
+
+      <li class="requirements-list__item">
+        <strong>FFmpeg</strong> — The one external dependency. Install via
+        Homebrew: <code>brew install ffmpeg</code>. It is unavoidable.
+      </li>
+
+      <li class="requirements-list__item">
+        <strong>Python</strong> — Bundled inside the app. You do not need
+        to install it separately. We handled that part.
+      </li>
+
+      <li class="requirements-list__item">
+        <strong>Disk space</strong> — Approximately 200–300 MB for the app
+        bundle, plus whatever FFmpeg takes. Plan accordingly.
+      </li>
+
+    </ul>
+
+    <p class="requirements-list__note">
+      Windows and Linux users: a source install is possible with Python 3.10+
+      and FFmpeg. Pre-built binaries are not available yet. We are working on it,
+      in the loosest sense of "working." See the
+      <a
+        href="https://github.com/CuWilliams/lyric-video-generator"
+        target="_blank"
+        rel="noopener noreferrer"
+      >GitHub repository</a>
+      for instructions.
+    </p>
   </div>
 </section>
