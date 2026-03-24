@@ -323,9 +323,15 @@ git push origin main
 
 **LV-Gen (Lyric Video Generator):** `/Users/curtiswilliams/Projects_Local_Repo/lyric-video-generator`
 
-The download page for this tool will live on this site. When working across both repos, 
-reference LV-Gen files by absolute path. The LV-Gen repo has its own CLAUDE.md.
+The LV-Gen download page is live at `/lv-gen/` (source: `src/lv-gen.njk`, JS: `assets/js/lv-gen.js`).
+
+- `lv-gen.js` fetches the latest release from the GitHub API and renders the download section dynamically
+- It detects both the `.dmg` asset (`endsWith('.dmg')`) and the HTML manual asset (`startsWith('LV-Gen-Manual-')`)
+- Both download links are surfaced automatically when present in the release — no manual updates needed
+- The noscript fallback links directly to the GitHub releases page
+
+When working across both repos, reference LV-Gen files by absolute path. The LV-Gen repo has its own CLAUDE.md.
 
 ---
 
-*Maintained for Claude Code sessions. Last updated: February 2026*
+*Maintained for Claude Code sessions. Last updated: March 2026*
