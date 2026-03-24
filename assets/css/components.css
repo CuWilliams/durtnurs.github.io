@@ -292,6 +292,12 @@ body.nav-open {
   white-space: nowrap;
 }
 
+/* Small button variant */
+.button--sm {
+  font-size: var(--font-size-sm);
+  padding: var(--space-xs) var(--space-md);
+}
+
 /* Primary button: Main call-to-action */
 .button--primary {
   background-color: var(--color-primary);
@@ -4779,15 +4785,20 @@ p.origin-placeholder {
 }
 
 .platform-card__icon {
-  font-size: var(--font-size-3xl);
-  line-height: 1;
+  width: 64px;
+  height: 64px;
+}
+
+.platform-card__icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .platform-card__name {
   font-family: var(--font-heading);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
-  text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--color-text-primary);
 }
@@ -4892,6 +4903,10 @@ p.origin-placeholder {
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed);
+}
+
+.feature-card__description + .button {
+  margin-top: var(--space-sm);
 }
 
 /* ---------------------------------------------------------------------------

@@ -72,14 +72,20 @@ function renderPlatformGrid(macOsUrl) {
     <div class="platform-grid">
 
       <div class="platform-card platform-card--active">
-        <span class="platform-card__icon" aria-hidden="true">🍎</span>
+        <picture class="platform-card__icon" aria-hidden="true">
+          <source srcset="/assets/images/lv-gen-icon.webp" type="image/webp">
+          <img src="/assets/images/lv-gen-icon.png" alt="LV-Gen">
+        </picture>
         <span class="platform-card__name">macOS</span>
         <span class="platform-card__status">Available</span>
         ${macOsBtn}
       </div>
 
       <div class="platform-card platform-card--unavailable" aria-disabled="true">
-        <span class="platform-card__icon" aria-hidden="true">🪟</span>
+        <picture class="platform-card__icon" aria-hidden="true">
+          <source srcset="/assets/images/lv-gen-icon.webp" type="image/webp">
+          <img src="/assets/images/lv-gen-icon.png" alt="LV-Gen">
+        </picture>
         <span class="platform-card__name">Windows</span>
         <span class="platform-card__status">Coming Eventually (Probably)</span>
         <span class="platform-card__btn button button--secondary" aria-disabled="true">
@@ -88,7 +94,10 @@ function renderPlatformGrid(macOsUrl) {
       </div>
 
       <div class="platform-card platform-card--unavailable" aria-disabled="true">
-        <span class="platform-card__icon" aria-hidden="true">🐧</span>
+        <picture class="platform-card__icon" aria-hidden="true">
+          <source srcset="/assets/images/lv-gen-icon.webp" type="image/webp">
+          <img src="/assets/images/lv-gen-icon.png" alt="LV-Gen">
+        </picture>
         <span class="platform-card__name">Linux</span>
         <span class="platform-card__status">Coming Eventually (Probably)</span>
         <span class="platform-card__btn button button--secondary" aria-disabled="true">
