@@ -4846,6 +4846,40 @@ p.origin-placeholder {
   border-radius: var(--border-radius-lg);
 }
 
+/* Security/trust note below download buttons */
+.download-section__security-note {
+  margin-top: var(--space-xl);
+  padding: var(--space-md) var(--space-lg);
+  border-left: 3px solid var(--color-tarnished-brass);
+  background-color: rgba(139, 122, 67, 0.08);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-align: left;
+}
+
+.download-section__security-note-heading {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-sm);
+}
+
+.download-section__security-note p {
+  margin-bottom: var(--space-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+.download-section__security-note p:last-child {
+  margin-bottom: 0;
+}
+
+.download-section__security-note a {
+  color: var(--color-tarnished-brass);
+}
+
 /* ---------------------------------------------------------------------------
    FEATURES SECTION
    --------------------------------------------------------------------------- */
