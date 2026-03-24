@@ -115,6 +115,23 @@ function renderPlatformGrid(macOsUrl) {
  * @param {Object} releaseData - GitHub release object
  * @returns {string} HTML string
  */
+/**
+ * Renders the manual download link if a manual asset is present in the release.
+ *
+ * @param {string|null} manualUrl - Direct HTML manual download URL, or null if unavailable
+ * @returns {string} HTML string
+ */
+function renderManualLink(manualUrl) {
+  if (!manualUrl) return '';
+  return `
+    <div class="download-section__manual">
+      <a href="${manualUrl}" class="button button--secondary download-section__manual-link" download>
+        Download User Manual
+      </a>
+    </div>
+  `;
+}
+
 function renderDownloadSection(releaseData) {
   const version = releaseData.tag_name;
   const dmgAsset = releaseData.assets
@@ -122,10 +139,16 @@ function renderDownloadSection(releaseData) {
     : null;
   const macOsUrl = dmgAsset ? dmgAsset.browser_download_url : null;
 
+  const manualAsset = releaseData.assets
+    ? releaseData.assets.find(a => a.name.startsWith('LV-Gen-Manual-'))
+    : null;
+  const manualUrl = manualAsset ? manualAsset.browser_download_url : null;
+
   return `
     <div class="download-section__inner">
       ${renderVersionBadge(version)}
       ${renderPlatformGrid(macOsUrl)}
+      ${renderManualLink(manualUrl)}
     </div>
   `;
 }
