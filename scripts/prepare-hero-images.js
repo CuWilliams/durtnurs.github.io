@@ -5,7 +5,7 @@
  * a JSON manifest file listing all available hero objects.
  *
  * Usage:
- *   npm run prepare-hero                                    # Default source: ~/Desktop/kaleidoscope-images/
+ *   npm run prepare-hero                                    # Default source: ~/Library/Mobile Documents/com~apple~CloudDocs/the Durt Nurs' Den of Inequity/WEBMASTER/working/kaleidoscope-images/
  *   npm run prepare-hero -- --source /path/to/images        # Custom source directory
  *
  * What it does:
@@ -23,7 +23,7 @@ const sharp = require('sharp');
 const os = require('os');
 
 // Configuration
-const DEFAULT_SOURCE = path.join(os.homedir(), 'Desktop', 'kaleidoscope-images');
+const DEFAULT_SOURCE = path.join(os.homedir(), 'Library', 'Mobile Documents', 'com~apple~CloudDocs', "the Durt Nurs' Den of Inequity", 'WEBMASTER', 'working', 'kaleidoscope-images');
 const OUTPUT_DIR = path.join('assets', 'images', 'hero-objects');
 const MANIFEST_PATH = path.join('assets', 'data', 'hero-objects.json');
 const MAX_DIMENSION = 200; // Max width or height in pixels

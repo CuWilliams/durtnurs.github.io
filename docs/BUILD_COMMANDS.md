@@ -45,7 +45,7 @@ Thumbnails are named `[basename]-thumb.jpg` (e.g., `my-photo.jpg` → `my-photo-
 ```bash
 # 1. Add or remove PNGs in your source folder
 # 2. Run prepare-hero (resizes to 200px, renames, generates manifest)
-npm run prepare-hero                              # Default source: ~/Desktop/kaleidoscope-images/
+npm run prepare-hero                              # Default source: ~/Library/Mobile Documents/com~apple~CloudDocs/the Durt Nurs' Den of Inequity/WEBMASTER/working/kaleidoscope-images/
 npm run prepare-hero -- --source /path/to/folder  # Custom source folder
 # 3. Generate WebP versions
 npm run optimize-images
