@@ -1,6 +1,19 @@
 {
   "announcements": [
     {
+      "id": "007",
+      "date": "2026-03-26",
+      "title": "LV-Gen Is Out. Download It If You Dare.",
+      "category": "release",
+      "excerpt": "We made good on our promise to 'stick it to the man.' The lyric video generator we built ourselves — in Python, out of spite — is now free to download. You're welcome. Probably.",
+      "content": "<p>We keep our promises. Eventually. Sometimes.</p><p>A while back we built our own lyric video generator because the professionals wanted embarrassing money for their mediocre versions. We told them where to stick it and built our own. In Python. From scratch. Out of spite. And honestly? It's pretty good. We said so ourselves.</p><p>Now you can have it. Free of charge. Available for macOS, because we haven't figured out the other platforms yet and Windows has frankly been on thin ice with us for years.</p><p>Download it. Use it. Tell us how crappy it is. We'll ignore you, but we appreciate the effort.</p>",
+      "link": {
+        "url": "/lv-gen/",
+        "text": "Download LV-Gen"
+      },
+      "featured": true
+    },
+    {
       "id": "006",
       "date": "2026-03-09",
       "title": "Careers (on the rocks)",
@@ -11,7 +24,7 @@
         "url": "https://suno.com/@thedurtnurs/P6XaMeM6JsqsD5c",
         "text": "Listen on Suno"
       },
-      "featured": true
+      "featured": false
     },
     {
       "id": "005",
