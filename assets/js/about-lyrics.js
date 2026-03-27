@@ -33,6 +33,11 @@
     var container = document.getElementById('lyrics-showcase');
     if (!container) return;
 
+    // Reset on each init (SPA navigation replaces DOM, so we rebuild from scratch)
+    lyricsPages = [];
+    state = { allMedia: [], currentIndex: 0, isLightboxOpen: false };
+    lightbox = null;
+
     DurtNursUtils.debug('📝 Initializing lyrics showcase...');
 
     // Build pages array from DOM data attributes
@@ -163,5 +168,10 @@
   // =========================================================================
 
   DurtNursUtils.onDOMReady(init);
+
+  // Register with SPA so init() reruns after SPA navigation replaces the About page DOM
+  if (typeof DurtNursSPA !== 'undefined') {
+    DurtNursSPA.registerModule('about-lyrics', init, { pages: ['about'] });
+  }
 
 })();

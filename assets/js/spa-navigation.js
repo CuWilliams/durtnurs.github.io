@@ -24,9 +24,11 @@ const DurtNursSPA = {
 
   _config: {
     // Selector for the content container to replace
-    contentSelector: 'main.page-layout',
+    contentSelector: 'main',
     // Selector for navigation links that should update active state
-    navLinkSelector: '.main-nav__link',
+    // Must target <a> elements only — <span> dropdown triggers also carry this class
+    // and span.href is undefined, causing new URL(undefined) to throw on every nav
+    navLinkSelector: 'a.main-nav__link',
     // Class for active navigation link
     activeNavClass: 'main-nav__link--active',
     // Links to exclude from SPA navigation (external, downloads, etc.)
@@ -36,7 +38,7 @@ const DurtNursSPA = {
       /^mailto:/i,                         // Email links
       /^tel:/i,                            // Phone links
       /#/,                                 // Hash-only links (anchor jumps)
-      /^\/(message|checkout)\//i           // Pages using base-message layout (no main.page-layout)
+      /^\/(message|checkout|fanclub)\//i    // Pages using layouts without <main> element
     ]
   },
 
