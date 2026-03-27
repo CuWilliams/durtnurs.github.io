@@ -145,12 +145,14 @@
     infoDiv.innerHTML =
       '<h3 class="lightbox__title">' + mediaItem.title + '</h3>' +
       '<p class="lightbox__description">' + mediaItem.description + '</p>';
-    contentContainer.appendChild(infoDiv);
 
-    // Counter
+    // Counter — move into infoDiv so it renders below description (not floating)
     var current = currentState.currentIndex + 1;
     var total = currentState.allMedia.length;
     counterContainer.textContent = current + ' / ' + total;
+    infoDiv.appendChild(counterContainer);
+
+    contentContainer.appendChild(infoDiv);
 
     // Trigger audio when navigating via lightbox arrows
     playAudioForPage(mediaItem);
