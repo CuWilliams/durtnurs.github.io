@@ -38,7 +38,7 @@ const DurtNursSPA = {
       /^mailto:/i,                         // Email links
       /^tel:/i,                            // Phone links
       /#/,                                 // Hash-only links (anchor jumps)
-      /^\/(message|checkout|fanclub)\//i    // Pages using layouts without <main> element
+      /^\/(checkout|fanclub)\//i             // Pages using layouts without <main> element
     ]
   },
 

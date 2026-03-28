@@ -230,7 +230,11 @@ function startCountdown() {
       // Redirect to the news page
       // window.location.href changes the current page URL
       // This is equivalent to clicking a link
-      window.location.href = REDIRECT_URL;
+      if (typeof DurtNursSPA !== 'undefined') {
+        DurtNursSPA.navigate(REDIRECT_URL);
+      } else {
+        window.location.href = REDIRECT_URL;
+      }
     }
   }, 1000); // Run every 1000ms (1 second)
 

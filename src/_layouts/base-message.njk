@@ -5,7 +5,9 @@
 </head>
 <body>
 
-  {{ content | safe }}
+  <main class="page-layout">
+    {{ content | safe }}
+  </main>
 
   <!--
     PROGRESSIVE ENHANCEMENT FALLBACK
@@ -39,6 +41,8 @@
     Progressive enhancement: page still works without this
   -->
   <script src="/assets/js/utils.js"></script>
+  <script src="/assets/js/audio-player.js"></script>
+  <script src="/assets/js/spa-navigation.js"></script>
   {% for script in scripts %}
   <script src="/assets/js/{{ script }}"></script>
   {% endfor %}
