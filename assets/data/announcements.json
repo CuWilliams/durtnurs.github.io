@@ -1,6 +1,19 @@
 {
   "announcements": [
     {
+      "id": "008",
+      "date": "2026-06-15",
+      "title": "Do We Exist? We Asked. The Algorithm Said Probably.",
+      "category": "release",
+      "excerpt": "Two men who lean on technology to do the heavy lifting have written a song about what technology is doing to the human soul. The irony is not lost on us. Neither is the whiskey.",
+      "content": "<p>Two men who lean on technology to do the heavy lifting have written a song questioning whether technology has hollowed out the human soul. The irony is not lost on us. Neither is the whiskey.</p><p><em>Do We Exist?</em> looks at a world where authentic identity has been replaced by data profiles, curated personas, and consumer targets — and asks, earnestly, whether any of us are still in there. It's deep. Deep like the bottom of a bottle of whiskey deep.</p><p>If you enjoy this, it's already too late.</p>",
+      "link": {
+        "url": "/releases#release-whiskey-sessions-1997",
+        "text": "Listen to Do We Exist?"
+      },
+      "featured": true
+    },
+    {
       "id": "007",
       "date": "2026-03-26",
       "title": "LV-Gen Is Out. Download It If You Dare.",
@@ -11,7 +24,7 @@
         "url": "/lv-gen/",
         "text": "Download LV-Gen"
       },
-      "featured": true
+      "featured": false
     },
     {
       "id": "006",
