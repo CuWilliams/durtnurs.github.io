@@ -61,6 +61,7 @@ function collectFeaturedSongs(releases) {
           title: track.title,
           audioFile: track.audioFile,
           duration: track.duration || '',
+          featuredOrder: track.featuredOrder,
           // Artwork (track-specific or album fallback)
           artwork: artwork,
           artworkAlt: artworkAlt,
@@ -74,6 +75,8 @@ function collectFeaturedSongs(releases) {
       }
     });
   });
+
+  featuredSongs.sort((a, b) => (a.featuredOrder ?? Infinity) - (b.featuredOrder ?? Infinity));
 
   DurtNursUtils.debug(`🎵 Found ${featuredSongs.length} featured song(s)`);
   return featuredSongs;

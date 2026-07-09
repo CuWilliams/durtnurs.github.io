@@ -15,7 +15,7 @@
     { "title": "Two Sticks", "hasAudio": true, "audioFile": "/assets/audio/ecclesiastical-tapes/two-sticks.mp3", "duration": "3:22", "featured": false, "artwork": "/assets/images/songs/two-sticks.png", "artworkAlt": "Biblical mosh pit"},
     { "title": "Confession Booth Blues", "hasAudio": false },
     { "title": "The Book of Regrets (Chapters 1-47)", "hasAudio": false },
-    { "title": "Disciples of Dysfunction", "hasAudio": true, "audioFile": "/assets/audio/ecclesiastical-tapes/disciples-of-dysfunction.mp3", "duration": "3:54", "featured": true, "artwork": "/assets/images/songs/disciples-of-dysfunction.png", "artworkAlt": "Roman rock bar", "streamingLinks": [{ "platform": "apple-music", "url": "https://music.apple.com/ca/album/disciples-of-dysfunction/1876451162?i=1876451163" },{ "platform": "spotify", "url": "https://open.spotify.com/album/5fu2bfKTX2Lc5nDztcJMpb" }]},
+    { "title": "Disciples of Dysfunction", "hasAudio": true, "audioFile": "/assets/audio/ecclesiastical-tapes/disciples-of-dysfunction.mp3", "duration": "3:54", "featured": false, "artwork": "/assets/images/songs/disciples-of-dysfunction.png", "artworkAlt": "Roman rock bar", "streamingLinks": [{ "platform": "apple-music", "url": "https://music.apple.com/ca/album/disciples-of-dysfunction/1876451162?i=1876451163" },{ "platform": "spotify", "url": "https://open.spotify.com/album/5fu2bfKTX2Lc5nDztcJMpb" }]},
     { "title": "Confession Booth Blues", "hasAudio": false },
     { "title": "Apocalypse? More Like Apoca-Nips (Of Whiskey)", "hasAudio": false },
     { "title": "Amen (We Think That's How It Ends)", "hasAudio": false }
@@ -57,7 +57,7 @@
         { "title": "Improvised Blues in E", "hasAudio": false },
         { "title": "Wrong Chord, Right Feeling", "hasAudio": false },
         { "title": "The Ballad of Broken Strings", "hasAudio": false },
-        { "title": "Who's Going?", "hasAudio": true, "audioFile": "/assets/audio/empty-room/who's-going.mp3", "duration": "4:44", "featured": true, "artworkVideo": "/assets/images/songs/who's-going.mp4", "artworkAlt": "evil spirits asking a question"},
+        { "title": "Who's Going?", "hasAudio": true, "audioFile": "/assets/audio/empty-room/who's-going.mp3", "duration": "4:44", "featured": true, "featuredOrder": 2, "artworkVideo": "/assets/images/songs/who's-going.mp4", "artworkAlt": "evil spirits asking a question"},
         { "title": "Last Call Blues", "hasAudio": false },
         { "title": "We're Still Here", "hasAudio": false }
       ],
@@ -74,9 +74,9 @@
       "description": "Five tracks, forty takes, fourteen bottles. It starts with a choice. Ends with a man questioning whether he exists. Everything in between is whiskey and consequences. Surprisingly, this is considered progress.",
       "tracklist": [
         { "title": "The Choice", "hasAudio": true, "audioFile": "/assets/audio/whiskey-sessions/the-choice.mp3", "duration": "2:52", "featured": false, "artwork": "/assets/images/songs/the-choice.png", "artworkAlt": "Guy holding a guitar in a dimly lit room"},
-        { "title": "3AM Regrets", "hasAudio": true, "audioFile": "/assets/audio/whiskey-sessions/3am-regrets.mp3", "duration": "2:24", "featured": true, "artwork": "/assets/images/songs/3am-regrets.png", "artworkAlt": "A drink and cigarettes on a nightstand at 3AM"},
-        { "title": "Careers (On The Rocks)", "hasAudio": true, "audioFile": "/assets/audio/whiskey-sessions/careers.mp3", "duration": "2:24", "featured": true, "artwork": "/assets/images/songs/careers.png", "artworkAlt": "Whiskey lowball salute to those about to work"},
-        { "title": "Do we exist?", "hasAudio": true, "audioFile": "/assets/audio/whiskey-sessions/do-we-exist.mp3", "duration": "3:15", "featured": false, "artwork": "/assets/images/songs/do-we-exist.png", "artworkAlt": "A split digital figure — one half consumed by surveillance data, the other by social media feeds — with a lone silhouette walking toward the light between them"},
+        { "title": "3AM Regrets", "hasAudio": true, "audioFile": "/assets/audio/whiskey-sessions/3am-regrets.mp3", "duration": "2:24", "featured": true, "featuredOrder": 3, "artwork": "/assets/images/songs/3am-regrets.png", "artworkAlt": "A drink and cigarettes on a nightstand at 3AM"},
+        { "title": "Careers (On The Rocks)", "hasAudio": true, "audioFile": "/assets/audio/whiskey-sessions/careers.mp3", "duration": "2:24", "featured": false, "artwork": "/assets/images/songs/careers.png", "artworkAlt": "Whiskey lowball salute to those about to work"},
+        { "title": "Do we exist?", "hasAudio": true, "audioFile": "/assets/audio/whiskey-sessions/do-we-exist.mp3", "duration": "3:15", "featured": true, "featuredOrder": 1, "artwork": "/assets/images/songs/do-we-exist.png", "artworkAlt": "A split digital figure — one half consumed by surveillance data, the other by social media feeds — with a lone silhouette walking toward the light between them"},
         { "title": "Last Call", "hasAudio": false }
       ],
       "featured": false
