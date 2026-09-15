@@ -531,7 +531,14 @@
   line-height: 1.1;
   text-align: center;
   writing-mode: vertical-rl;
-  height: 62px;
+  /*
+    Vertical text runs down the tab, so its height is set by the string, not
+    by us. A fixed height silently clipped the last word ("ASK AT THE" instead
+    of "ASK AT THE SHED"). Let the content size it; the flex row keeps the
+    tabs equal.
+  */
+  height: auto;
+  min-height: 62px;
   margin: 0 auto;
   background-color: var(--paper-cream);
   border-left: 1px dashed rgba(43, 38, 32, 0.45);
@@ -570,7 +577,12 @@
   box-shadow: none;
   display: flex;
   justify-content: center;
-  padding: var(--space-lg) 0;
+  /*
+    No paper here, so the tape has nothing to sit on. Keep the top padding
+    tight or the pick floats an obvious gap below the tape that is supposedly
+    holding it to the cork.
+  */
+  padding: var(--space-xs) 0 var(--space-lg);
 }
 
 .board-junk__pick {
@@ -781,6 +793,17 @@
    ========================================================================== */
 
 .board-empty {
+  /*
+    The notes area is a 3-column layout, and a bare paragraph is fragmentable:
+    the browser splits it across all three columns and paints the paper
+    background on each piece, so one message renders as three broken scraps
+    (the last often empty). Span the columns and forbid the break.
+  */
+  column-span: all;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+
   max-width: 40ch;
   margin: var(--space-2xl) auto;
   padding: var(--space-md);

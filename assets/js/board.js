@@ -230,8 +230,31 @@ async function renderBoard() {
       return;
     }
 
-    container.innerHTML = sortPosts(posts).map(renderNote).join('');
-    DurtNursUtils.debug(`✅ Rendered ${posts.length} board notes`);
+    /*
+      Render each note in isolation. Board content is visitor-submitted, so a
+      single malformed post must not throw its way out to the catch below and
+      replace the entire board with an error. Drop the bad one, keep the wall.
+    */
+    let rendered = 0;
+    const html = sortPosts(posts).reduce((markup, post) => {
+      try {
+        const note = renderNote(post);
+        rendered++;
+        return markup + note;
+      } catch (error) {
+        DurtNursUtils.debugError(`⚠️ Skipped note ${post && post.id}:`, error);
+        return markup;
+      }
+    }, '');
+
+    // Posts existed but none survived rendering - that is a fault, not an
+    // empty board, so let the catch report it honestly.
+    if (rendered === 0) {
+      throw new Error('every note failed to render');
+    }
+
+    container.innerHTML = html;
+    DurtNursUtils.debug(`✅ Rendered ${rendered} of ${posts.length} board notes`);
 
   } catch (error) {
     DurtNursUtils.debugError('❌ Error loading board posts:', error);
