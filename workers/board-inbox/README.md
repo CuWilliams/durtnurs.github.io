@@ -54,7 +54,7 @@ Wrangler prints the deployed URL, something like
 `https://board-inbox.<your-subdomain>.workers.dev`.
 
 Add the optional push notification now or later — see
-[Optional: push notifications](#optional-push-notifications-ntfysh).
+[Optional: extra push channels](#optional-extra-push-channels).
 
 **Never put the token in `wrangler.toml`.** That file is committed. Secrets go
 through `wrangler secret put` only.
@@ -118,43 +118,67 @@ GitHub can echo back token details.
 
 ---
 
-## Optional: push notifications (ntfy.sh)
+## Optional: extra push channels
 
-Without this the Worker opens the issue and stays quiet. With it, your phone
-buzzes the instant someone pins a note.
+**You probably don't need this.** Phone notifications already arrive through
+`.github/workflows/board-notify.yml`, which @-mentions you on every new note —
+the one thing GitHub Mobile will actually push. Nothing to install, no quota,
+no third party. See `docs/MESSAGE_BOARD.md`.
 
-1. Install **ntfy** — App Store, Play Store, or F-Droid. Free, no account.
-2. Pick a long random topic name. Anyone who knows it can read your
-   notifications, so treat it like a password:
-   ```bash
-   echo "durtnurs-board-$(openssl rand -hex 8)"
-   ```
-3. In the app: **+** → paste the topic → Subscribe.
-4. Store it and redeploy:
-   ```bash
-   npx wrangler secret put NTFY_TOPIC
+Set one of these only if you'd rather the note landed in an app you already
+live in. Each switches itself on by the presence of its secret.
+
+### Telegram
+
+1. Message [@BotFather](https://t.me/BotFather) → `/newbot` → copy the token.
+2. Send your new bot any message, then read your chat id from
+   `https://api.telegram.org/bot<TOKEN>/getUpdates` (the `chat.id` field).
+3. ```bash
+   npx wrangler secret put TELEGRAM_BOT_TOKEN
+   npx wrangler secret put TELEGRAM_CHAT_ID
    npx wrangler deploy
    ```
 
-Test it without involving the site:
+### Discord
+
+Server Settings → Integrations → Webhooks → New Webhook → Copy URL.
 
 ```bash
-curl -d "testing the board" ntfy.sh/your-topic-name
+npx wrangler secret put DISCORD_WEBHOOK_URL
+npx wrangler deploy
 ```
 
-The real notification shows the submitter's name as the title and the note as
-the body; tapping it opens the GitHub issue so you can add `approved` from the
-phone.
+The URL *is* the credential — anyone holding it can post to your channel.
 
-The push is fired through `ctx.waitUntil()` after GitHub accepts the issue, so
-it never delays the visitor's confirmation and a dead ntfy never costs you a
-note.
+### ntfy.sh — supported, but don't
 
-**Why not GitHub's own notifications:** GitHub Mobile only pushes direct
-mentions, assignments, review requests, and deployment approvals — a new issue
-in a watched repo doesn't reach the phone. And in endpoint mode the issues are
-opened by your own PAT, so GitHub reads them as your own activity and stays
-silent regardless.
+`NTFY_TOPIC` still works and is left in for completeness, but it cannot be
+relied on from here. Anonymous publishing to ntfy.sh is rationed at **250
+messages per day per source IP**, and a Cloudflare Worker's egress IP is shared
+with every other Worker on the platform. Strangers exhaust the quota and you
+get an intermittent `429` and silence — which is exactly how this was
+discovered. Their paid tiers start at $6/month.
+
+Telegram and Discord meter per *token*, so nobody else can spend your
+allowance. That's the difference that matters.
+
+### How it behaves
+
+All configured channels fire in parallel through `ctx.waitUntil()` after GitHub
+accepts the issue, and are settled independently. So:
+
+- the visitor's confirmation never waits on a notification
+- a dead channel never costs you a note
+- one broken channel never silences the others
+
+Failures are logged. `[observability]` is on in `wrangler.toml`, so check them
+with `npx wrangler tail` or in the Cloudflare dashboard.
+
+**Why GitHub's own notifications aren't enough on their own:** GitHub Mobile
+only pushes direct mentions, assignments, review requests, and deployment
+approvals — a new issue in a watched repo doesn't reach the phone. And in
+endpoint mode the issues are opened by your own PAT, so GitHub reads them as
+your own activity and stays silent. Hence the mention from a bot.
 
 ---
 

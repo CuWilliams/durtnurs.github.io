@@ -102,39 +102,49 @@ Start a comment with `//` to keep it off the site entirely:
 
 ## Notifications
 
-The Worker pushes to **ntfy.sh** the moment a note is submitted — before
-moderation, before any sync. Free, no account, no email.
+**Nothing to set up.** `.github/workflows/board-notify.yml` @-mentions you on
+every new board note. GitHub Mobile pushes that to your lock screen; tapping it
+opens the issue, where you can add `approved` from the phone.
 
-**Setup:**
+### Why it has to be a mention
 
-1. Install **ntfy** (App Store / Play Store / F-Droid)
-2. Subscribe to the topic — the value stored in the Worker's `NTFY_TOPIC` secret
-3. `npx wrangler secret put NTFY_TOPIC` in `workers/board-inbox/`, then redeploy
+GitHub Mobile only pushes four things: direct mentions, assignments, review
+requests, and deployment approvals. **A new issue in a repo you own is not one
+of them** — it reaches your GitHub inbox and stops there.
 
-The notification carries the note's text and the submitter's name, and tapping
-it opens the GitHub issue so you can label it from the phone.
+And mentioning yourself would not help either. Board notes are opened by the
+Worker's token, which is *your* token, so GitHub files each one as your own
+activity and deliberately stays quiet.
 
-**The topic name is the only access control.** Anyone who knows it can read
-your notifications and send you fake ones. Use a long random one, keep it in
-the Worker secret and your phone, and don't put it in the repo. Rotate by
-putting a new secret and re-subscribing.
+The workflow sidesteps both. It runs as `github-actions[bot]` — a different
+actor — and mentions you from there. That is not your own activity, so it
+pushes. No third-party service, no account, no email, no quota.
 
-**Not configured?** The Worker skips the notification and everything else works
-normally. A failed push never fails a submission — the note is already on
-GitHub before `notify()` runs.
+The comment is prefixed `//`, which `sync-board.js` treats as internal, so it
+never shows up on the board as a band reply.
 
-### Why not GitHub's own notifications
+**To change who gets pinged**, edit `NOTIFY` in the workflow to any list of
+`@handles`. **To stop them**, disable the workflow in the Actions tab.
 
-Two reasons, both discovered the hard way:
+### Optional: somewhere other than GitHub
 
-1. **GitHub Mobile only pushes** direct mentions, assignments, review requests,
-   and deployment approvals. A new issue in a watched repo reaches your GitHub
-   inbox but never your lock screen.
-2. **The issues are opened by our own token**, so GitHub sees them as your own
-   activity and stays quiet regardless.
+The Worker can also push to Telegram or Discord, each switched on by its secret
+alone — set one only if you want notes reaching an app you already live in:
 
-The GitHub inbox still fills up, and it's a perfectly good place to work through
-a backlog. It just isn't a notification.
+| Channel | Secrets |
+|---|---|
+| Telegram | `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` |
+| Discord | `DISCORD_WEBHOOK_URL` |
+
+`npx wrangler secret put <NAME>` in `workers/board-inbox/`, then redeploy. Set
+none and the Worker stays quiet. A failed push never fails a submission — the
+note is safe on GitHub before `notify()` runs, and one dead channel cannot
+silence another.
+
+**Avoid `NTFY_TOPIC`.** It is still supported, but anonymous ntfy.sh publishing
+is rationed at 250 messages/day *per source IP*, and a Cloudflare Worker's
+egress IP is shared with every other Worker on the platform. Strangers spend
+the quota; you get intermittent `429`s and silence.
 
 ---
 

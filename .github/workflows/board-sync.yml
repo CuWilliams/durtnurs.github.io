@@ -5,9 +5,9 @@
 # replies, edits, and takedowns), regenerates assets/data/board.json, commits
 # it, and kicks off the normal Pages deploy.
 #
-# Notification: you get one from GitHub the moment a note is submitted, because
-# a new issue lands in a repo you own. Turn on the GitHub mobile app's push
-# notifications and no email is involved at any point.
+# Notification is a separate workflow: board-notify.yml @-mentions you when a
+# note arrives, which is the one thing GitHub Mobile will actually push. No
+# email is involved at any point.
 #
 # Moderation cheat sheet:
 #   add label "approved"    -> the note goes up

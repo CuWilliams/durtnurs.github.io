@@ -277,7 +277,7 @@ git push origin main
 3. Run `npm run optimize-images` for WebP versions
 
 ### Approve a Board Note
-1. A visitor's note arrives as a GitHub issue labelled `board-post` (you get a push notification)
+1. A visitor's note arrives as a GitHub issue labelled `board-post` (`board-notify.yml` @-mentions you, which GitHub Mobile pushes)
 2. Add the `approved` label to publish it; remove it or close the issue to take it down
 3. Comment on the issue to reply (prefix `//` to keep a comment internal)
 4. Everything after the label is automatic - see `docs/MESSAGE_BOARD.md`
@@ -302,9 +302,11 @@ marker — or doesn't.
 `assets/data/board.json` → site rebuild.
 
 **Nothing publishes without the `approved` label.** Moderation and replies
-happen in GitHub Issues. Notification is a direct ntfy.sh push from the Worker
-(`NTFY_TOPIC` secret) — GitHub Mobile does not push new-issue events, and these
-issues are authored by our own token anyway. No email anywhere in the chain.
+happen in GitHub Issues. Notification is `.github/workflows/board-notify.yml`,
+which @-mentions you as `github-actions[bot]` — GitHub Mobile pushes mentions
+but not new-issue events, and a self-mention wouldn't work because these issues
+are authored by our own token. No email anywhere in the chain, nothing to set
+up. The Worker can additionally push to Telegram or Discord if a secret is set.
 
 **Two submission modes**, switched by `BOARD_CONFIG.endpoint` in
 `assets/js/board.js`:
