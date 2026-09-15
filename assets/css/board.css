@@ -415,19 +415,39 @@
    How each note is stuck to the cork.
    ========================================================================== */
 
+/*
+  Laid out in flow rather than absolutely positioned. Absolute positioning is
+  what you'd reach for here, but an out-of-flow box inside a CSS multi-column
+  container gets sliced at the column boundary - Chrome ignores break-inside on
+  them - and the offcut lands on bare cork in the previous column, a stray
+  sliver of tape stuck to nothing. In flow, the note's own break-inside: avoid
+  keeps the fastener with its paper.
+
+  The margins do two jobs. margin-top hoists the fastener back up over the
+  note's padding, so it lands on the paper's top edge the way top: 0 used to
+  (an absolute box measures from the padding box, whose top edge is the
+  note's, not the paper's). margin-bottom then cancels the whole thing out, so
+  the fastener costs no vertical space and the paper slides up underneath it.
+
+  Each variant supplies its own --fastener-height, and --fastener-nudge for a
+  couple of pixels either side of the paper's edge.
+*/
 .board-note__fastener {
-  position: absolute;
+  position: relative;
   z-index: 2;
+  display: block;
+  margin-top: calc(var(--fastener-nudge, 0px) - var(--space-sm));
+  margin-bottom: calc(var(--space-sm) - var(--fastener-nudge, 0px) - var(--fastener-height, 0px));
+  margin-left: auto;
+  margin-right: auto;
   pointer-events: none;
 }
 
 /* Thumbtack: a domed head with a highlight and a shadow on the cork */
 .board-note__fastener--tack {
-  top: 0;
-  left: 50%;
+  --fastener-height: 20px;
   width: 20px;
   height: 20px;
-  margin-left: -10px;
   border-radius: var(--border-radius-full);
   background-image:
     radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.85) 0 2px, transparent 3px),
@@ -445,11 +465,10 @@
 
 /* Masking tape: translucent, matte, slightly crooked */
 .board-note__fastener--tape {
-  top: -2px;
-  left: 50%;
+  --fastener-height: 26px;
+  --fastener-nudge: -2px;
   width: 84px;
   height: 26px;
-  margin-left: -42px;
   transform: rotate(-3deg);
   background-color: rgba(238, 226, 188, 0.72);
   background-image: repeating-linear-gradient(
@@ -467,11 +486,10 @@
 
 /* Staple: two small metal legs punched through the top edge */
 .board-note__fastener--staple {
-  top: 2px;
-  left: 50%;
+  --fastener-height: 10px;
+  --fastener-nudge: 2px;
   width: 28px;
   height: 10px;
-  margin-left: -14px;
   background-image: linear-gradient(to bottom, #cfd2d6 0%, #8a8f96 55%, #61666d 100%);
   border-radius: 1px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
