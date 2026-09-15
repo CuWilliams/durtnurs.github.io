@@ -38,6 +38,16 @@ const BOARD_CONFIG = {
   /** Path to the synced board data. */
   dataPath: '/assets/data/board.json',
 
+  /**
+   * How stale the notes are allowed to get. The fetch URL carries a bucket
+   * number derived from the wall clock rather than the build stamp, so the
+   * board refreshes on this cadence even when the CDN is still serving an
+   * old copy of the page around it. Five minutes: long enough that visitors
+   * still share a cached copy, short enough that approving a note feels
+   * immediate.
+   */
+  dataMaxAgeMs: 5 * 60 * 1000,
+
   /** Maximum lengths, enforced here and again in the Worker. */
   maxNameLength: 40,
   maxMessageLength: 600,
@@ -219,16 +229,22 @@ async function renderBoard() {
     DurtNursUtils.debug('📌 Fetching board posts...');
 
     /*
-      board.json is served with a four-hour max-age, so a returning visitor
-      would keep a stale copy and miss newly approved notes for that long.
-      The build stamp in <meta name="asset-version"> changes on every deploy,
-      and approving a note triggers a deploy, so this URL changes exactly when
-      the data does - fresh when it matters, still cacheable in between.
+      board.json is cached at the edge and in the browser, so a returning
+      visitor would keep a stale copy and miss newly approved notes.
+
+      The build stamp in <meta name="asset-version"> is the obvious key and it
+      is the wrong one: it is baked into the page, so a stale page asks for a
+      stale board, and the two go out of date together. Hours after a note was
+      approved the CDN was still handing out the old page, the old stamp, and
+      the old notes - all of it self-consistently wrong.
+
+      A clock the page does not control breaks that loop. The bucket changes
+      every BOARD_CONFIG.dataMaxAgeMs no matter how old the HTML around it is,
+      so the notes are never more than that far behind, and every visitor in
+      the same bucket still shares one cached copy.
     */
-    const version = document.querySelector('meta[name="asset-version"]');
-    const dataURL = version
-      ? `${BOARD_CONFIG.dataPath}?v=${encodeURIComponent(version.content)}`
-      : BOARD_CONFIG.dataPath;
+    const bucket = Math.floor(Date.now() / BOARD_CONFIG.dataMaxAgeMs);
+    const dataURL = `${BOARD_CONFIG.dataPath}?t=${bucket}`;
 
     const data = await DurtNursUtils.fetchJSON(dataURL);
     const posts = Array.isArray(data.posts) ? data.posts : [];
