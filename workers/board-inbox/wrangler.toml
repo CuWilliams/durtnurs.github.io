@@ -11,6 +11,12 @@ name = "board-inbox"
 main = "worker.js"
 compatibility_date = "2024-11-01"
 
+# Keeps logs queryable after the fact (free tier included). Without this,
+# console.log/error is only visible while `wrangler tail` is attached, which
+# makes an intermittent failure impossible to diagnose.
+[observability]
+enabled = true
+
 # Optional: per-IP rate limiting. Create the namespace, uncomment, and paste
 # the id in. The Worker runs fine without it.
 # [[kv_namespaces]]
@@ -19,5 +25,12 @@ compatibility_date = "2024-11-01"
 
 # Secrets are NOT set here. Use wrangler secret put:
 #   BOARD_GITHUB_TOKEN  (required)
-#   NTFY_TOPIC          (optional - push notification to the phone)
 #   TURNSTILE_SECRET    (optional)
+#
+# Optional extra push channels. Phone notifications already arrive via the
+# board-notify GitHub workflow, so none of these are needed - set one only if
+# you want the note somewhere other than GitHub:
+#   TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID
+#   DISCORD_WEBHOOK_URL
+#   NTFY_TOPIC          (rationed per source IP; a Worker's IP is shared, so
+#                        this fails intermittently with 429 - not recommended)

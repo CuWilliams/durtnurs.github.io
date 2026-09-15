@@ -13,9 +13,12 @@
  *                        site repo only, nothing else.
  *
  * Optional:
- *   NTFY_TOPIC         - ntfy.sh topic, enables a push notification to the
- *                        phone the moment a note arrives. The topic name is
- *                        the only access control, so treat it as a secret.
+ *   Notification channels - set any, all, or none. Each switches itself on
+ *   when its secret is present:
+ *     TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID   (recommended - metered per bot)
+ *     DISCORD_WEBHOOK_URL                     (metered per webhook)
+ *     NTFY_TOPIC                              (metered per IP - unreliable
+ *                                              from a Worker, see notify())
  *   TURNSTILE_SECRET   - enables Cloudflare Turnstile verification (free)
  *   BOARD_KV           - KV namespace binding, enables per-IP rate limiting
  *
@@ -210,43 +213,94 @@ function createIssue(name, message, token) {
 // =============================================================================
 
 /**
- * Sends a push notification to the ntfy.sh topic, when one is configured.
+ * Posts one notification to whichever channels are configured.
  *
- * GitHub Mobile only pushes direct mentions, assignments, review requests and
- * deployment approvals - a new issue in a watched repo doesn't reach the phone.
- * Worse, these issues are opened by our own token, so GitHub treats them as our
- * own activity and stays quiet. So the Worker pushes directly instead.
+ * Each channel switches itself on by the presence of its secret, so adding or
+ * dropping one is a `wrangler secret put` and a redeploy - never a code change.
+ * Configure none and the Worker simply stays quiet.
  *
- * Never throws. A failed notification must not fail the visitor's submission -
- * the note is already safely on GitHub by the time this runs.
+ *   TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID   Telegram
+ *   DISCORD_WEBHOOK_URL                     Discord
+ *   NTFY_TOPIC                              ntfy.sh
  *
- * @param {string} topic - ntfy.sh topic name
+ * Why not GitHub's own notifications: GitHub Mobile only pushes direct
+ * mentions, assignments, review requests and deployment approvals - a new issue
+ * in a watched repo never reaches the phone. And these issues are opened by our
+ * own token, so GitHub reads them as the owner's own activity and stays silent.
+ *
+ * Why not ntfy alone: anonymous publishing to ntfy.sh is rationed per source IP
+ * (250/day), and a Worker's egress IP is shared with every other Worker on
+ * Cloudflare. That quota is routinely exhausted by strangers, which shows up
+ * here as an intermittent 429. Telegram and Discord meter per token instead,
+ * so nobody else can spend your allowance.
+ *
+ * Never throws. The note is already safe on GitHub before any of this runs, so
+ * a dead notifier must never turn into a failed submission.
+ *
+ * @param {Object} env - Worker environment bindings
  * @param {string} name - Submitter name
  * @param {string} message - Note text
  * @param {string|null} issueURL - Link to the created issue, when known
  * @returns {Promise<void>}
  */
-async function notify(topic, name, message, issueURL) {
-  if (!topic) return;
+async function notify(env, name, message, issueURL) {
+  const title = `Board note from ${name}`;
+  const body = message.slice(0, 400);
+  const link = issueURL || '';
+  const sends = [];
 
-  const headers = {
-    'Title': `Board note from ${name}`,
-    'Tags': 'pushpin',
-    'Priority': 'default'
-  };
+  if (env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID) {
+    sends.push(['telegram', fetch(
+      `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: env.TELEGRAM_CHAT_ID,
+          text: `📌 ${title}\n\n${body}${link ? `\n\n${link}` : ''}`,
+          disable_web_page_preview: true
+        })
+      }
+    )]);
+  }
 
-  // Tapping the notification opens the issue, ready to label
-  if (issueURL) headers['Click'] = issueURL;
+  if (env.DISCORD_WEBHOOK_URL) {
+    sends.push(['discord', fetch(env.DISCORD_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        content: `📌 **${title}**\n${body}${link ? `\n${link}` : ''}`
+      })
+    })]);
+  }
 
-  try {
-    await fetch(`https://ntfy.sh/${encodeURIComponent(topic)}`, {
+  if (env.NTFY_TOPIC) {
+    const headers = { 'Title': title, 'Tags': 'pushpin' };
+    if (link) headers['Click'] = link;
+
+    sends.push(['ntfy', fetch(`https://ntfy.sh/${encodeURIComponent(env.NTFY_TOPIC)}`, {
       method: 'POST',
       headers,
-      body: message.slice(0, 400)
-    });
-  } catch (error) {
-    console.error(`ntfy failed: ${error}`);
+      body
+    })]);
   }
+
+  if (sends.length === 0) return;
+
+  // One dead channel must not silence the others, so settle them all
+  const results = await Promise.allSettled(sends.map(([, promise]) => promise));
+
+  results.forEach((result, index) => {
+    const channel = sends[index][0];
+
+    if (result.status === 'rejected') {
+      console.error(`${channel} threw: ${result.reason}`);
+    } else if (!result.value.ok) {
+      console.error(`${channel} ${result.value.status}`);
+    } else {
+      console.log(`${channel} delivered`);
+    }
+  });
 }
 
 // =============================================================================
@@ -328,7 +382,7 @@ export default {
     }
 
     // waitUntil: the visitor gets their confirmation without waiting on ntfy
-    ctx.waitUntil(notify(env.NTFY_TOPIC, name, message, issueURL));
+    ctx.waitUntil(notify(env, name, message, issueURL));
 
     return json({ ok: true }, 201, cors);
   }

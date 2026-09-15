@@ -1,0 +1,67 @@
+# Message board -> your phone
+#
+# Why this workflow exists at all:
+#
+# GitHub Mobile only pushes four things - direct mentions, assignments, review
+# requests, and deployment approvals. A new issue in a repo you own is not one
+# of them. Worse, board notes are opened by the Worker's token, which is YOUR
+# token, so GitHub files them as your own activity and deliberately stays quiet.
+#
+# This workflow breaks that loop. It runs as github-actions[bot] - a different
+# actor from you - and @-mentions you on the issue. A mention from someone else
+# is a push notification, which is the one GitHub channel that reaches a phone
+# for free with no third-party service in the chain.
+#
+# The comment is prefixed with "//" so scripts/sync-board.js treats it as
+# internal and it never appears on the board as a band reply.
+#
+# To stop the pings: disable this workflow in the Actions tab. To change who
+# gets them: edit NOTIFY below to any list of @handles.
+
+name: Notify on Board Note
+
+on:
+  issues:
+    types: [opened, labeled]
+
+permissions:
+  issues: write
+
+# One ping per issue, even if events arrive together
+concurrency:
+  group: board-notify-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  ping:
+    # Only board notes, and only the moment the label first appears
+    if: |
+      contains(github.event.issue.labels.*.name, 'board-post') &&
+      (github.event.action == 'opened' || github.event.label.name == 'board-post')
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Mention the moderators
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NOTIFY: '@CuWilliams'
+          ISSUE: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+          TITLE: ${{ github.event.issue.title }}
+        run: |
+          # Guard against a double-ping when "opened" and "labeled" both fire.
+          # An existing bot comment means the mention already went out.
+          if gh issue view "$ISSUE" --repo "$REPO" --json comments \
+               --jq '.comments[].body' | grep -q '^// 📌 New board note'; then
+            echo "Already pinged for #$ISSUE, skipping."
+            exit 0
+          fi
+
+          gh issue comment "$ISSUE" --repo "$REPO" --body \
+            "// 📌 New board note — $NOTIFY
+
+          **$TITLE** is waiting on the \`approved\` label.
+
+          Add \`approved\` to put it on the board. Close the issue to bin it.
+          Reply here (no \`//\`) and your words land on the note in red marker."
