@@ -1,0 +1,204 @@
+---
+layout: base.njk
+title: The Board
+description: Leave a note for tHE dURT nURS' on the board. No email, no forms to fill out in triplicate, just a thumbtack and whatever you have to say.
+ogDescription: We got rid of the email address and put up a board instead
+activePage: board
+keywords: message board, contact, booking, fan mail
+scripts:
+  - board.js
+permalink: /board/index.html
+---
+
+<!--
+  HERO SECTION
+-->
+<section class="hero hero--board" aria-labelledby="board-heading">
+  <div class="container">
+    <h1 id="board-heading" class="hero__title">The Board</h1>
+    <p class="hero__subtitle">Nail Something To It</p>
+  </div>
+</section>
+
+<!--
+  INTRO SECTION
+  Explains what happened to the email address
+-->
+<section class="board-intro-section">
+  <div class="container">
+    <div class="board-intro">
+      <p>
+        We had an email address for years. It cost money every month and it received, by our
+        count, four messages. Two of those were about the extended warranty on a vehicle neither
+        of us owns.
+      </p>
+      <p>
+        So we took it out back. In its place: a board. You write something, it goes up, we read
+        it the next time we're out there. If it's worth answering we'll answer it in red marker,
+        right on your note, like God intended. If it isn't, it stays up anyway.
+        That's how boards work.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!--
+  SUBMISSION FORM
+  Styled as a notepad taped to the board. board.js handles submission;
+  the noscript block explains the manual route.
+-->
+<section class="board-form-section" aria-labelledby="pin-heading">
+  <div class="container">
+    <div class="board-form-wrap">
+      <form id="board-form" class="board-form" novalidate>
+
+        <h2 id="pin-heading" class="board-form__heading">Pin Something Up</h2>
+        <p class="board-form__lede">
+          It goes up once one of us has looked at it. Could be an hour. Could be a season.
+        </p>
+
+        <div class="board-form__field">
+          <label for="board-name" class="board-form__label">Who's asking (optional)</label>
+          <input type="text"
+                 id="board-name"
+                 name="name"
+                 class="board-form__input"
+                 maxlength="40"
+                 autocomplete="nickname"
+                 placeholder="Leave it blank and you're Anonymous">
+        </div>
+
+        <div class="board-form__field">
+          <label for="board-message" class="board-form__label">What you want to say</label>
+          <textarea id="board-message"
+                    name="message"
+                    class="board-form__textarea"
+                    required
+                    placeholder="Booking, complaints, questions, confessions, a recipe. Whatever."></textarea>
+          <span class="board-form__counter" aria-live="polite"></span>
+        </div>
+
+        <!--
+          Honeypot: hidden from humans and assistive tech. Only an automated
+          form filler will put anything in here, and board.js drops those.
+        -->
+        <div class="board-form__honeypot" aria-hidden="true">
+          <label for="board-website">Website</label>
+          <input type="text" id="board-website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <button type="submit" class="board-form__submit">Pin It Up</button>
+
+        <p class="board-form__status" role="status" hidden></p>
+
+        <!-- Shown by board.js only when no submission endpoint is configured -->
+        <p class="board-form__mode-note" hidden>
+          Heads up: this one hands you off to GitHub to finish posting, so you'll need
+          an account over there. We're working on removing that step.
+        </p>
+
+        <noscript>
+          <p class="board-form__noscript">
+            JavaScript's off, so the board can't take your note directly. You can still
+            post one by hand over at
+            <a href="https://github.com/CuWilliams/durtnurs.github.io/issues/new?labels=board-post"
+               target="_blank" rel="noopener noreferrer">our issue tracker</a>,
+            which is where the notes end up anyway. Less romantic. Same result.
+          </p>
+        </noscript>
+
+      </form>
+    </div>
+  </div>
+</section>
+
+<!--
+  THE BOARD ITSELF
+  Cork surface holding the notes. The junk strips are static decoration
+  rendered by the template; #board-notes is filled by board.js from
+  /assets/data/board.json.
+-->
+<section class="board-wall-section" aria-labelledby="wall-heading">
+  <div class="container">
+    <h2 id="wall-heading" class="visually-hidden">What's currently on the board</h2>
+
+    <div class="board-wall">
+
+      <!-- Clutter above the notes -->
+      <div class="board-junk-strip">
+
+        <article class="board-junk board-junk--flyer" style="--note-rotation: -1.8deg;">
+          <span class="board-note__fastener board-note__fastener--tack board-note__fastener--yellow"></span>
+          <div class="board-junk__paper">
+            <h3 class="board-junk__title">Bass Player Wanted</h3>
+            <p class="board-junk__body">
+              Must own an amp. Must own a van. Rhythm negotiable.
+            </p>
+            <div class="board-junk__tabs">
+              <span class="board-junk__tab board-junk__tab--torn">ASK AT THE SHED</span>
+              <span class="board-junk__tab">ASK AT THE SHED</span>
+              <span class="board-junk__tab">ASK AT THE SHED</span>
+              <span class="board-junk__tab">ASK AT THE SHED</span>
+              <span class="board-junk__tab">ASK AT THE SHED</span>
+              <span class="board-junk__tab">ASK AT THE SHED</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="board-junk board-junk--cancelled" style="--note-rotation: 2.4deg;">
+          <span class="board-note__fastener board-note__fastener--tape"></span>
+          <div class="board-junk__paper">
+            <h3 class="board-junk__title">Cancelled</h3>
+            <p class="board-junk__body">
+              Sat. the 14th &mdash; tHE dURT nURS' live at the Legion. Rescheduled to a
+              date we will not be announcing.
+            </p>
+          </div>
+        </article>
+
+        <article class="board-junk board-junk--pick" style="--note-rotation: -3.1deg;">
+          <span class="board-note__fastener board-note__fastener--tape"></span>
+          <div class="board-junk__paper">
+            <span class="board-junk__pick" role="img" aria-label="A guitar pick taped to the board"></span>
+          </div>
+        </article>
+
+      </div>
+
+      <!--
+        NOTES
+        Rendered by board.js. Empty and error states are handled there.
+      -->
+      <div id="board-notes" class="board-notes">
+        <p class="board-empty">Getting the notes off the board...</p>
+      </div>
+
+      <!-- Clutter below the notes -->
+      <div class="board-junk-strip board-junk-strip--bottom">
+
+        <article class="board-junk board-junk--card" style="--note-rotation: 1.6deg;">
+          <span class="board-note__fastener board-note__fastener--staple"></span>
+          <div class="board-junk__paper">
+            <h3 class="board-junk__title">The Shed</h3>
+            <p class="board-junk__body">
+              Behind SnowMan's house.<br>
+              Open when the light's on.
+            </p>
+          </div>
+        </article>
+
+        <article class="board-junk" style="--note-rotation: -2.2deg;">
+          <span class="board-note__fastener board-note__fastener--tack board-note__fastener--white"></span>
+          <div class="board-junk__paper">
+            <h3 class="board-junk__title">Notice</h3>
+            <p class="board-junk__body">
+              This board is cleared on the first of never.
+            </p>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </div>
+</section>

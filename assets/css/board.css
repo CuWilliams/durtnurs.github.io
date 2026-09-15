@@ -1,0 +1,850 @@
+/*
+  MESSAGE BOARD
+  The corkboard that replaced the email address.
+
+  Concept: a bulletin board in the window of a downtown music store, circa
+  whenever. Cork, thumbtacks, tape, index cards, a napkin somebody wrote on,
+  a flyer with tear-off tabs nobody has torn. Notes sit at slight angles
+  because a person pinned them, not a grid system.
+
+  Structure:
+    .board-wall          - the framed cork surface
+    .board-notes         - multi-column flow the notes tile into
+    .board-note          - one pinned note (rotated wrapper)
+    .board-note__paper   - the paper itself (styled per variant)
+    .board-junk          - the decorative clutter between notes
+    .board-form          - the "pin a note" pad
+
+  All rotations use a per-note --note-rotation custom property set inline
+  by board.js, derived from the post id so notes never shuffle on reload.
+*/
+
+/* ==========================================================================
+   BOARD TOKENS
+   Paper and cork colours live here rather than variables.css because
+   nothing outside the board uses them.
+   ========================================================================== */
+
+.board-wall {
+  --cork-base: #b98a4f;
+  --cork-dark: #8a6334;
+  --cork-shadow: rgba(40, 24, 10, 0.55);
+
+  --frame-light: #6b4a2c;
+  --frame-dark: #331f10;
+
+  --paper-white: #f4f0e4;
+  --paper-cream: #efe6cd;
+  --paper-yellow: #f2e07a;
+  --paper-napkin: #fbfaf5;
+  --paper-receipt: #f7f5ee;
+  --paper-manila: #e6d2a8;
+
+  --ink: #2b2620;
+  --ink-faded: #5c5347;
+  --marker-red: #a8231f;
+}
+
+/* ==========================================================================
+   HERO VARIANT
+   Darker and warmer than the old contact hero - cork and wood, not blood.
+   ========================================================================== */
+
+.hero--board {
+  --hero-gradient-start: var(--color-burnt-umber);
+  --hero-gradient-mid: var(--color-coal-black);
+  --hero-gradient-end: #3d2a18;
+  --hero-title-color: var(--color-aged-whiskey);
+  --hero-subtitle-color: var(--color-tarnished-brass);
+  --hero-title-size: var(--font-size-5xl);
+  --hero-title-size-md: var(--font-size-6xl);
+}
+
+/* ==========================================================================
+   PAGE INTRO
+   ========================================================================== */
+
+.board-intro-section {
+  padding: var(--space-xl) 0 var(--space-lg);
+}
+
+.board-intro {
+  max-width: 60ch;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.board-intro p {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-loose);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.board-intro p:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   THE WALL
+   Cork surface inside a wooden frame. The cork is built from layered
+   gradients plus an SVG noise tile - no image request, no cache-busting.
+   ========================================================================== */
+
+.board-wall-section {
+  padding: 0 0 var(--space-3xl);
+}
+
+.board-wall {
+  position: relative;
+  padding: var(--space-lg) var(--space-md) var(--space-2xl);
+  border-radius: var(--border-radius-sm);
+
+  /* Wooden frame: thick border with a mitred-looking gradient */
+  border: 14px solid;
+  border-image: linear-gradient(
+    145deg,
+    var(--frame-light) 0%,
+    var(--frame-dark) 25%,
+    var(--frame-light) 50%,
+    var(--frame-dark) 75%,
+    var(--frame-light) 100%
+  ) 1;
+
+  background-color: var(--cork-base);
+
+  /*
+    Layer order (top to bottom):
+    1. fine grain noise
+    2. cork granules at three scales
+    3. coffee ring stains
+    4. base warm gradient
+  */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.28'/%3E%3C/svg%3E"),
+    radial-gradient(circle at 12% 22%, var(--cork-dark) 0 2px, transparent 3px),
+    radial-gradient(circle at 63% 8%, var(--cork-dark) 0 3px, transparent 4px),
+    radial-gradient(circle at 87% 54%, var(--cork-dark) 0 2px, transparent 3px),
+    radial-gradient(circle at 34% 71%, var(--cork-dark) 0 3px, transparent 4px),
+    radial-gradient(circle at 78% 88%, var(--cork-dark) 0 2px, transparent 3px),
+    /* coffee rings - somebody set a mug down on the board */
+    radial-gradient(circle at 18% 64%, transparent 0 34px, rgba(96, 58, 24, 0.22) 35px 38px, transparent 39px),
+    radial-gradient(circle at 81% 26%, transparent 0 26px, rgba(96, 58, 24, 0.18) 27px 30px, transparent 31px),
+    linear-gradient(160deg, #c69558 0%, #b0813f 45%, #9c6f33 100%);
+
+  background-size:
+    180px 180px,
+    90px 90px, 130px 130px, 70px 70px, 110px 110px, 150px 150px,
+    100% 100%, 100% 100%,
+    100% 100%;
+
+  box-shadow:
+    inset 0 0 60px var(--cork-shadow),
+    inset 0 2px 8px rgba(0, 0, 0, 0.4),
+    var(--shadow-xl);
+}
+
+@media (min-width: 768px) {
+  .board-wall {
+    padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+    border-width: 20px;
+  }
+}
+
+/* ==========================================================================
+   NOTE COLUMNS
+   CSS columns give the staggered, uneven tiling a real board has. Notes are
+   sized by their content, not stretched to a grid cell.
+   ========================================================================== */
+
+.board-notes,
+.board-junk-strip {
+  column-count: 1;
+  column-gap: var(--space-lg);
+}
+
+@media (min-width: 640px) {
+  .board-notes,
+  .board-junk-strip {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .board-notes {
+    column-count: 3;
+  }
+
+  .board-junk-strip {
+    column-count: 3;
+  }
+}
+
+.board-junk-strip {
+  margin-bottom: var(--space-lg);
+}
+
+.board-junk-strip--bottom {
+  margin-top: var(--space-lg);
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   A PINNED NOTE
+   ========================================================================== */
+
+.board-note,
+.board-junk {
+  position: relative;
+  display: block;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  margin: 0 0 var(--space-lg);
+  padding-top: var(--space-sm);
+  transform: rotate(var(--note-rotation, 0deg));
+  transition: transform var(--transition-base), filter var(--transition-base);
+}
+
+/*
+  Hover straightens the note slightly and lifts it, the way you'd tilt a
+  card to read it. Pointer-only so touch devices don't get a stuck state.
+*/
+@media (hover: hover) {
+  .board-note:hover,
+  .board-junk:hover {
+    transform: rotate(calc(var(--note-rotation, 0deg) * 0.35)) scale(1.02);
+    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.45));
+    z-index: var(--z-dropdown);
+  }
+}
+
+.board-note__paper {
+  position: relative;
+  padding: var(--space-md) var(--space-md) var(--space-sm);
+  color: var(--ink);
+  background-color: var(--paper-white);
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.45),
+    0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Pinned-by-the-band notes get a brass edge so they read as official-ish */
+.board-note--pinned .board-note__paper {
+  box-shadow:
+    0 0 0 2px var(--color-tarnished-brass),
+    0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* --------------------------------------------------------------------------
+   PAPER VARIANTS
+   -------------------------------------------------------------------------- */
+
+/* Index card: manila stock with the red rule near the top */
+.board-note--index .board-note__paper {
+  background-color: var(--paper-manila);
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0 calc(var(--space-md) + 4px),
+    rgba(168, 35, 31, 0.5) calc(var(--space-md) + 4px) calc(var(--space-md) + 5px),
+    transparent calc(var(--space-md) + 5px)
+  );
+  border-radius: var(--border-radius-sm);
+}
+
+/* Notepad: blue ruled lines with a margin rule down the left */
+.board-note--lined .board-note__paper {
+  background-color: var(--paper-white);
+  background-image:
+    linear-gradient(to right, transparent 0 26px, rgba(168, 35, 31, 0.35) 26px 27px, transparent 27px),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 25px,
+      rgba(60, 90, 140, 0.22) 25px 26px
+    );
+  padding-left: calc(var(--space-lg) + var(--space-xs));
+}
+
+/* Post-it: yellow, square-ish, with a curled bottom corner */
+.board-note--sticky .board-note__paper {
+  background-color: var(--paper-yellow);
+  background-image: linear-gradient(170deg, #f7e88f 0%, #e8d359 100%);
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.35),
+    inset 0 -14px 14px -14px rgba(120, 100, 20, 0.5);
+}
+
+/* Napkin: soft off-white with a scalloped, torn-looking edge */
+.board-note--napkin .board-note__paper {
+  background-color: var(--paper-napkin);
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 0.02) 0 8px,
+    transparent 8px 16px
+  );
+  /* Irregular edge - a napkin does not have straight sides */
+  clip-path: polygon(
+    2% 1%, 20% 0, 42% 2%, 66% 0, 88% 2%, 100% 1%,
+    99% 24%, 100% 52%, 98% 78%, 100% 99%,
+    77% 98%, 54% 100%, 31% 98%, 9% 100%, 0 99%,
+    2% 74%, 0 48%, 1% 25%
+  );
+  padding: var(--space-lg) var(--space-md);
+}
+
+/* Receipt: narrow thermal paper, monospaced, torn top and bottom */
+.board-note--receipt .board-note__paper {
+  background-color: var(--paper-receipt);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  padding: var(--space-md) var(--space-sm);
+  clip-path: polygon(
+    0 2%, 8% 0, 16% 2%, 25% 0, 33% 2%, 42% 0, 50% 2%, 58% 0, 67% 2%, 75% 0, 84% 2%, 92% 0, 100% 2%,
+    100% 98%, 92% 100%, 84% 98%, 75% 100%, 67% 98%, 58% 100%, 50% 98%, 42% 100%, 33% 98%, 25% 100%, 16% 98%, 8% 100%, 0 98%
+  );
+}
+
+/* Flyer: photocopied too many times, high contrast, typewriter face */
+.board-note--flyer .board-note__paper {
+  background-color: var(--paper-cream);
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.035) 0 1px,
+      transparent 1px 4px
+    );
+  border: 2px solid rgba(43, 38, 32, 0.35);
+}
+
+.board-note--flyer .board-note__message {
+  font-family: var(--font-typed);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: var(--line-height-normal);
+}
+
+/* Business card: small, stiff, slightly glossy */
+.board-note--card .board-note__paper {
+  background-color: var(--paper-white);
+  background-image: linear-gradient(115deg, #ffffff 0%, #e9e4d6 100%);
+  border-radius: var(--border-radius);
+  padding: var(--space-md);
+  font-size: var(--font-size-sm);
+}
+
+/* --------------------------------------------------------------------------
+   NOTE CONTENT
+   -------------------------------------------------------------------------- */
+
+.board-note__message {
+  font-family: var(--font-hand);
+  font-size: var(--font-size-xl);
+  line-height: 1.45;
+  color: var(--ink);
+  margin: 0 0 var(--space-sm);
+  /* Handwriting on paper is never perfectly level */
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* The receipt is printed, not written */
+.board-note--receipt .board-note__message {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+.board-note__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  padding-top: var(--space-xs);
+  border-top: 1px dashed rgba(43, 38, 32, 0.2);
+}
+
+.board-note__name {
+  font-family: var(--font-hand);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--ink);
+  word-break: break-word;
+}
+
+.board-note__date {
+  font-family: var(--font-typed);
+  font-size: var(--font-size-xs);
+  color: var(--ink-faded);
+  letter-spacing: 0.03em;
+}
+
+/* --------------------------------------------------------------------------
+   BAND REPLY
+   Scrawled across the bottom of the note in red marker, at an angle,
+   the way you'd answer something already pinned to the wall.
+   -------------------------------------------------------------------------- */
+
+.board-note__reply {
+  margin-top: var(--space-sm);
+  padding-top: var(--space-xs);
+  transform: rotate(-1.2deg);
+}
+
+.board-note__reply-text {
+  font-family: var(--font-marker);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  color: var(--marker-red);
+  margin: 0 0 4px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.board-note__reply-from {
+  font-family: var(--font-marker);
+  font-size: var(--font-size-xs);
+  color: var(--marker-red);
+  text-align: right;
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   FASTENERS
+   How each note is stuck to the cork.
+   ========================================================================== */
+
+.board-note__fastener {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Thumbtack: a domed head with a highlight and a shadow on the cork */
+.board-note__fastener--tack {
+  top: 0;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  border-radius: var(--border-radius-full);
+  background-image:
+    radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.85) 0 2px, transparent 3px),
+    radial-gradient(circle at 50% 45%, var(--tack-light, #d94f4f) 0%, var(--tack-dark, #8f1f1f) 70%);
+  box-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.6),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.35);
+}
+
+.board-note__fastener--red    { --tack-light: #e05c55; --tack-dark: #8f1f1f; }
+.board-note__fastener--yellow { --tack-light: #f2cf55; --tack-dark: #a67c10; }
+.board-note__fastener--blue   { --tack-light: #5b8fd0; --tack-dark: #1f4a86; }
+.board-note__fastener--green  { --tack-light: #6aa85f; --tack-dark: #2c5e24; }
+.board-note__fastener--white  { --tack-light: #f2efe6; --tack-dark: #a8a293; }
+
+/* Masking tape: translucent, matte, slightly crooked */
+.board-note__fastener--tape {
+  top: -2px;
+  left: 50%;
+  width: 84px;
+  height: 26px;
+  margin-left: -42px;
+  transform: rotate(-3deg);
+  background-color: rgba(238, 226, 188, 0.72);
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.18) 0 3px,
+    transparent 3px 6px
+  );
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  /* Torn ends */
+  clip-path: polygon(
+    0 12%, 6% 0, 14% 14%, 22% 2%, 100% 6%,
+    97% 92%, 88% 100%, 78% 88%, 66% 100%, 0 96%
+  );
+}
+
+/* Staple: two small metal legs punched through the top edge */
+.board-note__fastener--staple {
+  top: 2px;
+  left: 50%;
+  width: 28px;
+  height: 10px;
+  margin-left: -14px;
+  background-image: linear-gradient(to bottom, #cfd2d6 0%, #8a8f96 55%, #61666d 100%);
+  border-radius: 1px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+  clip-path: polygon(0 0, 100% 0, 100% 42%, 78% 42%, 78% 100%, 22% 100%, 22% 42%, 0 42%);
+}
+
+/* ==========================================================================
+   DECORATIVE CLUTTER
+   Static items that live on the board alongside the real notes. Marked
+   aria-hidden in the markup - they are texture, not content.
+   ========================================================================== */
+
+.board-junk__paper {
+  position: relative;
+  padding: var(--space-md);
+  color: var(--ink);
+  background-color: var(--paper-cream);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.board-junk__title {
+  font-family: var(--font-typed);
+  font-size: var(--font-size-lg);
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 var(--space-xs);
+  text-align: center;
+}
+
+.board-junk__body {
+  font-family: var(--font-typed);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  text-align: center;
+  margin: 0;
+}
+
+/* Tear-off flyer: the fringe of phone-number tabs along the bottom */
+.board-junk--flyer .board-junk__paper {
+  border: 2px solid rgba(43, 38, 32, 0.4);
+  padding-bottom: var(--space-xs);
+}
+
+.board-junk__tabs {
+  display: flex;
+  gap: 2px;
+  margin-top: var(--space-sm);
+}
+
+.board-junk__tab {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: var(--space-xs) 0;
+  font-family: var(--font-typed);
+  font-size: 0.55rem;
+  line-height: 1.1;
+  text-align: center;
+  writing-mode: vertical-rl;
+  height: 62px;
+  margin: 0 auto;
+  background-color: var(--paper-cream);
+  border-left: 1px dashed rgba(43, 38, 32, 0.45);
+  color: var(--ink-faded);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* One tab has been taken. There is always one. */
+.board-junk__tab--torn {
+  opacity: 0;
+}
+
+/* Cancelled show: a strip stamped across an old listing */
+.board-junk--cancelled .board-junk__paper {
+  background-color: var(--paper-manila);
+}
+
+.board-junk--cancelled .board-junk__title {
+  color: var(--marker-red);
+  font-family: var(--font-marker);
+  transform: rotate(-4deg);
+  font-size: var(--font-size-2xl);
+}
+
+/* Business card pinned near the bottom */
+.board-junk--card .board-junk__paper {
+  background-image: linear-gradient(115deg, #ffffff 0%, #e4dece 100%);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+}
+
+/* Guitar pick taped to the cork */
+.board-junk--pick .board-junk__paper {
+  background: none;
+  box-shadow: none;
+  display: flex;
+  justify-content: center;
+  padding: var(--space-lg) 0;
+}
+
+.board-junk__pick {
+  width: 58px;
+  height: 66px;
+  background-image: linear-gradient(150deg, #d9a441 0%, #a05a24 60%, #6d3b16 100%);
+  clip-path: polygon(50% 0, 96% 22%, 84% 74%, 50% 100%, 16% 74%, 4% 22%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+   THE FORM
+   A pad of paper pinned to the board, not a web form sitting on top of it.
+   ========================================================================== */
+
+.board-form-section {
+  padding: var(--space-lg) 0 var(--space-xl);
+}
+
+.board-form-wrap {
+  max-width: 34rem;
+  margin: 0 auto;
+  transform: rotate(-0.8deg);
+}
+
+.board-form {
+  position: relative;
+  padding: var(--space-lg) var(--space-md) var(--space-md);
+  background-color: var(--paper-white, #f4f0e4);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 25px,
+    rgba(60, 90, 140, 0.16) 25px 26px
+  );
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.55),
+    0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Tape holding the pad to the board */
+.board-form::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  width: 110px;
+  height: 30px;
+  margin-left: -55px;
+  transform: rotate(-2.5deg);
+  background-color: rgba(238, 226, 188, 0.75);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  clip-path: polygon(0 10%, 8% 0, 18% 12%, 100% 5%, 96% 94%, 86% 100%, 74% 88%, 0 95%);
+}
+
+.board-form__heading {
+  font-family: var(--font-marker);
+  font-size: var(--font-size-2xl);
+  color: #2b2620;
+  text-transform: none;
+  letter-spacing: 0;
+  text-align: center;
+  margin: 0 0 var(--space-xs);
+}
+
+.board-form__lede {
+  font-family: var(--font-hand);
+  font-size: var(--font-size-lg);
+  color: #5c5347;
+  text-align: center;
+  margin: 0 0 var(--space-md);
+}
+
+.board-form__field {
+  margin-bottom: var(--space-md);
+}
+
+.board-form__label {
+  display: block;
+  font-family: var(--font-typed);
+  font-size: var(--font-size-sm);
+  color: #5c5347;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+
+.board-form__input,
+.board-form__textarea {
+  width: 100%;
+  padding: var(--space-xs) var(--space-sm);
+  font-family: var(--font-hand);
+  font-size: var(--font-size-xl);
+  color: #2b2620;
+  background-color: rgba(255, 255, 255, 0.55);
+  border: none;
+  border-bottom: 2px solid rgba(43, 38, 32, 0.4);
+  border-radius: 0;
+}
+
+.board-form__textarea {
+  min-height: 9rem;
+  resize: vertical;
+  line-height: 1.5;
+  border: 2px solid rgba(43, 38, 32, 0.25);
+}
+
+.board-form__input:focus,
+.board-form__textarea:focus {
+  outline: 3px solid var(--color-aged-whiskey);
+  outline-offset: 2px;
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.board-form__counter {
+  display: block;
+  font-family: var(--font-typed);
+  font-size: var(--font-size-xs);
+  color: #5c5347;
+  text-align: right;
+  margin-top: 4px;
+}
+
+/*
+  Honeypot. Hidden from people and from screen readers; only an automated
+  form filler will put anything in it. Not display:none - some bots skip
+  those. Off-screen and untabbable instead.
+*/
+.board-form__honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.board-form__submit {
+  display: block;
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-primary);
+  background-color: var(--color-aged-whiskey);
+  border: 2px solid #6d3b16;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.board-form__submit:hover:not(:disabled),
+.board-form__submit:focus-visible {
+  background-color: #b8672a;
+  transform: translateY(-1px);
+}
+
+.board-form__submit:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.board-form__status {
+  margin: var(--space-sm) 0 0;
+  padding: var(--space-xs) var(--space-sm);
+  font-family: var(--font-typed);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  border-left: 4px solid;
+}
+
+.board-form__status--pending {
+  color: #5c5347;
+  border-color: #8B7A43;
+  background-color: rgba(139, 122, 67, 0.12);
+}
+
+.board-form__status--success {
+  color: #2f5127;
+  border-color: #2f5127;
+  background-color: rgba(47, 81, 39, 0.12);
+}
+
+.board-form__status--error {
+  color: #7d1d1a;
+  border-color: #7d1d1a;
+  background-color: rgba(125, 29, 26, 0.12);
+}
+
+.board-form__mode-note,
+.board-form__noscript {
+  margin: var(--space-sm) 0 0;
+  font-family: var(--font-typed);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-normal);
+  color: #5c5347;
+}
+
+.board-form__mode-note a,
+.board-form__noscript a {
+  color: #7d3f10;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   EMPTY / ERROR STATE
+   ========================================================================== */
+
+.board-empty {
+  max-width: 40ch;
+  margin: var(--space-2xl) auto;
+  padding: var(--space-md);
+  font-family: var(--font-hand);
+  font-size: var(--font-size-xl);
+  text-align: center;
+  color: var(--ink);
+  background-color: var(--paper-white);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+  transform: rotate(-1.5deg);
+}
+
+/* ==========================================================================
+   ACCESSIBILITY
+   ========================================================================== */
+
+/* Notes are decorative in their tilt only - kill the motion, keep the look */
+@media (prefers-reduced-motion: reduce) {
+  .board-note,
+  .board-junk,
+  .board-note:hover,
+  .board-junk:hover {
+    transition: none;
+    transform: rotate(var(--note-rotation, 0deg));
+  }
+}
+
+/* High contrast: drop the paper textures, keep flat readable surfaces */
+@media (prefers-contrast: more) {
+  .board-note__paper,
+  .board-junk__paper,
+  .board-form {
+    background-image: none;
+    background-color: #ffffff;
+    border: 2px solid #000000;
+  }
+
+  .board-note__message,
+  .board-note__name {
+    color: #000000;
+  }
+
+  .board-note__reply-text,
+  .board-note__reply-from {
+    color: #7d1d1a;
+  }
+}
+
+/* Print: flatten everything, drop the cork */
+@media print {
+  .board-wall {
+    background: none;
+    border: 1px solid #000;
+    box-shadow: none;
+  }
+
+  .board-note,
+  .board-junk {
+    transform: none;
+    break-inside: avoid;
+  }
+
+  .board-form-section,
+  .board-junk-strip {
+    display: none;
+  }
+}

@@ -1,0 +1,23 @@
+# Cloudflare Worker that receives board notes and opens GitHub issues.
+#
+# Deploy:
+#   cd workers/board-inbox
+#   npx wrangler secret put BOARD_GITHUB_TOKEN
+#   npx wrangler deploy
+#
+# Then put the deployed URL into BOARD_CONFIG.endpoint in assets/js/board.js.
+
+name = "board-inbox"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# Optional: per-IP rate limiting. Create the namespace, uncomment, and paste
+# the id in. The Worker runs fine without it.
+# [[kv_namespaces]]
+# binding = "BOARD_KV"
+# id = "paste-the-namespace-id-here"
+
+# Secrets are NOT set here. Use wrangler secret put:
+#   BOARD_GITHUB_TOKEN  (required)
+#   NTFY_TOPIC          (optional - push notification to the phone)
+#   TURNSTILE_SECRET    (optional)

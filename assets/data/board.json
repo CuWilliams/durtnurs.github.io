@@ -1,0 +1,63 @@
+{
+  "posts": [
+    {
+      "id": "board-we-killed-the-email",
+      "date": "2026-09-02",
+      "name": "DeadBeat",
+      "message": "We got rid of the email address. It cost money every month and nobody ever wrote to it, which is a bad combination even for us.\n\nThis is cheaper and has more thumbtacks.",
+      "style": "index",
+      "pinned": true
+    },
+    {
+      "id": "board-house-rules",
+      "date": "2026-09-01",
+      "name": "The Management",
+      "message": "RULES OF THE BOARD:\n1. Write something.\n2. We read it eventually.\n3. We answer some of them.\n4. Nothing comes down unless it's mean or it's trying to sell us solar panels.\nThere was a fifth rule. We forgot it.",
+      "style": "flyer",
+      "pinned": true
+    },
+    {
+      "id": "board-bass-player",
+      "date": "2026-09-11",
+      "name": "Kev",
+      "message": "I play bass. Not well. I have my own amp and a van that starts most of the time.",
+      "style": "receipt",
+      "reply": {
+        "from": "SnowMan",
+        "date": "2026-09-12",
+        "text": "The van is the part we're interested in."
+      }
+    },
+    {
+      "id": "board-do-we-exist",
+      "date": "2026-09-09",
+      "name": "Anonymous",
+      "message": "Do we exist? Asking because of the song. Also asking generally.",
+      "style": "napkin"
+    },
+    {
+      "id": "board-marcy-tuesday",
+      "date": "2026-09-07",
+      "name": "Marcy from down the road",
+      "message": "Your shed was making noise until 2am on Tuesday. I'm not complaining. I'm just saying that I know it was you.",
+      "style": "sticky",
+      "reply": {
+        "from": "DeadBeat",
+        "date": "2026-09-08",
+        "text": "That was a Tuesday? We had it down as a Saturday. Sorry Marcy. We'll be louder on a more appropriate night."
+      }
+    },
+    {
+      "id": "board-gord-1994",
+      "date": "2026-09-04",
+      "name": "Gord",
+      "message": "Saw you two in a garage in 1994. I think. There was definitely a garage. There was definitely whiskey. Were you the band, or were you the other guys sitting on the washing machine?",
+      "style": "lined",
+      "reply": {
+        "from": "SnowMan",
+        "date": "2026-09-05",
+        "text": "We were the other guys. The band was worse."
+      }
+    }
+  ]
+}

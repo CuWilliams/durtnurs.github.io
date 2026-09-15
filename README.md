@@ -51,7 +51,7 @@ tHE dURT nURS' consists of two members who met at a dive bar and decided the wor
 - **Merch** — Store with a flash sale that is definitely not a joke (it is a joke)
 - **Fan Club** — Password-protected area for our closest friends (access code may or may not be hidden in plain sight)
 - **Hero Kaleidoscope** — Animated homepage hero that does things we didn't fully plan
-- **Contact** — Email us at `biteme@durtnurs.com` (yes, really)
+- **The Board** — An old-school cork bulletin board. Pin a note, we answer it in red marker. Replaced the email address, which cost money and received nothing
 
 ---
 
@@ -153,7 +153,7 @@ We take accessibility seriously (unlike most other things):
 This is a personal band site, but if you spot bugs:
 
 1. Open an issue
-2. Or email [deadbeat@durtnurs.com](mailto:deadbeat@durtnurs.com)
+2. Or pin a note to [the board](https://durtnurs.com/board/)
 3. Or don't. We're not your boss.
 
 ---

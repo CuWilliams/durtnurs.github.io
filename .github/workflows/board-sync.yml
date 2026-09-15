@@ -1,0 +1,88 @@
+# Message board moderation -> live site
+#
+# Notes arrive as GitHub issues labelled "board-post". Nothing is published
+# until you add the "approved" label. This workflow watches for that (and for
+# replies, edits, and takedowns), regenerates assets/data/board.json, commits
+# it, and kicks off the normal Pages deploy.
+#
+# Notification: you get one from GitHub the moment a note is submitted, because
+# a new issue lands in a repo you own. Turn on the GitHub mobile app's push
+# notifications and no email is involved at any point.
+#
+# Moderation cheat sheet:
+#   add label "approved"    -> the note goes up
+#   remove it, or close     -> the note comes down
+#   add label "pinned"      -> the note sticks to the top
+#   add label "style:flyer" -> force a paper style
+#   comment on the issue    -> your reply appears in red marker on the note
+#   comment starting with // -> internal, never published
+
+name: Sync Message Board
+
+on:
+  issues:
+    types: [opened, edited, deleted, closed, reopened, labeled, unlabeled]
+
+  issue_comment:
+    types: [created, edited, deleted]
+
+  # Manual re-sync from the Actions tab
+  workflow_dispatch:
+
+  # Safety net in case an event is ever missed
+  schedule:
+    - cron: '17 6 * * *'
+
+permissions:
+  contents: write   # commit the regenerated board.json
+  issues: read      # read notes and replies
+  actions: write    # trigger the Pages deploy
+
+# Never let two syncs write board.json at the same time
+concurrency:
+  group: board-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # No dependencies - the script uses Node's built-in fetch
+      - name: Regenerate board data
+        run: node scripts/sync-board.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+
+      - name: Commit if the board changed
+        id: commit
+        run: |
+          if git diff --quiet -- assets/data/board.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Board unchanged, nothing to deploy."
+            exit 0
+          fi
+
+          git config user.name "durtnurs-board[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/data/board.json
+          git commit -m "Update message board from approved notes"
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      # A push made with GITHUB_TOKEN does not trigger other workflows, so the
+      # Pages build has to be dispatched explicitly against the new commit.
+      - name: Deploy the updated board
+        if: steps.commit.outputs.changed == 'true'
+        run: gh workflow run build-deploy.yml --ref main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

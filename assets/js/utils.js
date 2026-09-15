@@ -127,6 +127,39 @@ const DurtNursUtils = {
   },
 
   /**
+   * Escapes HTML special characters so untrusted text can be safely
+   * interpolated into an innerHTML template literal.
+   *
+   * Required for any user-submitted content (message board posts, names).
+   * Without this, a visitor could inject markup or script into the page.
+   *
+   * @param {string} value - Untrusted text
+   * @returns {string} Text with &, <, >, ", ' replaced by entities
+   */
+  escapeHTML(value) {
+    if (value === null || value === undefined) return '';
+
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  },
+
+  /**
+   * Escapes HTML and converts newlines to <br> tags.
+   * Use for multi-line untrusted text (board messages) where line breaks
+   * are part of the author's intent.
+   *
+   * @param {string} value - Untrusted multi-line text
+   * @returns {string} Escaped HTML with line breaks preserved
+   */
+  escapeHTMLWithBreaks(value) {
+    return this.escapeHTML(value).replace(/\r?\n/g, '<br>');
+  },
+
+  /**
    * Generates HTML for a picture element with WebP source and fallback
    * Provides modern image format with graceful degradation
    *

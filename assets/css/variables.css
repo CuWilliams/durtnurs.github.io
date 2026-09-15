@@ -56,6 +56,12 @@
   --font-body: 'Merriweather', 'Georgia', serif;
   --font-mono: 'Courier New', monospace;
 
+  /* Message board faces - handwriting, typewriter, and red marker.
+     Used only by board.css; loaded alongside the site fonts in head.njk. */
+  --font-hand: 'Caveat', 'Bradley Hand', cursive;
+  --font-typed: 'Special Elite', 'Courier New', monospace;
+  --font-marker: 'Permanent Marker', 'Caveat', cursive;
+
   /* Font Sizes - Mobile First (scale up at breakpoints) */
   --font-size-xs: 0.75rem;    /* 12px */
   --font-size-sm: 0.875rem;   /* 14px */

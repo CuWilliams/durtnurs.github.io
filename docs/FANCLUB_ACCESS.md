@@ -8,7 +8,7 @@ This code provides access to the Fan Club protected area at https://durtnurs.com
 
 The Fan Club is a password-protected section for approved fans with exclusive content including:
 - Full photo and video gallery (all items, including non-public)
-- Direct contact emails for band members (DeadBeat and SnowMan)
+- Named routing to individual band members via the message board
 - Behind-the-scenes content and member-exclusive messaging
 - Photos and videos not available in the public gallery
 
@@ -52,7 +52,6 @@ But for a hobby band website among friends? Client-side gatekeeping is perfect.
 Share this code **privately** with approved fans via:
 - ✅ In-person conversations
 - ✅ Private text messages
-- ✅ Direct emails
 - ✅ Phone calls
 - ✅ Any secure/private communication method
 
@@ -140,10 +139,16 @@ Let me know if you have any issues!
 
 ### Direct Band Contact
 
-- **DeadBeat:** deadbeat@durtnurs.com
-- **SnowMan:** snowman@durtnurs.com
+The band email addresses were retired in September 2026. Fan Club members are
+pointed at [the message board](MESSAGE_BOARD.md) instead, with one difference
+from the public instructions: they're told to start the note with a member's
+name so it gets routed.
 
-These are direct mailto: links for approved fans to contact band members.
+- **DeadBeat:** note starts with `DEADBEAT—`
+- **SnowMan:** note starts with `SNOWMAN—`
+
+There is no private channel. This is deliberate — see `docs/MESSAGE_BOARD.md`
+for the moderation flow that sits behind it.
 
 ### Member-Exclusive Messaging
 
@@ -158,7 +163,7 @@ Keep track of who has access (private tracking, not published):
 
 | Name | Date Added | Contact Method | Notes |
 |------|------------|----------------|-------|
-| Example Fan | 2024-12-03 | Email | Close friend from college |
+| Example Fan | 2024-12-03 | In person | Close friend from college |
 | | | | |
 
 _(Add rows as you approve new fans)_
@@ -254,12 +259,11 @@ Example:
 
 ## Questions?
 
-Contact the site maintainer or band members:
-- DeadBeat: deadbeat@durtnurs.com
-- SnowMan: snowman@durtnurs.com
+Contact the site maintainer or band members by pinning a note to
+[the board](https://durtnurs.com/board/), or open an issue on the repo.
 
 ---
 
-**Last Updated:** December 3, 2024
+**Last Updated:** September 15, 2026
 **Current Code:** ECCLESIASTICS
 **Next Review:** March 2025
