@@ -16,11 +16,11 @@
     JavaScript for dynamic content loading
     Site works perfectly without this (static fallback in <noscript> tags)
   -->
-  <script src="/assets/js/utils.js"></script>
-  <script src="/assets/js/audio-player.js"></script>
-  <script src="/assets/js/spa-navigation.js"></script>
+  <script src="/assets/js/utils.js?v={{ asset.v }}"></script>
+  <script src="/assets/js/audio-player.js?v={{ asset.v }}"></script>
+  <script src="/assets/js/spa-navigation.js?v={{ asset.v }}"></script>
   {% for script in scripts %}
-  <script src="/assets/js/{{ script }}"></script>
+  <script src="/assets/js/{{ script }}?v={{ asset.v }}"></script>
   {% endfor %}
 
 </body>

@@ -27,13 +27,14 @@
 <title>{{ title }}{% if title != "tHE dURT nURS' - Official Website" %} - tHE dURT nURS'{% endif %}</title>
 
 <!-- CSS Architecture: Load in order of specificity -->
-<link rel="stylesheet" href="/assets/css/reset.css">
-<link rel="stylesheet" href="/assets/css/variables.css">
-<link rel="stylesheet" href="/assets/css/layout.css">
-<link rel="stylesheet" href="/assets/css/components.css">
-<link rel="stylesheet" href="/assets/css/hero-kaleidoscope.css">
-<link rel="stylesheet" href="/assets/css/audio-player.css">
-<link rel="stylesheet" href="/assets/css/board.css">
+<meta name="asset-version" content="{{ asset.v }}">
+<link rel="stylesheet" href="/assets/css/reset.css?v={{ asset.v }}">
+<link rel="stylesheet" href="/assets/css/variables.css?v={{ asset.v }}">
+<link rel="stylesheet" href="/assets/css/layout.css?v={{ asset.v }}">
+<link rel="stylesheet" href="/assets/css/components.css?v={{ asset.v }}">
+<link rel="stylesheet" href="/assets/css/hero-kaleidoscope.css?v={{ asset.v }}">
+<link rel="stylesheet" href="/assets/css/audio-player.css?v={{ asset.v }}">
+<link rel="stylesheet" href="/assets/css/board.css?v={{ asset.v }}">
 
 <!-- Google Fonts: Oswald (headers) + Merriweather (body) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -217,7 +217,20 @@ async function renderBoard() {
 
   try {
     DurtNursUtils.debug('📌 Fetching board posts...');
-    const data = await DurtNursUtils.fetchJSON(BOARD_CONFIG.dataPath);
+
+    /*
+      board.json is served with a four-hour max-age, so a returning visitor
+      would keep a stale copy and miss newly approved notes for that long.
+      The build stamp in <meta name="asset-version"> changes on every deploy,
+      and approving a note triggers a deploy, so this URL changes exactly when
+      the data does - fresh when it matters, still cacheable in between.
+    */
+    const version = document.querySelector('meta[name="asset-version"]');
+    const dataURL = version
+      ? `${BOARD_CONFIG.dataPath}?v=${encodeURIComponent(version.content)}`
+      : BOARD_CONFIG.dataPath;
+
+    const data = await DurtNursUtils.fetchJSON(dataURL);
     const posts = Array.isArray(data.posts) ? data.posts : [];
 
     if (posts.length === 0) {
