@@ -1,0 +1,22 @@
+{
+  "sponsors": [
+    {
+      "id": "sponsor-durtpoo",
+      "name": "Durtpoo",
+      "tagline": "It'll remove the soft.",
+      "category": "personal care",
+      "description": "Flannel-fresh deep clean in a sixteen-ounce bottle nobody asked for. Notes of aged whiskey, iron, and campfire, which is a polite way of saying it smells like the shed. Lathers generously, regardless of whether there is anything present to lather.",
+      "model": "SnowMan",
+      "testimonial": "I have used Durtpoo every morning for a month and my head has never been cleaner. My head has also never had hair. I am not saying these facts are related. I am saying they are both true.",
+      "testimonialAttribution": "SnowMan, compensated entirely in shampoo",
+      "image": "/assets/images/sponsors/durtpoo.png",
+      "imageAlt": "Vintage-style advertisement: SnowMan stands in a shower wearing sunglasses and a crown of lather on his bald head, holding a bottle of Durtpoo flannel-fresh deep clean",
+      "link": "#",
+      "linkText": "Available Nowhere",
+      "fineprint": "Durtpoo is not a real product. SnowMan is a real bald man. No money changed hands in either direction.",
+      "badge": "new",
+      "featured": true,
+      "parody": true
+    }
+  ]
+}

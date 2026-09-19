@@ -4183,6 +4183,268 @@ p.origin-placeholder {
 }
 
 /* ============================================
+   SPONSORS PAGE
+   Parody ad units rendered from sponsors.json
+   by assets/js/sponsors.js
+   ============================================ */
+
+.sponsors-section {
+  padding: var(--space-3xl) 0;
+}
+
+/* --------------------------------------------
+   Sponsors Grid
+   Ad units are wide, so one per row everywhere.
+   The card itself goes two-column on desktop.
+   -------------------------------------------- */
+
+.sponsors-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  margin-top: var(--space-xl);
+}
+
+@media (min-width: 1440px) {
+  .sponsors-grid {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* --------------------------------------------
+   Sponsor Card
+   Poster + copy. Not clickable as a whole —
+   the CTA is the only interactive element.
+   -------------------------------------------- */
+
+.sponsor-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-surface) 0%,
+    var(--color-burnt-umber) 100%
+  );
+  border: var(--border-width) solid var(--color-iron-gray);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.sponsor-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+/* Featured ad unit gets the brass frame */
+.sponsor-card--featured {
+  border-width: var(--border-width-thick);
+  border-color: var(--color-tarnished-brass);
+}
+
+@media (min-width: 900px) {
+  .sponsor-card {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    align-items: stretch;
+  }
+}
+
+/* --------------------------------------------
+   Sponsor Card Poster
+   Ad creatives arrive in whatever shape the ad
+   agency (us) felt like, so contain rather than
+   crop — a cropped poster is a ruined poster.
+   -------------------------------------------- */
+
+.sponsor-card__poster {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-coal-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+
+.sponsor-card__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+@media (min-width: 900px) {
+  .sponsor-card__image {
+    max-height: 640px;
+  }
+}
+
+/* --------------------------------------------
+   Sponsor Card Badge
+   Corner ribbon, same vocabulary as merch cards
+   -------------------------------------------- */
+
+.sponsor-card__badge {
+  position: absolute;
+  top: var(--space-md);
+  left: calc(-1 * var(--space-lg));
+  background-color: var(--color-dried-blood);
+  color: var(--color-text-primary);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--space-xs) var(--space-2xl);
+  transform: rotate(-45deg);
+  box-shadow: var(--shadow-md);
+  z-index: 10;
+}
+
+.sponsor-card__badge--new {
+  background-color: var(--color-aged-whiskey);
+  color: var(--color-text-dark);
+}
+
+.sponsor-card__badge--sold {
+  background-color: var(--color-iron-gray);
+  color: var(--color-text-primary);
+}
+
+.sponsor-card__badge--wow {
+  background: linear-gradient(
+    45deg,
+    var(--color-tarnished-brass) 0%,
+    var(--color-aged-whiskey) 50%,
+    var(--color-tarnished-brass) 100%
+  );
+  color: var(--color-text-dark);
+  animation: badge-shimmer 2s infinite;
+}
+
+.sponsor-card__badge--hot {
+  background-color: var(--color-dried-blood);
+  animation: badge-pulse 1.5s infinite;
+}
+
+/* --------------------------------------------
+   Sponsor Card Content
+   -------------------------------------------- */
+
+.sponsor-card__content {
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sponsor-card__eyebrow {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-tarnished-brass);
+  margin-bottom: var(--space-xs);
+}
+
+.sponsor-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  color: var(--color-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.sponsor-card__tagline {
+  font-family: var(--font-body);
+  font-size: var(--font-size-lg);
+  font-style: italic;
+  color: var(--color-accent);
+  margin-bottom: var(--space-md);
+}
+
+.sponsor-card__description {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+/* Testimonial from a satisfied customer (a band member) */
+.sponsor-card__testimonial {
+  border-left: 3px solid var(--color-tarnished-brass);
+  padding-left: var(--space-md);
+  margin: 0 0 var(--space-lg);
+}
+
+.sponsor-card__testimonial-text {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-style: italic;
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.sponsor-card__attribution {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+}
+
+.sponsor-card__actions {
+  margin-bottom: var(--space-md);
+}
+
+/*
+ * Inert CTA: the ad has no destination ("#" in sponsors.json).
+ * Rendered as a span, not a disabled link, so keyboard users
+ * never land on something that does nothing.
+ */
+.sponsor-card__cta--inert {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  border: var(--border-width) dashed var(--color-iron-gray);
+  border-radius: var(--border-radius-sm);
+  padding: var(--space-sm) var(--space-lg);
+}
+
+.sponsor-card__fineprint {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  opacity: 0.8;
+  margin: 0;
+}
+
+/* Respect users who would rather nothing moved */
+@media (prefers-reduced-motion: reduce) {
+  .sponsor-card,
+  .sponsor-card:hover {
+    transform: none;
+    transition: none;
+  }
+
+  .sponsor-card__badge {
+    animation: none;
+  }
+}
+
+/* ============================================
    LYRICS SHOWCASE
    Handwritten lyrics thumbnails on About page
    Two groups, each with overlapping askew pages

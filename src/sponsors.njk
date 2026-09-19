@@ -1,16 +1,19 @@
 ---
 layout: base.njk
 title: Sponsors
-description: tHE dURT nURS' sponsors page — corporate support is coming, allegedly
+description: Parody advertising from tHE dURT nURS' - nobody is paying us, we made the ads anyway
 ogDescription: Support from The Corporate World. More or less.
 activePage: sponsors
+keywords: sponsors, advertising, parody ads, durtpoo, band sponsors
+scripts:
+  - sponsors.js
 permalink: /sponsors/index.html
 ---
 
 <!--
-  SPONSORS PAGE — PLACEHOLDER
-  Full page coming in Issue #52.
-  Voice: Empty-state "Apologetically Absurd" — name the obstacle, blame DeadBeat specifically.
+  SPONSORS PAGE
+  Parody advertising, rendered from assets/data/sponsors.json by sponsors.js.
+  Layout mirrors the merch page: hero → grid → CTA.
 -->
 
 <!-- HERO SECTION -->
@@ -19,34 +22,90 @@ permalink: /sponsors/index.html
     <div class="hero__content">
       <h1 id="hero-heading" class="hero__title">Our Sponsors</h1>
       <p class="hero__subtitle">Support from The Corporate World*</p>
+      <p class="hero__description">
+        Nobody is paying us. We made the ads anyway, on the theory that if you
+        print a thing on a poster it eventually becomes true. So far this has
+        not worked. The posters look good though.
+      </p>
+      <p class="hero__footnote">*DeadBeat's pitch letter still reads "Hello Shampoo."</p>
     </div>
   </div>
 </section>
 
-<!-- COMING SOON CONTENT -->
-<section class="section" aria-label="Coming soon">
+<!--
+  SPONSORS SECTION
+  Ad units loaded dynamically (see assets/js/sponsors.js)
+-->
+<section class="sponsors-section" aria-labelledby="sponsors-section-heading">
   <div class="container">
-    <div class="coming-soon-block">
+    <h2 id="sponsors-section-heading" class="visually-hidden">Current Sponsors</h2>
 
-      <p class="coming-soon-block__body">
-        Relax. Sponsors are coming. We just need to complete the technically demanding work
-        of figuring out how to accept fake money from a fake corporation, which will happen
-        as soon as DeadBeat finishes writing the pitch letter to Durt Shampoo.
-      </p>
+    <!-- Container for dynamically loaded sponsor cards -->
+    <div id="sponsors-grid" class="sponsors-grid">
+      <!-- Loading message removed by JavaScript when content loads -->
+      <p class="loading-message">Loading sponsors...</p>
+    </div>
 
-      <p class="coming-soon-block__body">
-        He's been working on it since Tuesday. The letter currently reads:
-        <em>"Hello Shampoo."</em>
-      </p>
+    <!-- Static fallback for users without JavaScript -->
+    <noscript>
+      <div class="sponsors-grid">
 
-      <p class="coming-soon-block__body">
-        Check back when he gets to paragraph two.
-      </p>
+        <article class="sponsor-card sponsor-card--featured" id="sponsor-durtpoo" data-parody="true">
+          <div class="sponsor-card__poster">
+            <picture>
+              <source srcset="/assets/images/sponsors/durtpoo.webp" type="image/webp">
+              <img src="/assets/images/sponsors/durtpoo.png"
+                   alt="Vintage-style advertisement: SnowMan stands in a shower wearing sunglasses and a crown of lather on his bald head, holding a bottle of Durtpoo flannel-fresh deep clean"
+                   class="sponsor-card__image" loading="lazy">
+            </picture>
+            <span class="sponsor-card__badge sponsor-card__badge--new">New!</span>
+          </div>
+          <div class="sponsor-card__content">
+            <p class="sponsor-card__eyebrow">A word from our sponsor</p>
+            <h3 class="sponsor-card__title">Durtpoo</h3>
+            <p class="sponsor-card__tagline">It'll remove the soft.</p>
+            <p class="sponsor-card__description">
+              Flannel-fresh deep clean in a sixteen-ounce bottle nobody asked for.
+              Notes of aged whiskey, iron, and campfire, which is a polite way of
+              saying it smells like the shed.
+            </p>
+            <div class="sponsor-card__actions">
+              <span class="sponsor-card__cta sponsor-card__cta--inert">Available Nowhere</span>
+            </div>
+            <p class="sponsor-card__fineprint">
+              Durtpoo is not a real product. SnowMan is a real bald man.
+            </p>
+          </div>
+        </article>
 
-      <div class="coming-soon-block__actions">
-        <a href="/merch/" class="button button--primary">Go Look at Merch Instead</a>
       </div>
 
+      <div class="noscript-message">
+        <p>
+          <strong>Note:</strong> JavaScript is disabled in your browser.
+          You're seeing the one ad we could fit on the page by hand.
+          Enable JavaScript for the rest of our advertising empire.
+        </p>
+      </div>
+    </noscript>
+
+  </div>
+</section>
+
+<!--
+  CALL TO ACTION SECTION
+  Pitch to hypothetical future sponsors
+-->
+<section class="cta-section">
+  <div class="container">
+    <h2 class="section-heading">Want to Sponsor Us?</h2>
+    <p>
+      Reach dozens of fans. Maybe. We have no analytics, no demographics, and no
+      idea who visits this site, but we will put your logo next to a bald man in
+      a shower and we will not ask you for much.
+    </p>
+    <div class="cta-buttons">
+      <a href="/board/" class="button button--secondary">Pin a Note on The Board</a>
     </div>
   </div>
 </section>

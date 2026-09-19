@@ -49,6 +49,7 @@ tHE dURT nURS' consists of two members who met at a dive bar and decided the wor
 - **Streaming** — Links to Spotify and Apple Music, because apparently that's a thing now
 - **Gallery** — Photos and videos of questionable quality and excellent memories
 - **Merch** — Store with a flash sale that is definitely not a joke (it is a joke)
+- **Sponsors** — Parody ads for products that do not exist. Nobody is paying us. We made the posters anyway
 - **Fan Club** — Password-protected area for our closest friends (access code may or may not be hidden in plain sight)
 - **Hero Kaleidoscope** — Animated homepage hero that does things we didn't fully plan
 - **The Board** — An old-school cork bulletin board. Pin a note, we answer it in red marker. Replaced the email address, which cost money and received nothing
@@ -118,6 +119,7 @@ All content lives in JSON files. No database, no CMS, no problem.
 - **Releases:** `assets/data/releases.json`
 - **Gallery:** `assets/data/gallery.json`
 - **Merch:** `assets/data/merch.json`
+- **Sponsors:** `assets/data/sponsors.json`
 - **Hero Objects:** `assets/data/hero-objects.json` *(auto-generated — run `prepare-hero`)*
 
 To update the featured release on the homepage, just flip `"featured": true` in `releases.json`.
