@@ -650,28 +650,6 @@
   font-size: var(--font-size-sm);
 }
 
-/* Guitar pick taped to the cork */
-.board-junk--pick .board-junk__paper {
-  background: none;
-  box-shadow: none;
-  display: flex;
-  justify-content: center;
-  /*
-    No paper here, so the tape has nothing to sit on. Keep the top padding
-    tight or the pick floats an obvious gap below the tape that is supposedly
-    holding it to the cork.
-  */
-  padding: var(--space-xs) 0 var(--space-lg);
-}
-
-.board-junk__pick {
-  width: 58px;
-  height: 66px;
-  background-image: linear-gradient(150deg, #d9a441 0%, #a05a24 60%, #6d3b16 100%);
-  clip-path: polygon(50% 0, 96% 22%, 84% 74%, 50% 100%, 16% 74%, 4% 22%);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
-
 /* ==========================================================================
    THE FORM
    A pad of paper pinned to the board, not a web form sitting on top of it.
