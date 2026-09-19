@@ -215,8 +215,10 @@ Client-side gatekeeping (casual security by design):
 ## Local Development
 
 ### Prerequisites
-- Node.js 18+
+- Node.js 20.9+ (enforced by `engines` in `package.json`; required by `sharp` 0.35)
 - npm
+
+CI runs Node 24 (`build-deploy.yml`, `board-sync.yml`, `security-audit.yml`).
 
 ### Commands
 
@@ -252,6 +254,26 @@ git push origin main
 
 **GitHub Pages:** Source set to "GitHub Actions"
 **Custom Domain:** durtnurs.com (DNS via Cloudflare)
+
+---
+
+## Dependency Security
+
+Two automations keep `npm audit` clean without a manual sweep:
+
+- **`.github/dependabot.yml`** — weekly npm and GitHub Actions updates. Minor and
+  patch bumps are grouped into one PR; majors arrive alone because those are the
+  ones that need reading a changelog first
+- **`.github/workflows/security-audit.yml`** — monthly `npm audit --audit-level=high`
+  (plus manual dispatch). A finding opens a `security`-labelled issue; a repeat
+  finding comments on that same issue; a clean run closes it. Never more than one
+  open at a time
+
+**When a major bump is required** (Dependabot can't land it on its own): check the
+package's changelog against the actual call sites, upgrade, then verify with
+`npm run build`. For `sharp`, the only call sites are `scripts/optimize-images.js`,
+`scripts/generate-thumbnails.js` and `scripts/prepare-hero-images.js` — all
+build-time only, never shipped to the browser.
 
 ---
 

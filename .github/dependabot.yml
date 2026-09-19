@@ -1,0 +1,45 @@
+# Dependabot configuration
+#
+# Keeps dependencies current so security advisories arrive as pull requests
+# rather than as findings in a manual scan months later. Added alongside the
+# sharp 0.35 upgrade (issue #56), where an advisory sat unnoticed for weeks and
+# a second one appeared in the meantime.
+#
+# Minor and patch updates are grouped into a single weekly PR to keep the noise
+# down. Major updates come through on their own, because those are the ones that
+# need a real look (sharp 0.34 -> 0.35 was exactly that case).
+
+version: 2
+
+updates:
+  # npm dependencies (all devDependencies: eleventy, sharp, terser, clean-css)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "Update"
+    groups:
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+
+  # GitHub Actions pinned across build-deploy, board-sync, board-notify and
+  # security-audit. These drift silently otherwise.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "Update"
+    groups:
+      actions:
+        update-types:
+          - "major"
+          - "minor"
+          - "patch"

@@ -1,0 +1,134 @@
+# Monthly dependency vulnerability audit
+#
+# Runs `npm audit` on a schedule and files a GitHub issue when something
+# high-severity turns up, so advisories surface on their own instead of waiting
+# for a manual scan. Added with the sharp 0.35 upgrade (issue #56).
+#
+# Dependabot (.github/dependabot.yml) handles routine version bumps. This is the
+# backstop for the case Dependabot cannot fix on its own - a major-version jump,
+# or an advisory with no patched release yet.
+#
+# Only ever keeps one issue open at a time: a repeat finding becomes a comment on
+# the existing issue, and a clean run closes it.
+
+name: Security Audit
+
+on:
+  # First of the month, 09:00 UTC
+  schedule:
+    - cron: "0 9 1 * *"
+
+  # Allow manual trigger from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+# One audit at a time, so two runs can't both file an issue
+concurrency:
+  group: security-audit
+  cancel-in-progress: false
+
+env:
+  ISSUE_TITLE: "Security: npm audit found high-severity vulnerabilities"
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Capture the report rather than failing the step outright, so the
+      # reporting steps below still get a chance to run.
+      - name: Run npm audit
+        id: audit
+        run: |
+          set +e
+          npm audit --audit-level=high > audit.txt 2>&1
+          code=$?
+          set -e
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          cat audit.txt
+
+      - name: Find existing audit issue
+        id: existing
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Match on the exact title rather than --search: the title contains a
+          # colon, which GitHub's search syntax would try to interpret.
+          number=$(gh issue list \
+            --state open \
+            --label security \
+            --limit 100 \
+            --json number,title \
+            | jq -r --arg title "$ISSUE_TITLE" \
+                'map(select(.title == $title)) | .[0].number // empty')
+          echo "number=$number" >> "$GITHUB_OUTPUT"
+          echo "Existing issue: ${number:-none}"
+
+      - name: File or update the audit issue
+        if: steps.audit.outputs.exit_code != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          EXISTING: ${{ steps.existing.outputs.number }}
+        run: |
+          {
+            echo "\`npm audit\` reported high-severity vulnerabilities on $(date -u +%Y-%m-%d)."
+            echo
+            echo "## Report"
+            echo
+            echo '```'
+            head -c 50000 audit.txt
+            echo '```'
+            echo
+            echo "## Next steps"
+            echo
+            echo "1. \`npm audit fix\` resolves anything patchable within the current semver ranges."
+            echo "2. Anything left needs a major-version bump - review the changelog for breaking"
+            echo "   changes, upgrade, then verify with \`npm run build\` and the image scripts."
+            echo "3. If a package has no patched release yet, note that here and leave the issue open."
+            echo
+            echo "[Workflow run]($RUN_URL)"
+          } > body.md
+
+          if [ -n "$EXISTING" ]; then
+            echo "Commenting on existing issue #$EXISTING"
+            gh issue comment "$EXISTING" --body-file body.md
+          else
+            echo "Opening a new issue"
+            gh issue create \
+              --title "$ISSUE_TITLE" \
+              --label security \
+              --body-file body.md
+          fi
+
+      - name: Close the audit issue when clean
+        if: steps.audit.outputs.exit_code == '0' && steps.existing.outputs.number != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EXISTING: ${{ steps.existing.outputs.number }}
+        run: |
+          gh issue close "$EXISTING" \
+            --comment "\`npm audit\` is clean as of $(date -u +%Y-%m-%d). Closing automatically."
+
+      # Surface the result on the run itself, so a red X in the Actions tab
+      # means the same thing as the issue.
+      - name: Fail if vulnerabilities remain
+        if: steps.audit.outputs.exit_code != '0'
+        run: |
+          echo "::error::npm audit found high-severity vulnerabilities - see the filed issue."
+          exit 1

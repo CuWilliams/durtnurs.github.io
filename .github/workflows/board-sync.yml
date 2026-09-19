@@ -54,7 +54,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '24'
 
       # No dependencies - the script uses Node's built-in fetch
       - name: Regenerate board data
