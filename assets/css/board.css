@@ -9,7 +9,8 @@
 
   Structure:
     .board-wall          - the framed cork surface
-    .board-notes         - multi-column flow the notes tile into
+    .board-notes         - grid of columns the notes are packed into
+    .board-notes__column - one packed column (built by board.js)
     .board-note          - one pinned note (rotated wrapper)
     .board-note__paper   - the paper itself (styled per variant)
     .board-junk          - the decorative clutter between notes
@@ -153,31 +154,66 @@
 
 /* ==========================================================================
    NOTE COLUMNS
-   CSS columns give the staggered, uneven tiling a real board has. Notes are
-   sized by their content, not stretched to a grid cell.
+   Explicit columns, packed shortest-first by board.js.
+
+   This was CSS multi-column, which reads better in a stylesheet and is the
+   wrong tool: a multi-column container is a FRAGMENTATION CONTEXT. Any block
+   taller than the height the browser guessed for a column gets split, and
+   break-inside: avoid is only a hint that the guess overrides. The offcut
+   lands at the top of the next column - a 5px strip of paper stuck to bare
+   cork, with the note's whole bottom margin still attached, shoving whatever
+   follows it down.
+
+   This only ever showed up in Safari. WebKit fragments the board at every
+   multi-column width; Blink fragments it at none, so the two earlier fixes
+   (49d4120, e7fd86c) looked correct in Chrome and shipped the bug. Measured
+   at 2240/1440/1280/1024/900/768/700/640px in WebKit: the flyer, the house
+   rules note, Marcy's sticky, the guitar pick and three fasteners all split.
+
+   Grid tracks are not a fragmentation context, so there is nothing left to
+   split. minmax(0, 1fr) rather than 1fr because the tracks must be exactly
+   equal: board.js measures every note stacked in column 1 and then places it
+   in any column, and bare 1fr (= minmax(auto, 1fr)) can be blown out by a
+   min-content contribution, which would make those measurements lies.
+
+   --board-columns is the single source of truth for the count. board.js
+   reads it off the computed style instead of restating the breakpoints.
    ========================================================================== */
 
 .board-notes,
 .board-junk-strip {
-  column-count: 1;
-  column-gap: var(--space-lg);
+  --board-columns: 1;
+  display: grid;
+  grid-template-columns: repeat(var(--board-columns), minmax(0, 1fr));
+  gap: var(--space-lg);
+  /* Notes hang from the top of their track; they do not stretch to fill it */
+  align-items: start;
 }
 
 @media (min-width: 640px) {
   .board-notes,
   .board-junk-strip {
-    column-count: 2;
+    --board-columns: 2;
   }
 }
 
 @media (min-width: 1024px) {
-  .board-notes {
-    column-count: 3;
-  }
-
+  .board-notes,
   .board-junk-strip {
-    column-count: 3;
+    --board-columns: 3;
   }
+}
+
+/*
+  One packed column. Only .board-notes needs these - the junk strips hold two
+  or three static items, which is a single grid row, and a single row cannot
+  band. Their articles are grid items directly.
+*/
+.board-notes__column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  min-width: 0;
 }
 
 .board-junk-strip {
@@ -197,10 +233,12 @@
 .board-junk {
   position: relative;
   display: block;
-  break-inside: avoid;
-  -webkit-column-break-inside: avoid;
-  page-break-inside: avoid;
-  margin: 0 0 var(--space-lg);
+  margin: 0;
+  /*
+    Room for the fastener to hoist itself into - see FASTENERS below. Spacing
+    between notes is the column's gap now, not a bottom margin, so the last
+    note in a column no longer trails 32px of dead cork.
+  */
   padding-top: var(--space-sm);
   transform: rotate(var(--note-rotation, 0deg));
   transition: transform var(--transition-base), filter var(--transition-base);
@@ -282,11 +320,19 @@
     rgba(0, 0, 0, 0.02) 0 8px,
     transparent 8px 16px
   );
-  /* Irregular edge - a napkin does not have straight sides */
+  /*
+    Irregular edge - a napkin does not have straight sides.
+
+    The bite depths are px, not %, because a percentage resolves against the
+    note's own height: a 2% nibble is 4px on a short napkin and 18px on a
+    long one, which eats the last line of text. The positions ALONG each edge
+    stay percentages (24%, 52%, 78%, 74%, 48%, 25%) - those have to scale, or
+    the scalloping bunches up at the top of a tall note.
+  */
   clip-path: polygon(
-    2% 1%, 20% 0, 42% 2%, 66% 0, 88% 2%, 100% 1%,
-    99% 24%, 100% 52%, 98% 78%, 100% 99%,
-    77% 98%, 54% 100%, 31% 98%, 9% 100%, 0 99%,
+    2% 3px, 20% 0, 42% 6px, 66% 0, 88% 6px, 100% 3px,
+    99% 24%, 100% 52%, 98% 78%, 100% calc(100% - 3px),
+    77% calc(100% - 6px), 54% 100%, 31% calc(100% - 6px), 9% 100%, 0 calc(100% - 3px),
     2% 74%, 0 48%, 1% 25%
   );
   padding: var(--space-lg) var(--space-md);
@@ -298,9 +344,16 @@
   font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   padding: var(--space-md) var(--space-sm);
+  /*
+    Torn top and bottom, 6px deep at any height. These were 2%, which on a
+    tall receipt is an 18px bite against 24px of bottom padding - with the
+    reply block's own -1.2deg tilt dropping its corners another 3px into it,
+    the last line was being shaved.
+  */
   clip-path: polygon(
-    0 2%, 8% 0, 16% 2%, 25% 0, 33% 2%, 42% 0, 50% 2%, 58% 0, 67% 2%, 75% 0, 84% 2%, 92% 0, 100% 2%,
-    100% 98%, 92% 100%, 84% 98%, 75% 100%, 67% 98%, 58% 100%, 50% 98%, 42% 100%, 33% 98%, 25% 100%, 16% 98%, 8% 100%, 0 98%
+    0 6px, 8% 0, 16% 6px, 25% 0, 33% 6px, 42% 0, 50% 6px, 58% 0, 67% 6px, 75% 0, 84% 6px, 92% 0, 100% 6px,
+    100% calc(100% - 6px), 92% 100%, 84% calc(100% - 6px), 75% 100%, 67% calc(100% - 6px), 58% 100%,
+    50% calc(100% - 6px), 42% 100%, 33% calc(100% - 6px), 25% 100%, 16% calc(100% - 6px), 8% 100%, 0 calc(100% - 6px)
   );
 }
 
@@ -416,12 +469,12 @@
    ========================================================================== */
 
 /*
-  Laid out in flow rather than absolutely positioned. Absolute positioning is
-  what you'd reach for here, but an out-of-flow box inside a CSS multi-column
-  container gets sliced at the column boundary - Chrome ignores break-inside on
-  them - and the offcut lands on bare cork in the previous column, a stray
-  sliver of tape stuck to nothing. In flow, the note's own break-inside: avoid
-  keeps the fastener with its paper.
+  Laid out in flow rather than absolutely positioned. This was originally a
+  workaround: an out-of-flow box inside a multi-column container gets sliced
+  at the column boundary, and the offcut lands on bare cork as a stray sliver
+  of tape stuck to nothing (e7fd86c). The multi-column layout is gone, so
+  absolute positioning would be safe again - but in-flow works, costs nothing
+  and needs no stacking context, so it stays.
 
   The margins do two jobs. margin-top hoists the fastener back up over the
   note's padding, so it lands on the paper's top edge the way top: 0 used to
@@ -550,19 +603,27 @@
   text-align: center;
   writing-mode: vertical-rl;
   /*
-    Vertical text runs down the tab, so its height is set by the string, not
-    by us. A fixed height silently clipped the last word ("ASK AT THE" instead
-    of "ASK AT THE SHED"). Let the content size it; the flex row keeps the
-    tabs equal.
+    In vertical-rl the INLINE axis is vertical, so `height` is how long the
+    text run may be, not how thick the tab is.
+
+    49d4120 replaced a fixed 62px with `height: auto`, betting on the
+    orthogonal-flow fallback (CSS Writing Modes 7.3) resolving an auto inline
+    size to max-content. But `overflow: hidden` made the tab a scroll
+    container, and a scroll container in an orthogonal flow does not get that
+    fallback - so it shrank, and the overflow guard then swallowed the
+    evidence: "ASK AT THE" instead of "ASK AT THE SHED", again.
+
+    max-content states the intent outright and cannot be clipped, so the
+    overflow guard is gone. A definite height also opts the tab out of the
+    flex row's align-items: stretch, which is what we want - the tabs are
+    sized by their own string.
   */
-  height: auto;
+  height: max-content;
   min-height: 62px;
-  margin: 0 auto;
   background-color: var(--paper-cream);
   border-left: 1px dashed rgba(43, 38, 32, 0.45);
   color: var(--ink-faded);
   white-space: nowrap;
-  overflow: hidden;
 }
 
 /* One tab has been taken. There is always one. */
@@ -812,15 +873,10 @@
 
 .board-empty {
   /*
-    The notes area is a 3-column layout, and a bare paragraph is fragmentable:
-    the browser splits it across all three columns and paints the paper
-    background on each piece, so one message renders as three broken scraps
-    (the last often empty). Span the columns and forbid the break.
+    Span every track at any breakpoint, so the message is one note on the
+    cork rather than a card wedged into the first column.
   */
-  column-span: all;
-  break-inside: avoid;
-  -webkit-column-break-inside: avoid;
-  page-break-inside: avoid;
+  grid-column: 1 / -1;
 
   max-width: 40ch;
   margin: var(--space-2xl) auto;
@@ -878,9 +934,21 @@
     box-shadow: none;
   }
 
+  /*
+    Paged media IS a legitimate fragmentation context, so here break-inside
+    earns its keep. Flatten the grid to block flow and put the spacing back
+    as a margin - `gap` does nothing in block layout, and without this the
+    notes print touching each other.
+  */
+  .board-notes,
+  .board-notes__column {
+    display: block;
+  }
+
   .board-note,
   .board-junk {
     transform: none;
+    margin-bottom: var(--space-lg);
     break-inside: avoid;
   }
 

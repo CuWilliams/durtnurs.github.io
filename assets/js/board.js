@@ -185,6 +185,7 @@ function renderNote(post) {
   return `
     <article class="board-note board-note--${style}${pinnedClass}"
              id="${id}"
+             data-rotation="${rotation}"
              style="--note-rotation: ${rotation}deg;">
 
       <span class="${fastenerClass}${pinClass}" aria-hidden="true"></span>
@@ -201,6 +202,209 @@ function renderNote(post) {
       </div>
     </article>
   `;
+}
+
+// =============================================================================
+// LAYOUT
+// Notes are packed into explicit columns rather than poured into a CSS
+// multi-column container. See the NOTE COLUMNS comment in board.css for why.
+// =============================================================================
+
+const BOARD_LAYOUT = {
+  /*
+    How far a rotated corner may swing past its column edge, in pixels. The
+    gutter between columns is --space-lg (32px), so two notes leaning toward
+    each other spend at most 24px of it and 8px of cork always shows between.
+  */
+  maxOverhangPx: 12,
+
+  /** Widest tilt any note is allowed, matching noteAppearance's range. */
+  maxRotationDeg: 3.5,
+
+  /** Ignore resizes smaller than this. Repacking is not free. */
+  resizeThresholdPx: 8
+};
+
+/** Bumped on every init() so stale async work can tell it has been replaced. */
+let renderToken = 0;
+
+/** The live ResizeObserver, kept so SPA navigation can disconnect it. */
+let boardObserver = null;
+
+/**
+ * Caps a note's tilt so its painted corners stay inside the gutter.
+ *
+ * transform: rotate() is a paint-time operation - layout still sizes the
+ * upright box - so a tilted note silently overhangs its column by
+ * (height / 2) * sin(angle). At 3.5deg a 900px note reaches 27px into a 32px
+ * gutter, and its neighbour reaches back. The overhang scales with height and
+ * nothing was damping it, so tall notes collided while short ones looked fine.
+ *
+ * Clamping the angle rather than reserving horizontal margin avoids a
+ * feedback loop: narrowing a note makes it taller, which increases its
+ * overhang, which demands more margin. Width is fixed first, height follows,
+ * tilt is chosen last.
+ *
+ * It also reads as physics rather than as a constraint. A post-it hangs
+ * crooked; a full sheet of paper hangs straight.
+ *
+ * @param {number} degrees - The seeded, un-clamped tilt
+ * @param {number} heightPx - The note's laid-out height
+ * @returns {number} Tilt in degrees, within the overhang budget
+ */
+function clampRotation(degrees, heightPx) {
+  if (!heightPx || !isFinite(degrees)) return degrees || 0;
+
+  const ratio = (2 * BOARD_LAYOUT.maxOverhangPx) / heightPx;
+  const limit = ratio >= 1 ? 90 : Math.asin(ratio) * (180 / Math.PI);
+  const max = Math.min(BOARD_LAYOUT.maxRotationDeg, limit);
+
+  return Math.max(-max, Math.min(max, degrees));
+}
+
+/**
+ * Reads the column count the stylesheet is currently using. The breakpoints
+ * live in board.css only; this just asks what they decided.
+ *
+ * @param {HTMLElement} container - The notes container
+ * @returns {number} Column count, at least 1
+ */
+function readColumnCount(container) {
+  const raw = getComputedStyle(container).getPropertyValue('--board-columns');
+  const count = parseInt(raw, 10);
+  return count > 0 ? count : 1;
+}
+
+/**
+ * Packs notes into explicit columns, shortest column first, and clamps each
+ * note's tilt to its measured height.
+ *
+ * The measure-then-place order matters:
+ *
+ *   - Every note is appended to column 0 first. The tracks are equal widths
+ *     (minmax(0, 1fr)), so a height measured there holds in any column.
+ *   - offsetHeight, not getBoundingClientRect().height. The latter returns
+ *     the TRANSFORMED rect - inflated by the very tilt we are about to
+ *     change - which would feed rotation back into the packing.
+ *   - Nothing awaits between the measuring loop and the placing loop.
+ *     Reading offsetHeight flushes layout synchronously, but the browser does
+ *     not paint until the task yields, so the intermediate one-column stack
+ *     is never rasterised and there is no flash.
+ *
+ * @param {HTMLElement} container - The notes container
+ * @param {Array<HTMLElement>} notes - Note elements, in display order
+ */
+function layoutNotes(container, notes) {
+  const count = readColumnCount(container);
+  const gap = parseFloat(getComputedStyle(container).rowGap) || 0;
+
+  const columns = [];
+  for (let i = 0; i < count; i++) {
+    const column = document.createElement('div');
+    column.className = 'board-notes__column';
+    columns.push(column);
+  }
+
+  container.replaceChildren(...columns);
+  columns[0].append(...notes);
+
+  // One forced layout for all of them, then no more reads.
+  const heights = notes.map(note => note.offsetHeight);
+
+  const used = new Array(count).fill(0);
+
+  notes.forEach((note, i) => {
+    /*
+      Ties break toward the leftmost column. Every column starts at zero, so
+      the first few notes - the pinned ones, then the newest - land across the
+      top row left to right, and the board still reads in order at a glance.
+    */
+    let target = 0;
+    for (let c = 1; c < count; c++) {
+      if (used[c] < used[target] - 0.5) target = c;
+    }
+
+    columns[target].appendChild(note);
+    used[target] += heights[i] + gap;
+
+    /*
+      Always clamp from the seeded value in data-rotation, never from the
+      current --note-rotation. Re-clamping an already-clamped angle on every
+      resize would ratchet the board flat.
+    */
+    const seeded = parseFloat(note.dataset.rotation) || 0;
+    const tilt = clampRotation(seeded, heights[i]);
+    note.style.setProperty('--note-rotation', tilt.toFixed(2) + 'deg');
+  });
+}
+
+/**
+ * Packs the notes and keeps them packed: re-runs when the webfonts land and
+ * when the container's width changes.
+ *
+ * @param {HTMLElement} container - The notes container
+ * @param {Array<HTMLElement>} notes - Note elements, in display order
+ * @param {number} token - The renderToken this render belongs to
+ */
+function layoutAndObserve(container, notes, token) {
+  const run = () => {
+    if (token !== renderToken || !container.isConnected) return;
+    try {
+      layoutNotes(container, notes);
+    } catch (error) {
+      // A layout failure must not cost the visitor the notes themselves.
+      DurtNursUtils.debugError('⚠️ Board layout failed, falling back to one column:', error);
+      container.replaceChildren(...notes);
+    }
+  };
+
+  run();
+
+  /*
+    Caveat, Special Elite and Permanent Marker load with display=swap, so the
+    first pack is measured against fallback metrics. Repack once they land.
+  */
+  if (document.fonts && document.fonts.status !== 'loaded') {
+    document.fonts.ready.then(run);
+  }
+
+  if (typeof ResizeObserver === 'undefined') return;
+
+  /*
+    The container is fluid below 1200px, so track width - and with it note
+    heights, the packing and the tilt clamp - changes continuously, not only
+    at the 640/1024 breakpoints. Watching the element is more honest than
+    matchMedia.
+
+    Repacking changes the container's HEIGHT, which the observer also sees, so
+    only act on width deltas, and record the new width before mutating.
+  */
+  let lastWidth = container.getBoundingClientRect().width;
+
+  boardObserver = new ResizeObserver(entries => {
+    const width = entries[0].contentRect.width;
+    if (Math.abs(width - lastWidth) < BOARD_LAYOUT.resizeThresholdPx) return;
+    lastWidth = width;
+    requestAnimationFrame(run);
+  });
+
+  boardObserver.observe(container);
+}
+
+/**
+ * Tears down the packing so a message can own the board.
+ *
+ * The empty and error states replace the container's contents wholesale. Any
+ * observer or pending fonts.ready callback left over from a previous render
+ * would happily pack the old notes back on top of that message, so both
+ * states clear the layout first.
+ */
+function clearBoardLayout() {
+  renderToken++;
+  if (boardObserver) {
+    boardObserver.disconnect();
+    boardObserver = null;
+  }
 }
 
 /**
@@ -225,6 +429,14 @@ async function renderBoard() {
   const container = document.getElementById('board-notes');
   if (!container) return;
 
+  /*
+    board.json can resolve long after the visitor has navigated away and back,
+    by which point this container is detached and a newer render owns the
+    board. Every async continuation below checks it still holds the current
+    token before touching the DOM.
+  */
+  const token = renderToken;
+
   try {
     DurtNursUtils.debug('📌 Fetching board posts...');
 
@@ -247,9 +459,12 @@ async function renderBoard() {
     const dataURL = `${BOARD_CONFIG.dataPath}?t=${bucket}`;
 
     const data = await DurtNursUtils.fetchJSON(dataURL);
+    if (token !== renderToken) return;
+
     const posts = Array.isArray(data.posts) ? data.posts : [];
 
     if (posts.length === 0) {
+      clearBoardLayout();
       container.innerHTML = `
         <p class="board-empty">
           Board's bare. Either nobody's written anything yet, or we took it all down.
@@ -282,11 +497,25 @@ async function renderBoard() {
       throw new Error('every note failed to render');
     }
 
-    container.innerHTML = html;
+    /*
+      Parse once, then hand real elements to the packer. Using a <template>
+      rather than assigning innerHTML to the container means the notes are
+      never children of the container directly - they go straight into the
+      column elements layoutNotes builds. content.children also drops the
+      whitespace text nodes between articles for free.
+    */
+    const template = document.createElement('template');
+    template.innerHTML = html;
+    const notes = Array.from(template.content.children);
+
+    layoutAndObserve(container, notes, token);
+
     DurtNursUtils.debug(`✅ Rendered ${rendered} of ${posts.length} board notes`);
 
   } catch (error) {
+    if (token !== renderToken) return;
     DurtNursUtils.debugError('❌ Error loading board posts:', error);
+    clearBoardLayout();
     container.innerHTML = `
       <p class="board-empty" role="alert">
         The board fell off the wall. Everything that was on it is in a pile on the floor.
@@ -485,6 +714,17 @@ function init() {
 
   DurtNursUtils.debug('🚀 Initializing message board...');
   boardLoadedAt = Date.now();
+
+  /*
+    Invalidate any render still in flight from a previous visit to this page,
+    and drop the observer it left watching a container that is about to be
+    replaced. Without this, SPA navigation accumulates one observer per visit.
+  */
+  renderToken++;
+  if (boardObserver) {
+    boardObserver.disconnect();
+    boardObserver = null;
+  }
 
   renderBoard();
   initForm();
