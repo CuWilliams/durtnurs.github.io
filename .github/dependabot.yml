@@ -29,6 +29,10 @@ updates:
 
   # GitHub Actions pinned across build-deploy, board-sync, board-notify and
   # security-audit. These drift silently otherwise.
+  #
+  # Same rule as npm above: minor and patch grouped, majors on their own. An
+  # action major can change runner behaviour, and these pins sit in every
+  # workflow including the deploy - worth reading one at a time.
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -38,8 +42,7 @@ updates:
     commit-message:
       prefix: "Update"
     groups:
-      actions:
+      minor-and-patch:
         update-types:
-          - "major"
           - "minor"
           - "patch"
