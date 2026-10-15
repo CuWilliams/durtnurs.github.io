@@ -1,256 +1,72 @@
 ---
-layout: base.njk
-title: LV-Gen Download
-description: LV-Gen Lyric Video Generator — free macOS app that turns a lyrics JSON file and audio into a YouTube-ready 1080p lyric video.
-ogDescription: We made a whole separate piece of software. Deadbeat wrote it. Snowman mostly watched. You can download it for free, which is exactly what it's worth.
-activePage: lv-gen
+title: LV-Gen
 permalink: /lv-gen/index.html
-scripts:
-  - lv-gen.js
+robots: noindex, follow
+eleventyExcludeFromCollections: true
 ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, follow">
 
-<!-- HERO SECTION -->
-<section class="hero hero--lv-gen" aria-labelledby="lv-gen-hero-heading">
-  <div class="container">
-    <div class="hero__content">
-      <h1 id="lv-gen-hero-heading" class="hero__title">LV-Gen</h1>
-      <p class="hero__subtitle">Lyric Video Generator</p>
-      <p class="hero__description">
-        We built a tool that turns a JSON file and an audio track into a
-        YouTube-ready lyric video. It works surprisingly well, which surprised
-        us most of all.
-      </p>
-    </div>
-  </div>
-</section>
+  <!--
+    LV-GEN -> HOME REDIRECT
 
-<!-- DOWNLOAD SECTION -->
-<section class="download-section" aria-labelledby="download-heading">
-  <div class="container">
-    <h2 id="download-heading" class="section-heading">Download</h2>
+    The LV-Gen download page is gone. This page stays so old links (the
+    March 2026 announcement, bookmarks, anything already indexed) land on
+    the homepage instead of a 404.
 
-    <!-- lv-gen.js populates this div with version badge + platform cards -->
-    <div id="lv-gen-download">
-      <p class="loading-message">Checking for the latest version...</p>
-    </div>
+    GitHub Pages can't issue a 301, so this does it three ways: a canonical
+    tag for crawlers, a meta refresh for browsers with JS off, and a
+    replace() for everyone else (replace, not assign, so Back doesn't bounce).
+  -->
+  <link rel="canonical" href="https://durtnurs.com/">
+  <meta http-equiv="refresh" content="0; url=/">
+  <title>Nothing to download - tHE dURT nURS'</title>
 
-    <!-- Static fallback for users with JavaScript disabled -->
-    <noscript>
-      <div class="download-section__noscript">
-        <p>
-          JavaScript is disabled, so we can't fetch the version automatically.
-          Head to GitHub and grab the latest <code>LV-Gen-vX.X.X.dmg</code>
-          from the Assets section. It's free, which remains its finest quality.
-        </p>
-        <a
-          href="https://github.com/CuWilliams/lyric-video-generator/releases/latest"
-          class="button button--primary"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View Releases on GitHub
-        </a>
-      </div>
-    </noscript>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+      background-color: #0B0B0C;
+      color: #E8E6E3;
+      font-family: 'Merriweather', Georgia, serif;
+      line-height: 1.6;
+    }
 
-    <aside class="download-section__security-note" aria-label="Download security information">
-      <p class="download-section__security-note-heading">A Note on Downloading Software from Us</p>
-      <p>
-        We understand that downloading software from a parody rock band's website is not
-        exactly a blue-chip investment. Fair. Here's what's actually happening so you can
-        make an informed decision about your risk tolerance.
-      </p>
-      <p>
-        The downloads above come directly from
-        <a href="https://github.com/CuWilliams/lyric-video-generator/releases"
-           target="_blank" rel="noopener noreferrer">GitHub Releases</a>
-        — not our servers, which don't exist. GitHub (owned by Microsoft) hosts and
-        serves the files. Each release is built automatically by
-        <a href="https://github.com/CuWilliams/lyric-video-generator/actions"
-           target="_blank" rel="noopener noreferrer">GitHub Actions</a>
-        from source code that is publicly auditable, if you're into that sort of thing.
-      </p>
-      <p>
-        The macOS app is <strong>signed with an Apple Developer ID certificate</strong> and
-        <strong>notarized by Apple</strong> — which means Apple has scanned it for malware
-        and confirmed it hasn't been tampered with in transit. When macOS opens it without a
-        Gatekeeper warning, that process worked as intended. We are legitimately surprised
-        this part came together.
-      </p>
-      <p>
-        Still nervous? The source code is
-        <a href="https://github.com/CuWilliams/lyric-video-generator"
-           target="_blank" rel="noopener noreferrer">open on GitHub</a>.
-        Read it, build it yourself, or simply decide that a lyric video generator from a
-        bourbon-soaked parody band is an acceptable risk. We leave that judgment call entirely
-        to you.
-      </p>
-    </aside>
-  </div>
-</section>
+    h1 {
+      font-family: 'Oswald', 'Arial Narrow', sans-serif;
+      text-transform: uppercase;
+      color: #A05A24;
+      margin: 0 0 1rem;
+    }
 
-<!-- FEATURES SECTION -->
-<section class="section features-section" aria-labelledby="features-heading">
-  <div class="container">
-    <h2 id="features-heading" class="section-heading">What It Does</h2>
-    <div class="feature-grid">
+    a {
+      color: #8B7A43;
+    }
+  </style>
 
-      <div class="feature-card">
-        <span class="feature-card__icon" aria-hidden="true">🎬</span>
-        <h3 class="feature-card__title">1080p Output</h3>
-        <p class="feature-card__description">
-          YouTube-ready H.264 MP4 at 1080p. We did not expect it to look
-          this decent either.
-        </p>
-        <a href="https://www.youtube.com/channel/UCRgLUp0w5w7Bupti365DkBw" class="button button--secondary button--sm" target="_blank" rel="noopener noreferrer">See for Yourself</a>
-      </div>
-
-      <div class="feature-card">
-        <span class="feature-card__icon" aria-hidden="true">⏱</span>
-        <h3 class="feature-card__title">Visual Timeline Editor</h3>
-        <p class="feature-card__description">
-          Drag markers to sync lyrics with audio. Considerably less miserable
-          than editing JSON by hand, which was our first approach.
-        </p>
-      </div>
-
-      <div class="feature-card">
-        <span class="feature-card__icon" aria-hidden="true">🎨</span>
-        <h3 class="feature-card__title">Live Theme Editor</h3>
-        <p class="feature-card__description">
-          Colors, fonts, glow effects — all adjustable in real time. See
-          changes before committing to a look you'll immediately second-guess.
-        </p>
-      </div>
-
-      <div class="feature-card">
-        <span class="feature-card__icon" aria-hidden="true">🖥</span>
-        <h3 class="feature-card__title">GUI + CLI</h3>
-        <p class="feature-card__description">
-          Desktop app for humans. Command-line interface for those who
-          enjoy typing things out. Both produce the same result.
-        </p>
-      </div>
-
-      <div class="feature-card">
-        <span class="feature-card__icon" aria-hidden="true">✨</span>
-        <h3 class="feature-card__title">Word &amp; Character Highlighting</h3>
-        <p class="feature-card__description">
-          Highlight by full line, word, or individual character as audio plays.
-          Line mode is the default. The others are for show-offs.
-        </p>
-      </div>
-
-      <div class="feature-card">
-        <span class="feature-card__icon" aria-hidden="true">▶</span>
-        <h3 class="feature-card__title">Embedded Preview</h3>
-        <p class="feature-card__description">
-          Preview your video inside the app before exporting. No need to open
-          a separate player and pretend to be professional about it.
-        </p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- INSTALL STEPS SECTION -->
-<section class="section install-section" aria-labelledby="install-heading">
-  <div class="container">
-    <h2 id="install-heading" class="section-heading">How to Install</h2>
-    <ol class="install-steps" aria-label="Installation steps">
-
-      <li class="install-step">
-        <span class="install-step__number" aria-hidden="true">1</span>
-        <div class="install-step__content">
-          <h3 class="install-step__title">Download the .dmg</h3>
-          <p class="install-step__description">
-            Click the download button above. The file will be named
-            <code>LV-Gen-vX.X.X.dmg</code>. It is larger than you expect
-            because it bundles Python. This is normal and not your fault.
-          </p>
-        </div>
-      </li>
-
-      <li class="install-step">
-        <span class="install-step__number" aria-hidden="true">2</span>
-        <div class="install-step__content">
-          <h3 class="install-step__title">Drag to Applications</h3>
-          <p class="install-step__description">
-            Open the .dmg and drag LV-Gen to your Applications folder.
-            Same as every other Mac app. You've done this before.
-          </p>
-        </div>
-      </li>
-
-      <li class="install-step">
-        <span class="install-step__number" aria-hidden="true">3</span>
-        <div class="install-step__content">
-          <h3 class="install-step__title">Install FFmpeg</h3>
-          <p class="install-step__description">
-            Open Terminal and run: <code>brew install ffmpeg</code>.
-            FFmpeg handles the video encoding. Without it, nothing exports.
-            If you don't have Homebrew yet, get it at
-            <a href="https://brew.sh" target="_blank" rel="noopener noreferrer">brew.sh</a>
-            first.
-          </p>
-        </div>
-      </li>
-
-      <li class="install-step">
-        <span class="install-step__number" aria-hidden="true">4</span>
-        <div class="install-step__content">
-          <h3 class="install-step__title">Double-Click to Launch</h3>
-          <p class="install-step__description">
-            The app is signed and notarized by Apple, so macOS opens it without
-            complaint. If it asks you to confirm on first launch, click
-            <strong>Open</strong>. After that it runs normally.
-            We remain surprised this works as smoothly as it does.
-          </p>
-        </div>
-      </li>
-
-    </ol>
-  </div>
-</section>
-
-<!-- SYSTEM REQUIREMENTS SECTION -->
-<section class="section requirements-section" aria-labelledby="requirements-heading">
-  <div class="container">
-    <h2 id="requirements-heading" class="section-heading">System Requirements</h2>
-    <ul class="requirements-list" aria-label="System requirements">
-
-      <li class="requirements-list__item">
-        <strong>macOS</strong> — Apple Silicon and Intel both supported.
-      </li>
-
-      <li class="requirements-list__item">
-        <strong>FFmpeg</strong> — The one external dependency. Install via
-        Homebrew: <code>brew install ffmpeg</code>. It is unavoidable.
-      </li>
-
-      <li class="requirements-list__item">
-        <strong>Python</strong> — Bundled inside the app. You do not need
-        to install it separately. We handled that part.
-      </li>
-
-      <li class="requirements-list__item">
-        <strong>Disk space</strong> — Approximately 200–300 MB for the app
-        bundle, plus whatever FFmpeg takes. Plan accordingly.
-      </li>
-
-    </ul>
-
-    <p class="requirements-list__note">
-      Windows and Linux users: a source install is possible with Python 3.10+
-      and FFmpeg. Pre-built binaries are not available yet. We are working on it,
-      in the loosest sense of "working." See the
-      <a
-        href="https://github.com/CuWilliams/lyric-video-generator"
-        target="_blank"
-        rel="noopener noreferrer"
-      >GitHub repository</a>
-      for instructions.
+  <script>
+    window.location.replace('/');
+  </script>
+</head>
+<body>
+  <main>
+    <h1>The download is gone</h1>
+    <p>
+      We had software here once. It moved out. Nobody threw a party.
     </p>
-  </div>
-</section>
+    <p>
+      You're being walked back to the music. If nothing happens,
+      <a href="/">go home yourself</a>.
+    </p>
+  </main>
+</body>
+</html>
